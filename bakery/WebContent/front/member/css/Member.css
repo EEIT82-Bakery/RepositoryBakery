@@ -1,0 +1,23 @@
+﻿.body {
+            background-image:url(../images/Membertablebackground.jpg);
+        }
+
+        #ssd {
+            position: relative;
+            width: 350px;
+            left:auto;
+            margin-right:-65px;
+        }
+
+        .sb2 {
+            position: absolute;
+            top: 10px;
+            margin-left:15px;
+            width: 15px;
+            height: 15px;
+            background: url(../images/Memberggs.gif) no-repeat;
+        }
+        .cs {
+        padding-left:45px;
+        }
+
