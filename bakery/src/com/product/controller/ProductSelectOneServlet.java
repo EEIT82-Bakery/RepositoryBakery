@@ -60,13 +60,6 @@ public class ProductSelectOneServlet extends HttpServlet {
 					failureView.forward(request, response);
 					return;//程式中斷
 				}
-
-				// Send the use back to the form, if there were errors
-				if (!errors.isEmpty()) {
-					RequestDispatcher failureView = request.getRequestDispatcher("/back/product/ProductSelectAll.jsp");
-					failureView.forward(request, response);
-					return;//程式中斷
-				}
 				
 				/***************************2.開始查詢資料*****************************************/
 				ProductService productService = new ProductService();

@@ -570,6 +570,20 @@ public class MemberDAOJndi implements MemberDAO_Interface {
 		}
 		return result;
 	}
+
+
+	@Override
+	public List<MemberBean> selectAllPage(int pageInt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public int getAllMember() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 
 	

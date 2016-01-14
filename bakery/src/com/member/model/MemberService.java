@@ -20,7 +20,7 @@ public class MemberService {
 	
 	private MessageDigest messageDigest;
 	public MemberService(){
-		dao = new MemberDAOJndi();
+		dao = new MemberDAOHibernate();
 		try {
 			messageDigest = MessageDigest.getInstance("MD5");
 		} catch (NoSuchAlgorithmException e) {
@@ -98,7 +98,7 @@ public class MemberService {
 	}	
 	//**尋找資訊  以帳號
 	public MemberBean getAccount(String account){
-		return dao.getAccount(account);
+		return dao.getMember(account);
 	}
 
 	//**取得有狀態的帳號  有join
@@ -174,5 +174,16 @@ public class MemberService {
 		return dao.selectByPage(pageInt, status);
 		
 	}
+	
+	public int getMemberCount(){
+		return dao.getAllMember();
+	}
+	public List<MemberBean> seletPage(int pageInt){
+		
+		return dao.selectAllPage(pageInt);
+	}
+	
+	
+	
 	
 }
