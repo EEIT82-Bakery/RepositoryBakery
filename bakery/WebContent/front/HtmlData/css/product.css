@@ -1,0 +1,43 @@
+/* CSS Document */
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#nav1 {
+	width: 170px;
+	height: 100%;
+	background-color: #C63300;
+	border-right: 3px solid #FFF;
+}
+#nav1 li {
+	list-style-type: none;
+	background-color: #FF8800;
+}
+#nav1 > li {
+	width: 170px;
+	background-color: #C63300;
+}
+#nav1 > li > a {
+	background: url(../images/list_icon1.png) no-repeat;
+	background-size: 28px 28px;
+	background-position: 5px;
+	padding-left: 40px;
+}
+#nav1 a {
+	display: block;
+	color: #CCDDFF;
+	padding: 5px;
+	text-decoration: none;
+}
+#nav1 ul a {
+	padding: 10px 0 10px 40px;
+	color: #FFDDAA;
+	font-size: 13px;
+}
+#nav1 ul a:hover {
+	background-color: #FFA488;
+}
+#nav1 ul {
+	display: none;
+}
