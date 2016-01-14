@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.member.model.MemberBean;
 import com.rearticle.model.ReArticleBean;
 
 @Entity
@@ -32,10 +31,6 @@ public class ArticleBean implements java.io.Serializable {
 		this.articleClass = articleClass;
 	}
 	
-	@ManyToOne
-	@JoinColumn(name = "article_class_no", referencedColumnName = "article_class_no", insertable = false, updatable = false)
-	private MemberBean member;
-
 
 	@OneToMany(mappedBy = "article")
 	private Set<ReArticleBean> reArticles;
