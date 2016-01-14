@@ -19,9 +19,7 @@ public class ArticleService {
 
 	// 更新瀏覽次數
 	public void updateBrowserCount(int articleId) {
-		int browserCount = dao.getBrowserCount(articleId);
-		browserCount++;
-		dao.updateBrowserCount(browserCount, articleId);
+		dao.updateBrowserCount(articleId);
 	}
 
 	// 檢查是否重複
@@ -91,13 +89,18 @@ public class ArticleService {
 	}
 
 	// 新增文章
-	public int insertArticle(int memberId, int articleClassNo, String articleTitle, String content) {
+	public void insertArticle(int memberId, int articleClassNo, String articleTitle, String content) {
 		ArticleBean bean = new ArticleBean();
 		bean.setMemberId(memberId);
 		bean.setArticleClassNo(articleClassNo);
 		bean.setArticleTitle(articleTitle);
 		bean.setContent(content);
-		return dao.insertArticle(bean);
+		bean.setReArticleCount(0);
+		bean.setBrowserCount(0);
+		bean.setArticleMake(new java.util.Date());
+		bean.setReArticleMake(new java.util.Date());
+		bean.setHidden(0);
+		dao.insertArticle(bean);
 	}
 
 	// 查詢文章種類

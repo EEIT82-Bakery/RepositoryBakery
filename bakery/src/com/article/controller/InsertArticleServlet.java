@@ -71,9 +71,9 @@ public class InsertArticleServlet extends HttpServlet {
 				}
 
 				if (errorMsg == null || errorMsg.isEmpty()) {
-					int articleId = articleSvc.insertArticle(memberId, articleClassNo, articleTitle, content);
+					articleSvc.insertArticle(memberId, articleClassNo, articleTitle, content);
 					response.sendRedirect(
-							request.getContextPath() + "/DisplayArticle.do?articleId=" + articleId);
+							request.getContextPath() + "/Forum.do");
 				} else {
 					request.getRequestDispatcher("/front/article/InsertArticle.jsp?type=1").forward(request, response);
 				}
