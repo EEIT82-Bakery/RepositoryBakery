@@ -15,17 +15,23 @@ import javax.sql.DataSource;
 import com.article.model.ArticleBean;
 
 public class ProductJNDIDAO implements ProductDAO_interface {
-	private static final String INSERT_STMT = "INSERT INTO Product VALUES (? , ? , ? , ? , ? , ?, ?)";
-
-	private static final String SELECT_ALL = "select Product_id, Product_name,Product_status,Product_price,Main_photo,Discount,Product_date,Product_type from Product p join product_type t on p.product_type_id=t.product_type_id";
-	private static final String UPDATE = "update Product set Product_name=?, Product_status=?,Product_price=?,Main_photo=?,Discount=?,Product_date=?,product_type_id=? where Product_id=?";
-	private static final String DELETE_PHOTO = "delete from Product_photo where Product_id=?";
-	private static final String DELETE = "delete from Product where  Product_id=?";
-	private static final String SELECT_BY_PHOTO = "select Main_photo from Product where Product_id=?";
-	private static final String SELECT_BY_CAKE = "select *from product where product_type_id like ?";
-	private static final String SELECT_TYPE="select * from product_type";
-	
-	
+//	private static final String INSERT_STMT = "INSERT INTO Product VALUES (? , ? , ? , ? , ? , ?, ?)";
+//	private static final String SELECT_ALL = "select Product_id, Product_name,Product_status,Product_price,Main_photo,Discount,Product_date,Product_type from Product p join product_type t on p.product_type_id=t.product_type_id";
+//	private static final String UPDATE = "update Product set Product_name=?, Product_status=?,Product_price=?,Main_photo=?,Discount=?,Product_date=?,product_type_id=? where Product_id=?";
+//	private static final String DELETE_PHOTO = "delete from Product_photo where Product_id=?";
+//	private static final String DELETE = "delete from Product where  Product_id=?";
+//	private static final String SELECT_BY_PHOTO = "select Main_photo from Product where Product_id=?";
+//	private static final String SELECT_BY_CAKE = "select *from product where product_type_id like ?";
+//	private static final String SELECT_TYPE="select * from product_type";
+//	
+	private static final String INSERT_STMT = "INSERT INTO Product VALUES (? , ? , ? , ? , ? , ?, ?)"; 
+	 private static final String SELECT_ALL = "select Product_id, Product_name,Product_status,Product_price,Main_photo,Discount,Product_date,Product_type from Product p join product_type t on p.product_type_id=t.product_type_id"; 
+	 private static final String UPDATE = "update Product set Product_name=?, Product_status=?,Product_price=?,Main_photo=?,Discount=?,Product_date=?,product_type_id=? where Product_id=?"; 
+	 private static final String DELETE_PHOTO = "delete from Product_photo where Product_id=?"; 
+	 private static final String DELETE = "delete from Product where Product_id=?"; 
+	 private static final String SELECT_BY_PHOTO = "select Main_photo from Product where Product_id=?"; 
+	 private static final String SELECT_BY_CAKE = "select * from product where product_type_id like ?"; 
+	 private static final String SELECT_TYPE="select * from product_type";
 	
 	private static DataSource dataSource = null;
 
@@ -141,7 +147,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setProductStatus(rset.getString("Product_status"));
 				bean.setProductPrice(rset.getInt("Product_price"));
 				bean.setMain_photo(rset.getBytes("Main_photo"));
-				bean.setDiscount(rset.getDouble("Discount"));
+				bean.setDiscount(rset.getFloat("Discount"));
 				bean.setProductDate(rset.getDate("Product_date"));
 				bean.setProductType(rset.getString("Product_type"));
 				beans.add(bean);
@@ -189,7 +195,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setProductStatus(rset.getString("Product_status"));
 				bean.setProductPrice(rset.getInt("Product_price"));
 				bean.setMain_photo(rset.getBytes("Main_photo"));
-				bean.setDiscount(rset.getDouble("Discount"));
+				bean.setDiscount(rset.getFloat("Discount"));
 				bean.setProductDate(rset.getDate("Product_date"));
 				result.add(bean);
 			}
@@ -238,7 +244,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setProductStatus(rset.getString("Product_status"));
 				bean.setProductPrice(rset.getInt("Product_price"));
 				bean.setMain_photo(rset.getBytes("Main_photo"));
-				bean.setDiscount(rset.getDouble("Discount"));
+				bean.setDiscount(rset.getFloat("Discount"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {
@@ -277,7 +283,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				stmt.setString(2, bean.getProductStatus());
 				stmt.setInt(3, bean.getProductPrice());
 				stmt.setBytes(4, bean.getMain_photo());
-				stmt.setDouble(5, bean.getDiscount());
+				stmt.setFloat(5, bean.getDiscount());
 				java.util.Date productDate = bean.getProductDate();
 				if (productDate != null) {
 					long time = productDate.getTime();
@@ -327,7 +333,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 			stmt.setString(2, bean.getProductStatus());
 			stmt.setFloat(3, bean.getProductPrice());
 			stmt.setBytes(4, bean.getMain_photo());
-			stmt.setDouble(5, bean.getDiscount());
+			stmt.setFloat(5, bean.getDiscount());
 			java.util.Date productDate = bean.getProductDate();
 			if (productDate != null) {
 				long time = productDate.getTime();
@@ -516,7 +522,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setProductStatus(rset.getString("Product_status"));
 				bean.setProductPrice(rset.getInt("Product_price"));
 				bean.setMain_photo(rset.getBytes("Main_photo"));
-				bean.setDiscount(rset.getDouble("Discount"));
+				bean.setDiscount(rset.getFloat("Discount"));
 				bean.setProductDate(rset.getDate("Product_date"));
 				result.add(bean);
 			}

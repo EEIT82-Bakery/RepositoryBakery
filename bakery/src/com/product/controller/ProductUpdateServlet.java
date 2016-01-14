@@ -101,12 +101,12 @@ public class ProductUpdateServlet extends HttpServlet {
 					fi.read(buffer);
 					fi.close();
 
-					double discount = 0;
+					float discount = 0;
 					String temp3 = request.getParameter("discount");
 					if (temp3 == null || (temp3.trim()).length() == 0) {
 						errors.put("discount", "請輸入折扣");
 					} else {
-						discount = Double.parseDouble(temp3);
+						discount = Float.parseFloat(temp3);
 					}
 
 					String temp4 = request.getParameter("productDate");
