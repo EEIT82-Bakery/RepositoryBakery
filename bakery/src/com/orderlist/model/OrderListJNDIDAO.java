@@ -61,6 +61,8 @@ public class OrderListJNDIDAO implements OrderList_interface{
 		}
 	}
 	
+
+	
 	private static final String DELETE="delete from Ord_list where Order_id=?";
 	@Override
 	public void delete(int orderId) {

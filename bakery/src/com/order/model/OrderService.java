@@ -2,6 +2,7 @@ package com.order.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Vector;
 
 import com.orderlist.model.OrderListBean;
@@ -24,6 +25,10 @@ public class OrderService {
 		int orderId = dao.insertOrder(bean);
 		OrderListJNDIDAO orderListDAO = new OrderListJNDIDAO();
 		orderListDAO.insertOrderItems(orderId, beans);
+	}
+	
+	public List<OrderBean> select(int OrderId){
+		return dao.select(OrderId);
 	}
 	
 	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");

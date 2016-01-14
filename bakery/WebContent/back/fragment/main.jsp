@@ -29,7 +29,7 @@
 					<a href="${pageContext.request.contextPath}/back/product/ProductSelectAll.jsp">管理商品</a>
 				</li>
 				<li>
-					<a href="#">管理訂單</a>
+					<a href="${pageContext.request.contextPath}/back/orderlist/orderlist.jsp">管理訂單</a>
 				</li>
 				<li>
 					<a href="javascript:;" data-toggle="collapse" data-target="#demo" class="collapsed" aria-expanded="false">管理討論區 </a>
