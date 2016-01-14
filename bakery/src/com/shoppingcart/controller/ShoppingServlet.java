@@ -20,7 +20,6 @@ public class ShoppingServlet extends HttpServlet {
 	// throws ServletException, IOException {
 	// doPost(req, res);
 	// }
-
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
@@ -56,15 +55,16 @@ public class ShoppingServlet extends HttpServlet {
 				session.setAttribute("shoppingcart", buylist);
 			}
 		} else if (action.equals("CHECKOUT")) {
-			float total = 0;
+			int total = 0;
 			for (int i = 0; i < buylist.size(); i++) {
 				ProductBean order = buylist.get(i);
-				float price = order.getProductPrice();
+				int price = order.getProductPrice();
+				float discount=order.getDiscount();
 				int quantity = order.getQuantity();
-				total += (price * quantity);
+				total += (price * quantity * discount);
 			}
 			String amount = String.valueOf(total);
-			req.setAttribute("amount", amount);
+			session.setAttribute("amount", amount);
 			session.setAttribute("shoppingcart", buylist);
 			String url = "/front/ShoppingCart/CheckoutForEach.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
@@ -77,11 +77,14 @@ public class ShoppingServlet extends HttpServlet {
 		String name = req.getParameter("name");
 		String priceTemp = req.getParameter("price");
 		String discountTemp = req.getParameter("discount");
+		String productId= req.getParameter("productId");
 		ProductBean productBean = new ProductBean();
 		productBean.setQuantity((new Integer(quantity)).intValue());
 		productBean.setProductName(name);
 		productBean.setProductPrice((new Integer(priceTemp)).intValue());
-		productBean.setDiscount((new Double(discountTemp)).doubleValue());
+		productBean.setProductId((new Integer(productId)).intValue());
+		
+		productBean.setDiscount((new Float(discountTemp)).floatValue());
 		return productBean;
 	}
 }

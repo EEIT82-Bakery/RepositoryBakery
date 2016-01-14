@@ -71,8 +71,9 @@
 							數量：
 							<input type="number" id="quantity" name="quantity" value=1 min="0" max="10" style="width: 36px">
 							<button
-								onclick="addShoppingItems('${aBean.productName}' , '${aBean.productPrice}' , '${aBean.discount}')">放入購物車</button>
+								onclick="addShoppingItems('${aBean.productName}' , '${aBean.productPrice}' , '${aBean.discount}','${aBean.productId}')">放入購物車</button>
 						</div>
+
 					</div>
 				</c:forEach>
 			</div>
@@ -98,25 +99,27 @@
 	</div>
 	<%@ include file="../fragment/js.jsp"%>
 	<script>
-		function addShoppingItems(productName , productPrice , discount){
+		function addShoppingItems(productName , productPrice , discount,productId){
 			var quantity = document.getElementById("quantity").value;
 			xmlHttp = new XMLHttpRequest();
 			if (xmlHttp != null) {
 				xmlHttp.open("POST", "${pageContext.request.contextPath}/Shopping.do", true);
 				xmlHttp.addEventListener("readystatechange", callback, false);
 				xmlHttp.setRequestHeader("Content-Type",
-						"application/x-www-form-urlencoded")
-				xmlHttp.send("action=ADD" + "&name=" + productName + "&price=" +productPrice + "&discount=" +discount + "&quantity=" + quantity);
+						"application/x-www-form-urlencoded");
+				xmlHttp.send("action=ADD" + "&name=" + productName + "&price=" +productPrice + "&discount=" +discount 
+						+ "&quantity=" + quantity + "&productId=" + productId);
 				
 			} else {
-				alert("您得瀏覽器不支援Ajax的功能!!");
+				alert("您的瀏覽器不支援Ajax的功能!!");
 			}
 			function callback() {
 				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-					alert("已加入購物車");
+					//
 				}
 			}
 		}
+		
 		$(document).ready(function(e) {
 			var curr = null;
 			$('#nav1>li>a').click(function() {

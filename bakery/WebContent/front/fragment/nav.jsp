@@ -96,27 +96,27 @@
 					感謝您拜訪焙客栗工坊網站，如果您有任何聯絡事項，<br /> 歡迎填寫下列表單， 我們將會用最快的速度與您聯絡。
 				</h4>
 			</div>
-			<form role="form">
+			<form action="<c:url value='/ContectUsServelt.do'/>" method="get">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="person">連絡人</label>
-						<input type="text" class="form-control" id="Text1" maxlength="10" placeholder="姓名" />
+						<input type="text" class="form-control" id="Text1" maxlength="10" placeholder="姓名" name="name"/>
 					</div>
 					<div class="form-group">
 						<label for="email">E-mail</label>
-						<input type="email" class="form-control" id="email1" maxlength="20" placeholder="ex.laxsoivcv@gmail.com" />
+						<input type="email" class="form-control" id="email" maxlength="30" placeholder="ex.laxsoivcv@gmail.com" name="email"/>
 					</div>
 					<div class="form-group">
 						<label for="phone">連絡電話</label>
-						<input type="text" class="form-control" id="Text2" maxlength="15" placeholder="請填寫連絡電話或手機" />
+						<input type="text" class="form-control" id="Text" maxlength="15" placeholder="請填寫連絡電話或手機" name="Text"/>
 					</div>
 					<div class="form-group">
 						<label for="content">內容</label>
-						<textarea class="form-control" rows="5" placeholder="請填寫詢問內容"></textarea>
+						<textarea class="form-control" rows="5" placeholder="請填寫詢問內容" name="citus"></textarea>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<input type="submit" class="btn btn-primary" value="確定送出" />
+					<input type="submit" class="btn btn-primary" value="發送" />
 				</div>
 			</form>
 		</div>

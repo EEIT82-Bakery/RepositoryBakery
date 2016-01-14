@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.product.model.ProductBean"%>
+
+<% int i = 0; %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +38,7 @@
 				<th width="120">數量</th>
 				<th width="120"></th>
 			</tr>
-			<c:set var="index" value="1" scope="page" />
-			<% int i=0; %>
+		
 			<c:forEach var="order" items="${shoppingcart}">
 				<tr>
 					<td width="200"><div align="center">
@@ -53,8 +54,9 @@
 							<b>${order.quantity}</b>
 						</div></td>
 					<td width="100"><div align="center">
-							<button class="del" onclick="deleteShoppingItems(<%=i++%> , this)">刪除</button>
-						</div></td>
+							<button class="del" onclick="deleteShoppingItems(<%=i++ %> , this)">刪除</button>
+						</div>
+						</td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -94,11 +96,7 @@
 					});
 				}
 			}
-		}
-		
-
-
-		
+		}	
 	</script>
 </body>
 </html>
