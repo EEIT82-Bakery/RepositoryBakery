@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016/1/13 ?U?? 04:43:01 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.articlecollection.model.ArticleCollectionBean" table="ARTICLECOLLECTIONBEAN">
+        <id name="memberId" type="int">
+            <column name="MEMBERID" />
+            <generator class="assigned" />
+        </id>
+        <property name="articleId" type="int">
+            <column name="ARTICLEID" />
+        </property>
+    </class>
+</hibernate-mapping>
