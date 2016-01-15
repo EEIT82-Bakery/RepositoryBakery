@@ -43,7 +43,6 @@ public class OrderServlet extends HttpServlet {
 		request.setAttribute("errors", errors);
 		
 		String action = request.getParameter("action");
-		System.out.println(action);
 		
 		if ("insert".equals(action)) {
 		HttpSession session = request.getSession();
@@ -157,13 +156,51 @@ public class OrderServlet extends HttpServlet {
 				
 		}
 
+		if ("update".equals(action)) { // 來自orderlist.jsp
+		
+			try {
+				/***************************1.接收請求參數***************************************/
+				Integer orderIdu = new Integer(request.getParameter("orderIdu"));
+				Integer orderSatus = new Integer(request.getParameter("orderSatus"));
+				/***************************2.開始刪除資料***************************************/
+				
+				if(orderSatus==1){
+					orderSatus=2;
 
+				}else if(orderSatus==2){
+					orderSatus=3;
+
+				}
+				
+				OrderBean bean =new OrderBean();
+				bean.setOrderId(orderIdu);
+				bean.setOrderStaus(orderSatus);
+				
+				OrderService orderService = new OrderService();
+				
+				orderService.update(bean);
+				
+				List<OrderBean> beans =orderService.select(orderIdu);
+				request.setAttribute("aBean", beans);
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				String url = "/back/orderlist/orderlist.jsp";
+				RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 orderlist.jsp
+				successView.forward(request, response);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errors.put("deleteNo","刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = request.getRequestDispatcher("/back/orderlist/orderlist.jsp");
+				failureView.forward(request, response);
+			}
+		}
+		
+		
 		if ("delete".equals(action)) { // 來自orderlist.jsp
-					
+			
 					try {
 						/***************************1.接收請求參數***************************************/
 						Integer orderIdd = new Integer(request.getParameter("orderIdd"));
-						System.out.println(orderIdd);
 						/***************************2.開始刪除資料***************************************/
 						OrderListService orderListService = new OrderListService();
 						orderListService.delete(orderIdd);
