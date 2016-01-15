@@ -13,6 +13,7 @@ public interface MemberDAO_Interface {
 	
 	
 	//-----------------------login---------------------//
+	public void updateUnifom(MemberBean bean);
 	public boolean update(byte[] password,String account);//修改密碼
 	
 	//----------------------regis----------------------//

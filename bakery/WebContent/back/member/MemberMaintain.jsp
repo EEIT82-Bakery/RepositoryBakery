@@ -1,6 +1,17 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@page import="com.member.model.*"%>   
+<%
+
+	MemberService service = new MemberService();
+
+// 	List<MemberBean> bean = service.
+
+%>
+	
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -74,7 +85,7 @@
 							<td><h6>${aBean.email}</h6></td>
 							<td><h6>${aBean.phone}</h6></td>
 							<td><h6>${aBean.order_math}</h6>
-							<td><button type="submit" name="action" value="詳細資訊">詳細資訊</button></td>
+							<td><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">詳細會員資料</button></td>
 							<td><button type="submit" name="action" value="刪除">刪除</button></td>
 						</tr>
 					</c:forEach>
@@ -89,6 +100,58 @@
 			</c:if>
 		</div>
 	</div>
+
+
+
+
+		<!-- Modal -->
+		
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">Close</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">會員資訊</h4>
+					</div>
+					
+					<div class="modal-body">
+
+				
+						暱稱:${aBean.account}
+						<br>
+						<br> 
+						生日:${aBean.birth}
+						<br>
+						<br> 
+						手機:${aBean.phone}
+						<br>
+						<br> 
+						信箱:${aBean.email}
+						<br>
+						<br>
+						 地址:${aBean.address}
+						<br>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+						<button type="submit" class="btn btn-primary" name="action" value="update">確定</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+<script src="../js/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+
+
+
+
 
 
 

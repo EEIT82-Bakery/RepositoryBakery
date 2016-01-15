@@ -8,6 +8,8 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,12 +43,9 @@ public class MemberBean implements Serializable {
 	public void setMeber(MemberGradeBean membergrade) {
 		this.membergrade = membergrade;
 	}
-
-	
-	
-	
 	@Id
 	@Column(name="Member_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int member_id;
 	@Column(name="Account")
 	private String account;
@@ -87,23 +86,16 @@ public class MemberBean implements Serializable {
 	private String permname;
 	@Transient
 	private  int  articleid;
-	
-	@Column()
+	@Column(name="Kanban")
 	private String kanban;
-	
-	
 	public MemberBean() {
-
 	}
-
 	public int getMember_id() {
 		return member_id;
 	}
-
 	public void setMember_id(int member_id) {
 		this.member_id = member_id;
 	}
-
 	public String getAccount() {
 		return account;
 	}
@@ -111,35 +103,27 @@ public class MemberBean implements Serializable {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-
 	public byte[] getPassword() {
 		return password;
 	}
-
 	public void setPassword(byte[] password) {
 		this.password = password;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	public String getSex() {
 		return sex;
 	}
-
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-
 	public java.util.Date getBirth() {
 		return birth;
 	}
-
 	public void setBirth(java.util.Date birth) {
 		this.birth = birth;
 	}
@@ -171,11 +155,9 @@ public class MemberBean implements Serializable {
 	public java.util.Date getLogindate() {
 		return logindate;
 	}
-
 	public void setLogindate(java.util.Date logindate) {
 		this.logindate = logindate;
 	}
-
 	public java.sql.Timestamp getLast_date() {
 		return last_date;
 	}
@@ -183,9 +165,7 @@ public class MemberBean implements Serializable {
 	public void setLast_date(java.sql.Timestamp last_date) {
 		this.last_date = last_date;
 	}
-
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
 	public static java.util.Date convertDate(String temp) {
 		java.util.Date result = new java.util.Date();
 		try {

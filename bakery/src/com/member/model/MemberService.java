@@ -46,9 +46,25 @@ public class MemberService {
 		return null;
 	}
 	
+//	
+//	public MemberBean chgPassword(String username, String oldPassword, String newPassword){
+//		MemberBean bean = this.checkLogin(username, oldPassword);
+//		if (bean != null) {
+//			if (newPassword != null && newPassword.length() != 0) {
+//				byte[] temp = newPassword.getBytes(); // 使用者輸入的密碼：明碼
+//				temp = messageDigest.digest(temp); // 使用者輸入的密碼：亂碼
+//				bean.setPassword(temp);
+//				beans = dao.updateUnifom(bean);
+//			}
+//		return bean;
+//		}
+//		
+//	}
+	
 	
 	//**更改密碼**//
 	public boolean changePassword(String username, String oldPassword, String newPassword) {
+		System.out.println(oldPassword);
 		MemberBean bean = this.checkLogin(username, oldPassword);
 
 		// String regex =
@@ -59,9 +75,11 @@ public class MemberService {
 		// }
 
 		if (bean != null) {
+			System.out.println("is true");
 			if (newPassword != null && newPassword.length() != 0) {
 				byte[] temp = newPassword.getBytes(); // 使用者輸入的密碼：明碼
 				temp = messageDigest.digest(temp); // 使用者輸入的密碼：亂碼
+				System.out.println(temp);
 				return dao.update(temp, username);
 			}
 		}

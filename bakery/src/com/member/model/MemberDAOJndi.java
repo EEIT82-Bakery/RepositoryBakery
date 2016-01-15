@@ -15,7 +15,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.product.model.ProductBean;
+
 
 public class MemberDAOJndi implements MemberDAO_Interface {
 
@@ -32,7 +32,7 @@ public class MemberDAOJndi implements MemberDAO_Interface {
 	
 	private static final String GETPK = "SELECT * FROM MEMBER WHERE member_id=?";
 	private static final String SELECT_ACCOUNT = "select * from Member where Account=?";
-	private static final String GETALL = "SELECT * FROM MEMBER";
+
 	private static final String UPDATE_IFMT="UPDATE MEMBER SET birth=?,phone=?,email=?,address=?,nickname=? WHERE MEMBER_ID=?";
 	
 	
@@ -583,6 +583,13 @@ public class MemberDAOJndi implements MemberDAO_Interface {
 	public int getAllMember() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+
+	@Override
+	public void updateUnifom(MemberBean bean) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

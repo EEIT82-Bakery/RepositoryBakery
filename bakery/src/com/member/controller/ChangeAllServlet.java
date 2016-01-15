@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.member.model.MemberBean;
 import com.member.model.MemberService;
 
 @WebServlet("/front/member/main/ChangePassword.controller")
@@ -63,6 +64,11 @@ public class ChangeAllServlet extends HttpServlet {
 				}
 				HttpSession session = req.getSession();
 				String account = (String) session.getAttribute("account");
+				
+				MemberBean bean =memberservice.getAccount(account);
+				
+				
+				
 				boolean uppwd;
 				uppwd = memberservice.changePassword(account, oldpassword, newpassword);
 				if (uppwd != false) {		
