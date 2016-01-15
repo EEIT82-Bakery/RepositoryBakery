@@ -18,5 +18,14 @@
 		<mapping class="com.article.model.ArticleBean" />
 		<mapping class="com.rearticle.model.ReArticleBean" />
 		<mapping class="com.article.model.ArticleClassBean" />
+		
+		
+		<!-- 投票活動 --> 
+  <mapping class="com.Voteaction.model.VoteActionBean"/> 
+  <mapping class="com.Voteaction.model.VoteStatusBean"/> 
+  <mapping class="com.Voteitem.model.VoteitemBean"/> 
+  <mapping class="com.Voteitem.model.VotePersonBean"/>
+		
+		
 	</session-factory>
 </hibernate-configuration>
