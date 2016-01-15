@@ -1,5 +1,11 @@
 /build/
+<<<<<<< HEAD
 /.project
 
 /.settings/
 /.classpath
+=======
+/.settings/
+/.classpath
+/.project
+>>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
