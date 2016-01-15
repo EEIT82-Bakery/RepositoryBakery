@@ -1,3 +1,4 @@
+<%@page import="com.sun.xml.internal.bind.v2.schemagen.xmlschema.Import"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -28,6 +29,9 @@
 
 </head>
 <body>
+<%@ include file="../member_fragment/nav.jsp"%>
+
+
 	<center>
 		
 			<img src="data:image/png;base64,${SelectMo.mpicture}" id="mypicture" class="img-circle" alt="個人照片" />
@@ -93,7 +97,7 @@
 		</div>
 	</center>
 	<script src="../js/jquery-2.1.4.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
 	
 
 	

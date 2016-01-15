@@ -11,10 +11,13 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet" />
 <!-- <link href="../css/non-responsive.css" rel="stylesheet" /> -->
 <link href="../css/login.css" rel="stylesheet" />
+<style>
+
+</style>
 
 </head>
 <body>
-	<%@ include file="../member_fragment/topline.jsp"%>
+	<%@ include file="../member_fragment/nav.jsp"%>
 	<div class="container-fluid">
 		<!-----------------------------------------main----------------------------------------->
 
