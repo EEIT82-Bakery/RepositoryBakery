@@ -82,7 +82,7 @@
 					<div class="col-xs-2 profile">
 						<div>
 							<a href="${pageContext.request.contextPath}/homeindex.do?account=${reArticle.account}">${reArticle.account}</a>
-							<span> (${Article.nickName})</span>
+							<span> (${reArticle.nickName})</span>
 						</div>
 						<img src="data:image/png;base64,${reArticle.picture}" style="height: 200px; width: 100%;" />
 					</div>

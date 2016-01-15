@@ -13,12 +13,26 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.member.model.MemberBean;
 import com.rearticle.model.ReArticleBean;
 
 @Entity
 @Table(name = "article")
 public class ArticleBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@ManyToOne
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
+	private MemberBean member;
+
+	public MemberBean getMember() {
+		return member;
+	}
+
+	public void setMember(MemberBean member) {
+		this.member = member;
+	}
+
 	@ManyToOne
 	@JoinColumn(name = "article_class_no", referencedColumnName = "article_class_no", insertable = false, updatable = false)
 	private ArticleClassBean articleClass;
@@ -30,18 +44,9 @@ public class ArticleBean implements java.io.Serializable {
 	public void setArticleClass(ArticleClassBean articleClass) {
 		this.articleClass = articleClass;
 	}
-	
 
 	@OneToMany(mappedBy = "article")
 	private Set<ReArticleBean> reArticles;
-
-	public Set<ReArticleBean> getReArticles() {
-		return reArticles;
-	}
-
-	public void setReArticles(Set<ReArticleBean> reArticles) {
-		this.reArticles = reArticles;
-	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,7 +82,7 @@ public class ArticleBean implements java.io.Serializable {
 
 	@Transient
 	private String articleClassName;
-	
+
 	public String getArticleClassName() {
 		return articleClassName;
 	}

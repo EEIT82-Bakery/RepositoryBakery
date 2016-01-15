@@ -160,6 +160,8 @@ public class InsertArticleServlet extends HttpServlet {
 				int articleId = 0;
 				if (articleIdTemp != null && !articleIdTemp.isEmpty() && articleIdTemp.matches("^[0-9]+$")) {
 					articleId = Integer.parseInt(articleIdTemp);
+					String articleTitle = articleSvc.getArticleTitle(articleId);
+					request.setAttribute("articleTitle", articleTitle);
 					int reId = 0;
 					String reIdTemp = request.getParameter("reId");
 					if (reIdTemp != null && !reIdTemp.isEmpty()) {

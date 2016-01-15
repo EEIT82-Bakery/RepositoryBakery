@@ -11,6 +11,11 @@ import com.rearticle.model.ReArticleBean;
 
 public class ArticleDAOHibernate implements ArticleDAO_interface{
 	
+	public static void main(String[] args){
+		
+		
+	}
+	
 	@Override
 	public void insertArticle(ArticleBean bean) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -28,20 +33,66 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 
 		return 0;
 	}
+	private final static String UPDATE_ARTICLE = "From ArticleBean where article_Id = ? and member_Id= ?";
+	
+	@Override
+	public void updateArticle(int articleClassNo, String articleTitle,
+			String content, int articleId, int memberId) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			ArticleBean bean = (ArticleBean) session.createQuery(UPDATE_ARTICLE)
+					.setParameter(0, articleId)
+					.setParameter(1, memberId)
+					.uniqueResult();
+			if(bean != null){
+				bean.setArticleClassNo(articleClassNo);
+				bean.setArticleTitle(articleTitle);
+				bean.setContent(content);
+				session.update(bean);
+			}
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+	}
+	
 	@Override
 	public void updateArticleHidden(int articleId, int memberId, int hidden) {
-
-		
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			ArticleBean bean = (ArticleBean) session.createQuery(UPDATE_ARTICLE)
+					.setParameter(0, articleId)
+					.setParameter(1, memberId)
+					.uniqueResult();
+			if (bean != null) {
+				bean.setHidden(hidden);
+				session.update(bean);
+			}
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
 	}
-	@Override
-	public boolean updateArticle(int articleClassNo, String articleTitle,
-			String content, int articleId, int memberId) {
-
-		return false;
-	}
+	
 	@Override
 	public void updateReArticleCount(int reId, int articleId, ReArticleBean bean) {
-
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			session.createQuery("update ArticleBean set re_article_count = ?, re_article_date = ? where article_id = ?")
+			.setParameter(0, reId)
+			.setParameter(1, bean.getReMake())
+			.setParameter(2, articleId)
+			.executeUpdate();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -51,9 +102,10 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 		try {
 			session.beginTransaction();
 			ArticleBean bean = (ArticleBean) session.get(ArticleBean.class, articleId);
-			bean.setBrowserCount(bean.getBrowserCount() + 1);
-			session.update(bean);
-			
+			if(bean != null){
+				bean.setBrowserCount(bean.getBrowserCount() + 1);
+				session.update(bean);
+			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -90,6 +142,7 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 		}
 		return (int) count;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ArticleBean> getPageArticles(int startRow, int recordsPerRow) {
 		List<ArticleBean> beans = null;
@@ -121,6 +174,7 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 
 		return (int) count;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ArticleBean> getPageArticlesClass(int articleClassNo,
 			int startRow, int recordsPerRow) {
@@ -156,6 +210,7 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 		}
 		return (int) count;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ArticleBean> getPageArticlesTitle(String articleTitle,
 			int startRow, int recordsPerRow) {
@@ -174,6 +229,7 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 		}
 		return beans;
 	}
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ArticleClassBean> getArticleClass() {
 		List<ArticleClassBean> beans = null;
@@ -193,17 +249,22 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 	
 	@Override
 	public String getArticleTitle(int articleId) {
-		String articleTitle = null;
+		ArticleBean bean = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			articleTitle = (String) session.createQuery("From ArticleBean where article_id = ?")
+			bean = (ArticleBean) session.createQuery("From ArticleBean where article_id = ?")
 					.setInteger(0, articleId).uniqueResult();
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-		return articleTitle;
+		return bean.getArticleTitle();
+	}
+	@Override
+	public int getBrowserCount(int articleId) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
