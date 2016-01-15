@@ -18,7 +18,7 @@
         <span>${errors.orderId}${errors.orderIdNoData}</span>
         
 </FORM>
-	<FORM METHOD="post" action='<c:url value="/OrderServlet.do"/>'>
+	
    <table border='1' bordercolor='#CCCCFF' width="100%">
    <tr>
 		<th>訂單ID</th>
@@ -26,9 +26,9 @@
 		<th>取消日期</th>
 		<th>會員ID</th>
 		<th>狀態</th>	
+		<th>修改</th>
 		<th>刪除</th>
 	</tr>
-	
 	
 	<c:forEach var="aBean" items="${aBean}">
 		<tr align='center' valign='middle'>
@@ -36,16 +36,36 @@
 			<td>${aBean.orderName}</td>
 			<td>${aBean.cancelDate}</td>
 			<td>${aBean.memberId}</td>
-			<td>${aBean.orderStaus}</td>
+			<c:if test="${aBean.orderStaus==1}">
+			<td>未付款</td>
+			</c:if>
+			<c:if test="${aBean.orderStaus==2}" >
+			<td>已付款</td>
+			</c:if>
+			<c:if test="${aBean.orderStaus==3}" >
+			<td>已出貨</td>
+			</c:if>
+			
 			<td>
+			<FORM METHOD="post" action='<c:url value="/OrderServlet.do"/>'>
+			<input type="hidden" name="action" value="update">
+			 <input type="hidden" name="orderIdu" value="${aBean.orderId}">
+			 <input type="hidden" name="orderSatus" value="${aBean.orderStaus}">
+			 <input type="submit" value="修改">
+				</FORM>
+			</td>
+				
+			<td>
+			<FORM METHOD="post" action='<c:url value="/OrderServlet.do"/>'>
 			<input type="hidden" name="action" value="delete">
 			 <input type="hidden" name="orderIdd" value="${aBean.orderId}">
 			 <input type="submit" value="刪除">
+			 </FORM>
 			</td>
 		</tr>
-		</c:forEach>
+			</c:forEach>
 	</table>
-	 </FORM>
+	 
 	</div>
 	
 	
