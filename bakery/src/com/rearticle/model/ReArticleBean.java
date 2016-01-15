@@ -2,6 +2,8 @@ package com.rearticle.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -9,67 +11,80 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.article.model.ArticleBean;
+import com.member.model.MemberBean;
 
 @Entity
-@Table(name="Re_Article")
+@Table(name = "Re_Article")
 public class ReArticleBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	@ManyToOne
-	@JoinColumn(
-			name="article_id",
-			referencedColumnName="article_id"
-			)
+	@JoinColumn(name = "article_id", referencedColumnName = "article_id", insertable = false, updatable = false)
 	private ArticleBean article;
 	
+	@ManyToOne
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id" , insertable = false , updatable = false)
+	private MemberBean member;
 	
-	public ArticleBean getArticle() {
-		return article;
+	public MemberBean getMember() {
+		return member;
 	}
 
-	public void setArticle(ArticleBean article) {
-		this.article = article;
+	public void setMember(MemberBean member) {
+		this.member = member;
 	}
+
+	
+	
+	@Override
+	public String toString() {
+		return "ReArticleBean [id=" + id + ", reId=" + reId + ", memberId="
+				+ memberId + ", reContent=" + reContent + ", reMake=" + reMake
+				+ ", hidden=" + hidden + ", articleId=" + articleId + "]";
+	}
+
+
 
 	@Id
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
-	
-	@Column(name="re_id")
+
+	@Column(name = "re_id")
 	private Integer reId;
-	
-	@Column(name="member_id")
+
+	@Column(name = "member_id")
 	private int memberId;
-	
-	@Column(name="re_content")
+
+	@Column(name = "re_content")
 	private String reContent;
-	
-	@Column(name="re_make")
+
+	@Column(name = "re_make")
 	private java.util.Date reMake;
-	
-	@Column(name="hidden")
+
+	@Column(name = "hidden")
 	private Integer hidden;
-	
-	@Column(name="article_Id")
+
+	@Column(name = "article_Id")
 	private Integer articleId;
-	
+
 	@Transient
 	private String account;
-	
+
 	@Transient
 	private String nickName;
-	
+
 	@Transient
 	private byte[] pictureTemp;
-	
+
 	@Transient
 	private String picture;
-	
+
 	@Transient
 	private String articleTitle;
-	
+
 	@Transient
 	private String reArticleMakeDate;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -77,7 +92,7 @@ public class ReArticleBean implements java.io.Serializable {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public Integer getReId() {
 		return reId;
 	}

@@ -52,13 +52,7 @@ public class DisplayArticleServlet extends HttpServlet {
 			}
 
 			bean = articleSvc.getArticle(articleId);
-			if (bean != null) {
-				bean.setArticleMakeDate(articleSvc.convertDate(bean.getArticleMake()));
-				bean.setPicture(Base64.encodeBase64String(bean.getPictureTemp()));
-				if(bean.getHidden() == 1){
-					bean.setContent("<span style='color:#999999'>此文章已被刪除</span>");
-				}
-
+			if(bean != null){
 				List<ReArticleBean> beans = reArticleSvc.getAllReArticle(articleId);
 				request.setAttribute("Article", bean);
 				request.setAttribute("reArticle", beans);

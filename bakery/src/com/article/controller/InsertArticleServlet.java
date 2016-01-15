@@ -71,9 +71,9 @@ public class InsertArticleServlet extends HttpServlet {
 				}
 
 				if (errorMsg == null || errorMsg.isEmpty()) {
-					int articleId = articleSvc.insertArticle(memberId, articleClassNo, articleTitle, content);
+					articleSvc.insertArticle(memberId, articleClassNo, articleTitle, content);
 					response.sendRedirect(
-							request.getContextPath() + "/DisplayArticle.do?articleId=" + articleId);
+							request.getContextPath() + "/Forum.do");
 				} else {
 					request.getRequestDispatcher("/front/article/InsertArticle.jsp?type=1").forward(request, response);
 				}
@@ -160,6 +160,8 @@ public class InsertArticleServlet extends HttpServlet {
 				int articleId = 0;
 				if (articleIdTemp != null && !articleIdTemp.isEmpty() && articleIdTemp.matches("^[0-9]+$")) {
 					articleId = Integer.parseInt(articleIdTemp);
+					String articleTitle = articleSvc.getArticleTitle(articleId);
+					request.setAttribute("articleTitle", articleTitle);
 					int reId = 0;
 					String reIdTemp = request.getParameter("reId");
 					if (reIdTemp != null && !reIdTemp.isEmpty()) {

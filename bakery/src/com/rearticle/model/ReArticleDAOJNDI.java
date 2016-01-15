@@ -30,7 +30,7 @@ public class ReArticleDAOJNDI implements ReArticleDAO_interface {
 	private final static String INSERT_REARTICLE = "insert into re_article (re_id,member_id,re_content,re_make,hidden,article_id) values (?,?,?,getdate(),0,?)";
 
 	@Override
-	public int insertReArticle(int memberId, String reContent, int articleId) {
+	public int insertReArticle(ReArticleBean bean) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -38,7 +38,7 @@ public class ReArticleDAOJNDI implements ReArticleDAO_interface {
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(FIND_MAX_REID);
-			pstmt.setInt(1, articleId);
+			pstmt.setInt(1, bean.getArticleId());
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				reId = rs.getInt("re_id");
@@ -48,9 +48,9 @@ public class ReArticleDAOJNDI implements ReArticleDAO_interface {
 			}
 			pstmt = conn.prepareStatement(INSERT_REARTICLE);
 			pstmt.setInt(1, reId);
-			pstmt.setInt(2, memberId);
-			pstmt.setString(3, reContent);
-			pstmt.setInt(4, articleId);
+			pstmt.setInt(2, bean.getMemberId());
+			pstmt.setString(3, bean.getReContent());
+			pstmt.setInt(4, bean.getArticleId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -89,7 +89,7 @@ public class ReArticleDAOJNDI implements ReArticleDAO_interface {
 	private final static String UPDATE_RE_ARTICLE = "update re_article set re_content = ? where article_id = ? and re_id = ? and member_id = ?";
 
 	@Override
-	public boolean updateReArticle(String reContent, int reId, int articleId, int memberId) {
+	public void updateReArticle(String reContent, int reId, int articleId, int memberId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -118,7 +118,6 @@ public class ReArticleDAOJNDI implements ReArticleDAO_interface {
 				}
 			}
 		}
-		return true;
 	}
 
 	// 取得全部回文

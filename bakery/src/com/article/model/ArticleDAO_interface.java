@@ -5,13 +5,13 @@ import java.util.List;
 import com.rearticle.model.ReArticleBean;
 
 public interface ArticleDAO_interface {
-	public abstract int insertArticle(ArticleBean bean);
+	public abstract void insertArticle(ArticleBean bean);
 	public abstract int delete(int articleId);
 	public abstract void updateArticleHidden(int articleId , int memberId , int hidden);
-	public abstract boolean updateArticle(int articleClassNo , String articleTitle , String content, int articleId, int memberId);
+	public abstract void updateArticle(int articleClassNo , String articleTitle , String content, int articleId, int memberId);
 	public abstract void updateReArticleCount(int reId, int articleId, ReArticleBean bean);
+	public abstract void updateBrowserCount(int articleId);
 	public abstract int getBrowserCount(int articleId);
-	public abstract void updateBrowserCount(int articleId , int browserCount);
 	public abstract ArticleBean getOne(int articleId);
 	public abstract int getRecordCounts();
 	public abstract List<ArticleBean> getPageArticles(int startRow, int recordsPerRow);
