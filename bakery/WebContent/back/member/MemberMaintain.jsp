@@ -6,6 +6,9 @@
 <%
 
 	MemberService service = new MemberService();
+	
+	MemberBean bean = new MemberBean();
+	
 
 // 	List<MemberBean> bean = service.
 
@@ -105,7 +108,7 @@
 
 
 		<!-- Modal -->
-		
+	
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -136,6 +139,7 @@
 						<br>
 
 					</div>
+					
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
 						<button type="submit" class="btn btn-primary" name="action" value="update">確定</button>
@@ -144,6 +148,7 @@
 				</div>
 			</div>
 		</div>
+	
 <script src="../js/jquery-2.1.4.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 

@@ -33,56 +33,46 @@ public class ArticleDAOJNDI implements ArticleDAO_interface {
 			+ "article_make, re_article_date, hidden) values (?,?,?,?,0,0,GETDATE(),GETDATE(),0)";
 	private static final String FIND_NEW_ARTICLE = "select MAX(article_id) as article_id from article where member_id = ?";
 
-//	// 新增文章
-//	@Override
-//	public int insertArticle(int memberId, int articleClassNo, String articleTitle, String content) {
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs = null;
-//		int articleId = 0;
-//		try {
-//			conn = ds.getConnection();
-//			pstmt = conn.prepareStatement(INSERT_ARTICLE);
-//			pstmt.setInt(1, memberId);
-//			pstmt.setInt(2, articleClassNo);
-//			pstmt.setString(3, articleTitle);
-//			pstmt.setString(4, content);
-//			int i = pstmt.executeUpdate();
-//			if (i == 1) {
-//				pstmt = conn.prepareStatement(FIND_NEW_ARTICLE);
-//				pstmt.setInt(1, memberId);
-//				rs = pstmt.executeQuery();
-//				if (rs.next()) {
-//					articleId = rs.getInt("article_id");
-//				}
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			if (pstmt != null) {
-//				try {
-//					pstmt.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if (conn != null) {
-//				try {
-//					conn.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//			if (rs != null) {
-//				try {
-//					rs.close();
-//				} catch (SQLException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
-//		return articleId;
-//	}
+	// 新增文章
+	@Override
+	public void insertArticle(ArticleBean bean) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(INSERT_ARTICLE);
+			pstmt.setInt(1, bean.getMemberId());
+			pstmt.setInt(2, bean.getArticleClassNo());
+			pstmt.setString(3, bean.getArticleTitle());
+			pstmt.setString(4, bean.getContent());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 
 	// 刪除
 	private static final String DELETE = "delete from Article where article_id = ?";
@@ -96,7 +86,7 @@ public class ArticleDAOJNDI implements ArticleDAO_interface {
 	private final static String UPDATE_ARTICLE = "update article set article_class_no = ? , article_title = ? , content = ? where article_id = ? and member_id = ?";
 
 	@Override
-	public boolean updateArticle(int articleClassNo, String articleTitle, String content, int articleId, int memberId) {
+	public void updateArticle(int articleClassNo, String articleTitle, String content, int articleId, int memberId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -126,7 +116,6 @@ public class ArticleDAOJNDI implements ArticleDAO_interface {
 				}
 			}
 		}
-		return true;
 	}
 
 	// 更新回文次數跟時間
@@ -705,35 +694,35 @@ public class ArticleDAOJNDI implements ArticleDAO_interface {
 
 	private final static String UPDATE_BROWSER_COUNT = "update article set browser_count = ? where article_id = ?";
 
-	@Override
-	public void updateBrowserCount(int browserCount, int articleId) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(UPDATE_BROWSER_COUNT);
-			pstmt.setInt(1, browserCount);
-			pstmt.setInt(2, articleId);
-			pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-	}
+//	@Override
+//	public void updateBrowserCount(int browserCount, int articleId) {
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		try {
+//			conn = ds.getConnection();
+//			pstmt = conn.prepareStatement(UPDATE_BROWSER_COUNT);
+//			pstmt.setInt(1, browserCount);
+//			pstmt.setInt(2, articleId);
+//			pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		} finally {
+//			if (conn != null) {
+//				try {
+//					conn.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//			if (pstmt != null) {
+//				try {
+//					pstmt.close();
+//				} catch (SQLException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//	}
 
 	private final static String UPDATE_ARTICLE_HIDDEN = "update article set hidden = ? where article_Id = ? and member_Id= ?";
 
@@ -769,8 +758,9 @@ public class ArticleDAOJNDI implements ArticleDAO_interface {
 	}
 
 	@Override
-	public int insertArticle(ArticleBean bean) {
+	public void updateBrowserCount(int articleId) {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
+
 }

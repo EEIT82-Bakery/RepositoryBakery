@@ -18,6 +18,9 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		try {
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
+			Query query  = session.createQuery("from MemberBean where Member_id=?");
+			query.setParameter(0, memberid);
+			bean = (MemberBean) query.uniqueResult();
 
 			session.getTransaction().commit();
 		} catch (HibernateException e) {

@@ -193,8 +193,8 @@
                             <img src="${pageContext.request.contextPath}/front/member/main/images/m4.png" id="m4" alt="">
                             <div class="caption">
                                 <h4>我的帳戶</h4>
-                                <p>	<a href="<c:url value="/front/member/main/member.do" >
-								<c:param name="id" value="${isLogin.member_id}" />
+                                <p>	<a href="<c:url value="/memberchg.do" >
+								<c:param name="account" value="${isLogin.account}" />
 									</c:url>">會員資料查詢/修改</a>	</p>
 									
 <%-- 								<form method="post" action='<c:url value="/front/member/main/member.do"/>' > --%>
@@ -205,7 +205,7 @@
 <!-- 								<p> -->
 <%-- 								 <a href="${pageContext.request.contextPath}/front/member/main/member.do?id=${isLogin.member_id}">修改會員資訊</a> --%>
 <!-- 								</p> -->
-								
+									<a href="${pageContext.request.contextPath}/xxx/membersa.controller?member_id=${isLogin.member_id}">維護會員權限</a>
 								<p> <a href="<c:url value="/homeindex.do">
 								<c:param name="account" value="${isLogin.account}" />
 								</c:url>">我的討論區頁面</a></p>								

@@ -33,20 +33,10 @@ public class MemberServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
-	
-	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doPost(req,resp);
 	}
-
-
-
-
-
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
@@ -56,26 +46,14 @@ public class MemberServlet extends HttpServlet {
 			HttpSession session = req.getSession();
 //			int memberid = (int) session.getAttribute("id");
 			String id = req.getParameter("id");
+			System.out.println(id);
 			int memberid  =Integer.parseInt(id);
+			System.out.println(memberid);
 			MemberBean bean = memberservice.getOneId(memberid);
+			System.out.println(bean);
 			bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));
 			session.setAttribute("SelectMo", bean);
 			resp.sendRedirect(req.getContextPath() + "/front/member/myimformation/test.jsp");
-
-			
-//---------------------------------------------------------//
-//			String action = req.getParameter("action");
-//		if ("登出".equals(action)) {
-//			System.out.println(action);
-//			HttpSession session1 = req.getSession(false);
-//			if (session1 != null) {
-//				session1.invalidate();
-//			}
-//			String path = req.getContextPath();
-//			resp.sendRedirect(path + "/index.jsp");
-//		}
-//---------------------------------------------------------//
-	
 		
 	}
 

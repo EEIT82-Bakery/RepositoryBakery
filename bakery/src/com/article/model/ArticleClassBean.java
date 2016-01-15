@@ -19,21 +19,7 @@ public class ArticleClassBean {
 				CascadeType.REMOVE
 		}
 	)
-	
 	private Set<ArticleBean> articles;
-	
-	@Override
-	public String toString() {
-		return articleClassName;
-	}
-
-	public Set<ArticleBean> getArticles() {
-		return articles;
-	}
-
-	public void setArticles(Set<ArticleBean> articles) {
-		this.articles = articles;
-	}
 
 	@Id
 	@Column(name = "article_Class_No")
