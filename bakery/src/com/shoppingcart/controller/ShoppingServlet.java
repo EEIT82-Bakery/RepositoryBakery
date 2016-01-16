@@ -67,6 +67,8 @@ public class ShoppingServlet extends HttpServlet {
 				session.setAttribute("shoppingcart", buylist);	
 			}
 		} else if (action.equals("CHECKOUT")) {
+			
+			
 			int total = 0;
 			for (int i = 0; i < buylist.size(); i++) {
 				ProductBean order = buylist.get(i);

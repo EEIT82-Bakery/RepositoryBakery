@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,6 +13,7 @@ import javax.persistence.Table;
 @Table(name="Vote_item")
 public class VoteitemBean implements java.io.Serializable{
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Vote_item_id")
 	private int voteItemId;
 	@Column(name="Vote_item_name")
@@ -51,8 +54,8 @@ public class VoteitemBean implements java.io.Serializable{
 	
 	@Override
 	public String toString() {
-		return "voteItemId=" + voteItemId + ", voteItemName=" + voteItemName + ", voteItemPhoto="
-		+ Arrays.toString(voteItemPhoto)  + ", voteId=" + voteId ;
+		return  voteItemId + ", " + voteItemName + ","
+		+ Arrays.toString(voteItemPhoto)  + "," + voteId ;
 	}
 
 	

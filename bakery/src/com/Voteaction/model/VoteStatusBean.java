@@ -32,7 +32,7 @@ public class VoteStatusBean implements java.io.Serializable{
 	
 	@Override
 	public String toString() {
-		return  Vote_status_id + Vote_status ;
+		return  Vote_status_id +","+ Vote_status ;
 	}
 	
 }

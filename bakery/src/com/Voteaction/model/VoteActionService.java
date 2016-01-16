@@ -4,11 +4,9 @@ import java.util.List;
 
 public class VoteActionService {
 	
-		private VoteAction dao;
+		private VoteAction_Interface dao;
 		
-		public VoteActionService(){
-			dao=new VoteActionJNDI();
-		}
+		
 		
 		public List<VoteActionBean> selectall(){
 			

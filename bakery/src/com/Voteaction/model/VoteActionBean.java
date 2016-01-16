@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,8 +13,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name="Vote_action")
 public class VoteActionBean implements java.io.Serializable{
-
+	
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="Vote_id")
 	private int voteId;
 	@Column(name="Vote_title")
@@ -64,8 +67,10 @@ public class VoteActionBean implements java.io.Serializable{
 		this.voteEndDate = voteEndDate;
 	}
 	
-
-
+	@Override
+	public String toString() {
+		return  voteId +"," + voteTitle  +","+ voteDescribe+","
+			+ voteStartDate  +","+ voteEndDate +"," + voteStatus;
+	}
 	
-
 }
