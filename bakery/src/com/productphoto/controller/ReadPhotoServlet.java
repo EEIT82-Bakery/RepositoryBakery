@@ -17,7 +17,6 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import com.productphoto.model.ProductPhotoBean;
 import com.productphoto.model.ProductPhotoService;
 
-import sun.misc.BASE64Encoder;
 
 @WebServlet("/ReadPhoto.do")
 public class ReadPhotoServlet extends HttpServlet {
