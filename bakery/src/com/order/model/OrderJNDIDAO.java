@@ -15,12 +15,15 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.product.model.ProductBean;
+
 
 
 
 public class OrderJNDIDAO implements OrderDAO_interface{
-	private static final String INSERT="   insert into Ord (Order_name,Order_phone,Order_address,Total_amount,Order_date,Ship_date,Cancel_date,Member_id,Order_status)values (?,?,?,?,GETDATE(),?,null,?,1)";
+	private static final String INSERT=" insert into Ord (Order_name,Order_phone,Order_address,Total_amount,Order_date,Ship_date,Cancel_date,Member_id,Order_status)values (?,?,?,?,GETDATE(),?,null,?,1)";
 	private static final String GET_ORDER_ID = "select MAX(Order_id) as Order_id from Ord";
+	private static final String SELECT_ID=" select Order_id,Order_name,Cancel_date,Member_id,Order_status from Ord where Order_id=?";
 	private static final String UPDATE="update Ord set Order_status=? where Order_id=?";
 	private static final String DELETE=" delete from Ord where Order_id=?";
 	
@@ -35,6 +38,51 @@ public class OrderJNDIDAO implements OrderDAO_interface{
 		}
 	}
 	
+	
+	
+	@Override
+	public List<OrderBean> select(int OrderId) {
+		List<OrderBean> beans = new ArrayList<>();
+		ResultSet rset = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(SELECT_ID);
+			stmt.setInt(1, OrderId);
+			rset = stmt.executeQuery();
+			while (rset.next()) {
+				OrderBean bean = new OrderBean();
+				bean.setOrderId(rset.getInt("Order_id"));
+				bean.setOrderName(rset.getString("Order_name"));
+				bean.setCancelDate(rset.getDate("Cancel_date"));
+				bean.setMemberId(rset.getInt("Member_id"));
+				bean.setOrderStaus(rset.getInt("Order_status"));
+				beans.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return beans;
+	}
 	
 	@Override
 	public int insertOrder(OrderBean bean) {
@@ -84,7 +132,6 @@ public class OrderJNDIDAO implements OrderDAO_interface{
 		}
 		return orderId;
 	}
-	
 	
 	public void update(OrderBean bean){
 		Connection conn = null;
@@ -154,7 +201,7 @@ public class OrderJNDIDAO implements OrderDAO_interface{
 	public static void main (String args[]){
 		OrderJNDIDAO dao =new OrderJNDIDAO();
 		OrderBean dao1 =new OrderBean();
-		dao.getConnection();
+//		dao.getConnection();
 //		System.out.println(dao.select(5));
 //		dao.delete(2);
 		
@@ -175,10 +222,5 @@ public class OrderJNDIDAO implements OrderDAO_interface{
 	}
 
 
-	@Override
-	public void getConnection() {
-		// TODO Auto-generated method stub
-		
-	}
 	
 }

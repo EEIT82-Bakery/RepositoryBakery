@@ -32,5 +32,7 @@ public interface MemberDAO_Interface {
 	
 	public abstract int getMemberStatus(int status);
 	
+	public abstract List<MemberBean> selectAllPage(int pageInt);
+	public abstract int getAllMember();
 	
 }

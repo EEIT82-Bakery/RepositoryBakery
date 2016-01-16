@@ -1,36 +1,98 @@
 package com.member.model;
 
+import hibernate.util.HibernateUtil;
+
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import org.hibernate.Session;
+
+import com.article.model.ArticleBean;
+import com.membergrade.model.MemberGradeBean;
+import com.rearticle.model.ReArticleBean;
+
+@Entity
+@Table(name = "Member")
 public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@OneToMany(mappedBy = "member")
+	private Set<ArticleBean> articles;
+	
+	@OneToMany(mappedBy = "member")
+	private Set<ReArticleBean> reArticles;
+	
+	@ManyToOne
+	@JoinColumn(name = "STATU", referencedColumnName = "STATU", insertable = false, updatable = false)
+	private MemberGradeBean membergrade;
+
+	public MemberGradeBean getMembergrade() {
+		return membergrade;
+	}
+
+	public void setMembergrade(MemberGradeBean membergrade) {
+		this.membergrade = membergrade;
+	}
+
+	@Id
+	@Column(name = "Member_id")
 	private int member_id;
+	@Column(name = "Account")
 	private String account;
+	@Column(name = "Password")
 	private byte[] password;
+	@Column(name = "Username")
 	private String username;
+	@Column(name = "Sex")
 	private String sex;
+	@Column(name = "Birth")
 	private java.util.Date birth;
+	@Column(name = "Email")
 	private String email;
+	@Column(name = "Phone")
 	private String phone;
+	@Column(name = "Address")
 	private String address;
+	@Column(name = "Logindate")
 	private java.util.Date logindate;
+	@Column(name = "Last_date")
 	private java.sql.Timestamp last_date;
+	@Column(name = "Fromfb")
 	private String fromfb;
+	@Column(name = "Picture")
 	private byte[] picture;
+	@Column(name = "Statu")
 	private int status;
+	@Column(name = "Point")
 	private int point;
+	@Column(name = "Order_math")
 	private int order_math;
+	@Column(name = "NickName")
 	private String nickname;
+
+	@Transient
 	private String mpicture;
+	@Transient
 	private String permname;
-	private  int  articleid;
+	@Transient
+	private int articleid;
+
+	@Column()
 	private String kanban;
-	
-	
+
 	public MemberBean() {
 
 	}
@@ -176,20 +238,22 @@ public class MemberBean implements Serializable {
 		this.order_math = order_math;
 	}
 
-	
 	public String getNickname() {
 		return nickname;
 	}
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}	
+	}
+
 	public String getMpicture() {
 		return mpicture;
 	}
+
 	public void setMpicture(String mpicture) {
 		this.mpicture = mpicture;
 	}
+
 	public String getPermname() {
 		return permname;
 	}
@@ -197,19 +261,40 @@ public class MemberBean implements Serializable {
 	public void setPermname(String permname) {
 		this.permname = permname;
 	}
+
 	public int getArticleid() {
 		return articleid;
 	}
+
 	public void setArticleid(int articleid) {
 		this.articleid = articleid;
 	}
+
 	public String getKanban() {
 		return kanban;
 	}
+
 	public void setKanban(String kanban) {
 		this.kanban = kanban;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+
+	public static void main(String[] args) {
+		Session session = null;
+		MemberBean bean = null;
+		try {
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			Query query = session
+					.createQuery("from Member where account=:acconut");
+			query.setParameter("account", 1);
+			bean = (MemberBean) query.uniqueResult();
+			System.out.println(bean);
+
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+		}
+
 	}
+
 }

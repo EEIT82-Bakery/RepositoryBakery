@@ -14,7 +14,7 @@ public class OrderBean implements java.io.Serializable{
 	private java.util.Date shipDate;
 	private java.util.Date cancelDate;
 	private int memberId;
-	private int OrderStaus;
+	private int orderStaus;
 	
 
 	
@@ -24,21 +24,8 @@ public class OrderBean implements java.io.Serializable{
 		return "OrderBean [orderId=" + orderId + ", orderName=" + orderName + ", orderPhone=" + orderPhone
 				+ ", orderAddress=" + orderAddress + ", totalAmount=" + totalAmount + ", orderDate=" + orderDate
 				+ ", shipDate=" + shipDate + ", cancelDate=" + cancelDate + ", memberId=" + memberId + ", OrderStaus="
-				+ OrderStaus + "]";
+				+ orderStaus + "]";
 	}
-
-//	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//	public static java.util.Date convertDate(String data) {
-//		java.util.Date result = null;
-//		try {
-//			result = sFormat.parse(data);
-//		} catch (ParseException e) {
-//			e.printStackTrace();
-//			result = new java.util.Date(0);
-//		}
-//		return result;
-//	}
-	
 
 	public int getOrderId() {
 		return orderId;
@@ -82,7 +69,7 @@ public class OrderBean implements java.io.Serializable{
 	public void setShipDate(java.util.Date shipDate) {
 		this.shipDate = shipDate;
 	}
-	public java.util.Date getCancelData() {
+	public java.util.Date getCancelDate() {
 		return cancelDate;
 	}
 	public void setCancelDate(java.util.Date cancelDate) {
@@ -95,12 +82,11 @@ public class OrderBean implements java.io.Serializable{
 		this.memberId = memberId;
 	}
 	public int getOrderStaus() {
-		return OrderStaus;
+		return orderStaus;
 	}
 	public void setOrderStaus(int orderStaus) {
-		OrderStaus = orderStaus;
+		this.orderStaus = orderStaus;
 	}
-	
 	
 	
 }

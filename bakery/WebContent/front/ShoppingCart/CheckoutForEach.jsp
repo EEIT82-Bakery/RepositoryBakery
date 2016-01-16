@@ -91,9 +91,10 @@ td {
 								<td colspan="4" align="right"><font color="red"><b>總金額：${amount}</b></font></td>
 							</tr>
 						</table>
-						<div id="cherk">
-							<input type="hidden" name="totalMmount" value="${amount}" /> <input
-								type="submit" value="確認送出" />
+						<div id="cherk">		
+							<input type="hidden" name="totalMmount" value="${amount}" /> 
+							<input type="hidden" name="action" value="insert">
+							<input type="submit" value="確認送出" />
 						</div>
 					</TD>
 				</tr>
