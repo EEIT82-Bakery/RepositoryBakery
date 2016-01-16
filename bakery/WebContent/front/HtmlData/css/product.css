@@ -41,3 +41,16 @@
 #nav1 ul {
 	display: none;
 }
+.page
+{
+	margin-left: 600px;
+}
+.page_ul{
+	margin-top: 40px;
+	list-style: none;
+	display: -webkit-inline-box;
+}
+.page_li{
+	padding-left: 10px;
+	font-size: large;
+}

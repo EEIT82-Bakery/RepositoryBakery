@@ -1,5 +1,6 @@
 package com.Voteitem.model;
 
+<<<<<<< HEAD
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,6 +15,19 @@ public class VotePersonBean implements java.io.Serializable{
 	private int MemberId;
 	@Id
 	@Column(name="Vote_item_id")
+=======
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+@Entity
+@Table(name="Vote_Person")
+public class VotePersonBean implements java.io.Serializable{
+	@Id
+	@TableGenerator(name="")
+	private int MemberId;
+>>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
 	private int VoteItemId;
 	
 	
