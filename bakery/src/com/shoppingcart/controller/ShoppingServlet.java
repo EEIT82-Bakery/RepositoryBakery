@@ -29,8 +29,10 @@ public class ShoppingServlet extends HttpServlet {
 			if (action.equals("DELETE")) {
 				String del = req.getParameter("del");
 				int d = Integer.parseInt(del);
+				System.out.println(d);
 				buylist.removeElementAt(d);
 				session.setAttribute("shoppingcart", buylist);
+				
 				String url = "/front/ShoppingCart/Cart.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, resp);

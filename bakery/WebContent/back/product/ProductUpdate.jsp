@@ -33,17 +33,12 @@ function clearForm() {
 						<tr>
 							<th colspan="3">修改產品資料</th>
 						</tr>
-					</thead>
-						<tr>
-						<tr>
-						<td>產品ID:</td>
-						<td><input type="text" name="productId" readonly="readonly" 
-							value="${param.productId}" size="40"></td>
-						<td>${errors.productId}</td>
-					</tr>
+					</thead>					
 					<tr>
 						<td>產品名稱:</td>
-						<td><input type="text" name="productName"
+						<td><input type="hidden" name="productId" readonly="readonly" 
+							value="${param.productId}" >
+						<input type="text" name="productName"
 							value="${param.productName}" size="40"></td>
 						<td>${errors.productName}</td>
 					</tr>

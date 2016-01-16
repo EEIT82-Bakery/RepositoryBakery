@@ -1,8 +1,19 @@
 package com.Voteitem.model;
 
-public class VotePersonBean implements java.io.Serializable{
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Vote_Person")
+public class VotePersonBean implements java.io.Serializable{
+	
+	@Id
+	@Column(name = "Member_id")
 	private int MemberId;
+	@Id
+	@Column(name="Vote_item_id")
 	private int VoteItemId;
 	
 	
