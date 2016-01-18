@@ -20,7 +20,7 @@
 </FORM>
 	<br/>
    <table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed;">
-  <tr>
+   <tr>
    		<th>會員ID</th>
 		<th>訂單ID</th>
 		<th>收件人姓名</th>
