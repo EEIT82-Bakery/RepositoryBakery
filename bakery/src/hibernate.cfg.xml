@@ -16,9 +16,12 @@
 
 		<mapping class="com.member.model.MemberBean" />
 		<mapping class="com.membergrade.model.MemberGradeBean" />
+
 		<mapping class="com.article.model.ArticleBean" />
 		<mapping class="com.rearticle.model.ReArticleBean" />
-		<mapping class="com.article.model.ArticleClassBean" />
+		<mapping class="com.articleclass.model.ArticleClassBean" />
+		<mapping class="com.articlereport.model.ArticleReportBean" />
+		<mapping class="com.rearticlereport.model.ReArticleReportBean" />
 
 		<!-- 投票活動 -->
 		<mapping class="com.Voteaction.model.VoteActionBean"/>
