@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
 
@@ -86,15 +87,29 @@ public class MemberService {
 		return false;
 	}
 	
-	//**修改個人資訊
-	public MemberBean updateimf(int memberid, Date birth, String phone, String email, String address, String nickname) {
+	//**查詢密碼
+	public MemberBean updatePassword(String account, String password) {
 		MemberBean bean = new MemberBean();
-		bean.setMember_id(memberid);
-		bean.setBirth(birth);
+		bean.setAccount(account);
+		byte[] pass = password.getBytes();
+		byte[] temp = messageDigest.digest(pass);
+		dao.update(temp, account);
+		return bean;
+	}
+	
+	
+	//**修改個人資訊
+	public MemberBean updateimf(String phone, String email, String address, String nickname,byte[] piture,int memberid) {
+		MemberBean bean = new MemberBean();
 		bean.setPhone(phone);
 		bean.setEmail(email);
 		bean.setAddress(address);
-		bean = dao.update(birth, phone, email, address, nickname, memberid);
+		bean.setNickname(nickname);
+		bean.setPicture(piture);
+		bean.setMember_id(memberid);
+		System.out.println("service:"+bean);
+		dao.update(phone, email, address, nickname, piture,memberid);
+		System.out.println("service:"+bean);
 		return bean;
 	}
 	
@@ -112,6 +127,7 @@ public class MemberService {
 	}	
 	//**取得一筆資訊
 	public MemberBean getOneId(int memberid){
+		System.out.println("service"+memberid);
 		return dao.getOne(memberid);
 	}	
 	//**尋找資訊  以帳號
@@ -119,6 +135,12 @@ public class MemberService {
 		return dao.getMember(account);
 	}
 
+	public MemberBean getPassword(String account,String email){
+		return dao.selectPassword(account, email);
+	}
+	
+	
+	
 	//**取得有狀態的帳號  有join
 	public MemberBean getMember(String account){
 		return dao.getMember(account);
@@ -155,6 +177,17 @@ public class MemberService {
 		return dao.getALL();
 		
 	}
+	//**比對帳號
+	public List<String> getAllMemAccount(){
+		return dao.getAllAccount();
+	}
+	
+	
+	//**信箱比對
+	public boolean emailExists(String email){
+		return dao.emailExists(email);
+	}
+	
 	
 	//*會員的個人資訊
 	public List<MemberBean> getAllMem(String account){
@@ -199,6 +232,34 @@ public class MemberService {
 	public List<MemberBean> seletPage(int pageInt){
 		
 		return dao.selectAllPage(pageInt);
+	}
+	
+	
+	//******後台
+	
+	public List<MemberBean> select(int member_id){
+		System.out.println("service成功");
+		List<MemberBean> list = null;
+		System.out.println("service:"+list);
+		if(list==null){
+		list = dao.selectAllByid(member_id);
+		}
+		
+		return list;
+		
+	}
+	public List<MemberBean> getAllMember(Map<String, String[]> map) {
+		return dao.getAll(map);
+	}
+	
+	//*修改狀態
+	public MemberBean updateStatus(int memberid,int status){
+		MemberBean bean = new MemberBean();
+		bean.setMember_id(memberid);
+		bean.setStatus(status);
+		dao.updateState(bean);
+		return bean;
+		
 	}
 	
 	

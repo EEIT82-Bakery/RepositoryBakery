@@ -25,7 +25,7 @@
 
 
 
-<form class="form-horizontal" action="<c:url value='/front/member/main/ChangePassword.controller' />" method="post">
+<form class="form-horizontal" action="<c:url value='/front/member/main/member.do' />" method="post">
 <fieldset>
 <!-- Form Name -->
 <legend>更改密碼</legend>
@@ -77,7 +77,6 @@
 
 
 
-</div>
 
 
 </body>

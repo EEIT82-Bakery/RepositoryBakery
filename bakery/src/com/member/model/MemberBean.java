@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -252,6 +253,10 @@ public class MemberBean implements Serializable {
 	}
 
 	
+	
+	
+	
+
 	public static  void main(String[] args){
 		Session session = null;
 		MemberBean bean = null;

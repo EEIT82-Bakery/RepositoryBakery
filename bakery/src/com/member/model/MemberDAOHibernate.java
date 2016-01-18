@@ -1,30 +1,35 @@
 package com.member.model;
 
-import hibernate.util.HibernateUtil;
-
-import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
+
+import com.article.model.ArticleBean;
+
+import hibernate.util.HibernateUtil;
 
 public class MemberDAOHibernate implements MemberDAO_Interface {
 
 	@Override
 	public MemberBean getOne(int memberid) {
-		Session session = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		MemberBean bean = null;
 		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			Query query  = session.createQuery("from MemberBean where Member_id=?");
 			query.setParameter(0, memberid);
 			bean = (MemberBean) query.uniqueResult();
-
+			System.out.println("service"+"hi");
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
+			throw e;
 		}
 
 		return bean;
@@ -44,10 +49,11 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
+			throw e;
 		}
 		return bean;
 	}
-
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MemberBean> getALL() {
 		Session session = null;
@@ -55,43 +61,62 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		try {
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
-			Query query = session.createQuery("from MemberBean ORDER BY Member_id");
-			list = query.list();
+			list= session.createQuery("from MemberBean").list();
+			
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
+			throw e;
 		}
-		return null;
+		return list;
 	}
 
+	private static final String UPADTEUNI="Update MemberBean set phone=?,email=?,address=?,nickname=?,picture=? where member_id=?";
 	@Override
-	public MemberBean update(Date birth, String phone, String email,
-			String address, String nickname, int memberid) {
-
+	public void update(String phone, String email,
+			String address, String nickname,byte[] picture, int memberid) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		
-		
-		
-		return null;
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery(UPADTEUNI);
+			query.setParameter(0, phone);
+			query.setParameter(1, email);
+			query.setParameter(2, address);
+			query.setParameter(3, nickname);
+			query.setParameter(4, picture);
+			query.setParameter(5, memberid);
+			query.executeUpdate();
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
 	}
-
+		
+			
+	private static final String SELECT_ACC="FROM MemberBean WHERE account=?";
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<MemberBean> getAllMem(String account) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		List<MemberBean> lists = null;
 		try {
 			session.beginTransaction();
-
 			
-			
+			Query query = session.createQuery(SELECT_ACC);
+			lists=query.list();
 			
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
+			throw e;
 		}
-		return null;
+		return lists;
 		
 	}
 
-	private static final String UPDATE_PWD = "UPDATE MEMBERBEAN SET Password=? WHERE Account= ?";
+	private static final String UPDATE_PWD = "UPDATE MemberBean SET Password=? WHERE Account= ?";
 	@Override
 	public boolean update(byte[] password, String account) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -104,6 +129,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 			session.getTransaction().commit();
 		}catch(RuntimeException e){
 			session.getTransaction().rollback();
+			throw e;
 		}
 	
 		return true;
@@ -116,9 +142,9 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 			session.beginTransaction();
 			session.saveOrUpdate(bean);
 			session.getTransaction().commit();
-		} catch (RuntimeException ex) {
+		} catch (RuntimeException e) {
 			session.getTransaction().rollback();
-			throw ex;
+			throw e;
 		}
 		return bean;
 	}
@@ -129,12 +155,16 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		try {
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
-
+			
+			
+			
+			
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
+			throw e;
 		}
-		return false;
+		return true;
 	}
 
 	@Override
@@ -185,7 +215,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 			session.getTransaction().rollback();
 			throw e;
 		}
-		return null;
+		return bean;
 	}
 
 	@Override
@@ -277,10 +307,153 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 			query.setParameter(1, bean.getAccount());
 			query.executeUpdate();
 			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+	}
+	
+	
+	
+	private static final String GET_BY_ID = "FROM MemberBean WHERE member_id = ?";
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> selectAllByid(int memberid) {
+		List<MemberBean> list = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery(GET_BY_ID);
+			list = query.list();
+			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
 			throw ex;
 		}
+		return list;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<MemberBean> getAll(Map<String, String[]> map) {
+		List<MemberBean> list = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Criteria query = session.createCriteria(MemberBean.class);
+			Set<String> keys = map.keySet();
+			for (String key : keys) {
+				String value = map.get(key)[0];
+				if (value!=null && value.trim().length()!=0 && !"action".equals(key)) {
+					query = MemberCompositeQuery.getCriteria(query, key, value);
+				}
+			}
+			query.addOrder( Order.asc("Member_id") );
+			list = query.list();
+			
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			session.getTransaction().rollback();
+			throw e;
+		} 
+		return list;
+	}
+
+	@Override
+	public void changePassword(MemberBean bean) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery(UPDATE_PWD);
+			query.setParameter(0, bean.getPassword());
+			query.setParameter(1, bean.getAccount());
+			query.executeUpdate();
+			session.getTransaction().commit();
+		} catch (RuntimeException ex) {
+			session.getTransaction().rollback();
+			
+		}
+	}
+
+	@Override
+	public boolean emailExists(String email) {
+		Session session = null;
+		try {
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			Query query = session
+					.createQuery("from MemberBean where email=:email");
+			query.setParameter("email", email);
+			
+		
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return true;
+	}
+
+	
+	private final static String selectPwd = "From MemberBean where email = ? and account= ?";
+	
+	@Override
+	public MemberBean selectPassword(String account, String email) {
+		
+	Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+	MemberBean bean = null;
+	try {
+		session.beginTransaction();
+		
+		
+		bean = (MemberBean) session.createQuery(selectPwd)
+				.setParameter(0, email)
+				.setParameter(1, account)
+				.uniqueResult();
+		session.getTransaction().commit();
+	} catch (HibernateException e) {
+		e.printStackTrace();
+		session.getTransaction().rollback();
+	}
+	return bean;
+}
+
+	private static final String UPDATE_STATE = "UPDATE MemberBean SET Statu = ? WHERE Member_id = ?";
+	@Override
+	public void updateState(MemberBean bean) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery(UPDATE_STATE);
+			query.setParameter(0,bean.getStatus());
+			query.setParameter(1,bean.getMember_id());
+			query.executeUpdate();
+			session.getTransaction().commit();
+		} catch (RuntimeException ex) {
+			session.getTransaction().rollback();
+			throw ex;
+		}
+		
+	}
+	
+	private static final String GET_ALL_ACCOUNT = "SELECT Account FROM MemberBean";
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getAllAccount() {
+		List<String> list = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery(GET_ALL_ACCOUNT);
+			list = query.list();
+			
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return list;
 	}
 		
 	

@@ -38,6 +38,7 @@ public class BackMemberServlet extends HttpServlet{
 		for(MemberBean bean : list){
 			bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));			
 		}	
+		
 		req.setAttribute("bean", list);
 		req.setAttribute("page", pageInt);
 		int allcount= memberservice.getMemberCount();
