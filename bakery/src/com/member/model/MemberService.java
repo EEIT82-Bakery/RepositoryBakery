@@ -139,7 +139,11 @@ public class MemberService {
 		return dao.selectPassword(account, email);
 	}
 	
+	//**比對帳號密碼
 	
+	public MemberBean getAccountEmail(String account,String email){
+		return dao.getMemberEmail(account, email);
+	}
 	
 	//**取得有狀態的帳號  有join
 	public MemberBean getMember(String account){

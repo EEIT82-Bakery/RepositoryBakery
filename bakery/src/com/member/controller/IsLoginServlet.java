@@ -122,8 +122,10 @@ public class IsLoginServlet extends HttpServlet {
 			}
 			System.out.println("no error");
 			service = new MemberService();			
-			MemberBean bean = service.getAccount(account);
-			System.out.println(bean);
+
+//			MemberBean bean = service.getAccount(account);		
+			MemberBean bean = service.getAccountEmail(account,email);
+
 			if (bean == null) {
 				errors.put("account", "無此帳號");
 				req.getRequestDispatcher("/front/member/login/selectPassword.jsp").forward(req, resp);
@@ -157,9 +159,7 @@ public class IsLoginServlet extends HttpServlet {
 				}					
 			}
 				
-	
-			
-			
+		
 			
 			
 		}

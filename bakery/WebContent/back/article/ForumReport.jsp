@@ -1,24 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <%@ include file="../fragment/css.jsp"%>
-<link href="${pageContext.request.contextPath}/front/HtmlData/css/articletop.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/back/HtmlData/css/articletop.css" rel="stylesheet" />
 <style>
+.glyphicon {
+    line-height: 1.42857143;
+   }
 </style>
 </head>
 <body>
-	<!-----------------------------------------nav------------------------------------------>
-	<%@ include file="../fragment/nav.jsp"%>
-	<!-----------------------------------------nav------------------------------------------>
-	<div class="container-fluid">
+	<%@ include file="../fragment/main.jsp"%>
+	<div class="col-xs-10 main">
 		<!-----------------------------------------main----------------------------------------->
+		<h1>管理討論區</h1>
 		<div class="row">
 			<div class="col-xs-10">
 				<!--文章種類-->
 				<div class="col-xs-8 class">
-					<a href="Forum.do" <c:if test="${empty param.ClassNo}">class="active"</c:if>>所有主題</a>
+					<a href="BackForum.do" <c:if test="${empty param.ClassNo}">class="active"</c:if>>所有主題</a>
 					<jsp:useBean id="articleClassSvc" scope="page" class="com.articleclass.model.ArticleClassService" />
 					<c:forEach var="articleClassBean" items="${articleClassSvc.articleClass}">
 						<a href="Forum.do?ClassNo=${articleClassBean.articleClassNo}"
@@ -72,9 +74,6 @@
 			</div>
 		</div>
 		<!-----------------------------------------main----------------------------------------->
-		<!--------footer-------->
-		<%@ include file="../fragment/footer.jsp"%>
-		<!--------footer-------->
 	</div>
 	<%@ include file="../fragment/js.jsp"%>
 </body>

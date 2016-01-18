@@ -39,6 +39,7 @@ public class ShoppingServlet extends HttpServlet {
 			} else if (action.equals("ADD")) {
 				boolean match = false;
 				ProductBean product = getProduct(req);
+				System.out.println("87="+product);
 				if (buylist == null) {
 					buylist = new Vector<ProductBean>();
 					buylist.add(product);
@@ -98,6 +99,7 @@ public class ShoppingServlet extends HttpServlet {
 		String productIdTemp = req.getParameter("productId");
 		ProductBean productBean = new ProductBean();
 		productBean.setQuantity((new Integer(quantity)).intValue());
+		
 		productBean.setProductName(name);
 		productBean.setProductPrice((new Integer(priceTemp)).intValue());
 		productBean.setDiscount((new Float(discountTemp)).floatValue());
