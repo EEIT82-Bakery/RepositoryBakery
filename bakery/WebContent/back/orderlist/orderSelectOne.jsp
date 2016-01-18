@@ -19,6 +19,7 @@
         
 </FORM>
 	<br/>
+	<div class="CSSTableGenerator">	
    <table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed;">
    <tr>
    		<th>會員ID</th>
@@ -65,7 +66,7 @@
 		</tr>
 			</c:forEach>
 	</table>
-	 
+	 	</div>
 	</div>
 	
 	

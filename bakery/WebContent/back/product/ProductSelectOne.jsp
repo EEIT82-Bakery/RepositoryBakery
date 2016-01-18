@@ -31,7 +31,7 @@
   </li>
   
 </ul>
-		
+	<div class="CSSTableGenerator">	
 	<table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed">
 	<tr>
 		<th>產品ID</th>
@@ -77,7 +77,7 @@
 
 
 </table>
-
+</div>
 	</div>
 	<!-----------------------------------------main----------------------------------------->
 	<%@ include file="../fragment/js.jsp"%>
