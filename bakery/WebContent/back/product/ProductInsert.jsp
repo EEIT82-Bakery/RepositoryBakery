@@ -50,7 +50,8 @@ function clearForm() {
 						<td>價格 :</td>
 						<td><input type="text" name="productPrice"
 							value="${param.productPrice}" size="40"></td>
-						<td>${errors.productPrice}</td>
+						<td>${errors.productPrice}
+						</td>
 					</tr>
 					<tr>
 						<td>產品圖片 :</td>

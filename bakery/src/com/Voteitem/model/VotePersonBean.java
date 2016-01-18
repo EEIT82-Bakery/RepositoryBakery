@@ -38,7 +38,7 @@ public class VotePersonBean implements java.io.Serializable{
 	
 	@Override
 	public String toString() {
-		return "MemberId= " + MemberId + ", VoteItemId=" + VoteItemId ;
+		return "MemberId= "+ MemberId + ", VoteItemId=" + VoteItemId ;
 	}
 	
 }

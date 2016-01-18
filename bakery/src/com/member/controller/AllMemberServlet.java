@@ -24,12 +24,8 @@ public class AllMemberServlet extends  HttpServlet{
 		resp.setContentType("text/html; charset=UTF-8");
 		String action = req.getParameter("action");
 		
-		
-	
 		MemberBean bean = new MemberBean();
-		
 		String account = req.getParameter("account");		
-	
 			List<MemberBean> result = memberservice.getAllMem(account);
 			req.setAttribute("ss", result);
 			req.getRequestDispatcher("/front/memberforum/userimfo.jsp").forward(req, resp);

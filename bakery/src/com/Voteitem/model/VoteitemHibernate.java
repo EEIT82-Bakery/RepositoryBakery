@@ -14,51 +14,25 @@ import hibernate.util.HibernateUtil;
 public class VoteitemHibernate implements Voteitem_Interface{
 	
 
-	public static void main (String args[]){
-		VoteitemHibernate test=new VoteitemHibernate();
-		VoteitemBean bean= new VoteitemBean();
-//		test.selectitem(2);
-		for(VoteitemBean b:test.selectitem(2)){
-			System.out.println(b);
-		}
+//	public static void main (String args[]){
+//		VoteitemHibernate test=new VoteitemHibernate();
+//		VoteitemBean bean= new VoteitemBean();
+//
 //		bean.setVoteItemName("開始活動2");
 //		bean.setVoteItemPhoto(null);
 //		bean.setVoteId(2);
-//		bean.setVoteStatus(1);
-//		test.delete(4);
-//		test.insert(bean);
-//		System.out.println(test.selectPk(2));
-//		test.update("開始活動", "這是一個端午節活動",java.sql.Date.valueOf("2015-10-16") , 1, 1);
-//		test.delete(1);
-//		System.out.println(test.selectall());
-	}
+//		
+//
+//	}
 
 	
 	
 	@Override
-	public void insert(int voteAtionId){
+	public void insert(VoteitemBean bean){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			
-			session.getTransaction().commit();
-		} catch (HibernateException e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		}
-	}
-
-
-
-	@Override
-	public void delete(int Vote_item_id) {
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			VoteitemBean bean=(VoteitemBean)session.get(VoteitemBean.class,Vote_item_id);
-			if(bean != null){ 
-			    session.delete(bean); 
-			   } 
+			session.save(bean);
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -84,12 +58,28 @@ public class VoteitemHibernate implements Voteitem_Interface{
 	}
 
 	@Override
+	public void delete(int Vote_item_id) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			VoteitemBean bean=(VoteitemBean)session.get(VoteitemBean.class,Vote_item_id);
+			if(bean != null){ 
+			    session.delete(bean); 
+			   } 
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+	}
+
+
+
+	@Override
 	public List<VoteitemBean> selectAll(VoteActionBean Vote_id) {
-		
 		
 		return null;
 	}
-	
 	
 	
 }

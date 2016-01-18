@@ -68,6 +68,7 @@
 						<h4>${aBean.productName}</h4>
 						<img src="<%=request.getContextPath()%>/DBGifReader.do?productId=${aBean.productId}" width="150px" height="150px">
 						<h6>單價 :${aBean.productPrice}</h6>
+
 					<div align="center">
 								<input type="submit" name="Submit" value="放入購物車">
 							</div>
@@ -78,8 +79,10 @@
 							<input type="hidden" name="discount" value="${aBean.discount}">
 							<input type="hidden" name="productTypeId" value="${aBean.productTypeId}">
 							<input type="hidden" name="productId" value="${aBean.productId}">
+							<input type="hidden" name="page" value="${page}">
 							<input type="hidden" name="action" value="ADD">
 						</form>
+
 					</div>
 				</c:forEach>
 <!-- 				<input type="number" id="quantity" name="quantity" value=1 min="0" max="10" style="width: 36px"> -->
