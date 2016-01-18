@@ -19,6 +19,12 @@
 	
 
 %>
+
+<%
+
+	int i = 0;
+    int x = 0;
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -98,6 +104,8 @@
 						<th>會員狀態</th>
 						<th></th>
 						<th>bbb</th>
+						<th>bbb</th>
+						<th>bbb</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -151,62 +159,51 @@
 								</FORM>
 								</td>
 							
-							
-							
+							<td><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<%=x++%>">詳細會員資料</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-			
-			
-<%-- 	<c:forEach var="bBean" items="${bean}"> --%>
-<!-- 		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal")">詳細會員資料</button> -->
-<%-- 		</c:forEach> --%>
-		
-<!-- 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
-<!-- 			<div class="modal-dialog"> -->
-				
-<!-- 				<div class="modal-content"> -->
-<!-- 					<div class="modal-header"> -->
-<!-- 						<button type="button" class="close" data-dismiss="modal"> -->
-<!-- 							<span aria-hidden="true">&times;</span> -->
-<!-- 							<span class="sr-only">Close</span> -->
-						
-						
-						
-<!-- 						</button> -->
-						
-<!-- 						<h4 class="modal-title" id="myModalLabel">會員資訊</h4> -->
-<!-- 					</div> -->
-					
-<!-- 					<div class="modal-body"> -->
-
-<!-- 						<br> -->
-<!-- 						<br>  -->
-<%-- 						生日:${cBean.username} --%>
-<!-- 						<br> -->
-<!-- 						<br>  -->
-<%-- 						手機:${cBean.phone} --%>
-<!-- 						<br> -->
-<!-- 						<br>  -->
-<%-- 						信箱:${cBean.email} --%>
-<!-- 						<br> -->
-<!-- 						<br> -->
-<%-- 						 地址:${bBean.address} --%>
-<!-- 						<br> -->
-
-<!-- 					</div> -->
-					
-<!-- 					<div class="modal-footer"> -->
-<!-- 						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button> -->
-<!-- 						<button type="submit" class="btn btn-primary" name="action" value="update">確定</button> -->
-<!-- 					</div> -->
-					
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div>	 -->
-
 	
+	<c:forEach var="gg" items="${bean}">
+		<div class="modal fade" id="myModal<%=i++%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">Close</span>
+						</button>
+						
+						<h4 class="modal-title" id="myModalLabel">會員資訊</h4>
+					</div>
+					
+					<div class="modal-body">
+						<br>
+						<br> 
+						生日:${gg.username}
+						<br>
+						<br> 
+						手機:${gg.phone}
+						<br>
+						<br> 
+						信箱:${gg.email}
+						<br>
+						<br>
+						 地址:${gg.address}
+						<br>
+
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>	
+	</c:forEach>
 		
 		
 			<c:if test="${not empty pageCount}">

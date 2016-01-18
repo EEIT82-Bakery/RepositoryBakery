@@ -28,6 +28,7 @@ public interface MemberDAO_Interface {
 	
 	//--------------------------statu--------------//
 	public MemberBean getMember(String account);
+	public MemberBean getMemberEmail(String account,String email);
 	//*-------------動態更新-----------------------*//
 	public MemberBean update(String kanban,int memberid);
 	

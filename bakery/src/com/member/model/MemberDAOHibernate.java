@@ -371,6 +371,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 			session.getTransaction().commit();
 		} catch (RuntimeException ex) {
 			session.getTransaction().rollback();
+			throw ex;
 			
 		}
 	}
@@ -455,7 +456,25 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		}
 		return list;
 	}
-		
+
+	@Override
+	public MemberBean getMemberEmail(String account, String email) {
+		Session session = null;
+		MemberBean bean = null;
+		try {
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
+			session.beginTransaction();
+			Query query = session.createQuery(
+					"from MemberBean where account = ? and email=?").setString(0, account).setString(1, email);
+			bean = (MemberBean) query.uniqueResult();
+
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return bean;
+	}
 	
 
 }
