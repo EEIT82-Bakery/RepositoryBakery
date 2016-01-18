@@ -77,7 +77,6 @@ public class ShoppingServlet extends HttpServlet {
 				int price = order.getProductPrice();
 				float discount = order.getDiscount();
 				int quantity = order.getQuantity();
-				System.out.println();
 				total += (price * quantity * discount);
 			}
 			String amount = String.valueOf(total);

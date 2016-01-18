@@ -23,9 +23,10 @@ import com.product.model.ProductBean;
 public class OrderJNDIDAO implements OrderDAO_interface{
 	private static final String INSERT=" insert into Ord (Order_name,Order_phone,Order_address,Total_amount,Order_date,Ship_date,Cancel_date,Member_id,Order_status)values (?,?,?,?,GETDATE(),?,null,?,1)";
 	private static final String GET_ORDER_ID = "select MAX(Order_id) as Order_id from Ord";
-	private static final String SELECT_ID=" select Order_id,Order_name,Cancel_date,Member_id,Order_status from Ord where Order_id=?";
+	private static final String SELECT_ID="select * from Ord where Order_id=?";
 	private static final String UPDATE="update Ord set Order_status=? where Order_id=?";
 	private static final String DELETE=" delete from Ord where Order_id=?";
+	private static final String SELECTLIST=" select Order_id,Order_name,Ship_date,Member_id,Order_status from Ord order by Order_status , Order_id desc";
 	
 	private static DataSource dataSource = null;
 
@@ -39,6 +40,50 @@ public class OrderJNDIDAO implements OrderDAO_interface{
 	}
 	
 	
+	
+	@Override
+	public List<OrderBean> selectList() {
+		List<OrderBean> beans = new ArrayList<>();
+		ResultSet rset = null;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(SELECTLIST);
+			rset = stmt.executeQuery();
+			while (rset.next()) {
+				OrderBean bean = new OrderBean();
+				bean.setMemberId(rset.getInt("Member_id"));
+				bean.setOrderId(rset.getInt("Order_id"));
+				bean.setOrderName(rset.getString("Order_name"));
+				bean.setShipDate(rset.getDate("Ship_date"));
+				bean.setOrderStaus(rset.getInt("Order_status"));
+				beans.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return beans;
+	}
+		
 	
 	@Override
 	public List<OrderBean> select(int OrderId) {
@@ -55,9 +100,14 @@ public class OrderJNDIDAO implements OrderDAO_interface{
 				OrderBean bean = new OrderBean();
 				bean.setOrderId(rset.getInt("Order_id"));
 				bean.setOrderName(rset.getString("Order_name"));
+				bean.setOrderPhone(rset.getString("Order_phone"));
+				bean.setOrderAddress(rset.getString("Order_Address"));
+				bean.setTotalAmount(rset.getInt("Total_amount"));
+				bean.setOrderDate(rset.getDate("Order_date"));
 				bean.setCancelDate(rset.getDate("Cancel_date"));
+				bean.setShipDate(rset.getDate("Ship_date"));
 				bean.setMemberId(rset.getInt("Member_id"));
-				bean.setOrderStaus(rset.getInt("Order_status"));
+				bean.setOrderStaus(rset.getInt("Order_status"));				
 				beans.add(bean);
 			}
 		} catch (SQLException e) {
@@ -200,24 +250,24 @@ public class OrderJNDIDAO implements OrderDAO_interface{
 	
 	public static void main (String args[]){
 		OrderJNDIDAO dao =new OrderJNDIDAO();
-		OrderBean dao1 =new OrderBean();
+//		OrderBean dao1 =new OrderBean();
 //		dao.getConnection();
 //		System.out.println(dao.select(5));
 //		dao.delete(2);
-		
-		
+	
+//		dao.selectList(3);
 		
 //		System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-		dao1.setOrderName("禮節臭腦包");
-		dao1.setOrderPhone("0912345778");
-		dao1.setOrderAddress("美國");
-		dao1.setTotalAmount(400);
+//		dao1.setOrderName("禮節臭腦包");
+//		dao1.setOrderPhone("0912345778");
+//		dao1.setOrderAddress("美國");
+//		dao1.setTotalAmount(400);
 //		dao1.setOrderDate(new java.sql.Date(new java.util.Date().getTime()));
-		dao1.setShipDate(java.sql.Date.valueOf("2015-05-16"));
+//		dao1.setShipDate(java.sql.Date.valueOf("2015-05-16"));
 //		dao1.setCancelDate(null);
-		dao1.setMemberId(3);
+//		dao1.setMemberId(3);
 //		dao1.setOrderStaus(1);
-		dao.insertOrder(dao1);
+//		dao.insertOrder(dao1);
 	
 	}
 

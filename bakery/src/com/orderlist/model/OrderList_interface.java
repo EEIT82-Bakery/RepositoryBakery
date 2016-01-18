@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Vector;
 
 public interface OrderList_interface {
-	public void insertOrderItems(int orderId, Vector<OrderListBean> beans);
-	public void delete(int orderId);
+	public abstract void insertOrderItems(int orderId, Vector<OrderListBean> beans);
+	public abstract void delete(int orderId);
+	public abstract List<OrderListBean> selectProductList(int OrderId);
 }

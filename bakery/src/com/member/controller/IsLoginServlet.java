@@ -137,7 +137,7 @@ public class IsLoginServlet extends HttpServlet {
 				String mem_psw = RandomPassWord.getRandomPassWord(7);
 				service.updatePassword(account, mem_psw);
 				String to = email;
-				String from = "a0938988920@gmail.com";
+				String from = "q22488757@gmail.com";
 				String subject = "會員密碼通知";
 				List<String> attachment = Arrays.asList(
 						   new String[]{

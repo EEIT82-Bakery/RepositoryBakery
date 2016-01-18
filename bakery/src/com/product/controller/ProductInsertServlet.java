@@ -57,9 +57,11 @@ public class ProductInsertServlet extends HttpServlet {
 
 			if (temp1 == null || temp1.trim().length() == 0){
 				errors.put("productPrice", "金額不能為空白");
-			}else if(!temp1.matches("^/+?[1-9][0-9]*$")){
-				errors.put("productPrice", "金額必須為正整數");
-			} else{
+			}
+//			else if(!temp1.matches("^/+?[1-9][0-9]*$")){
+//				errors.put("productPrice", "金額必須為正整數");
+//			} 
+			else{
 				price = Integer.parseInt(temp1);
 			}
 
