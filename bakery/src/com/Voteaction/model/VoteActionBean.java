@@ -7,8 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
 
 @Entity
 @Table(name="Vote_action")
@@ -29,7 +30,16 @@ public class VoteActionBean implements java.io.Serializable{
 	@Column(name="Vote_status_id")
 	private int voteStatus;
 	
-	
+	@ManyToOne
+	@JoinColumn(name = "Vote_status_id", referencedColumnName = "Vote_status_id", insertable = false, updatable = false)
+	private VoteStatusBean votestatusbean;
+
+	public VoteStatusBean getVotestatusbean() {
+		return votestatusbean;
+	}
+	public void setVotestatusbean(VoteStatusBean votestatusbean) {
+		this.votestatusbean = votestatusbean;
+	}
 	public int getVoteStatus() {
 		return voteStatus;
 	}
@@ -72,5 +82,5 @@ public class VoteActionBean implements java.io.Serializable{
 		return  voteId +"," + voteTitle  +","+ voteDescribe+","
 			+ voteStartDate  +","+ voteEndDate +"," + voteStatus;
 	}
-	
+
 }

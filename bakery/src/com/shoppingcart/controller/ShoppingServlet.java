@@ -15,10 +15,10 @@ import com.product.model.ProductBean;
 
 @WebServlet("/Shopping.do")
 public class ShoppingServlet extends HttpServlet {
-	// public void doGet (HttpServletRequest req, HttpServletResponse res)
-	// throws ServletException, IOException {
-	// doPost(req, res);
-	// }
+	 public void doGet (HttpServletRequest req, HttpServletResponse res)
+	 throws ServletException, IOException {
+	 doPost(req, res);
+	 }
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -75,7 +75,6 @@ public class ShoppingServlet extends HttpServlet {
 				int price = order.getProductPrice();
 				float discount = order.getDiscount();
 				int quantity = order.getQuantity();
-				System.out.println();
 				total += (price * quantity * discount);
 			}
 			String amount = String.valueOf(total);

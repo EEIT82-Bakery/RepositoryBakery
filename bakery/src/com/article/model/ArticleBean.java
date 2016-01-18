@@ -45,9 +45,6 @@ public class ArticleBean implements java.io.Serializable {
 		this.articleClass = articleClass;
 	}
 
-	@OneToMany(mappedBy = "article")
-	private Set<ReArticleBean> reArticles;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "article_Id")

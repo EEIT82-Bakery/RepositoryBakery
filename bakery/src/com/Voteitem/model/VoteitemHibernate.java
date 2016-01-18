@@ -36,11 +36,11 @@ public class VoteitemHibernate implements Voteitem_Interface{
 	
 	
 	@Override
-	public void insert(VoteitemBean itemBean){
+	public void insert(int voteAtionId){
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.save(itemBean);
+			
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
