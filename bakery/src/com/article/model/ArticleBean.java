@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.articleclass.model.ArticleClassBean;
 import com.member.model.MemberBean;
 import com.rearticle.model.ReArticleBean;
 

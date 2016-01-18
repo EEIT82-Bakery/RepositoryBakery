@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="java.util.*"%>
-<%@ page import="com.product.model.ProductBean"%>
 
-<% int i = 0; %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,6 +23,7 @@
 <body>
 	<!-----------------------------------------nav------------------------------------------>
 	<%@ include file="../fragment/nav.jsp"%>
+	<% int i = 0; %>
 	<!-----------------------------------------nav------------------------------------------>
 	<div class="container-fluid">
 		<!-----------------------------------------main----------------------------------------->
@@ -41,20 +40,20 @@
 		
 			<c:forEach var="order" items="${shoppingcart}">
 				<tr>
-					<td width="200"><div align="center">
+					<td><div align="center">
 							<b>${order.productName}</b>
 						</div></td>
-					<td width="100"><div align="center">
+					<td><div align="center">
 							<b>${order.productPrice}</b>
 						</div></td>
-					<td width="100"><div align="center">
+					<td><div align="center">
 							<b>${order.discount}</b>
 						</div></td>
-					<td width="100"><div align="center">
+					<td><div align="center">
 							<b>${order.quantity}</b>
 						</div></td>
-					<td width="100"><div align="center">
-							<button class="del" onclick="deleteShoppingItems(<%=i++ %> , this)">刪除</button>
+					<td><div align="center">
+							<button class="del" onclick="deleteShoppingItems(<%=i++ %>)">刪除</button>
 						</div>
 						</td>
 				</tr>
@@ -76,11 +75,10 @@
 	</div>
 	<%@ include file="../fragment/js.jsp"%>
 	<script>
-		function deleteShoppingItems(del , thisDel) {			
+		function deleteShoppingItems(del) {			
 			xmlHttp = new XMLHttpRequest();
 			if (xmlHttp != null) {
-				xmlHttp.open("POST",
-						"${pageContext.request.contextPath}/Shopping.do", true);
+				xmlHttp.open("POST","${pageContext.request.contextPath}/Shopping.do", true);
 				xmlHttp.addEventListener("readystatechange", callback, false);
 				xmlHttp.setRequestHeader("Content-Type",
 						"application/x-www-form-urlencoded")
@@ -91,12 +89,24 @@
 			}
 			function callback() {
 				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-					$(function(){
-						$(thisDel).parents("tr").remove();
-					});
+					var orderItems = JSON.parse(xmlHttp.responseText);
+	            	var myTable = $('#shoppingCart');
+	            	document.getElementById('shoppingCart').deleteRow(1);
+					for (var i=0,max=orderItems.length;i<max;i++){
+	            		var cell1 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].ProductName+"</b></div>");
+	            		var cell2 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].Price+"</b></div>");
+	            		var cell3 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].Discount+"</b></div>");
+	            		var cell4 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].Quantity+"</b></div>");
+	            		var cell5 = $("<td></td>").html("<div align='center'></div>");
+	            		var row = $("<tr></tr>").append([cell1,cell2,cell3,cell4,cell5]);
+	            		$(myTable).append(row);	
+					}
 				}
 			}
-		}	
+		}
+		  $('#buttonLoad').on('click',function(){
+
+		  });
 	</script>
 </body>
 </html>
