@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.articleclass.model.ArticleClassBean;
 import com.rearticle.model.ReArticleBean;
 import com.rearticle.model.ReArticleDAOHibernate;
 
@@ -140,11 +141,6 @@ public class ArticleService {
 		bean.setReArticleMake(new java.util.Date());
 		bean.setHidden(0);
 		dao.insertArticle(bean);
-	}
-
-	// 查詢文章種類
-	public List<ArticleClassBean> getArticleClass() {
-		return dao.getArticleClass();
 	}
 
 	// 編輯文章

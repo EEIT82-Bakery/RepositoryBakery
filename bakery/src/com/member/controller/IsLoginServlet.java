@@ -122,15 +122,19 @@ public class IsLoginServlet extends HttpServlet {
 			}
 			System.out.println("no error");
 			service = new MemberService();			
-			MemberBean bean = service.getAccount(account);					
+
+//			MemberBean bean = service.getAccount(account);		
+			MemberBean bean = service.getAccountEmail(account,email);
+
 			if (bean == null) {
 				errors.put("account", "無此帳號");
 				req.getRequestDispatcher("/front/member/login/selectPassword.jsp").forward(req, resp);
 				return;
 			}	
 			
-			
+			System.out.println("-------------------");
 			if (bean != null && email.equals(bean.getEmail())) {
+				System.out.println("-----------11111111111--------");
 				String name = bean.getUsername();
 				System.out.println("name:"+name);
 				
@@ -155,9 +159,7 @@ public class IsLoginServlet extends HttpServlet {
 				}					
 			}
 				
-	
-			
-			
+		
 			
 			
 		}

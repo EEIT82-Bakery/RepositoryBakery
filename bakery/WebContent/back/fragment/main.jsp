@@ -32,7 +32,7 @@
 					<a href="${pageContext.request.contextPath}/OrderMemberServlet.do">管理訂單</a>
 				</li>
 				<li>
-					<a href="javascript:;" data-toggle="collapse" data-target="#demo" class="collapsed" aria-expanded="false">管理討論區 </a>
+					<a href="${pageContext.request.contextPath}/back/article/ForumManage.jsp" data-toggle="collapse" data-target="#demo" class="collapsed" aria-expanded="false">管理討論區 </a>
 					<ul id="demo" class="collapse" aria-expanded="false" style="height: 0px;">
 						<li>
 							<a href="#">管理種類</a>

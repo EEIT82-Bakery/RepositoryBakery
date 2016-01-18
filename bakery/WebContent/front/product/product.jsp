@@ -73,12 +73,13 @@
 								<input type="submit" name="Submit" value="放入購物車">
 							</div>
 							數量： 
-							<input type="number"  id="quantity" name="quantity" value=1 min="0" max="10" style="width: 36px">
+					<input type="number"  id="quantity" name="quantity" value=1 min="0" max="10" style="width:36px">
 							<input type="hidden" name="name" value="${aBean.productName}">
 							<input type="hidden" name="price" value="${aBean.productPrice}">
 							<input type="hidden" name="discount" value="${aBean.discount}">
 							<input type="hidden" name="productTypeId" value="${aBean.productTypeId}">
 							<input type="hidden" name="productId" value="${aBean.productId}">
+							<input type="hidden" name="page" value="${page}">
 							<input type="hidden" name="action" value="ADD">
 						</form>
 

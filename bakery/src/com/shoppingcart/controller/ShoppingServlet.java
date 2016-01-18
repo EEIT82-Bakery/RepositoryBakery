@@ -15,10 +15,10 @@ import com.product.model.ProductBean;
 
 @WebServlet("/Shopping.do")
 public class ShoppingServlet extends HttpServlet {
-	// public void doGet (HttpServletRequest req, HttpServletResponse res)
-	// throws ServletException, IOException {
-	// doPost(req, res);
-	// }
+	 public void doGet (HttpServletRequest req, HttpServletResponse res)
+	 throws ServletException, IOException {
+	 doPost(req, res);
+	 }
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -29,7 +29,7 @@ public class ShoppingServlet extends HttpServlet {
 			if (action.equals("DELETE")) {
 				String del = req.getParameter("del");
 				int d = Integer.parseInt(del);
-				System.out.println(d);
+//				System.out.println(d);
 				buylist.removeElementAt(d);
 				session.setAttribute("shoppingcart", buylist);
 				
@@ -39,6 +39,7 @@ public class ShoppingServlet extends HttpServlet {
 			} else if (action.equals("ADD")) {
 				boolean match = false;
 				ProductBean product = getProduct(req);
+				System.out.println("87="+product);
 				if (buylist == null) {
 					buylist = new Vector<ProductBean>();
 					buylist.add(product);
@@ -56,9 +57,12 @@ public class ShoppingServlet extends HttpServlet {
 				}
 				int page1=1;
 				String page=req.getParameter("page");
+				System.out.println("pop"+page);
 				if (page!=null&& !page.isEmpty()){
 					page1=Integer.parseInt(page);
+					System.out.println(page1);
 				}
+				
 				String productTypeIdTemp = req.getParameter("productTypeId");
 				if(productTypeIdTemp != null && !productTypeIdTemp.isEmpty()){
 					int productTypeId = Integer.parseInt(productTypeIdTemp);
@@ -95,6 +99,7 @@ public class ShoppingServlet extends HttpServlet {
 		String productIdTemp = req.getParameter("productId");
 		ProductBean productBean = new ProductBean();
 		productBean.setQuantity((new Integer(quantity)).intValue());
+		
 		productBean.setProductName(name);
 		productBean.setProductPrice((new Integer(priceTemp)).intValue());
 		productBean.setDiscount((new Float(discountTemp)).floatValue());

@@ -1,4 +1,4 @@
-package com.article.model;
+package com.articleclass.model;
 
 import java.util.Set;
 
@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.article.model.ArticleBean;
 
 @Entity
 @Table(name = "Article_Class")

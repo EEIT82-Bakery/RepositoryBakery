@@ -83,7 +83,9 @@
         <span>${errors.rey}${errors.noData}${errors.Null}</span>
 <!--         <input type="hidden" name="action" value="selectid"> -->
     </FORM>
- 
+  
+  
+
 			</div>
 		</div>
 		<h2 class="sub-header">會員列表</h2>
@@ -98,8 +100,11 @@
 						<th>會員暱稱</th>
 						<th>會員信箱</th>
 						<th>會員電話</th>
+						<th>訂單數量</th>
 						<th>會員狀態</th>
 						<th></th>
+						<th>bbb</th>
+						<th>bbb</th>
 						<th>bbb</th>
 					</tr>
 				</thead>
@@ -113,6 +118,7 @@
 							<td><h6>${Go.nickname}</h6></td>
 							<td><h6>${Go.email}</h6></td>
 							<td><h6>${Go.phone}</h6></td>							
+							<td><h6><a href="DisplayArticle.do?articleId=${articleBean.articleId}">${Go.order_math}</a></h6></td>
 							<td><h6>
 							
 							<c:if test="${Go.status ==2}">
@@ -137,11 +143,68 @@
 							</form>
 								</td>			
 							
-					</tr>
+							<td>
+								<FORM METHOD="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
+									<input type="submit" value="詳細資訊">
+									<input type="hidden" name="mpicture" value="${Go.mpicture}"> 
+									<input type="hidden" name="member_id" value="${Go.member_id}"> 
+									<input	type="hidden" name="account" value="${Go.account}">
+									<input type="hidden" name="username"value="${Go.username}"> 
+									<input type="hidden" name="nickname" value="${Go.nickname}">
+									<input type="hidden" name="phone" value="${Go.phone}">
+									<input type="hidden" name="address" value="${Go.address}"> 
+									<input type="hidden" name="order_math" value="${Go.order_math}" >
+									<input type="hidden" name="status" value="${Go.status}" >	
+									<input type="hidden" name="action" value="select_one">
+								</FORM>
+								</td>
+							
+							<td><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<%=x++%>">詳細會員資料</button></td>
+						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
-			
+	
+	<c:forEach var="gg" items="${bean}">
+		<div class="modal fade" id="myModal<%=i++%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">Close</span>
+						</button>
+						
+						<h4 class="modal-title" id="myModalLabel">會員資訊</h4>
+					</div>
+					
+					<div class="modal-body">
+						<br>
+						<br> 
+						生日:${gg.username}
+						<br>
+						<br> 
+						手機:${gg.phone}
+						<br>
+						<br> 
+						信箱:${gg.email}
+						<br>
+						<br>
+						 地址:${gg.address}
+						<br>
+
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>	
+	</c:forEach>
+		
 		
 			<c:if test="${not empty pageCount}">
 				<c:forEach var="page" begin="1" end="${pageCount}">
@@ -152,6 +215,9 @@
 			</c:if>
 		</div>
 	</div>
+
+
+
 
 
 
