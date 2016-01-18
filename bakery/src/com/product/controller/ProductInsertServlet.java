@@ -57,9 +57,11 @@ public class ProductInsertServlet extends HttpServlet {
 
 			if (temp1 == null || temp1.trim().length() == 0){
 				errors.put("productPrice", "金額不能為空白");
-			}else if(!temp1.matches("^/+?[1-9][0-9]*$")){
-				errors.put("productPrice", "金額必須為正整數");
-			} else{
+			}
+//			else if(!temp1.matches("^/+?[1-9][0-9]*$")){
+//				errors.put("productPrice", "金額必須為正整數");
+//			} 
+			else{
 				price = Integer.parseInt(temp1);
 			}
 
@@ -78,9 +80,11 @@ public class ProductInsertServlet extends HttpServlet {
 			String temp3 = request.getParameter("discount");
 			if (temp3 == null || (temp3.trim()).length() == 0) {
 				errors.put("discount", "請輸入折扣");
-			} else if(!temp3.matches("^/+?[1-9][0-9]*$")){
-				errors.put("discount", "折扣必須是介於0~1之間的小數");
-			} else{
+			} 
+//			else if(!temp3.matches("^/+?[1-9][0-9]*$")){
+//				errors.put("discount", "折扣必須是介於0~1之間的小數");
+//			} 
+			else{
 				discount = Float.parseFloat(temp3);
 			}
 			

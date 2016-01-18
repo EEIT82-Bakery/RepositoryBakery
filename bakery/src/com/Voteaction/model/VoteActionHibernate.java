@@ -14,13 +14,13 @@ public class VoteActionHibernate implements VoteAction_Interface{
 	public static void main (String args[]){
 		VoteActionHibernate test=new VoteActionHibernate();
 		VoteActionBean bean= new VoteActionBean();
-//		bean.setVoteTitle("開始活動2");
-//		bean.setVoteDescribe("這是一個端午節活動2");
-//		bean.setVoteStartDate(java.sql.Date.valueOf("2013-05-26"));
-//		bean.setVoteEndDate(java.sql.Date.valueOf("2015-05-16"));
-//		bean.setVoteStatus(1);
-//		test.insert(bean);
-		System.out.println(test.selectPk(2));
+		bean.setVoteTitle("開始活動2");
+		bean.setVoteDescribe("這是一個端午節活動2");
+		bean.setVoteStartDate(java.sql.Date.valueOf("2013-05-26"));
+		bean.setVoteEndDate(java.sql.Date.valueOf("2015-05-16"));
+		bean.setVoteStatus(1);
+		test.insert(bean);
+//		System.out.println(test.selectPk(2));
 //		test.update("開始活動", "這是一個端午節活動",java.sql.Date.valueOf("2015-10-16") , 1, 1);
 //		test.delete(1);
 //		System.out.println(test.selectall());
