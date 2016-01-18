@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.articleclass.model.ArticleClassBean;
 import com.member.model.MemberBean;
 import com.rearticle.model.ReArticleBean;
 
@@ -44,9 +45,6 @@ public class ArticleBean implements java.io.Serializable {
 	public void setArticleClass(ArticleClassBean articleClass) {
 		this.articleClass = articleClass;
 	}
-
-	@OneToMany(mappedBy = "article")
-	private Set<ReArticleBean> reArticles;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

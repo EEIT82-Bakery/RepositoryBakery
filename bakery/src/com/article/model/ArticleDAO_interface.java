@@ -2,6 +2,7 @@ package com.article.model;
 
 import java.util.List;
 
+import com.articleclass.model.ArticleClassBean;
 import com.rearticle.model.ReArticleBean;
 
 public interface ArticleDAO_interface {
@@ -19,7 +20,6 @@ public interface ArticleDAO_interface {
 	public abstract List<ArticleBean> getPageArticlesClass(int articleClassNo, int startRow, int recordsPerRow);
 	public abstract int getRecordCounts(String articleTitle);
 	public abstract List<ArticleBean> getPageArticlesTitle(String articleTitle , int startRow, int recordsPerRow);
-	public abstract List<ArticleClassBean> getArticleClass();
 	public abstract String getArticleTitle(int articleId);
 	
 }

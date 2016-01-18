@@ -1,13 +1,21 @@
 package com.Voteitem.model;
 
 import java.util.Arrays;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.member.model.MemberBean;
+
+
 
 @Entity
 @Table(name="Vote_item")
@@ -23,7 +31,13 @@ public class VoteitemBean implements java.io.Serializable{
 	@Column(name="Vote_id")
 	private int voteId ;
 	
-	
+	@ManyToMany
+	@JoinTable(
+			name="Vote_Person",
+			joinColumns=@JoinColumn(name="Vote_item_id"),
+			inverseJoinColumns=@JoinColumn(name="Member_id")
+			)  
+	private Set<MemberBean> mbs;
 	
 	public int getVoteItemId() {
 		return voteItemId;

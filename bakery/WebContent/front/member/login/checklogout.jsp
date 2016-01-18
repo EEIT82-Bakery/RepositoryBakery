@@ -71,9 +71,8 @@ h1 {
 
 			<form name="frm" method="post" action="<c:url value='/front/member/login/login.do' /> ">
 
-	
 
-				<input type="submit" name="action" value="登出"  />
+				<input type="submit" name="action" value="logout"  />
 		
 			</form>
 		</div>

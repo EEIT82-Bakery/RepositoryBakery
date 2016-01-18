@@ -6,27 +6,77 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>改個密碼</title>
+
+<style>
+	#h{
+	margin: 30px;
+	
+	}
+</style>
 </head>
 <body>
-<div>
-	<form action="<c:url value='/front/member/main/ChangePassword.controller' />" method="post">
-	<c:if test="${!empty isLogin}">
-	帳號:<h4>${isLogin.account}</h4>
-	</c:if>
-	舊密碼:<input type="password" name="oldpassword" /> <br>
-	<h5>${errors.oldpassword}</h5>
-	新密碼:<input type="password" name="newpassword" />	<br>
-	<h5>${errors.newpassword}</h5>
-	確認新密碼:<input type="password" name="t_newpassword" /><br>
-	<h5>${errors.newpassword}</h5>
-	<input type="submit"  value="送出"/>
-	<input type="hidden" name="action" value="ChangePassword" />
-
-	
-	</form>
+	<%@ include file="../member_fragment/nav.jsp"%>
 
 
+
+
+
+<h4 id="h">修改密碼</h4>
+
+
+
+<form class="form-horizontal" action="<c:url value='/front/member/main/member.do' />" method="post">
+<fieldset>
+<!-- Form Name -->
+<legend>更改密碼</legend>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="piCurrPass">現在的密碼</label>
+  <div class="col-md-4">
+    <input id="piCurrPass" name="oldpassword"  type="password" placeholder="" class="form-control input-md" required="">
+    	<h5>${errors.oldpassword}</h5>
+  </div>
 </div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="piNewPass">新密碼</label>
+  <div class="col-md-4">
+    <input id="piNewPass" name="newpassword" type="password" placeholder="" class="form-control input-md" required="">
+    	<h5>${errors.newpassword}</h5>
+  </div>
+</div>
+
+<!-- Password input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="piNewPassRepeat">確認新密碼</label>
+  <div class="col-md-4">
+    <input id="piNewPassRepeat"  name="t_newpassword" type="password" placeholder="" class="form-control input-md" required="">
+    <h5>${errors.newpassword}</h5>
+  </div>
+</div>
+
+<!-- Button (Double) -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="bCancel"></label>
+  <div class="col-md-8">
+    <input type="reset" id="bCancel" name="bCancel" class="btn btn-danger" />
+    <input type="submit"  value="送出" class="btn btn-success"/>
+	<input type="hidden" name="action" value="ChangePassword"  />
+  </div>
+</div>
+
+</fieldset>
+</form>
+
+<script type="text/javascript">
+
+</script>
+
+
+
+
 
 
 </body>
