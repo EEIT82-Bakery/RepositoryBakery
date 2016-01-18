@@ -154,9 +154,14 @@
 								<li>
 								<a href="${pageContext.request.contextPath}/AllMemberServlet.do?account=${member.account}">
 										<i class="glyphicon glyphicon-user"></i> 個人訊息</a>
+						
 								</li>
+								
+								<li><a href="${pageContext.request.contextPath}/KanbanServlet.do?v=${member.member_id}"><i class="glyphicon glyphicon-book"></i> 心情看版</a>
+								</li>
+								
 								<li><a href="#">
-										<i class="glyphicon glyphicon-book"></i> 相簿
+										<i class="glyphicon glyphicon-book"></i> 訊息
 									</a></li>
 								<li><a href="#">
 										<i class="glyphicon glyphicon-list-alt"></i> 好友名單

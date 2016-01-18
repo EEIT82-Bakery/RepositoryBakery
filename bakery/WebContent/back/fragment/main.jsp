@@ -46,7 +46,7 @@
 					<a href="#">維護員工資料</a>
 				</li>
 				<li>
-				<a href="${pageContext.request.contextPath}/BackAllMember.do?pages=1">維護會員權限</a>
+			<a href="${pageContext.request.contextPath}/BackAllMember.do?pages=1">維護會員權限</a>
 				</li>
 			</ul>
 		</div>

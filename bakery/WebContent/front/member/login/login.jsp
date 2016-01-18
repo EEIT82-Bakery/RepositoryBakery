@@ -11,10 +11,13 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet" />
 <!-- <link href="../css/non-responsive.css" rel="stylesheet" /> -->
 <link href="../css/login.css" rel="stylesheet" />
+<style>
+
+</style>
 
 </head>
 <body>
-	<%@ include file="../member_fragment/topline.jsp"%>
+	<%@ include file="../member_fragment/nav.jsp"%>
 	<div class="container-fluid">
 		<!-----------------------------------------main----------------------------------------->
 
@@ -65,7 +68,7 @@
 						<div class="row">
 							<div class="col-xs-6">
 								<div class="left-section">
-									<a href="#">忘記密碼?</a>
+									<a href="${pageContext.request.contextPath}/front/member/login/selectPassword.jsp">忘記密碼嗎?</a>
 									<br>
 									<a href="#">註冊新帳號 </a>
 								</div>

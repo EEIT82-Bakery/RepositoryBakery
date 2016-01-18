@@ -31,7 +31,7 @@ public class InsertReportServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberBean memberBean = (MemberBean) session.getAttribute("isLogin");
 		if (memberBean == null) {
-			out.print("請先登入後，才能收藏。");
+			out.print("請先登入後，才能檢舉。");
 		} else {
 			int memberId = memberBean.getMember_id();
 			String articleIdTemp = request.getParameter("articleId");

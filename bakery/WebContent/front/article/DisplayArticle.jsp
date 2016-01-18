@@ -5,7 +5,7 @@
 <head>
 <%@ include file="../fragment/css.jsp"%>
 <%
-	int i = 1;
+	int i = 0;
 %>
 <link href="${pageContext.request.contextPath}/front/HtmlData/css/articletop.css" rel="stylesheet" />
 <style>
@@ -102,6 +102,7 @@
 				<!--回文開始-->
 				<!--標題-->
 				<c:forEach var="reArticle" items="${reArticle}">
+				<div style="display:none;"><%=i++%></div>
 					<div class="col-xs-12 displaytitle">
 						<a class="target-fix" name="${reArticle.reId + 1}F"></a>
 						<p>#${reArticle.reId + 1} 回覆: ${Article.articleTitle}</p>
@@ -130,7 +131,7 @@
 								<button onclick="deleteReArticle(${Article.articleId},${reArticle.reId})">刪除</button>
 							</c:if>
 							<c:if test="${not empty isLogin.member_id && isLogin.member_id != reArticle.memberId && reArticle.hidden == 0}">
-								<button type="button" data-toggle="modal" data-target="#myModal<%=++i%>">檢舉</button>
+								<button type="button" data-toggle="modal" data-target="#myModal<%=i%>">檢舉</button>
 							</c:if>
 						</div>
 					</div>
@@ -188,9 +189,8 @@
 		}
 	}
 
-	function addArticleReport(articleId,temp){
-		var i = temp - 1;
-		var reportMsg = document.getElementsByName("reportMsg")[i].value;
+	function addArticleReport(articleId,index){
+		var reportMsg = document.getElementsByName("reportMsg")[index].value;
 		xmlHttp = new XMLHttpRequest();
 		if (xmlHttp != null) {
 			xmlHttp.open("POST", "${pageContext.request.contextPath}/InsertReport.do", true);
@@ -209,9 +209,8 @@
 		}
 	}
 	
-	function addReArticleReport(articleId,reId,temp){
-		var i = temp - 1;
-		var reportMsg = document.getElementsByName("reportMsg")[i].value;
+	function addReArticleReport(articleId,reId,index){
+		var reportMsg = document.getElementsByName("reportMsg")[index].value;
 		xmlHttp = new XMLHttpRequest();
 		if (xmlHttp != null) {
 			xmlHttp.open("POST", "${pageContext.request.contextPath}/InsertReport.do", true);
