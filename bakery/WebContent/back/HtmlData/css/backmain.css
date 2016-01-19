@@ -1,0 +1,102 @@
+body {
+	padding-top: 50px;
+	color: #797979;
+	background: #f2f2f2;
+	padding: 0;
+	margin: 0;
+}
+.navbar {
+	background-color: #B22222;
+	margin-bottom: 0px;
+	min-width: 970px !important;
+}
+.navbar a {
+	color: #faf1e0;
+}
+.nav-sidebar li img {
+	display: block;
+	margin: auto;
+}
+.navbar-nav li a:hover, .navbar-nav li a:focus {
+	background-color: #797979;
+}
+/*navbar-brand*/
+.navbar-brand {
+	color: #faf1e0;
+	height: 50px;
+	font-size: 1.8em;
+}
+.navbar-brand:hover,  .navbar-brand:focus {
+	color: #F2E5D4;
+	background-color: transparent;
+}
+.navbar-fixed-top {
+	border: 0;
+}
+.sidebar {
+	width: 200px;
+	position: fixed;
+	top: 50px;
+	bottom: 0;
+	display: block;
+	padding: 20px;
+	overflow-x: hidden;
+	overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+	background-color: #C29793;
+	border-right: 1px solid #eee;
+}
+.sidebar li a {
+	color:#6b3402;
+	text-decoration: none;
+	display: block;
+	padding: 15px 0 15px 10px;
+	outline: none;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.sidebar ul li a.active, .sidebar ul li a:hover, .sidebar ul li a:focus {
+	background: #FFC78F;
+	color: #fff;
+	display: block;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+/* Sidebar navigation */
+.nav-sidebar {
+	margin-right: -21px; /* 20px padding + 1px border */
+	margin-bottom: 20px;
+	margin-left: -20px;
+}
+.nav-sidebar > li > a {
+	font-size: 16px;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+.nav-sidebar > .active > a,  .nav-sidebar > .active > a:hover,  .nav-sidebar > .active > a:focus {
+	color: #fff;
+	background-color: #428bca;
+}
+.main {
+	padding-left: 40px;
+	margin-left: 200px;
+}
+.main .page-header {
+	margin-top: 0;
+}
+.page-header {
+	border-bottom: 1px solid #797979;
+}
+
+.producttable{
+	padding-left:40px;
+}
+.producttable table tr td{
+	height:50px;
+	width:120px;
+}
