@@ -20,55 +20,35 @@
 			<div class="col-xs-10">
 				<!--文章種類-->
 				<div class="col-xs-8 class">
-					<a href="BackForum.do" <c:if test="${empty param.ClassNo}">class="active"</c:if>>所有主題</a>
-					<jsp:useBean id="articleClassSvc" scope="page" class="com.articleclass.model.ArticleClassService" />
-					<c:forEach var="articleClassBean" items="${articleClassSvc.articleClass}">
-						<a href="Forum.do?ClassNo=${articleClassBean.articleClassNo}"
-							class="${(articleClassBean.articleClassNo == param.ClassNo)?'active':''}">${articleClassBean.articleClassName}</a>
-					</c:forEach>
-				</div>
-				<div class="col-xs-3 FindArticle center-block">
-					<form action="<c:url value='/SearchArticle.do' />" method="post">
-						<div class="input-group">
-							<input type="text" class="form-control" id="FindArticle" name="articleTitle" placeholder="搜尋文章" value="${param.articleTitle}">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="submit">
-									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-								</button>
-							</span>
-						</div>
-					</form>
-				</div>
-				<div class="col-xs-1 post">
-
-					<a href="${pageContext.request.contextPath}/front/article/InsertArticle.jsp?type=1">發表文章</a>
+					<a href="DispalyAllReport.do" <c:if test="${empty reportStatus}">class="active"</c:if>>所有主題</a>
+					<a href="DispalyAllReport.do?reportStatus=1" <c:if test="${reportStatus == 1}">class="active"</c:if>>未處理</a>
+					<a href="DispalyAllReport.do?reportStatus=2" <c:if test="${reportStatus == 2}">class="active"</c:if>>處理中</a>
+					<a href="DispalyAllReport.do?reportStatus=3" <c:if test="${reportStatus == 3}">class="active"</c:if>>已處理</a>
 				</div>
 				<div class="col-xs-12 display">
 					<table>
 						<tr class="forumtitle">
-							<td width='15%'>文章總類</td>
-							<td width='40%' style="text-align: left">標題</td>
-							<td width='20%'>回覆/瀏覽</td>
-							<td width='20%'>最後回覆</td>
+							<td width='10%'>檢舉編號</td>
+							<td width='20%'>檢舉人</td>
+							<td width='10%'>文章編號</td>
+							<td width='30%'>檢舉時間</td>
+							<td width='30%'>處理狀態</td>
 						</tr>
-						<c:forEach varStatus="stVar" var="articleBean" items="${displayArticle}">
+						<c:forEach varStatus="stVar" var="articleReport" items="${articleReport}">
 							<!-- 用兩種顏色交替使用作為顯示商品資料的背景底色 -->
 							<c:set var="rowColor" value="#F5DEB3" />
 							<c:if test="${ stVar.count % 2 == 0 }">
 								<c:set var="rowColor" value="#FFEFD5" />
 							</c:if>
-							<tr height='18' bgColor="${rowColor}">
-								<td><a href="Forum.do?ClassNo=${articleBean.articleClassNo}">${articleBean.articleClassName}</a></td>
-								<td style="text-align: left"><a href="DisplayArticle.do?articleId=${articleBean.articleId}">${articleBean.articleTitle}</a></td>
-								<td>${articleBean.reArticleCount}/${articleBean.browserCount}<br /> <a
-										href="${pageContext.request.contextPath}/homeindex.do?account=${articleBean.author}">${articleBean.author}</a>
-								</td>
-								<td>${articleBean.reArticleMakeDate}<br /> <a
-										href="${pageContext.request.contextPath}/homeindex.do?account=${articleBean.reAuthor}">${articleBean.reAuthor}</a></td>
+							<tr height='30' bgColor="${rowColor}">
+								<td>${articleReport.articleReportId}</td>
+								<td>${articleReport.member.account}</td>
+								<td>${articleReport.articleId}</td>
+								<td>${articleReport.reportDate}</td>
+								<td>${articleReport.reportStatuName}</td>
 							</tr>
 						</c:forEach>
 					</table>
-					<%@ include file="./include/page.jsp"%>
 				</div>
 				<div class="col-xs-2"></div>
 			</div>

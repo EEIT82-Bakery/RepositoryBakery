@@ -41,7 +41,8 @@ public class DispalyAllReportServlet extends HttpServlet {
 				List<ArticleReportBean> beans =  ArticleReportSvc.getAllArticleReport(reportStatus);
 				request.setAttribute("articleReport", beans);
 			}
+			request.setAttribute("reportStatus", reportStatus);
 		}
-		request.getRequestDispatcher(request.getContextPath() + "/back/article/ForumReport.jsp").forward(request, response);
+		request.getRequestDispatcher("/back/article/ForumReport.jsp").forward(request, response);
 	}
 }

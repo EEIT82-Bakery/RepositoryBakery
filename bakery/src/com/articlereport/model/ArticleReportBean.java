@@ -5,13 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import com.member.model.MemberBean;
 
 @Entity
 @Table(name = "Article_Report")
 public class ArticleReportBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
+
+	@ManyToOne
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
+	private MemberBean member;
+
+	public MemberBean getMember() {
+		return member;
+	}
+
+	public void setMember(MemberBean member) {
+		this.member = member;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +44,14 @@ public class ArticleReportBean implements java.io.Serializable {
 	private String reportMsg;
 
 	@Column(name = "Report_Date")
-	private java.util.Date reportDate;
-
+	private java.util.Date reportDateTemp;
+	
 	@Column(name = "Report_Status")
 	private int reportStatus;
 
+	@Transient
+	private String reportDate;
+	
 	@Transient
 	private String reportStatuName;
 
@@ -76,11 +95,20 @@ public class ArticleReportBean implements java.io.Serializable {
 		this.reportMsg = reportMsg;
 	}
 
-	public java.util.Date getReportDate() {
+
+	public java.util.Date getReportDateTemp() {
+		return reportDateTemp;
+	}
+
+	public void setReportDateTemp(java.util.Date reportDateTemp) {
+		this.reportDateTemp = reportDateTemp;
+	}
+
+	public String getReportDate() {
 		return reportDate;
 	}
 
-	public void setReportDate(java.util.Date reportDate) {
+	public void setReportDate(String reportDate) {
 		this.reportDate = reportDate;
 	}
 
