@@ -15,7 +15,7 @@
 	<%@ include file="../fragment/main.jsp"%>
 	<div class="col-xs-10 main">
 		<!-----------------------------------------main----------------------------------------->
-		<h1>管理討論區</h1>
+		<h1 class="page-header">管理檢舉文章</h1>
 		<div class="row">
 			<div class="col-xs-10">
 				<!--文章種類-->

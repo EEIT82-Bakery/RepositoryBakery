@@ -23,30 +23,16 @@
 					<img src="${pageContext.request.contextPath}/back/HtmlData/images/logo.png" width="150" height="150" />
 				</li>
 				<li>
-					<a href="#">管理廣告</a>
-				</li>
-				<li>
 					<a href="${pageContext.request.contextPath}/back/product/ProductSelectAll.jsp">管理商品</a>
 				</li>
 				<li>
 					<a href="${pageContext.request.contextPath}/OrderMemberServlet.do">管理訂單</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/back/article/ForumManage.jsp" data-toggle="collapse" data-target="#demo" class="collapsed" aria-expanded="false">管理討論區 </a>
-					<ul id="demo" class="collapse" aria-expanded="false" style="height: 0px;">
-						<li>
-							<a href="#">管理種類</a>
-						</li>
-						<li>
-							<a href="#">管理文章</a>
-						</li>
-					</ul>
+					<a href="${pageContext.request.contextPath}/DispalyAllReport.do">管理討論區 </a>
 				</li>
 				<li>
-					<a href="#">維護員工資料</a>
-				</li>
-				<li>
-			<a href="${pageContext.request.contextPath}/BackAllMember.do?pages=1">維護會員權限</a>
+					<a href="${pageContext.request.contextPath}/BackAllMember.do?pages=1">維護會員權限</a>
 				</li>
 			</ul>
 		</div>
