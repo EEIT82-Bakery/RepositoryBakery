@@ -35,6 +35,10 @@ public class ReArticleService {
 	public void updateReArticleHidden(int articleId, int reId, int memberId, int hidden){
 		dao.updateReArticleHidden(articleId, reId, memberId, hidden);
 	}
+	
+	public void updateReArticleHidden(int articleId, int reId, int hidden){
+		dao.updateReArticleHidden(articleId, reId, hidden);
+	}
 
 	public ReArticleBean getOneReArticle(int articleId, int reId) {
 		return dao.getOneReArticle(articleId, reId);
@@ -46,10 +50,10 @@ public class ReArticleService {
 			bean.setAccount(bean.getMember().getAccount());
 			bean.setNickName(bean.getMember().getNickname());
 			bean.setPicture(Base64.encodeBase64String(bean.getMember().getPicture()));
-			if(bean.getHidden() == 0){
-				bean.setReContent(bean.getReContent());	
-			}else{
-				bean.setReContent("<span style='color:#999999'>此文章已被刪除</span>");
+			if(bean.getHidden() == 1){
+				bean.setReContent("<span style='color:#999999'>此文章已被發文者刪除</span>");
+			}else if(bean.getHidden() == 2){
+				bean.setReContent("<span style='color:#999999'>此文章已被管理員刪除</span>");
 			}
 			bean.setReArticleMakeDate(new ArticleService().convertDate(bean.getReMake()));
 		}

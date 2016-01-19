@@ -38,8 +38,6 @@ public class VoteitemBean implements java.io.Serializable{
 			inverseJoinColumns=@JoinColumn(name="Member_id")
 			)  
 	private Set<MemberBean> mbs;
-	
-	
 	public int getVoteItemId() {
 		return voteItemId;
 	}

@@ -19,8 +19,8 @@
 				<!--文章種類-->
 				<div class="col-xs-8 class">
 					<a href="Forum.do" <c:if test="${empty param.ClassNo}">class="active"</c:if>>所有主題</a>
-					<jsp:useBean id="articleSvc" scope="page" class="com.article.model.ArticleService" />
-					<c:forEach var="articleClass" items="${articleSvc.articleClass}">
+					<jsp:useBean id="articleClassSvc" scope="page" class="com.articleclass.model.ArticleClassService" />
+					<c:forEach var="articleClass" items="${articleClassSvc.articleClass}">
 						<a href="Forum.do?ClassNo=${articleClass.articleClassNo}"
 							class="${(articleClass.articleClassNo == param.ClassNo)?'active':''}">${articleClass.articleClassName}</a>
 					</c:forEach>

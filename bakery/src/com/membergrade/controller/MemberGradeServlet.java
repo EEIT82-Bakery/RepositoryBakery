@@ -28,7 +28,6 @@ public class MemberGradeServlet extends HttpServlet{
 		resp.setContentType("text/html; charset=UTF-8");
 		
 		HttpSession session = req.getSession();
-		
 		String statu = req.getParameter("statu");
 		if(statu!=null){
 		int status = Integer.parseInt(statu);

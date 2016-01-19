@@ -71,7 +71,7 @@
 				<a href="${pageContext.request.contextPath}/product2.controller?page=1">產品介紹</a>
 			</div>
 			<div class="col-xs-2">
-				<a href="#">訂單查詢</a>
+				<a href="${pageContext.request.contextPath}/OrderMemberServlet.do">訂單查詢</a>
 			</div>
 			<div class="col-xs-2">
 				<a href="${pageContext.request.contextPath}/front/map/map.html">地圖資訊</a>
@@ -80,7 +80,7 @@
 				<a href="${pageContext.request.contextPath}/Forum.do">討論區</a>
 			</div>
 			<div class="col-xs-2">
-				<a href="#">活動專區</a>
+				<a href="${pageContext.request.contextPath}/front/Entrancepage/Entrancepage1.jsp">活動專區</a>
 			</div>
 		</div>
 	</div>

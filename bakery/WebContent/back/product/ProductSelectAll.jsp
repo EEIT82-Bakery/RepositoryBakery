@@ -31,8 +31,7 @@
 	<!-----------------------------------------main----------------------------------------->
 	<div class="col-xs-10 main">
 	<a href="<%=request.getContextPath()%>/back/product/ProductInsert.jsp"><input type="button" value="新增產品" id="buttonRight"></a>
-		<h1 class="page-header">產品</h1> 
-		
+		<h1 class="page-header">管理產品</h1> 
 		
 <ul>
   <li id="nav1">
@@ -46,7 +45,9 @@
   </li>
   
 </ul>
-<table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed">
+<br/>
+<div class="CSSTableGenerator" >
+<table width="100%" style="table-layout:fixed">
 	<tr>
 		<th>產品ID</th>
 		<th>產品名稱</th>
@@ -79,11 +80,13 @@
 			     <input type="hidden" name="productPrice" value="${aBean.productPrice}">
 			     <input type="hidden" name="discount" value="${aBean.discount}">
 			     <input type="hidden" name="productDate" value="${aBean.productDate}">
+			     <input type="hidden" name="whichPage" value="${param.whichPage}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" action='<c:url value="/ProductDeleteServlet.do"/>'>
 			    <input type="submit" value="刪除">
+			     <input type="hidden" name="whichPage" value="${param.whichPage}">
 			    <input type="hidden" name="productId" value="${aBean.productId}"><span>${errors.deleteNo}</span>
 			    <input type="hidden" name="action"value="delete"></FORM>
 			</td>
@@ -95,7 +98,7 @@
 	</div>
 	<!-----------------------------------------main----------------------------------------->
 	</div>
-	</div>
+	
 	<%@ include file="../fragment/js.jsp"%>
 </body>
 </html>

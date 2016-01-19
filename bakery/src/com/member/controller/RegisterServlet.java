@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -51,13 +52,13 @@ public class RegisterServlet extends HttpServlet {
 		req.setAttribute("ErrorMsg", errorMessage);
 		Map<String, String> msgOK = new HashMap<String, String>();
 		session.setAttribute("ok", msgOK);
-		// List<MemberBean> xemail = reservice.getAllemail();
 		String account = req.getParameter("m_account");
 		if (account == null || account.isEmpty() || account.trim().length() == 0) {
 			errorMessage.put("x_account", "帳號欄必須輸入");
-		} else if (memberservice.idExists(account)) {
-			errorMessage.put("x_account", "帳號重複");
 		}
+//			else if (accountlist.contains(account)) {
+//			errorMessage.put("x_account", "帳號重複");
+//		}
 		String password1 = req.getParameter("m_password").trim().toLowerCase();
 		if (password1 == null || password1.isEmpty() || password1.length() == 0) {
 			errorMessage.put("x_password", "密碼欄必須輸入");

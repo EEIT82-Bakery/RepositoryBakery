@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.articleclass.model.ArticleClassBean;
 import com.rearticle.model.ReArticleBean;
 import com.rearticle.model.ReArticleDAOJNDI;
 
@@ -557,53 +558,6 @@ public class ArticleDAOJNDI implements ArticleDAO_interface {
 		return beans;
 	}
 
-	// 查詢文章種類
-	private static final String GET_ARTICLE_CLASS = "select article_class_no , article_class_name from article_class_name";
-
-	@Override
-	public List<ArticleClassBean> getArticleClass() {
-		PreparedStatement pstmt = null;
-		Connection conn = null;
-		ResultSet rs = null;
-		List<ArticleClassBean> beans = new ArrayList<ArticleClassBean>();
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(GET_ARTICLE_CLASS);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				ArticleClassBean bean = new ArticleClassBean();
-				bean.setArticleClassNo(rs.getInt("article_class_no"));
-				bean.setArticleClassName(rs.getString("article_class_name"));
-				beans.add(bean);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return beans;
-	}
-
 	private final static String GET_ARTICLE_TITLE = "select article_title from article where article_Id = ?";
 
 	@Override
@@ -759,6 +713,12 @@ public class ArticleDAOJNDI implements ArticleDAO_interface {
 
 	@Override
 	public void updateBrowserCount(int articleId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void updateArticleHidden(int articleId, int hidden) {
 		// TODO Auto-generated method stub
 		
 	}

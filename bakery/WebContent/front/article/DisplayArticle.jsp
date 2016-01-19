@@ -4,10 +4,13 @@
 <html>
 <head>
 <%@ include file="../fragment/css.jsp"%>
+<%
+	int i = 0;
+%>
 <link href="${pageContext.request.contextPath}/front/HtmlData/css/articletop.css" rel="stylesheet" />
 <style>
 .target-fix {
-	position:absolute;
+	position: absolute;
 	margin-top: -91px;
 }
 </style>
@@ -22,16 +25,17 @@
 			<div class="col-xs-10">
 				<!--文章種類-->
 				<div class="col-xs-11 class">
-				<a class="target-fix" name="1F"></a>
+					<a class="target-fix" name="1F"></a>
 					<a href="Forum.do">所有主題</a>
-					<jsp:useBean id="articleSvc" scope="page" class="com.article.model.ArticleService" />
-					<c:forEach var="articleClass" items="${articleSvc.articleClass}">
+					<jsp:useBean id="articleClassSvc" scope="page" class="com.articleclass.model.ArticleClassService" />
+					<c:forEach var="articleClass" items="${articleClassSvc.articleClass}">
 						<a href="Forum.do?ClassNo=${articleClass.articleClassNo}" class="${(articleClass.articleClassNo == Article.articleClassNo)?'active':''}">${articleClass.articleClassName}</a>
 					</c:forEach>
 				</div>
 				<div class="col-xs-1 post">
 					<form action="<c:url value='/InsertArticle.do?type=2&articleId=${Article.articleId}'/>" method="post">
-						<input type="hidden" name="title" value="${Article.articleTitle}" /> <input type="submit" class="btn btn-default reArticle" value="回覆文章" />
+						<input type="hidden" name="title" value="${Article.articleTitle}" />
+						<input type="submit" class="btn btn-default reArticle" value="回覆文章" />
 					</form>
 				</div>
 				<!--文章開始-->
@@ -62,20 +66,44 @@
 							<button onclick="editArticle(${Article.articleId})">編輯</button>
 							<button onclick="deleteArticle(${Article.articleId})">刪除</button>
 						</c:if>
-						<c:if test="${isLogin.member_id != Article.memberId && Article.hidden == 0}">
-							<button onclick="">檢舉</button>
-							<button onclick="addArticleCollection(${Article.articleId})">收藏</button>
+						<c:if test="${not empty isLogin.member_id && isLogin.member_id != Article.memberId && Article.hidden == 0}">
+							<button type="button" data-toggle="modal" data-target="#ArticleModal">檢舉</button>
 						</c:if>
+					</div>
+				</div>
+				<div class="modal fade" id="ArticleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">
+									<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+								</button>
+								<h4 class="modal-title" id="myModalLabel">檢舉文章</h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="person">檢舉人 :${isLogin.account}</label>
+								</div>
+								<div class="form-group">
+									<label for="content">內容</label>
+									<textarea class="form-control" rows="5" placeholder="請填寫檢舉內容" name="reportMsg"></textarea>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" data-dismiss="modal" onclick="addArticleReport(${Article.articleId},<%=i%>)" class="btn btn-primary">發送</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				<!--文章結束-->
 				<br />
-
 				<!--回文開始-->
 				<!--標題-->
 				<c:forEach var="reArticle" items="${reArticle}">
+				<div style="display:none;"><%=i++%></div>
 					<div class="col-xs-12 displaytitle">
-					<a class="target-fix" name="${reArticle.reId + 1}F"></a>
+						<a class="target-fix" name="${reArticle.reId + 1}F"></a>
 						<p>#${reArticle.reId + 1} 回覆: ${Article.articleTitle}</p>
 					</div>
 					<!--個人資訊-->
@@ -101,12 +129,37 @@
 								<button onclick="editReArticle(${Article.articleId},${reArticle.reId})">編輯</button>
 								<button onclick="deleteReArticle(${Article.articleId},${reArticle.reId})">刪除</button>
 							</c:if>
-							<c:if test="${isLogin.member_id != reArticle.memberId && reArticle.hidden == 0}">
-								<button onclick="">檢舉</button>
+							<c:if test="${not empty isLogin.member_id && isLogin.member_id != reArticle.memberId && reArticle.hidden == 0}">
+								<button type="button" data-toggle="modal" data-target="#myModal<%=i%>">檢舉</button>
 							</c:if>
 						</div>
 					</div>
 					<!--回文結束-->
+					<div class="modal fade" id="myModal<%=i%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">
+										<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+									</button>
+									<h4 class="modal-title" id="myModalLabel">檢舉文章</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="person">檢舉人 : ${isLogin.account}</label>
+									</div>
+									<div class="form-group">
+										<label for="content">內容</label>
+										<textarea class="form-control" rows="5" placeholder="請填寫檢舉內容" name="reportMsg"></textarea>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" data-dismiss="modal" onclick="addReArticleReport(${Article.articleId},'${reArticle.reId}',<%=i%>)" class="btn btn-primary">發送</button>
+									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</c:forEach>
 			</div>
 			<div class="col-xs-2">未定</div>
@@ -125,11 +178,56 @@
 		location.href = "${pageContext.request.contextPath}/InsertArticle.do?type=4&articleId="+articleId+"&reId="+reId;
 	}
 	function deleteArticle(articleId){
-		location.href = "${pageContext.request.contextPath}/DeleteArticle.do?type=1&articleId="+articleId;
+		if(confirm('確定刪除?')){
+			location.href = "${pageContext.request.contextPath}/DeleteArticle.do?type=1&articleId="+articleId;
+		}
 	}
 	function deleteReArticle(articleId , reId){
-		location.href = "${pageContext.request.contextPath}/DeleteArticle.do?type=2&articleId="+articleId+"&reId="+reId;
+		if(confirm('確定刪除?')){
+			location.href = "${pageContext.request.contextPath}/DeleteArticle.do?type=2&articleId="+articleId+"&reId="+reId;
+		}
 	}
+
+	function addArticleReport(articleId,index){
+		var reportMsg = document.getElementsByName("reportMsg")[index].value;
+		xmlHttp = new XMLHttpRequest();
+		if (xmlHttp != null) {
+			xmlHttp.open("POST", "${pageContext.request.contextPath}/InsertReport.do", true);
+			xmlHttp.addEventListener("readystatechange", callback, false);
+			xmlHttp.setRequestHeader("Content-Type",
+					"application/x-www-form-urlencoded")
+			xmlHttp.send("articleId="+articleId +"&reportMsg=" + reportMsg);
+		} else {
+			alert("您得瀏覽器不支援Ajax的功能!!");
+		}
+		
+		function callback() {
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+				alert(xmlHttp.responseText);
+			}
+		}
+	}
+	
+	function addReArticleReport(articleId,reId,index){
+		var reportMsg = document.getElementsByName("reportMsg")[index].value;
+		xmlHttp = new XMLHttpRequest();
+		if (xmlHttp != null) {
+			xmlHttp.open("POST", "${pageContext.request.contextPath}/InsertReport.do", true);
+			xmlHttp.addEventListener("readystatechange", callback, false);
+			xmlHttp.setRequestHeader("Content-Type",
+					"application/x-www-form-urlencoded")
+			xmlHttp.send("articleId="+articleId+"&reId="+reId+"&reportMsg="+reportMsg);
+		} else {
+			alert("您得瀏覽器不支援Ajax的功能!!");
+		}
+		
+		function callback() {
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+				alert(xmlHttp.responseText);
+			}
+		}
+	}
+	
 	
 	function addArticleCollection(articleId){
 		xmlHttp = new XMLHttpRequest();

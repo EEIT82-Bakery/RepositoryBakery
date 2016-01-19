@@ -1,6 +1,7 @@
 package com.shoppingcart.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Vector;
 
 import javax.servlet.RequestDispatcher;
@@ -11,33 +12,58 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.member.model.MemberBean;
 import com.product.model.ProductBean;
 
 @WebServlet("/Shopping.do")
 public class ShoppingServlet extends HttpServlet {
-	 public void doGet (HttpServletRequest req, HttpServletResponse res)
-	 throws ServletException, IOException {
-	 doPost(req, res);
-	 }
-	
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		HttpSession session = req.getSession();
+
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doPost(request, response);
+
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
+		PrintWriter out = response.getWriter();
+		HttpSession session = request.getSession();
+		MemberBean mb = (MemberBean) session.getAttribute("isLogin");
 		Vector<ProductBean> buylist = (Vector<ProductBean>) session.getAttribute("shoppingcart");
-		String action = req.getParameter("action");
+		String action = request.getParameter("action");
 		if (!action.equals("CHECKOUT")) {
 			if (action.equals("DELETE")) {
-				String del = req.getParameter("del");
+				String del = request.getParameter("del");
 				int d = Integer.parseInt(del);
 				buylist.removeElementAt(d);
+				JSONArray jsonArray = new JSONArray();
+				try {
+					for (ProductBean bean : buylist) {
+						JSONObject jsonObj = new JSONObject();
+						jsonObj.put("ProductId", bean.getProductId());
+						jsonObj.put("ProductName", bean.getProductName());
+						jsonObj.put("Discount", (bean.getDiscount()));
+						jsonObj.put("Price", bean.getProductPrice());
+						jsonObj.put("Quantity", bean.getQuantity());
+						jsonArray.put(jsonObj);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				out.print(jsonArray.toString());
+//				System.out.println(jsonArray.toString());
 				session.setAttribute("shoppingcart", buylist);
-				
-				String url = "/front/ShoppingCart/Cart.jsp";
-				RequestDispatcher rd = req.getRequestDispatcher(url);
-				rd.forward(req, resp);
 			} else if (action.equals("ADD")) {
 				boolean match = false;
-				ProductBean product = getProduct(req);
+				ProductBean product = getProduct(request);
 				if (buylist == null) {
 					buylist = new Vector<ProductBean>();
 					buylist.add(product);
@@ -53,52 +79,45 @@ public class ShoppingServlet extends HttpServlet {
 					if (!match)
 						buylist.add(product);
 				}
-				int page1=1;
-				String page=req.getParameter("page");
-				if (page!=null&& !page.isEmpty()){
-					page1=Integer.parseInt(page);
-				}
-				String productTypeIdTemp = req.getParameter("productTypeId");
-				if(productTypeIdTemp != null && !productTypeIdTemp.isEmpty()){
-					int productTypeId = Integer.parseInt(productTypeIdTemp);
-					resp.sendRedirect(req.getContextPath() + "/product2.controller?productTypeId=" + productTypeId+"&page="+ page1 );
-				}else{
-					resp.sendRedirect(req.getContextPath() + "/product2.controller");
-				}
-				session.setAttribute("shoppingcart", buylist);	
+
+				session.setAttribute("shoppingcart", buylist);
 			}
 		} else if (action.equals("CHECKOUT")) {
-			
-			
-			int total = 0;
-			for (int i = 0; i < buylist.size(); i++) {
-				ProductBean order = buylist.get(i);
-				int price = order.getProductPrice();
-				float discount = order.getDiscount();
-				int quantity = order.getQuantity();
-				System.out.println();
-				total += (price * quantity * discount);
+			if (mb == null) {
+				response.sendRedirect(request.getContextPath() + "/front/article/error/NotLogin.jsp");
+			} else {
+				int total = 0;
+				for (int i = 0; i < buylist.size(); i++) {
+					ProductBean order = buylist.get(i);
+					int price = order.getProductPrice();
+					String discount = order.getDiscount();
+					float f = new Float(discount);
+					int quantity = order.getQuantity();
+					total += (price * quantity * f);
+				}
+				String amount = String.valueOf(total);
+
+				session.setAttribute("amount", amount);
+				session.setAttribute("shoppingcart", buylist);
+				String url = "/front/ShoppingCart/CheckoutForEach.jsp";
+				RequestDispatcher rd = request.getRequestDispatcher(url);
+				rd.forward(request, response);
 			}
-			String amount = String.valueOf(total);
-			session.setAttribute("amount", amount);
-			session.setAttribute("shoppingcart", buylist);
-			String url = "/front/ShoppingCart/CheckoutForEach.jsp";
-			RequestDispatcher rd = req.getRequestDispatcher(url);
-			rd.forward(req, resp);
 		}
 	}
-	private ProductBean getProduct(HttpServletRequest req) {
-		String quantity = req.getParameter("quantity");
-		String name = req.getParameter("name");
-		String priceTemp = req.getParameter("price");
-		String discountTemp = req.getParameter("discount");
-		String productIdTemp = req.getParameter("productId");
+
+	private ProductBean getProduct(HttpServletRequest request) {
+		String quantity = request.getParameter("quantity");
+		String name = request.getParameter("name");
+		String priceTemp = request.getParameter("price");
+		String discountTemp = request.getParameter("discount");
+		String productId = request.getParameter("productId");
 		ProductBean productBean = new ProductBean();
 		productBean.setQuantity((new Integer(quantity)).intValue());
 		productBean.setProductName(name);
 		productBean.setProductPrice((new Integer(priceTemp)).intValue());
-		productBean.setDiscount((new Float(discountTemp)).floatValue());
-		productBean.setProductId((new Integer(productIdTemp)).intValue());
+		productBean.setProductId((new Integer(productId)).intValue());
+		productBean.setDiscount(discountTemp);
 		return productBean;
 	}
 }

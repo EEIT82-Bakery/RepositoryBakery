@@ -12,20 +12,32 @@ import hibernate.util.HibernateUtil;
 public class VoteActionHibernate implements VoteAction_Interface{
 
 	public static void main (String args[]){
-		VoteActionHibernate test=new VoteActionHibernate();
-		VoteActionBean bean= new VoteActionBean();
-		bean.setVoteTitle("開始活動");
-		bean.setVoteDescribe("這是一個端午節活動");
-		bean.setVoteStartDate(java.sql.Date.valueOf("2013-05-26"));
-		bean.setVoteEndDate(java.sql.Date.valueOf("2015-05-16"));
-		bean.setVoteStatus(2);
-		test.insert(bean);
-//		System.out.println(test.selectPk(1));
-//		test.update("開始活動", "這是一個端午節活動",java.sql.Date.valueOf("2015-10-16") , 1, 1);
-//		test.delete(1);
-//		System.out.println(test.selectall());
-	}
 
+
+		VoteActionHibernate voteaction=new VoteActionHibernate();
+//			System.out.println(	voteaction.selectall());
+//		VoteActionBean bean = new VoteActionBean();
+//		bean.setVoteTitle("我愛投票");
+//		bean.setVoteDescribe("給我一個投票的理由");
+//		bean.setVoteStatus(2);
+//		System.out.println("pk:"+ voteaction.insertreturnInt(bean));
+		}
+	public Integer insertGetPk(VoteActionBean bean) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		int pk=0;
+		try {
+			session.beginTransaction();
+			pk= (int)session.save(bean);
+			session.getTransaction().commit();
+			return pk;
+
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+		return pk;
+	}
+	
 	
 	@Override
 	public void insert(VoteActionBean bean) {
@@ -34,7 +46,7 @@ public class VoteActionHibernate implements VoteAction_Interface{
 			session.beginTransaction();
 			session.save(bean);
 			session.getTransaction().commit();
-//			session.close();
+
 		} catch (HibernateException e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
@@ -77,6 +89,7 @@ public class VoteActionHibernate implements VoteAction_Interface{
 		   session.getTransaction().rollback(); 
 		  }
 	}
+	
 	@Override
 	public List<VoteActionBean> selectall() {
 		List<VoteActionBean> beans =null;
@@ -84,7 +97,7 @@ public class VoteActionHibernate implements VoteAction_Interface{
 		  try { 
 		   session.beginTransaction(); 
 		   Query query = session.createQuery("from VoteActionBean");
-		  beans=query.list();
+		   beans=query.list();
 		   session.getTransaction().commit(); 
 		  } catch (HibernateException e) { 
 		   e.printStackTrace(); 
@@ -92,20 +105,6 @@ public class VoteActionHibernate implements VoteAction_Interface{
 		  }
 		return beans;
 	}
-
-	@Override
-	public VoteActionBean selectPk(int VoteId) {
-		VoteActionBean bean =null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession(); 
-		  try { 
-		   session.beginTransaction(); 
-		   bean = (VoteActionBean) session.get(VoteActionBean.class,VoteId);  
-		   session.getTransaction().commit(); 
-		  } catch (HibernateException e) { 
-		   e.printStackTrace(); 
-		   session.getTransaction().rollback(); 
-		  }
-		return bean;
-	}
+	
 
 }

@@ -78,7 +78,7 @@
 #mypicture{
 	height: 100px;
 	width: 100px;
-	background-color: blue;
+
 }
 
 
@@ -183,7 +183,7 @@
                             <div class="caption">
                                 <h4>購物車/訂單 </h4>
                                 <p><a href="#">購物車</a></p>
-                                <p><a href="#">訂單查詢</a></p>
+                                <p><a href="${pageContext.request.contextPath}/OrderMemberServlet.do">訂單查詢</a></p>
                                 <p><a href="#">修改訂單</a></p>
                             </div>
                         </div>
@@ -193,18 +193,14 @@
                             <img src="${pageContext.request.contextPath}/front/member/main/images/m4.png" id="m4" alt="">
                             <div class="caption">
                                 <h4>我的帳戶</h4>
-                                <p>	<a href="<c:url value="/front/member/main/member.do" >
-								<c:param name="id" value="${isLogin.member_id}" />
-									</c:url>">會員資料查詢/修改</a>	</p>
+<%--                                 <p>	<a href="<c:url value="/front/member/main/member.do" > --%>
+<%-- 								<c:param name="id" value="${isLogin.member_id}" /> --%>
+<%-- 									</c:url>">會員資料查詢/修改</a>	</p> --%>
 									
-<%-- 								<form method="post" action='<c:url value="/front/member/main/member.do"/>' > --%>
-<%-- 								<input type="hidden" name="id" value="${isLogin.member_id}"> --%>
-<!-- 								<input type="submit" value="送出"> -->
-<!-- 								</form> -->
 								<p><a href="<c:url value='/front/member/main/CHGpassword.jsp' />">修改密碼</a></p>
-<!-- 								<p> -->
-<%-- 								 <a href="${pageContext.request.contextPath}/front/member/main/member.do?id=${isLogin.member_id}">修改會員資訊</a> --%>
-<!-- 								</p> -->
+								<p>
+								 <a href="${pageContext.request.contextPath}/front/member/main/member.do?action=select&id=${isLogin.member_id}">修改會員資訊</a>
+								</p>
 								
 								<p> <a href="<c:url value="/homeindex.do">
 								<c:param name="account" value="${isLogin.account}" />

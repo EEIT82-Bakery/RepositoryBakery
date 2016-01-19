@@ -32,4 +32,14 @@ public class MobieMemberServlet extends HttpServlet {
 		req.getRequestDispatcher("/front/memberforum/displaymember.jsp").forward(req, resp);
 		// ----------------------------------------------------//
 		}
+		
+			
+			
+
+
+		
+		
+	
+	
+	
 }

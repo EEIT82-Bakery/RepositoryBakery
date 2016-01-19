@@ -16,6 +16,10 @@ public class OrderService {
 		dao = new OrderJNDIDAO();
 	}
 	
+	public List<OrderBean> selectList(){
+		return dao.selectList();
+	}
+	
 	public void update(OrderBean bean) {
 		if(bean!=null) {
 			dao.update(bean);
@@ -29,6 +33,10 @@ public class OrderService {
 	
 	public List<OrderBean> select(int OrderId){
 		return dao.select(OrderId);
+	}
+	
+	public List<OrderBean> selectMember(int memberId){
+		return dao.selectMember(memberId);
 	}
 	
 	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");

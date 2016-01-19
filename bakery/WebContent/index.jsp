@@ -1,9 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.orderlist.model.*"%>
+<%@ page import="java.util.*"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <%@ include file="./front/fragment/css.jsp"%>
+<% 
+OrderListJNDIDAO top3= new OrderListJNDIDAO();
+List<OrderListBean> topphoto=top3.selectTop3();
+pageContext.setAttribute("photo3", topphoto);
+%>
 <style>
 .tabPanel {
 	margin: 10px auto;
@@ -70,6 +78,7 @@
 								<img src="${pageContext.request.contextPath}/front/HtmlData/images/3.jpg" />
 							</a>
 						</div>
+						
 						<ol class="dot">
 							<li id="tab1"></li>
 							<li id="tab2"></li>
@@ -77,6 +86,18 @@
 						</ol>
 					</div>
 				</div>
+						<table style="border:3px #FFD382 dashed;" cellpadding="10" border='1' align="center">
+						<tr>
+									<td colspan="3" align="center"><h1>人氣商品</h1></td>							
+						</tr>
+						<tr>
+						<c:forEach var="photo" items="${photo3}" >
+						<td>
+						<img src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}" width="250px" height="250px">
+						</td>
+						</c:forEach>
+						</tr>
+						</table>
 			</div>
 		</div>
 		<!-----------------------------------------輪播----------------------------------------->
@@ -105,7 +126,6 @@
 			for (var i = 1; i <= index; i++) {
 				document.getElementById("tab" + i).onmouseover = show;
 			}
-
 			function autoShow() {
 				for (var i = 1; i <= index; i++) {
 					document.getElementById("con" + i).style.display = "none";
@@ -125,7 +145,6 @@
 			function stopRun() {
 				clearInterval(myInterval);
 			}
-
 			function run() {
 				myInterval = setInterval(autoShow, duration);
 			}

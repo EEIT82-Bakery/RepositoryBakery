@@ -87,7 +87,7 @@ public class ChangeServlet extends HttpServlet {
 		bean.setEmail(email);
 		bean.setAddress(address);
 		if ("update".equals(action)) {
-			bean = memberservice.updateimf(memberid, birth, phone, email, address, nickname);
+//			bean = memberservice.updateimf(memberid, birth, phone, email, address, nickname);
 			bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));
 			session.setAttribute("SelectMo", bean);
 			resp.sendRedirect(req.getContextPath() + "/front/member/myimformation/test.jsp");

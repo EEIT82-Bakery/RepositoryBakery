@@ -12,14 +12,18 @@
 	list-style-type: none;
 }
 
+#buttonRight{
+	float: right;
+}
+
 </style>
 </head>
 <body>
 	<%@ include file="../fragment/main.jsp"%>
 	<!-----------------------------------------main----------------------------------------->
 	<div class="col-xs-10 main">
-	<a href="<%=request.getContextPath()%>/back/product/ProductInsert.jsp"><input type="button" value="新增產品"></a>
-		<h1 class="page-header">產品</h1>
+	<a href="<%=request.getContextPath()%>/back/product/ProductInsert.jsp"><input type="button" value="新增產品" id="buttonRight"></a>
+		<h1 class="page-header">管理產品</h1>
 		<ul>
   <li id="nav1">
     <FORM METHOD="post" action='<c:url value="/ProductSelectOneServlet.do"/>'>
@@ -31,7 +35,8 @@
   </li>
   
 </ul>
-		
+<br/>
+	<div class="CSSTableGenerator">	
 	<table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed">
 	<tr>
 		<th>產品ID</th>
@@ -77,7 +82,7 @@
 
 
 </table>
-
+</div>
 	</div>
 	<!-----------------------------------------main----------------------------------------->
 	<%@ include file="../fragment/js.jsp"%>

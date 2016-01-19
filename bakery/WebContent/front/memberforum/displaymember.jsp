@@ -144,8 +144,30 @@
 						</div>
 						<!-- END SIDEBAR USER TITLE -->
 						<!-- SIDEBAR BUTTONS -->
-						<div class="profile-userbuttons">
-							<button type="button" class="btn btn-success btn-sm">加入好友</button>
+						<div class="profile-userbuttons">		
+							<FORM METHOD="post" action="${pageContext.request.contextPath}/FriendServlet.controller">
+									<div class="ui primary mini labeled icon button" onclick="$(this).parent().submit()"><i class="add user icon"></i>加入好友</div>
+									<button type="submit" class="btn btn-success btn-sm">加入好友</button>
+									<input type="hidden" name="invite_id" value="${isLogin.member_id}"> 
+									<input	type="hidden" name="invitee_id" value="${member.member_id}">
+									<input type="hidden" name="msgtitle"value="${isLogin.username}"> 
+									<input type="hidden" name="msgcount" value="${isLogin.username}">	
+									<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+									<input type="hidden" name="action" value="addfriend">
+								</FORM>
+
+							
+							
+							
+							
+						
+							
+
+
+
+
+
+
 						</div>
 						<!-- END SIDEBAR BUTTONS -->
 						<!-- SIDEBAR MENU -->
@@ -154,13 +176,24 @@
 								<li>
 								<a href="${pageContext.request.contextPath}/AllMemberServlet.do?account=${member.account}">
 										<i class="glyphicon glyphicon-user"></i> 個人訊息</a>
+						
 								</li>
+								
+								<li><a href="${pageContext.request.contextPath}/KanbanServlet.do?v=${member.member_id}"><i class="glyphicon glyphicon-book"></i> 心情看版</a>
+								</li>
+								
 								<li><a href="#">
-										<i class="glyphicon glyphicon-book"></i> 相簿
+										<i class="glyphicon glyphicon-book"></i> 訊息
 									</a></li>
 								<li><a href="#">
 										<i class="glyphicon glyphicon-list-alt"></i> 好友名單
 									</a></li>
+							
+								<li>
+								
+									<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">我的訊息</a>
+								</li>
+								
 								<li>
 								<a href="<c:url value="/AllMemberServlet.do" >
 								<c:param name="account" value="${member.account}" />

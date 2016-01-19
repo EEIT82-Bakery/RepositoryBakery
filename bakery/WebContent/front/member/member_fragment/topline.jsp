@@ -19,6 +19,9 @@
 				</a>
 			</div>
 			<a class="navbar-brand" href="#">Bakery</a>
+			
+		
+			
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav navbar-right">
 					<c:if test="${empty isLogin}">
@@ -34,9 +37,18 @@
 					<li><a href="${pageContext.request.contextPath}/front/member/main/MemberPage.jsp">會員專區</a></li>
 					<li><a href="#">購物車</a></li>
 					<li><a href="#">聯絡我們</a></li>
+					
+					
 				</ul>
+		  
 			</div>
+			
+			
+			
+			
 		</div>
 	</div>
+	
+	
 </body>
 </html>
