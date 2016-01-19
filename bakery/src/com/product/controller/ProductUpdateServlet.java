@@ -103,15 +103,12 @@ public class ProductUpdateServlet extends HttpServlet {
 					fi.read(buffer);
 					fi.close();
 
-					float discount = 0;
 					
-					String temp3 = request.getParameter("discount");
-					if (temp3 == null || (temp3.trim()).length() == 0) {
+					String discount = request.getParameter("discount");
+					if (discount == null || (discount.trim()).length() == 0) {
 						errors.put("discount", "請輸入折扣");
-					} else if(!temp3.matches("^[0-9]+(.[0-9]{1})?$")){
+					} else if(!discount.matches("^[0-9]+(.[0-9]{1})?$")){
 						errors.put("discount", "折扣必須是0.1~0.9之間");
-					} else{
-						discount = Float.parseFloat(temp3);
 					}
 					
 					String temp4 = request.getParameter("productDate");

@@ -21,11 +21,12 @@ public class MessageService {
 		return dao.insert(bean);	
 	}
 	
-	
+
 	public List<MessageBean> seletPage(int pageInt,Integer read_id, Integer msg_state){
 		
 		return dao.selectPage(pageInt, read_id, msg_state);
 	}	
+
 	
 	
 	public List<MessageBean> selectAllByStateAndId(Integer read_id, Integer msg_state){

@@ -52,10 +52,12 @@ public class MessageServlet extends HttpServlet {
 			int pageInt = Integer.parseInt(pageStr);
 			MessageService messageservice = new MessageService();
 			MessageBean messagebean = new MessageBean();
+
 			List<MessageBean> list = messageservice.seletPage(pageInt, memberid, 1);
 			for(MessageBean be :list){
 				ArticleService articleSvc = new ArticleService();
 				be.setMdate(articleSvc.convertDate(be.getMsg_date())); 
+
 			
 			}
 			
