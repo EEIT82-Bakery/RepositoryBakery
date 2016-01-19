@@ -1,6 +1,30 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	
+<%@page import="com.member.model.*"%>   
+<%@page import="java.util.*" %>
+
+<%@page import="com.membergrade.model.MemberGradeService"%>   
+<%@page import="com.membergrade.model.MemberGradeBean"%>  
+<%@page import="com.member.model.*"%>   
+<%
+
+	MemberService service = new MemberService();
+	
+
+ 	List<MemberBean> lists = service.getAllMemBer();
+
+ 	pageContext.setAttribute("listWhoInvitedMe", lists);
+	
+
+%>
+
+<%
+
+	int i = 0;
+    int x = 0;
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,20 +45,27 @@
 
 	<%@ include file="../fragment/main.jsp"%>
 
-
+	
+	
+	
 
 
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<h1 class="page-header">會員維護</h1>
 		<div class="row placeholders">
 			<div class="col-xs-6 col-sm-3 placeholder">
-				
-			
-		
+<%-- 				<form action="${pageContext.request.contextPath}/BackSelectServlet.do"> --%>
+<!-- 					<select name="status"> -->
+<%-- 						<option value="" ${searchMemMap.status[0]=="" ?"selected" :""}>不限</option> --%>
+<%-- 						<option value="0" ${searchMemMap.status[0]=="1" ?"selected" :""}>一般會員</option> --%>
+<%-- 						<option value="1" ${searchMemMap.status[0]=="2" ?"selected" :""}>黑名單</option> --%>
+<!-- 					</select> <input type="submit" value="送出"> <input type="hidden" -->
+<!-- 						name="action" value="memberSearch"> -->
+<!-- 				</form> -->
 			</div>
 			<div class="col-xs-6 col-sm-3 placeholder">
 				
-			
+		
 			
 			</div>
 			<div class="col-xs-6 col-sm-3 placeholder">
@@ -43,7 +74,18 @@
 			</div>
 			<div class="col-xs-6 col-sm-3 placeholder">
 		
-			
+		
+  
+   <FORM METHOD="post" action='<c:url value="/BackSelectServlet.do?action=selectid"/>'>
+        <b>以ID搜尋會員</b>
+        <input type="text" name="member_id">
+        <input type="submit" value="送出">
+        <span>${errors.rey}${errors.noData}${errors.Null}</span>
+<!--         <input type="hidden" name="action" value="selectid"> -->
+    </FORM>
+  
+  
+
 			</div>
 		</div>
 		<h2 class="sub-header">會員列表</h2>
@@ -59,27 +101,111 @@
 						<th>會員信箱</th>
 						<th>會員電話</th>
 						<th>訂單數量</th>
-						<th>xxx</th>
+						<th>會員狀態</th>
+						<th></th>
+						<th>bbb</th>
+						<th>bbb</th>
 						<th>bbb</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="aBean" items="${bean}">
+					<c:forEach var="Go" items="${bean}">
 						<tr>
-							<td><h6>${aBean.member_id}</h6></td>
-							<td><img src="data:image/png;base64,${aBean.mpicture}" id="mypicture" class="img-circle" alt="個人照片" /></td>
-							<td><h6>${aBean.account}</h6></td>
-							<td><h6>${aBean.username}</h6></td>
-							<td><h6>${aBean.nickname}</h6></td>
-							<td><h6>${aBean.email}</h6></td>
-							<td><h6>${aBean.phone}</h6></td>
-							<td><h6>${aBean.order_math}</h6>
-							<td><button type="submit" name="action" value="詳細資訊">詳細資訊</button></td>
-							<td><button type="submit" name="action" value="刪除">刪除</button></td>
+							<td><h6>${Go.member_id}</h6></td>
+							<td><img src="data:image/png;base64,${Go.mpicture}" id="mypicture" class="img-circle" alt="個人照片" /></td>
+							<td><h6>${Go.account}</h6></td>
+							<td><h6>${Go.username}</h6></td>
+							<td><h6>${Go.nickname}</h6></td>
+							<td><h6>${Go.email}</h6></td>
+							<td><h6>${Go.phone}</h6></td>							
+							<td><h6><a href="DisplayArticle.do?articleId=${articleBean.articleId}">${Go.order_math}</a></h6></td>
+							<td><h6>
+							
+							<c:if test="${Go.status ==2}">
+									一般會員
+								</c:if> 
+								<c:if test="${Go.status ==3}">
+									黑名單
+								</c:if>
+								</h6> 	
+							<td>				
+							<form method="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
+								<input type="submit" value="一般會員" ${Go.status==2 ?"disabled" :""}>
+								<input type="hidden" name="action" value="disableMember">
+								<input type="hidden" name="member_id" value="${Go.member_id}">
+							</form>
+							</td>
+							<td>
+							<form method="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
+								<input type="submit" value="黑名單" ${Go.status==3 ?"disabled" :""}>
+								<input type="hidden" name="action" value="activateMember">
+								<input type="hidden" name="member_id" value="${Go.member_id}">
+							</form>
+								</td>			
+							
+							<td>
+								<FORM METHOD="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
+									<input type="submit" value="詳細資訊">
+									<input type="hidden" name="mpicture" value="${Go.mpicture}"> 
+									<input type="hidden" name="member_id" value="${Go.member_id}"> 
+									<input	type="hidden" name="account" value="${Go.account}">
+									<input type="hidden" name="username"value="${Go.username}"> 
+									<input type="hidden" name="nickname" value="${Go.nickname}">
+									<input type="hidden" name="phone" value="${Go.phone}">
+									<input type="hidden" name="address" value="${Go.address}"> 
+									<input type="hidden" name="order_math" value="${Go.order_math}" >
+									<input type="hidden" name="status" value="${Go.status}" >	
+									<input type="hidden" name="action" value="select_one">
+								</FORM>
+								</td>
+							
+							<td><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<%=x++%>">詳細會員資料</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+	
+	<c:forEach var="gg" items="${bean}">
+		<div class="modal fade" id="myModal<%=i++%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">Close</span>
+						</button>
+						
+						<h4 class="modal-title" id="myModalLabel">會員資訊</h4>
+					</div>
+					
+					<div class="modal-body">
+						<br>
+						<br> 
+						生日:${gg.username}
+						<br>
+						<br> 
+						手機:${gg.phone}
+						<br>
+						<br> 
+						信箱:${gg.email}
+						<br>
+						<br>
+						 地址:${gg.address}
+						<br>
+
+					</div>
+					
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+					</div>
+					
+				</div>
+			</div>
+		</div>	
+	</c:forEach>
+		
+		
 			<c:if test="${not empty pageCount}">
 				<c:forEach var="page" begin="1" end="${pageCount}">
 
@@ -89,6 +215,36 @@
 			</c:if>
 		</div>
 	</div>
+
+
+
+
+
+
+
+		<!-- Modal -->
+	
+<script src="../js/jquery-2.1.4.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.detail-info').click(function() {
+			layer.open({
+	    	    type: 1,
+	    	    title: 'Member Information',
+	    	    closeBtn: false,
+	    	    area: ['auto'],
+	    	    shadeClose: true,
+	    	    content: $(this).closest('tr').find('table')
+	    	});
+		})
+	})
+</script>
+
+
+
 
 
 

@@ -5,14 +5,15 @@ import hibernate.util.HibernateUtil;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Set;
+
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -20,91 +21,82 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import com.article.model.ArticleBean;
 import com.membergrade.model.MemberGradeBean;
-import com.rearticle.model.ReArticleBean;
+
+
 
 @Entity
 @Table(name = "Member")
 public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	@OneToMany(mappedBy = "member")
-	private Set<ArticleBean> articles;
-	
-	@OneToMany(mappedBy = "member")
-	private Set<ReArticleBean> reArticles;
 	
 	@ManyToOne
-	@JoinColumn(name = "STATU", referencedColumnName = "STATU", insertable = false, updatable = false)
+	@JoinColumn(
+			name="STATU",
+			referencedColumnName="STATU",
+			insertable=false,updatable=false
+			)
 	private MemberGradeBean membergrade;
-
-	public MemberGradeBean getMembergrade() {
+	
+	public MemberGradeBean getMeber() {
 		return membergrade;
 	}
-
-	public void setMembergrade(MemberGradeBean membergrade) {
+	public void setMeber(MemberGradeBean membergrade) {
 		this.membergrade = membergrade;
 	}
-
 	@Id
-	@Column(name = "Member_id")
+	@Column(name="Member_id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int member_id;
-	@Column(name = "Account")
+	@Column(name="Account")
 	private String account;
-	@Column(name = "Password")
+	@Column(name="Password")
 	private byte[] password;
-	@Column(name = "Username")
+	@Column(name="Username")
 	private String username;
-	@Column(name = "Sex")
+	@Column(name="Sex")
 	private String sex;
-	@Column(name = "Birth")
+	@Column(name="Birth")
 	private java.util.Date birth;
-	@Column(name = "Email")
+	@Column(name="Email")
 	private String email;
-	@Column(name = "Phone")
+	@Column(name="Phone")
 	private String phone;
-	@Column(name = "Address")
+	@Column(name="Address")
 	private String address;
-	@Column(name = "Logindate")
+	@Column(name="Logindate")
 	private java.util.Date logindate;
-	@Column(name = "Last_date")
+	@Column(name="Last_date")
 	private java.sql.Timestamp last_date;
-	@Column(name = "Fromfb")
+	@Column(name="Fromfb")
 	private String fromfb;
-	@Column(name = "Picture")
+	@Column(name="Picture")
 	private byte[] picture;
-	@Column(name = "Statu")
+	@Column(name="Statu")
 	private int status;
-	@Column(name = "Point")
+	@Column(name="Point")
 	private int point;
-	@Column(name = "Order_math")
+	@Column(name="Order_math")
 	private int order_math;
-	@Column(name = "NickName")
+	@Column(name="NickName")
 	private String nickname;
-
+	
 	@Transient
 	private String mpicture;
 	@Transient
 	private String permname;
 	@Transient
-	private int articleid;
-
-	@Column()
+	private  int  articleid;
+	@Column(name="Kanban")
 	private String kanban;
-
 	public MemberBean() {
-
 	}
-
 	public int getMember_id() {
 		return member_id;
 	}
-
 	public void setMember_id(int member_id) {
 		this.member_id = member_id;
 	}
-
 	public String getAccount() {
 		return account;
 	}
@@ -112,35 +104,27 @@ public class MemberBean implements Serializable {
 	public void setAccount(String account) {
 		this.account = account;
 	}
-
 	public byte[] getPassword() {
 		return password;
 	}
-
 	public void setPassword(byte[] password) {
 		this.password = password;
 	}
-
 	public String getUsername() {
 		return username;
 	}
-
 	public void setUsername(String username) {
 		this.username = username;
 	}
-
 	public String getSex() {
 		return sex;
 	}
-
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
-
 	public java.util.Date getBirth() {
 		return birth;
 	}
-
 	public void setBirth(java.util.Date birth) {
 		this.birth = birth;
 	}
@@ -172,11 +156,9 @@ public class MemberBean implements Serializable {
 	public java.util.Date getLogindate() {
 		return logindate;
 	}
-
 	public void setLogindate(java.util.Date logindate) {
 		this.logindate = logindate;
 	}
-
 	public java.sql.Timestamp getLast_date() {
 		return last_date;
 	}
@@ -184,9 +166,7 @@ public class MemberBean implements Serializable {
 	public void setLast_date(java.sql.Timestamp last_date) {
 		this.last_date = last_date;
 	}
-
 	private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
 	public static java.util.Date convertDate(String temp) {
 		java.util.Date result = new java.util.Date();
 		try {
@@ -238,22 +218,20 @@ public class MemberBean implements Serializable {
 		this.order_math = order_math;
 	}
 
+	
 	public String getNickname() {
 		return nickname;
 	}
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
-	}
-
+	}	
 	public String getMpicture() {
 		return mpicture;
 	}
-
 	public void setMpicture(String mpicture) {
 		this.mpicture = mpicture;
 	}
-
 	public String getPermname() {
 		return permname;
 	}
@@ -261,40 +239,43 @@ public class MemberBean implements Serializable {
 	public void setPermname(String permname) {
 		this.permname = permname;
 	}
-
 	public int getArticleid() {
 		return articleid;
 	}
-
 	public void setArticleid(int articleid) {
 		this.articleid = articleid;
 	}
-
 	public String getKanban() {
 		return kanban;
 	}
-
 	public void setKanban(String kanban) {
 		this.kanban = kanban;
 	}
 
-	public static void main(String[] args) {
+	
+	
+	
+	
+
+	public static  void main(String[] args){
 		Session session = null;
 		MemberBean bean = null;
-		try {
-			session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try{
+			session  = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
-			Query query = session
-					.createQuery("from Member where account=:acconut");
+			Query query = session.createQuery("from Member where account=:acconut");
 			query.setParameter("account", 1);
 			bean = (MemberBean) query.uniqueResult();
 			System.out.println(bean);
-
+		
 			session.getTransaction().commit();
-		} catch (HibernateException e) {
+		}catch(HibernateException e){
 			session.getTransaction().rollback();
 		}
-
+	
 	}
+		
+	}
+	
+	
 
-}

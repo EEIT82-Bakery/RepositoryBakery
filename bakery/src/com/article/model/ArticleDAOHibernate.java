@@ -7,13 +7,13 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 
+import com.articleclass.model.ArticleClassBean;
 import com.rearticle.model.ReArticleBean;
 
 public class ArticleDAOHibernate implements ArticleDAO_interface{
 	
 	public static void main(String[] args){
-		
-		
+		ArticleDAOHibernate dao = new ArticleDAOHibernate();
 	}
 	
 	@Override
@@ -123,8 +123,6 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
-		} finally {
-			
 		}
 		return bean;
 	}
@@ -171,7 +169,6 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 			e.printStackTrace();
 			session.getTransaction().rollback();
 		}
-
 		return (int) count;
 	}
 	@SuppressWarnings("unchecked")
@@ -205,8 +202,6 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
-		} finally {
-			
 		}
 		return (int) count;
 	}
@@ -226,23 +221,6 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 		} catch (Exception e) {
 			e.printStackTrace();
 			session.getTransaction().rollback();
-		}
-		return beans;
-	}
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<ArticleClassBean> getArticleClass() {
-		List<ArticleClassBean> beans = null;
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		try {
-			session.beginTransaction();
-			beans = session.createQuery("From ArticleClassBean").list();
-			session.getTransaction().commit();
-		} catch (Exception e) {
-			e.printStackTrace();
-			session.getTransaction().rollback();
-		} finally {
-			
 		}
 		return beans;
 	}

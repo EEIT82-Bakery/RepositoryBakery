@@ -15,11 +15,11 @@ import com.product.model.ProductBean;
 
 @WebServlet("/Shopping.do")
 public class ShoppingServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	// public void doGet (HttpServletRequest req, HttpServletResponse res)
-	// throws ServletException, IOException {
-	// doPost(req, res);
-	// }
+	 public void doGet (HttpServletRequest req, HttpServletResponse res)
+	 throws ServletException, IOException {
+	 doPost(req, res);
+	 }
+	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		HttpSession session = req.getSession();
@@ -29,14 +29,17 @@ public class ShoppingServlet extends HttpServlet {
 			if (action.equals("DELETE")) {
 				String del = req.getParameter("del");
 				int d = Integer.parseInt(del);
+//				System.out.println(d);
 				buylist.removeElementAt(d);
 				session.setAttribute("shoppingcart", buylist);
+				
 				String url = "/front/ShoppingCart/Cart.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, resp);
 			} else if (action.equals("ADD")) {
 				boolean match = false;
 				ProductBean product = getProduct(req);
+				System.out.println("87="+product);
 				if (buylist == null) {
 					buylist = new Vector<ProductBean>();
 					buylist.add(product);
@@ -52,14 +55,31 @@ public class ShoppingServlet extends HttpServlet {
 					if (!match)
 						buylist.add(product);
 				}
-				session.setAttribute("shoppingcart", buylist);
+				int page1=1;
+				String page=req.getParameter("page");
+				System.out.println("pop"+page);
+				if (page!=null&& !page.isEmpty()){
+					page1=Integer.parseInt(page);
+					System.out.println(page1);
+				}
+				
+				String productTypeIdTemp = req.getParameter("productTypeId");
+				if(productTypeIdTemp != null && !productTypeIdTemp.isEmpty()){
+					int productTypeId = Integer.parseInt(productTypeIdTemp);
+					resp.sendRedirect(req.getContextPath() + "/product2.controller?productTypeId=" + productTypeId+"&page="+ page1 );
+				}else{
+					resp.sendRedirect(req.getContextPath() + "/product2.controller");
+				}
+				session.setAttribute("shoppingcart", buylist);	
 			}
 		} else if (action.equals("CHECKOUT")) {
+			
+			
 			int total = 0;
 			for (int i = 0; i < buylist.size(); i++) {
 				ProductBean order = buylist.get(i);
 				int price = order.getProductPrice();
-				float discount=order.getDiscount();
+				float discount = order.getDiscount();
 				int quantity = order.getQuantity();
 				total += (price * quantity * discount);
 			}
@@ -71,20 +91,19 @@ public class ShoppingServlet extends HttpServlet {
 			rd.forward(req, resp);
 		}
 	}
-
 	private ProductBean getProduct(HttpServletRequest req) {
 		String quantity = req.getParameter("quantity");
 		String name = req.getParameter("name");
 		String priceTemp = req.getParameter("price");
 		String discountTemp = req.getParameter("discount");
-		String productId= req.getParameter("productId");
+		String productIdTemp = req.getParameter("productId");
 		ProductBean productBean = new ProductBean();
 		productBean.setQuantity((new Integer(quantity)).intValue());
+		
 		productBean.setProductName(name);
 		productBean.setProductPrice((new Integer(priceTemp)).intValue());
-		productBean.setProductId((new Integer(productId)).intValue());
-		
 		productBean.setDiscount((new Float(discountTemp)).floatValue());
+		productBean.setProductId((new Integer(productIdTemp)).intValue());
 		return productBean;
 	}
 }

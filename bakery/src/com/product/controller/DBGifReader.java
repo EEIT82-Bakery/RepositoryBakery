@@ -8,7 +8,7 @@ import javax.servlet.http.*;
 
 import com.product.model.ProductBean;
 import com.product.model.ProductJNDIDAO;
-import com.sun.org.apache.regexp.internal.recompile;
+
  @WebServlet("/DBGifReader.do")
 public class DBGifReader extends HttpServlet {
 

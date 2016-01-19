@@ -7,9 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import sun.misc.BASE64Encoder;
-
+import org.apache.tomcat.util.codec.binary.Base64;
 public class ProductPhotoJDBC implements ProductPhoto_interface{
 	
 	private static final String URL = "jdbc:sqlserver://localhost:1433;database=bakeryDB";

@@ -1,7 +1,6 @@
 package com.member.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,4 +32,14 @@ public class MobieMemberServlet extends HttpServlet {
 		req.getRequestDispatcher("/front/memberforum/displaymember.jsp").forward(req, resp);
 		// ----------------------------------------------------//
 		}
+		
+			
+			
+
+
+		
+		
+	
+	
+	
 }

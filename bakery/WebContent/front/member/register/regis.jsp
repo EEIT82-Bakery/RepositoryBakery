@@ -24,11 +24,8 @@
 	background-image: url();
 }
 
-/* img { */
-/* 	max-width: 600px; */
-/* 	width: expression(this.width > 600 ? "600px" : this.width); */
-/* 	overflow: hidden; */
-/* } */
+
+
 </style>
 </head>
 <body>
@@ -49,8 +46,10 @@
 				<fieldset>
 					<legend>會員註冊 </legend>
 					<label for="account">帳號：</label>
-					<input id="account" name="m_account" type="text" size="30"  id="myID" />
+					<input id="name" name="m_account" type="text" size="30"  id="myID" />
 					<font size="-1" color="#FF0000">${ErrorMsg.x_account}</font>
+					 <img src="../images/ajax-loader.gif" id="img5" width="18" height="18">
+					<div id="div1"></div>
 					<span id="Span5" class="errorMsg"></span>
 					<label for="password">密碼：</label>
 					<input id="password" type="password" name="m_password" />
@@ -76,7 +75,7 @@
 		
 
 					<font size="-1" color="#FF0000">${ErrorMsg.x_bday}</font>
-					<label><span class="red">*</span>電子郵件：</label>
+					<label><span>*</span>電子郵件：</label>
 					<input type="text" name="m_email" id="m_email" class="mr6" size="30" value="" />
 					<input type="button" name="chechEmail" id="chechEmail" class="btn" value="確認是否重覆" />
 					<font size="-1" color="#FF0000">${ErrorMsg.x_m_email}</font>
@@ -172,6 +171,47 @@ $("#myID").attr('placeholder', '<spring:message code="myCode"/>');
 			});
 		});
 	</script>
+		<script>
+	var btn = document.getElementById("name");
+	btn.addEventListener("blur",load);
+	
+	var xxx =null;
+ 	function load(){
+//  		var myDiv = document.getElementById("div1");
+//  		myDiv.innerHTML="Hello,Ajax!!";
+
+	xxx = new XMLHttpRequest();
+	if(xxx!=null){
+	xxx.addEventListener("readystatechange",callback);
+	xxx.open("post","AccountCheck.jsp",true);
+	xxx.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xxx.send("m_account="+document.getElementById("name").value);
+	
+	
+	function callback(){
+		
+		if(xxx.readyState==1){
+			document.getElementById("img5").style.display ="inline";
+		}
+		if(xxx.readyState==4){
+			document.getElementById("img5").style.display ="none";
+		if(xxx.status==200){
+			var data  = xxx.responseText;
+			
+			var myDiv = document.getElementById("div1");
+			myDiv.innerHTML="<h3>"+data+"</h3>";
+			}else{
+				alert(xxx.status+","+xxx.statusText);
+			}
+		}
+			
+	}
+	}
+	
+	}
+			</script>	
+	
+
 
 </body>
 </html>

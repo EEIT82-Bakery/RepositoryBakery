@@ -1,6 +1,6 @@
 package com.orderlist.model;
 
-public class OrderListBean {
+public class OrderListBean implements java.io.Serializable{
 	private int orderId;
 	private int productId;
 	private int count;
