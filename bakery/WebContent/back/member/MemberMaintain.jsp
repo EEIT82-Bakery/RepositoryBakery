@@ -131,6 +131,7 @@
 							<td>				
 							<form method="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
 								<input type="submit" value="一般會員" ${Go.status==2 ?"disabled" :""}>
+								<input type="hidden" name="page" value="${page}">
 								<input type="hidden" name="action" value="disableMember">
 								<input type="hidden" name="member_id" value="${Go.member_id}">
 							</form>
@@ -138,6 +139,7 @@
 							<td>
 							<form method="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
 								<input type="submit" value="黑名單" ${Go.status==3 ?"disabled" :""}>
+								<input type="hidden" name="page" value="${page}">
 								<input type="hidden" name="action" value="activateMember">
 								<input type="hidden" name="member_id" value="${Go.member_id}">
 							</form>
