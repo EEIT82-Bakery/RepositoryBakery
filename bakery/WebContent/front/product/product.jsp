@@ -61,33 +61,21 @@
 			<!--------------------------------------產品側攔--------------------------------------->
 			<!-----------------------------------------main----------------------------------------->
 			<div class="col-xs-9">
-
-				<c:forEach var="aBean" items="${productList}">
+				<h3></h3>
+				<c:forEach var="aBean" items="${productList}" varStatus="theCount">
 					<div class="col-xs-4">
-					<form name="shoppingForm" action="Shopping.do" method="POST">
 						<h4>${aBean.productName}</h4>
 						<img src="<%=request.getContextPath()%>/DBGifReader.do?productId=${aBean.productId}" width="150px" height="150px">
 						<h6>單價 :${aBean.productPrice}</h6>
-
-					<div align="center">
-								<input type="submit" name="Submit" value="放入購物車">
-							</div>
-							數量： 
-
-							<input type="number"  id="quantity" name="quantity" value=1 min="0" max="10" style="width:36px">
-
-							<input type="hidden" name="name" value="${aBean.productName}">
-							<input type="hidden" name="price" value="${aBean.productPrice}">
-							<input type="hidden" name="discount" value="${aBean.discount}">
-							<input type="hidden" name="productTypeId" value="${aBean.productTypeId}">
-							<input type="hidden" name="productId" value="${aBean.productId}">
-							<input type="hidden" name="page" value="${page}">
-							<input type="hidden" name="action" value="ADD">
-						</form>
+						<div>
+							數量：
+							<input type="number" id="number${theCount.count}" name="quantity" value=1 min="0" max="10" style="width: 36px">
+							<button
+								onclick="addShoppingItems('${aBean.productName}' , '${aBean.productPrice}' , '${aBean.discount}','${aBean.productId}','${theCount.count}')">放入購物車</button>
+						</div>
 
 					</div>
 				</c:forEach>
-<!-- 				<input type="number" id="quantity" name="quantity" value=1 min="0" max="10" style="width: 36px"> -->
 			</div>
 			<c:if test="${not empty pageCount}">
 				<div class="page">
@@ -111,26 +99,27 @@
 	</div>
 	<%@ include file="../fragment/js.jsp"%>
 	<script>
-// 		function addShoppingItems(productName , productPrice , discount,productId){
-// 			var quantity = document.getElementById("quantity").value;
-// 			xmlHttp = new XMLHttpRequest();
-// 			if (xmlHttp != null) {
-// 				xmlHttp.open("POST", "${pageContext.request.contextPath}/Shopping.do", true);
-// 				xmlHttp.addEventListener("readystatechange", callback, false);
-// 				xmlHttp.setRequestHeader("Content-Type",
-// 						"application/x-www-form-urlencoded");
-// 				xmlHttp.send("action=ADD" + "&name=" + productName + "&price=" +productPrice + "&discount=" +discount 
-// 						+ "&quantity=" + quantity + "&productId=" + productId);
+		function addShoppingItems(productName , productPrice , discount,productId,count){
+			
+			var quantity = document.getElementsByName("quantity")[count-1].value;
+			xmlHttp = new XMLHttpRequest();
+			if (xmlHttp != null) {
+				xmlHttp.open("POST", "${pageContext.request.contextPath}/Shopping.do", true);
+				xmlHttp.addEventListener("readystatechange", callback, false);
+				xmlHttp.setRequestHeader("Content-Type",
+						"application/x-www-form-urlencoded");
+				xmlHttp.send("action=ADD" + "&name=" + productName + "&price=" +productPrice + "&discount=" +discount 
+						+ "&quantity=" + quantity + "&productId=" + productId);
 				
-// 			} else {
-// 				alert("您的瀏覽器不支援Ajax的功能!!");
-// 			}
-// 			function callback() {
-// 				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-// 					//
-// 				}
-// 			}
-// 		}
+			} else {
+				alert("您的瀏覽器不支援Ajax的功能!!");
+			}
+			function callback() {
+				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+					//
+				}
+			}
+		}
 		
 		$(document).ready(function(e) {
 			var curr = null;

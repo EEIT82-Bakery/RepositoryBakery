@@ -147,7 +147,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setProductStatus(rset.getString("Product_status"));
 				bean.setProductPrice(rset.getInt("Product_price"));
 				bean.setMain_photo(rset.getBytes("Main_photo"));
-				bean.setDiscount(rset.getFloat("Discount"));
+				bean.setDiscount(rset.getString("Discount"));
 				bean.setProductDate(rset.getDate("Product_date"));
 				bean.setProductType(rset.getString("Product_type"));
 				beans.add(bean);
@@ -195,7 +195,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setProductStatus(rset.getString("Product_status"));
 				bean.setProductPrice(rset.getInt("Product_price"));
 				bean.setMain_photo(rset.getBytes("Main_photo"));
-				bean.setDiscount(rset.getFloat("Discount"));
+				bean.setDiscount(rset.getString("Discount"));
 				bean.setProductDate(rset.getDate("Product_date"));
 				result.add(bean);
 			}
@@ -244,7 +244,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setProductStatus(rset.getString("Product_status"));
 				bean.setProductPrice(rset.getInt("Product_price"));
 				bean.setMain_photo(rset.getBytes("Main_photo"));
-				bean.setDiscount(rset.getFloat("Discount"));
+				bean.setDiscount(rset.getString("Discount"));
 				result.add(bean);
 			}
 		} catch (SQLException e) {
@@ -283,7 +283,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				stmt.setString(2, bean.getProductStatus());
 				stmt.setInt(3, bean.getProductPrice());
 				stmt.setBytes(4, bean.getMain_photo());
-				stmt.setFloat(5, bean.getDiscount());
+				stmt.setString(5, bean.getDiscount());
 				java.util.Date productDate = bean.getProductDate();
 				if (productDate != null) {
 					long time = productDate.getTime();
@@ -333,7 +333,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 			stmt.setString(2, bean.getProductStatus());
 			stmt.setFloat(3, bean.getProductPrice());
 			stmt.setBytes(4, bean.getMain_photo());
-			stmt.setFloat(5, bean.getDiscount());
+			stmt.setString(5, bean.getDiscount());
 			java.util.Date productDate = bean.getProductDate();
 			if (productDate != null) {
 				long time = productDate.getTime();
@@ -522,7 +522,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setProductStatus(rset.getString("Product_status"));
 				bean.setProductPrice(rset.getInt("Product_price"));
 				bean.setMain_photo(rset.getBytes("Main_photo"));
-				bean.setDiscount(rset.getFloat("Discount"));
+				bean.setDiscount(rset.getString("Discount"));
 				bean.setProductDate(rset.getDate("Product_date"));
 				result.add(bean);
 			}
