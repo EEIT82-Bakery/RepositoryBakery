@@ -33,7 +33,6 @@
 	<a href="<%=request.getContextPath()%>/back/product/ProductInsert.jsp"><input type="button" value="新增產品" id="buttonRight"></a>
 		<h1 class="page-header">產品</h1> 
 		
-		
 <ul>
   <li id="nav1">
    <FORM METHOD="post" action='<c:url value="/ProductSelectOneServlet.do"/>'>
@@ -46,7 +45,9 @@
   </li>
   
 </ul>
-<table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed">
+<br/>
+<div class="CSSTableGenerator" >
+<table width="100%" style="table-layout:fixed">
 	<tr>
 		<th>產品ID</th>
 		<th>產品名稱</th>
@@ -95,7 +96,7 @@
 	</div>
 	<!-----------------------------------------main----------------------------------------->
 	</div>
-	</div>
+	
 	<%@ include file="../fragment/js.jsp"%>
 </body>
 </html>
