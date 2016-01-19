@@ -178,16 +178,16 @@
 			<form action="<c:url value='/PointServlet.do '/>" method="get">
 				<!-- 			<input type="button" value="遊戲開始" name="upd" onclick="dsd()" -->
 				<!-- 				class="button button-3d button-action button-pil"> -->
-				<input type="submit" value="遊戲開始" name="upd" onclick="dsd()"
+				<input type="submit" value="遊戲開始"  onclick="dsd()"
 					class="button button-3d button-royal">
-
-
+					
 			</form>
 			<table border='1' width='200' top='50'
 				style="background: #F5EBFF; border-color: rgb(100, 100, 255); margin-top: 8px;">
 				<tr>
 					<TD>客戶姓名:${isLogin.username}</TD>
 					<TD>客戶點數:${isLogin.point}</TD>
+					<TD>客戶點數:${param.upd}</TD>
 				<tr>
 			</table>
 
