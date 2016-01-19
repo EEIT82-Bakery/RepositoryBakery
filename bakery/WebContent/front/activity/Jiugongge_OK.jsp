@@ -187,7 +187,7 @@
 				<tr>
 					<TD>客戶姓名:${isLogin.username}</TD>
 					<TD>客戶點數:${isLogin.point}</TD>
-					<TD>客戶點數:${param.upd}</TD>
+					<TD>客戶點數:${upd.point}</TD>
 				<tr>
 			</table>
 

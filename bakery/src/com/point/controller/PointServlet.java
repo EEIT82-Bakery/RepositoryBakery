@@ -28,9 +28,8 @@ public class PointServlet extends HttpServlet {
 		int mb = bean.getMember_id();
 		System.out.println("servlet:" + point);
 		MemberBean po = sr.updatePoint100(point); // 用我程式去修改他的點數id
-		System.out.println(po);
 		// System.out.println(poit.getPoint());
-		req.setAttribute("upd", po);// 我的name那邊定義的名字,與這邊的修改方法
+		req.setAttribute("upd", po);
 		req.getRequestDispatcher("/front/activity/Jiugongge_OK.jsp").forward(req, resp);
 	}
 
