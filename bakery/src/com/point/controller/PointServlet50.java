@@ -15,8 +15,8 @@ import com.point.model.MemberHibernateDAO;
 import com.point.model.MemberHibernateservice;
 
 
-@WebServlet("/PointServlet.do")
-public class PointServlet extends HttpServlet {
+@WebServlet("/PointServlet50.do")
+public class PointServlet50 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	
@@ -38,7 +38,7 @@ public class PointServlet extends HttpServlet {
 	req.setAttribute("upd", poit);// 我的name那邊定義的名字,與這邊的修改方法
 	
 	req.getRequestDispatcher(
-			"/front/activity/Jiugongge_OK.jsp").forward(req, resp);
+			"/front/activity/Turntable.jsp").forward(req, resp);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

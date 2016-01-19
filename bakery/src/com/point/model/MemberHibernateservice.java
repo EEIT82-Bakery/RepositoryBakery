@@ -8,6 +8,8 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.member.model.MemberBean;
+
 import hibernate.util.HibernateUtil;
 
 
@@ -19,38 +21,40 @@ public class MemberHibernateservice {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		this.dao = new MemberHibernateDAO(session);
 	}
-	//抓會員點數
-	public  MemberBean selectPoint(int point){
-		return dao.selectPoint(point);
-		
-	}
 	
 	
-	//抓單一會員
-	public MemberBean select(int member_id){
-	 return dao.select(member_id);
-
-	}
-	//扣會員點數
+	
+	//扣會員點數100
 	public MemberBean updatePoint(int member_id){
 		return dao.updatePoint(member_id);
 		
 	}
 	
+	//扣會員點數50
+	public MemberBean updatePoint50(int member_id){
+		return dao.updatePoint(member_id);
 	
-	
+	}
+		
+		
 	public static void main(String[] args) {
-		try {
-			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-			session.beginTransaction();
-
-			MemberHibernateDAO dao = new MemberHibernateDAO(session);
-			System.out.println(dao.updatePoint(3));
-				
-			session.getTransaction().commit();
-		} finally {
-			HibernateUtil.closeSessionFactory();
-		}
+//		try {
+//			Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+//			session.beginTransaction();
+//
+//			MemberHibernateDAO dao = new MemberHibernateDAO(session);
+//			System.out.println(dao.updatePoint(1));
+//				
+//			session.getTransaction().commit();
+//		} finally {
+//			HibernateUtil.closeSessionFactory();
+//		}
+		MemberBean bean =new  MemberBean();
+		List<MemberBean> beans= null;
+		MemberHibernateDAO dao= new MemberHibernateDAO();
+//		beans = dao.select();
+//		System.out.println(dao.updatePoint(4));
+		dao.updatePoint(1);
 
 	}
 
