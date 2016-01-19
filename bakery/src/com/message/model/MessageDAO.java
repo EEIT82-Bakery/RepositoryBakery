@@ -11,7 +11,7 @@ public interface MessageDAO {
 	public MessageBean update(MessageBean bean);
 	public List<MessageBean> selectAll();
 	public List<MessageBean> getgivemymsg(Integer read_id,Integer msg_state );
-	public List<MessageBean> selectPage(int pageInt);  //取得頁數
+	public List<MessageBean> selectPage(int pageInt,Integer read_id,Integer msg_state);  //取得頁數
 	public abstract int getState(Integer msg_state);  //取得總筆數
 	public int getProduct();//不分狀態 取得全部的筆數
 }
