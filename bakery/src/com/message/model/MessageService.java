@@ -22,11 +22,21 @@ public class MessageService {
 	}
 	
 
+	//依照reader statu 來分頁數
 	public List<MessageBean> seletPage(int pageInt,Integer read_id, Integer msg_state){
 		
 		return dao.selectPage(pageInt, read_id, msg_state);
 	}	
+	
+	
+	//依照reader 來分頁數
+	public List<MessageBean> seletAllPage(int pageInt,Integer read_id){
+		return dao.selectAllPage(pageInt, read_id);
+		
+	}
+	
 
+	
 	
 	
 	public List<MessageBean> selectAllByStateAndId(Integer read_id, Integer msg_state){

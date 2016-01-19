@@ -38,12 +38,43 @@ public class MessageServlet extends HttpServlet {
 		if("add".equals(action)){
 			HttpSession session = req.getSession();
 			MemberBean bean = (MemberBean) session.getAttribute("isLogin");
-		
+	
 			
 		}
 		
 		
-		if("select".equals(action)){
+		
+		
+		if("select".equals(action)){			
+			HttpSession session = req.getSession();
+			MemberBean bean = (MemberBean) session.getAttribute("isLogin");
+			Integer memberid =  bean.getMember_id();
+			int pageSize=5;
+			String pageStr = req.getParameter("pages");
+			int pageInt = Integer.parseInt(pageStr);
+			
+			MessageService messageservice = new MessageService();
+			MessageBean messagebean = new MessageBean();
+			List<MessageBean> list = messageservice.seletAllPage(pageInt, memberid);
+			for(MessageBean be :list){
+				ArticleService articleSvc = new ArticleService();
+				be.setMdate(articleSvc.convertDate(be.getMsg_date())); 
+
+			}
+			req.setAttribute("list", list);
+			
+			req.setAttribute("page", pageInt);
+	
+			int allcount= messageservice.getReadCount(memberid);
+			int pageCount = allcount/pageSize + (allcount % pageSize != 0 ? 1 : 0);
+			System.out.println(pageCount);
+			req.setAttribute("pageCount", pageCount);
+			req.getRequestDispatcher("/front/member/message/Message.jsp").forward(req, resp);
+		}
+		
+		
+		
+		if("selecread".equals(action)){
 			HttpSession session = req.getSession();
 			MemberBean bean = (MemberBean) session.getAttribute("isLogin");
 			Integer memberid =  bean.getMember_id();
@@ -58,7 +89,6 @@ public class MessageServlet extends HttpServlet {
 				ArticleService articleSvc = new ArticleService();
 				be.setMdate(articleSvc.convertDate(be.getMsg_date())); 
 
-			
 			}
 			
 			req.setAttribute("list", list);
@@ -66,15 +96,36 @@ public class MessageServlet extends HttpServlet {
 			req.setAttribute("page", pageInt);
 			int allcount= messageservice.getReadCount(memberid);
 			int pageCount = allcount/pageSize + (allcount % pageSize != 0 ? 1 : 0);
-			System.out.println(pageCount);
 			req.setAttribute("pageCount", pageCount);
 			req.getRequestDispatcher("/front/member/message/Message.jsp").forward(req, resp);
+			}
+			
+		
+		
+		if("selecNoRead".equals(action)){
+			System.out.println(action);
+			HttpSession session = req.getSession();
+			MemberBean bean = (MemberBean) session.getAttribute("isLogin");
+			Integer memberid =  bean.getMember_id();
+			int pageSize=5;
+			String pageStr = req.getParameter("pages");
+			int pageInt = Integer.parseInt(pageStr);
+			MessageService messageservice = new MessageService();
+			List<MessageBean> list = messageservice.seletPage(pageInt, memberid, 2);
+			for(MessageBean be :list){
+				ArticleService articleSvc = new ArticleService();
+				be.setMdate(articleSvc.convertDate(be.getMsg_date())); 
+
+			}
+			req.setAttribute("list", list);
+			req.setAttribute("page", pageInt);
+			int allcount= messageservice.getReadCount(memberid);
+			int pageCount = allcount/pageSize + (allcount % pageSize != 0 ? 1 : 0);
+			System.out.println(pageCount);
+			req.setAttribute("pageCount", pageCount);
+			req.getRequestDispatcher("/front/member/message/Message.jsp").forward(req, resp);	
+			
 		}
-		
-		
-		
-		
-		
 		
 		
 		
