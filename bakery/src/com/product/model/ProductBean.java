@@ -16,7 +16,7 @@ public class ProductBean implements java.io.Serializable{
 	private String productStatus;
 	private int productPrice;
 	private byte[] main_photo;
-	private float discount;
+	private String discount;
 	private java.util.Date productDate;
 	private int photoId;
 	private byte[] productPhoto;
@@ -68,10 +68,10 @@ public class ProductBean implements java.io.Serializable{
 	public void setMain_photo(byte[] main_photo) {
 		this.main_photo = main_photo;
 	}
-	public float getDiscount() {
+	public String getDiscount() {
 		return discount;
 	}
-	public void setDiscount(float discount) {
+	public void setDiscount(String discount) {
 		this.discount = discount;
 	}
 	public java.util.Date getProductDate() {

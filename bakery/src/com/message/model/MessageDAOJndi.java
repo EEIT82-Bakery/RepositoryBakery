@@ -134,16 +134,19 @@ public class MessageDAOJndi implements MessageDAO {
 			}
 		return list;
 	}
-
+	
+	
+	
+	
+	private static final String SELECTSTATE_a="SELECT *FROM MESSAGE WHERE RECE_ID=? AND  (MSG_STATE=0 or MSG_STATE=2) ORDER BY msg_date desc";//柏翔
 	private static final String SELECTSTATE = "SELECT * FROM Message where Read_id=?,Msg_state=?";
 	@Override
 	public List<MessageBean> getgivemymsg(Integer read_id, Integer msg_state) {
 		List<MessageBean> list = null;
 		ResultSet rs = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(SELECTSTATE)){
+			PreparedStatement stmt = conn.prepareStatement(SELECTSTATE_a)){
 			stmt.setInt(1, read_id);
-			stmt.setInt(2, msg_state);
 			rs = stmt.executeQuery();
 			list = new ArrayList<MessageBean>();
 			while(rs.next()){
@@ -165,20 +168,24 @@ public class MessageDAOJndi implements MessageDAO {
 	}
 
 	
+	
+	
 	//以狀態分頁
 	@Override
-	public List<MessageBean> selectPage(int pageInt) {
+	public List<MessageBean> selectPage(int pageInt,Integer read_id,Integer msg_state) {
 		List<MessageBean> list = null;
 		ResultSet rs = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement("select * FROM Product "
-					+ " ORDER BY id OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
+			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+"and Msg_state="+msg_state
+					+ " ORDER BY Msg_state OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
 			rs = stmt.executeQuery();
 			list = new ArrayList<MessageBean>();
 			while(rs.next()){
 				MessageBean bean  = new MessageBean();
 				bean.setSend_id(rs.getInt("Send_id"));
 				bean.setRead_id(rs.getInt("Read_id"));
+				bean.setSendAccount(rs.getString("sendAccount"));
+				bean.setReadAccount(rs.getString("readAccount"));
 				bean.setMsg_tit(rs.getString("Msg_tit"));
 				bean.setMsg_cont(rs.getString("Msg_cont"));
 				bean.setMsg_date(rs.getTimestamp("Msg_date"));
@@ -197,7 +204,7 @@ public class MessageDAOJndi implements MessageDAO {
 	
 	
 	//狀態分類的總筆數
-	private static final String MESSAGE_state = "SELECT count(Send_id)  from Message where msg_state=?";
+	private static final String MESSAGE_state = "SELECT count(Read_id)  from Message where msg_state=?";
 	@Override
 	public int getState(Integer msg_state) {
 		PreparedStatement pstmt = null;
@@ -242,7 +249,7 @@ public class MessageDAOJndi implements MessageDAO {
 
 	
 	//總筆數
-	private static final String MESSAGE = "SELECT count(Send_id)  from Message";
+	private static final String MESSAGE = "SELECT count(Read_id)  from Message";
 	@Override
 	public int getProduct() {
 		PreparedStatement pstmt = null;
@@ -282,5 +289,112 @@ public class MessageDAOJndi implements MessageDAO {
 			}
 		}
 		return result;
+	}
+
+	
+	private static final String ReadCount = "SELECT count(Read_id)  from Message where Read_id=?";
+	@Override
+	public int getreadCount(Integer read_id) {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(ReadCount);
+			pstmt.setInt(1, read_id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
+	}
+
+	
+	
+	
+	private static final String status = "SELECT Msg_state from Message";
+	@Override
+	public MessageBean select() {
+		MessageBean bean = null;
+		ResultSet rs = null;
+		try(Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(status);){
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				bean = new MessageBean();
+				bean.setMsg_state(rs.getInt("Msg_state"));
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if (rs!=null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return bean;
+		}
+
+	
+	
+	
+	//依據read尋找所有頁面
+	@Override
+	public List<MessageBean> selectAllPage(int pageInt, Integer read_id) {
+		List<MessageBean> list = null;
+		ResultSet rs = null;
+		try(Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+
+					 " ORDER BY Msg_state OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
+			rs = stmt.executeQuery();
+			list = new ArrayList<MessageBean>();
+			while(rs.next()){
+				MessageBean bean  = new MessageBean();
+				bean.setSend_id(rs.getInt("Send_id"));
+				bean.setRead_id(rs.getInt("Read_id"));
+				bean.setSendAccount(rs.getString("sendAccount"));
+				bean.setReadAccount(rs.getString("readAccount"));
+				bean.setMsg_tit(rs.getString("Msg_tit"));
+				bean.setMsg_cont(rs.getString("Msg_cont"));
+				bean.setMsg_date(rs.getTimestamp("Msg_date"));
+				bean.setMsg_state(rs.getInt("Msg_state"));
+				list.add(bean);					
+			}
+			
+	}catch(Exception se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+	
+	}
+	return list;
 	}
 }
