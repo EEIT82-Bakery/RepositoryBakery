@@ -15,10 +15,10 @@ import com.product.model.ProductBean;
 
 @WebServlet("/Shopping.do")
 public class ShoppingServlet extends HttpServlet {
-	// public void doGet (HttpServletRequest req, HttpServletResponse res)
-	// throws ServletException, IOException {
-	// doPost(req, res);
-	// }
+	 public void doGet (HttpServletRequest req, HttpServletResponse res)
+	 throws ServletException, IOException {
+	 doPost(req, res);
+	 }
 	
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -29,7 +29,6 @@ public class ShoppingServlet extends HttpServlet {
 			if (action.equals("DELETE")) {
 				String del = req.getParameter("del");
 				int d = Integer.parseInt(del);
-				System.out.println(d);
 				buylist.removeElementAt(d);
 				session.setAttribute("shoppingcart", buylist);
 				

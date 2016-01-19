@@ -3,7 +3,7 @@ package com.article.model;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
+import org.apache.tomcat.util.codec.binary.Base64;
 
 import com.rearticle.model.ReArticleBean;
 import com.rearticle.model.ReArticleDAOHibernate;

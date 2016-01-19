@@ -11,6 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -20,6 +22,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
+import com.Voteitem.model.VoteitemBean;
 import com.article.model.ArticleBean;
 import com.membergrade.model.MemberGradeBean;
 import com.rearticle.model.ReArticleBean;
@@ -29,24 +32,34 @@ import com.rearticle.model.ReArticleBean;
 public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@OneToMany(mappedBy = "member")
-	private Set<ArticleBean> articles;
+//	@OneToMany(mappedBy = "member")
+//	private Set<ArticleBean> articles;
+//	
+//	@OneToMany(mappedBy = "member")
+//	private Set<ReArticleBean> reArticles;
+//	
+//	@ManyToOne
+//	@JoinColumn(name = "STATU", referencedColumnName = "STATU", insertable = false, updatable = false)
+//	private MemberGradeBean membergrade;
+
+//	public MemberGradeBean getMembergrade() {
+//		return membergrade;
+//	}
+//
+//	public void setMembergrade(MemberGradeBean membergrade) {
+//		this.membergrade = membergrade;
+//	}
+
 	
-	@OneToMany(mappedBy = "member")
-	private Set<ReArticleBean> reArticles;
-	
-	@ManyToOne
-	@JoinColumn(name = "STATU", referencedColumnName = "STATU", insertable = false, updatable = false)
-	private MemberGradeBean membergrade;
-
-	public MemberGradeBean getMembergrade() {
-		return membergrade;
-	}
-
-	public void setMembergrade(MemberGradeBean membergrade) {
-		this.membergrade = membergrade;
-	}
-
+	// 會員對應投票活動--
+	@ManyToMany
+	@JoinTable(
+			name="Vote_Person",
+			joinColumns=@JoinColumn(name="Member_id"),
+			inverseJoinColumns=@JoinColumn(name="Vote_item_id")
+			)
+	private Set<VoteitemBean> voteitem;
+	//-------------------
 	@Id
 	@Column(name = "Member_id")
 	private int member_id;
