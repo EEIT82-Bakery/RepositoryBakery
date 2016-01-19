@@ -7,7 +7,7 @@
 	<session-factory>
 		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
 		<property name="hibernate.connection.password">sa123456</property>
-		<property name="hibernate.connection.url">jdbc:sqlserver://192.168.235.128;DatabaseName=bakeryDB;</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;DatabaseName=bakeryDB;</property>
 		<property name="hibernate.connection.username">sa</property>
 <!-- 		<property name="hibernate.connection.datasource">java:comp/env/jdbc/cake</property> -->
 <!-- 		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property> -->
