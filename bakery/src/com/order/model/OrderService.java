@@ -35,6 +35,10 @@ public class OrderService {
 		return dao.select(OrderId);
 	}
 	
+	public List<OrderBean> selectMember(int memberId){
+		return dao.selectMember(memberId);
+	}
+	
 	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
 	public java.util.Date convertDate(String data) {
 		java.util.Date result = null;

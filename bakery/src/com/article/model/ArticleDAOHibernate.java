@@ -79,6 +79,25 @@ public class ArticleDAOHibernate implements ArticleDAO_interface{
 	}
 	
 	@Override
+	public void updateArticleHidden(int articleId,int hidden) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			ArticleBean bean = (ArticleBean) session.createQuery("From ArticleBean where article_Id = ?")
+					.setParameter(0, articleId)
+					.uniqueResult();
+			if (bean != null) {
+				bean.setHidden(hidden);
+				session.update(bean);
+			}
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			e.printStackTrace();
+			session.getTransaction().rollback();
+		}
+	}
+	
+	@Override
 	public void updateReArticleCount(int reId, int articleId, ReArticleBean bean) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {

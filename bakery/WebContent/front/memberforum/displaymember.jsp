@@ -188,6 +188,12 @@
 								<li><a href="#">
 										<i class="glyphicon glyphicon-list-alt"></i> 好友名單
 									</a></li>
+							
+								<li>
+								
+									<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">我的訊息</a>
+								</li>
+								
 								<li>
 								<a href="<c:url value="/AllMemberServlet.do" >
 								<c:param name="account" value="${member.account}" />

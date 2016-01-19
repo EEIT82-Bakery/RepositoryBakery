@@ -1,30 +1,6 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="com.message.model.*"%>   
-<%@page import="java.util.*" %>
-<% 
-
-
-	MessageService messageservice = new MessageService();
-	MessageBean messagebean = new MessageBean();
-	List<MessageBean> list = messageservice.selectMessage();
-	pageContext.setAttribute("status", list);
-	
-	
-	messagebean = messageservice.seletStatus();
-	Integer status = messagebean.getMsg_state();
-	
-		pageContext.setAttribute("all", status);
-	
-		
-		
-		
-		
-		
-		
-		
-%>
 
 
     
@@ -32,37 +8,50 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Insert</title>
+
+
+
+
+
 </head>
 <body>
 
 
-
-
-<div>
-<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">全部</a>
-<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&pages=1" >未讀</a>
-<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1">已讀</a>
-</div>																	
+	
+	
+	
+	
+	
+	
+	
+	<h1>12</h1>
+	
+	
+	
+	
+	
+	
+	
+	
 	<table border="1">
-		<thead>
+		<thead>	
 		<tr>
 			<td>寄件人</td>
 			<td>收件人</td>
 			<td>訊息標題</td>
 			<td>寄送時間</td>
 			<td>寄信狀態</td>
-		</tr>	
+		</tr>
+		
+
 		<c:forEach var="Go" items="${list}">
 		<tr>
-			<td>${Go.sendAccount}</td>
-			<td>
-			<c:if test="${Go.read_id==isLogin.member_id}">
-					<p>${Go.readAccount}</p>
-			</c:if>
-			</td>
-			<td><a href="#">${Go.msg_tit}</a></td>
-			<td>${Go.mdate}</td>
+			<td>${Go.send_id}</td>
+			<td>${Go.read_id}</td>
+			<td><a href="http://tw.yahoo.com" name="action">123</a></td>
+			
+			<td>${Go.msg_date}</td>
 
 			<td>
 			 <c:if test="${Go.msg_state==1}">
@@ -80,6 +69,10 @@
 		</thead>
 			
 	</table>
+	
+	
+	
+	
 		<c:if test="${not empty pageCount}">
 				<c:forEach var="page" begin="1" end="${pageCount}">
 
@@ -87,6 +80,13 @@
 						<c:out value="${page}" /></a>
 				</c:forEach>
 		</c:if>
+	
+	
+	
+	
+	
+	
+	
 	
 <%-- <c:choose> --%>
 	

@@ -86,8 +86,9 @@ function clearForm() {
 						<td>${errors.proTypeId}</td>
 					</tr>
 					<tr>
-					
+						
 						<td colspan="2" align="center">
+						<input type="hidden" name="whichPage" value="${param.whichPage}">
 						<input type="submit" value="送出修改">
 						<input type="hidden" name="action"value="update">
 						 </td>

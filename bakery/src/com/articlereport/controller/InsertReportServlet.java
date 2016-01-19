@@ -32,6 +32,7 @@ public class InsertReportServlet extends HttpServlet {
 		MemberBean memberBean = (MemberBean) session.getAttribute("isLogin");
 		if (memberBean == null) {
 			out.print("請先登入後，才能檢舉。");
+			out.close();
 		} else {
 			int memberId = memberBean.getMember_id();
 			String articleIdTemp = request.getParameter("articleId");
@@ -49,8 +50,10 @@ public class InsertReportServlet extends HttpServlet {
 							articleReportSvc.insertArticleReport(memberId,
 									articleId, reportMsg);
 							out.print("已檢舉成功!");
+							out.close();
 						} else {
 							out.print("您已檢舉過!");
+							out.close();
 						}
 					} else {//有的話執行檢舉回文
 						int reId = Integer.parseInt(reIdTemp);
@@ -59,12 +62,15 @@ public class InsertReportServlet extends HttpServlet {
 							reArticleReportSvc.insertReArticleReport(memberId,
 									articleId, reId, reportMsg);
 							out.print("已檢舉成功!");
+							out.close();
 						} else {
 							out.print("您已檢舉過!");
+							out.close();
 						}
 					}
 				} else {
 					out.print("請輸入檢舉內容!");
+					out.close();
 				}
 			}
 		}
