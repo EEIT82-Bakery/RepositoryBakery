@@ -1,6 +1,7 @@
 package com.message.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.member.model.MemberBean;
+import com.message.model.MessageBean;
+import com.message.model.MessageService;
 
 public class MessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,6 +39,27 @@ public class MessageServlet extends HttpServlet {
 			
 			
 			
+			
+			
+			
+			
+		}
+		
+		if("select".equals(action)){
+			HttpSession session = req.getSession();
+			MemberBean bean = (MemberBean) session.getAttribute("isLogin");
+			Integer memberid =  bean.getMember_id();
+			
+			
+			
+			int pageSize=6;
+			String pageStr = req.getParameter("pages");
+			
+			int pageInt = Integer.parseInt(pageStr);
+			
+			MessageService messageservice = new MessageService();
+			MessageBean messagebean = new MessageBean();
+//			List<MessageBean> list = messageservice.seletPage(pageInt);
 			
 			
 			

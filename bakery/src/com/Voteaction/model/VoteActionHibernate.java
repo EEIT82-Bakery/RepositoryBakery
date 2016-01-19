@@ -12,6 +12,7 @@ import hibernate.util.HibernateUtil;
 public class VoteActionHibernate implements VoteAction_Interface{
 
 	public static void main (String args[]){
+
 		VoteActionHibernate voteaction=new VoteActionHibernate();
 //			System.out.println(	voteaction.selectall());
 //		VoteActionBean bean = new VoteActionBean();

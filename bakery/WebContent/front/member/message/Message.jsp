@@ -16,10 +16,17 @@
 			<td>收件人</td>
 			<td>訊息標題</td>
 			<td>寄送時間</td>
+			<td>寄信狀態</td>
 		</tr>
 		
-		
-		
+		<tr>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+
+		</tr>
 		</thead>
 	
 	

@@ -167,12 +167,12 @@ public class MessageDAOJndi implements MessageDAO {
 	
 	//以狀態分頁
 	@Override
-	public List<MessageBean> selectPage(int pageInt) {
+	public List<MessageBean> selectPage(int pageInt,Integer read_id,Integer msg_state) {
 		List<MessageBean> list = null;
 		ResultSet rs = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement("select * FROM Product "
-					+ " ORDER BY id OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
+			PreparedStatement stmt = conn.prepareStatement("select * FROM Message where Read_id="+read_id+"and Msg_state="+msg_state
+					+ " ORDER BY Msg_state OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
 			rs = stmt.executeQuery();
 			list = new ArrayList<MessageBean>();
 			while(rs.next()){
