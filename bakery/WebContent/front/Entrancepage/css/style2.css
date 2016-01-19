@@ -11,7 +11,7 @@
   .btn { 
     width:101px; 
     height:25px; 
-    margin:auto; 
+    right:-430px;
     position:relative; 
     padding-top:370px;
   }

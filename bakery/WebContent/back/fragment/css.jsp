@@ -5,3 +5,4 @@
 <link href="${pageContext.request.contextPath}/back/HtmlData/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/back/HtmlData/css/backmain.css" rel="stylesheet" />
 <link href="${pageContext.request.contextPath}/back/HtmlData/css/non-responsive.css" rel="stylesheet" />
+<link href="${pageContext.request.contextPath}/back/HtmlData/css/product.css" rel="stylesheet" />

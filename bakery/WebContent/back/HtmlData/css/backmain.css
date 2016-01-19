@@ -42,11 +42,11 @@ body {
 	padding: 20px;
 	overflow-x: hidden;
 	overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-	background-color: #424a5d;
+	background-color: #C29793;
 	border-right: 1px solid #eee;
 }
 .sidebar li a {
-	color: #aeb2b7;
+	color:#6b3402;
 	text-decoration: none;
 	display: block;
 	padding: 15px 0 15px 10px;
@@ -58,7 +58,7 @@ body {
 	transition: all 0.3s ease;
 }
 .sidebar ul li a.active, .sidebar ul li a:hover, .sidebar ul li a:focus {
-	background: #68dff0;
+	background: #FFC78F;
 	color: #fff;
 	display: block;
 	-webkit-transition: all 0.3s ease;

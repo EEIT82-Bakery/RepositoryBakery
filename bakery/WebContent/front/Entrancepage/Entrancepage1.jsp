@@ -1,15 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
- <title>自己的輪播</title>
-    <link href="css/style.css" rel="stylesheet" />
-
+<%@ include file="../fragment/css.jsp"%>
+  <link href="${pageContext.request.contextPath}/front/Entrancepage/css/style2.css" rel="stylesheet" />
+	    <script src="js/jquery-2.1.4.min.js"></script>
 </head>
 <body>
-		 <div id="wrapper">
+	<!-----------------------------------------nav------------------------------------------>
+	<%@ include file="../fragment/nav.jsp"%>
+	<!-----------------------------------------nav------------------------------------------>
+	<div class="container-fluid">
+		<!-----------------------------------------main----------------------------------------->
+		  <div id="wrapper">
 		  <div id="maincontent">
 		    <div id="huadong">
 		      <ul class="show_images_list">
@@ -17,6 +21,7 @@
 			        <a href="../activity/Turntable.jsp" target="_blank">
 			        	<img  class="show_images_1_img" src="img/011.png">
 			        </a>
+			        <input type="hidden" name="s1" value="${isLogin.username}"><!-- e1的呼叫 -->
 		        </li>
 		        <li class="show_images_list_li show_images_2" style="z-index: 10; top: 20px; left: 0px;">
 			        <a href="#" target="_blank">
@@ -27,6 +32,7 @@
 			        <a href="../activity/Jiugongge_OK.jsp" target="_blank">
 			        	<img class="show_images_3_img" src="img/012.png">
 			        </a>
+			        <input type="hidden" name="s1" value="${isLogin.username}"> <!-- e1的呼叫 -->
 		        </li>
 		        <li class="show_images_list_li show_images_4" style="z-index: 0; top: 20px; left: 200px;">
 			        <a href="#" target="_blank">
@@ -44,8 +50,14 @@
 		    </div>
 		  </div>
 		</div>
-      <script src="js/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="js/gallery.js"></script>
+		<script type="text/javascript" src="js/gallery.js"></script>
 	    <script src="js/show.js"></script>
+		<!-----------------------------------------main----------------------------------------->
+		<!--------footer-------->
+		<%@ include file="../fragment/footer.jsp"%>
+		<!--------footer-------->
+	</div>
+	
+<%-- 	<%@ include file="../fragment/js.jsp"%> --%>
 </body>
 </html>
