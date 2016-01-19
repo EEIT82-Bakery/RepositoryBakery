@@ -10,21 +10,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.article.model.ArticleBean;
 import com.member.model.MemberBean;
 
 @Entity
 @Table(name = "Re_Article")
 public class ReArticleBean implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
+
+
+
 	@ManyToOne
-	@JoinColumn(name = "article_id", referencedColumnName = "article_id", insertable = false, updatable = false)
-	private ArticleBean article;
-	
-	@ManyToOne
-	@JoinColumn(name = "member_id", referencedColumnName = "member_id" , insertable = false , updatable = false)
+	@JoinColumn(name = "member_id", referencedColumnName = "member_id", insertable = false, updatable = false)
 	private MemberBean member;
-	
+
 	public MemberBean getMember() {
 		return member;
 	}
@@ -32,16 +30,6 @@ public class ReArticleBean implements java.io.Serializable {
 	public void setMember(MemberBean member) {
 		this.member = member;
 	}
-
-	
-	
-	@Override
-	public String toString() {
-		return "ReArticleBean [id=" + id + ", reId=" + reId + ", memberId="
-				+ memberId + ", reContent=" + reContent + ", reMake=" + reMake
-				+ ", hidden=" + hidden + ", articleId=" + articleId + "]";
-	}
-
 
 
 	@Id

@@ -43,9 +43,7 @@ public class ArticleReportService {
 			if(Status == 1){
 				bean.setReportStatuName("未處理");
 			}else if(Status == 2){
-				bean.setReportStatuName("處理中");
-			}else if(Status == 3){
-				bean.setReportStatuName("已處理");
+				bean.setReportStatuName("<span style='color:#0000E3'>已處理</span>");
 			}
 		}
 		return beans;
@@ -58,9 +56,7 @@ public class ArticleReportService {
 			if(reportStatus == 1){
 				bean.setReportStatuName("未處理");
 			}else if(reportStatus == 2){
-				bean.setReportStatuName("處理中");
-			}else if(reportStatus == 3){
-				bean.setReportStatuName("已處理");
+				bean.setReportStatuName("<span style='color:#0000E3'>已處理</span>");
 			}
 		}
 		return beans;

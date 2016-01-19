@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.article.model.ArticleBean;
 import com.member.model.MemberBean;
 
 @Entity
@@ -27,6 +28,18 @@ public class ArticleReportBean implements java.io.Serializable {
 
 	public void setMember(MemberBean member) {
 		this.member = member;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name = "article_id", referencedColumnName = "article_id", insertable = false, updatable = false)
+	private ArticleBean article;
+	
+	public ArticleBean getArticle() {
+		return article;
+	}
+
+	public void setArticle(ArticleBean article) {
+		this.article = article;
 	}
 
 	@Id

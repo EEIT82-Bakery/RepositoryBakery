@@ -68,7 +68,6 @@
 						</c:if>
 						<c:if test="${not empty isLogin.member_id && isLogin.member_id != Article.memberId && Article.hidden == 0}">
 							<button type="button" data-toggle="modal" data-target="#ArticleModal">檢舉</button>
-							<button onclick="addArticleCollection(${Article.articleId})">收藏</button>
 						</c:if>
 					</div>
 				</div>
