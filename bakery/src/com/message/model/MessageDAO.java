@@ -13,5 +13,11 @@ public interface MessageDAO {
 	public List<MessageBean> getgivemymsg(Integer read_id,Integer msg_state );
 	public List<MessageBean> selectPage(int pageInt,Integer read_id,Integer msg_state);  //取得頁數
 	public abstract int getState(Integer msg_state);  //取得總筆數
+	public int getreadCount(Integer read_id);//取得收信者 收到信的數量
 	public int getProduct();//不分狀態 取得全部的筆數
+	
+	
+	public MessageBean select();
+	
+	
 }

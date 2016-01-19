@@ -22,9 +22,9 @@ public class MessageService {
 	}
 	
 	
-	public List<MessageBean> seletPage(int pageInt){
+	public List<MessageBean> seletPage(int pageInt,Integer read_id, Integer msg_state){
 		
-		return dao.selectPage(pageInt);
+		return dao.selectPage(pageInt, read_id, msg_state);
 	}	
 	
 	
@@ -32,4 +32,22 @@ public class MessageService {
 		return dao.getgivemymsg(read_id, msg_state);
 	}
 
+	public int getMemberCount(){
+		return dao.getProduct();
+	}
+
+	public int getReadCount(Integer read_id){
+		return dao.getreadCount(read_id);
+	}
+	
+	public List<MessageBean> selectMessage(){
+		return dao.selectAll();
+	}
+	
+	
+	public MessageBean seletStatus(){
+		return dao.select();
+	}
+	
+	
 }

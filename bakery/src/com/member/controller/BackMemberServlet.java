@@ -43,6 +43,7 @@ public class BackMemberServlet extends HttpServlet{
 		req.setAttribute("page", pageInt);
 		int allcount= memberservice.getMemberCount();
 		int pageCount = allcount/pageSize + (allcount % pageSize != 0 ? 1 : 0);
+		System.out.println(pageCount);
 		req.setAttribute("pageCount", pageCount);
 		req.getRequestDispatcher("/back/member/MemberMaintain.jsp").forward(req, resp);	
 	}	

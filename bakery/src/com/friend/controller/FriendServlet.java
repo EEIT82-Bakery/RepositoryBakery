@@ -48,19 +48,19 @@ public class FriendServlet extends HttpServlet{
 			String msgtitle = req.getParameter("msgtitle");
 			String msgcount = req.getParameter("msgcount");
 			Timestamp date = new Timestamp(System.currentTimeMillis());
-			String title="HI，87";
-			String count = "向您討債";
+			String title="來自會員:「";
+			String title2="」的新消息";
+			String count = "向您發送好友申請";
 			
 			MessageBean messagebean = new MessageBean();
 			messagebean.setSend_id(invite_id);
 			messagebean.setRead_id(invitee_id);
-			messagebean.setMsg_tit(title+msgtitle);
+			messagebean.setMsg_tit(title+msgtitle+title2);
 			messagebean.setMsg_cont(msgcount+count);
 			messagebean.setMsg_date(date);
 			messagebean.setMsg_state(1);
-			System.out.println("messagebean---------->"+messagebean);
-			
-			
+		
+	
 			MemberService memberservice = new MemberService();
 			MemberBean memberbean = new MemberBean();
 			memberbean = memberservice.getOneId(invitee_id);
@@ -72,10 +72,22 @@ public class FriendServlet extends HttpServlet{
 			req.getRequestDispatcher("/homeindex.do?account="+account).forward(req, resp);
 			
 			
+		}
+		
+		
+		if("agree".equals(action)){
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			
 		}
-		
 		
 	
 	}
