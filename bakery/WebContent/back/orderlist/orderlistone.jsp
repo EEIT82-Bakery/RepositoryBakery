@@ -71,7 +71,7 @@
 	                               <h4>${productVO.productName}</h4>
                              </c:if>
                       </c:forEach></td>				
-					<td><h4>${Bean1.count}</h4></td>
+					<td><h4>${Bean1.quantity}</h4></td>
 				</tr>
 				
 			</c:forEach>	
