@@ -80,7 +80,7 @@
 				<a href="${pageContext.request.contextPath}/Forum.do">討論區</a>
 			</div>
 			<div class="col-xs-2">
-				<a href="#">活動專區</a>
+				<a href="${pageContext.request.contextPath}/front/Entrancepage/Entrancepage1.jsp">活動專區</a>
 			</div>
 		</div>
 	</div>
