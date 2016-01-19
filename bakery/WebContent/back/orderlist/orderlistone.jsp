@@ -10,9 +10,11 @@
 	<%@ include file="../fragment/main.jsp"%>
 	<!-----------------------------------------main----------------------------------------->
 	<div class="col-xs-10 main">
-		<h1>管理訂單</h1>
-<div class="col-md-5">
-		<table border='1' bordercolor='#CCCCFF'>
+		<h1 class="page-header">管理訂單</h1>
+		<br/>
+<div class="col-md-3">
+<div class="CSSTableGenerator" >
+		<table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed;">
 
 			<c:forEach var="aBean" items="${beans}">
 				<tr>
@@ -38,24 +40,29 @@
 				</tr>
 				<tr>
 					<c:if test="${aBean.orderStaus==1}">
-							<td style="color: red;"><h4>出貨狀態：未付款</h4></td>
+							<td style="color:red;"><h4>出貨狀態：未付款</h4></td>
 						</c:if> <c:if test="${aBean.orderStaus==2}">
 							<td style="color: black;"><h4>出貨狀態：已付款</h4></td>
 						</c:if> <c:if test="${aBean.orderStaus==3}">
-							<td style="color: blue;"><h4>出貨狀態：已出貨</h3></td>
+							<td style="color: blue;"><h4>出貨狀態：已出貨</h4></td>
 						</c:if>
 				</tr>
 			</c:forEach>
+		
 		</table>
+		</div>
 </div>
-<div class="col-md-5">
-<table border='1' bordercolor='#CCCCFF' width="400px" style="text-align:center">
-<thead>
+<div class="col-md-1">
+</div>
+<div class="col-md-4">
+<div class="CSSTableGenerator" >
+<table style="text-align:center;table-layout:fixed"  width="100%">
+
 <tr>
 <th style="text-align:center"><h4>產品名稱</h4></th>
 <th style="text-align:center"><h4>訂購數量</h4></th>
 </tr>
-</thead>
+
 <jsp:useBean id="productSvc" scope="page" class="com.product.model.ProductService" />
 			<c:forEach var="Bean1" items="${bean1}">
 				<tr>
@@ -63,16 +70,13 @@
                              <c:if test="${Bean1.productId==productVO.productId}">
 	                               <h4>${productVO.productName}</h4>
                              </c:if>
-                      </c:forEach></td>
-					
+                      </c:forEach></td>				
 					<td><h4>${Bean1.count}</h4></td>
-					
 				</tr>
 				
-			</c:forEach>
-			
-			
+			</c:forEach>	
 		</table>
+		</div>
 </div>
 	</div>
 

@@ -40,7 +40,7 @@ public class ProductDeleteServlet extends HttpServlet {
 
 		/***************************1.接收請求參數****************************************/
 		String action = request.getParameter("action");
-		
+		String whichPage =request.getParameter("whichPage");
 		
 		/***************************2.開始查詢資料****************************************/
 			if ("delete".equals(action)) { // 來自listAllEmp.jsp
@@ -54,16 +54,14 @@ public class ProductDeleteServlet extends HttpServlet {
 					/***************************2.開始刪除資料***************************************/
 					ProductService productService = new ProductService();
 					productService.delete(productId);
-					
 					/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-					String url = "/back/product/ProductSelectAll.jsp";
-					RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+					RequestDispatcher successView = request.getRequestDispatcher("/back/product/ProductSelectAll.jsp?whichPage="+whichPage); // 成功轉交 listOneEmp.jsp
 					successView.forward(request, response);
 					
 					/***************************其他可能的錯誤處理**********************************/
 				} catch (Exception e) {
 					errors.put("deleteNo","刪除資料失敗:"+e.getMessage());
-					RequestDispatcher failureView = request.getRequestDispatcher("/back/product/ProductSelectAll.jsp");
+					RequestDispatcher failureView = request.getRequestDispatcher("/back/product/ProductSelectAll.jsp?whichPage="+whichPage);
 					failureView.forward(request, response);
 				}
 			}

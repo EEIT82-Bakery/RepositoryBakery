@@ -29,7 +29,7 @@
 					<a href="${pageContext.request.contextPath}/back/product/ProductSelectAll.jsp">管理商品</a>
 				</li>
 				<li>
-					<a href="${pageContext.request.contextPath}/OrderMemberServlet.do">管理訂單</a>
+					<a href="${pageContext.request.contextPath}/back/orderlist/orderlist.jsp">管理訂單</a>
 				</li>
 				<li>
 					<a href="${pageContext.request.contextPath}/back/article/ForumManage.jsp" data-toggle="collapse" data-target="#demo" class="collapsed" aria-expanded="false">管理討論區 </a>
