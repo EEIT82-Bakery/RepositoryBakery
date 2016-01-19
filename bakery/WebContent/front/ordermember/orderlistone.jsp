@@ -1,19 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <%@ include file="../fragment/css.jsp"%>
+<link
+	href="${pageContext.request.contextPath}/back/HtmlData/css/product.css"
+	rel="stylesheet" />
 </head>
 <body>
-	<%@ include file="../fragment/main.jsp"%>
-	<!-----------------------------------------main----------------------------------------->
-	<div class="col-xs-10 main">
-		<h1 class="page-header">管理訂單</h1>
-		<br/>
-<div class="col-md-3">
-<div class="CSSTableGenerator" >
+	<!-----------------------------------------nav------------------------------------------>
+	<%@ include file="../fragment/nav.jsp"%>
+	<!-----------------------------------------nav------------------------------------------>
+	<div class="container-fluid">
+		<!-----------------橫幅----------------->
+
+		<div class="row">
+			<div class="col-xs-12">
+				<img
+					src="${pageContext.request.contextPath}/front/HtmlData/images/orderlist.jpg"
+					style="width: 100%" />
+<br/><br/><br/>
+				<!-----------------橫幅----------------->
+				<!--------------------------------------產品側攔--------------------------------------->
+
+				<!--------------------------------------產品側攔--------------------------------------->
+				<!-----------------------------------------main----------------------------------------->
+
+				<div class="col-md-3">
+<div class="CSSTableGenerator" style="margin-left:25%;">
 		<table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed;">
 
 			<c:forEach var="aBean" items="${beans}">
@@ -55,8 +71,11 @@
 <div class="col-md-1">
 </div>
 <div class="col-md-4">
-<div class="CSSTableGenerator" >
-<table style="text-align:center;table-layout:fixed"  width="100%">
+<div class="CSSTableGenerator" style="margin-left:25%;" >
+<table style="text-align:center;table-layout:fixed">
+<tr>
+<td colspan="2">訂購清單</td>
+</tr>
 
 <tr>
 <th style="text-align:center"><h4>產品名稱</h4></th>
@@ -78,10 +97,19 @@
 		</table>
 		</div>
 </div>
+			</div>
+		</div>
+
+		<!-----------------------------------------main----------------------------------------->
+		<!--------footer-------->
+		<%@ include file="../fragment/footer.jsp"%>
 	</div>
-
-
-	<!-----------------------------------------main----------------------------------------->
-	<%@ include file="../fragment/js.jsp"%>
 </body>
 </html>
+
+
+
+
+
+
+

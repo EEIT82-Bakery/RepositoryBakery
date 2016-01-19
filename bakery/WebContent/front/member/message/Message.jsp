@@ -40,10 +40,10 @@
 
 
 <div>
-<a href="#" >全部</a>
-<a href="#" >未讀</a>
-<a href="#" >已讀</a>
-</div>
+<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">全部</a>
+<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&pages=1" >未讀</a>
+<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1">已讀</a>
+</div>																	
 	<table border="1">
 		<thead>
 		<tr>

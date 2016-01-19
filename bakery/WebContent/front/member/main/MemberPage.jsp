@@ -183,7 +183,7 @@
                             <div class="caption">
                                 <h4>購物車/訂單 </h4>
                                 <p><a href="#">購物車</a></p>
-                                <p><a href="#">訂單查詢</a></p>
+                                <p><a href="${pageContext.request.contextPath}/OrderMemberServlet.do">訂單查詢</a></p>
                                 <p><a href="#">修改訂單</a></p>
                             </div>
                         </div>

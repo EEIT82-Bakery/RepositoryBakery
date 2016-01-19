@@ -3,13 +3,14 @@ package com.orderlist.model;
 public class OrderListBean implements java.io.Serializable{
 	private int orderId;
 	private int productId;
-	private int count;
+	private int quantity;
+	
 	
 	
 	
 	@Override
 	public String toString() {
-		return "OrderListBean [orderId=" + orderId + ", productId=" + productId + ", count=" + count + "]";
+		return "OrderListBean [orderId=" + orderId + ", productId=" + productId + ", quantity=" + quantity + "]";
 	}
 	public int getOrderId() {
 		return orderId;
@@ -23,11 +24,11 @@ public class OrderListBean implements java.io.Serializable{
 	public void setProductId(int productId) {
 		this.productId = productId;
 	}
-	public int getCount() {
-		return count;
+	public int getQuantity() {
+		return quantity;
 	}
-	public void setCount(int count) {
-		this.count = count;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 }

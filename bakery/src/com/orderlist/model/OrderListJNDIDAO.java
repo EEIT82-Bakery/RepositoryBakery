@@ -19,9 +19,6 @@ import com.product.model.ProductBean;
 
 public class OrderListJNDIDAO implements OrderList_interface{
 	
-	
-	
-	
 	private static DataSource dataSource = null;
 
 	static {
@@ -35,7 +32,7 @@ public class OrderListJNDIDAO implements OrderList_interface{
 
 	
 	 
-	private static final String SELECTPRODUCTLIST = "select Product_id,count from Ord_list where Order_id=?";
+	private static final String SELECTPRODUCTLIST = "select Product_id,Quantity from Ord_list where Order_id=?";
 			  
 	@Override
 	public List<OrderListBean> selectProductList(int OrderId) {
@@ -50,7 +47,7 @@ public class OrderListJNDIDAO implements OrderList_interface{
 			rset = stmt.executeQuery();
 			while (rset.next()) {
 				OrderListBean bean = new OrderListBean();
-				bean.setCount(rset.getInt("count"));
+				bean.setQuantity(rset.getInt("Quantity"));
 				bean.setProductId(rset.getInt("Product_id"));
 				beans.add(bean);
 			}
@@ -78,7 +75,7 @@ public class OrderListJNDIDAO implements OrderList_interface{
 		return beans;
 	}
 	
-	private static final String INSERT_ORDER_ITEMS = "insert into Ord_list(Order_id , Product_id,Count) values(? , ?, ?)";
+	private static final String INSERT_ORDER_ITEMS = "insert into Ord_list(Order_id , Product_id, Quantity) values(? , ?, ?)";
 	@Override
 	public void insertOrderItems(int orderId, Vector<OrderListBean> beans) {
 		PreparedStatement stmt = null;
@@ -89,7 +86,7 @@ public class OrderListJNDIDAO implements OrderList_interface{
 				stmt = conn.prepareStatement(INSERT_ORDER_ITEMS);
 				stmt.setInt(1, orderId);
 				stmt.setInt(2, bean.getProductId());
-				stmt.setInt(3, bean.getCount());
+				stmt.setInt(3, bean.getQuantity());
 				stmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -146,10 +143,54 @@ public class OrderListJNDIDAO implements OrderList_interface{
 		}
 	}
 	
+	private static final String SELECT_TOP3="select top(3) product_id , sum(Quantity) as 'Quantity' from Ord_list group by product_id order by Quantity desc";
+	
+	public List<OrderListBean> selectTop3(){
+		List<OrderListBean> beans = new ArrayList<OrderListBean>();
+		ResultSet rset = null;
+		Connection conn = null;
+		OrderListBean bean =null;
+		PreparedStatement stmt = null;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(SELECT_TOP3);
+			rset = stmt.executeQuery();
+			while (rset.next()) {
+				bean= new OrderListBean();
+				bean.setQuantity(rset.getInt("Quantity"));
+				bean.setProductId(rset.getInt("Product_id"));
+				beans.add(bean);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return beans;
+	}
+	
+	
+	
 	
 	public static void main(String args[]){
-//		OrderListJDBCDAO dao =new OrderListJDBCDAO();
-//		
+	
+//		OrderListJNDIDAO dao =new OrderListJNDIDAO();
+//		System.out.println(dao.selectTop3());
 //		List<OrderListBean> beans=new ArrayList<>();
 //		OrderListBean bean =new OrderListBean();
 //		bean.setProductId(5);

@@ -4,12 +4,24 @@
 <html>
 <head>
 <%@ include file="../fragment/css.jsp"%>
+
+<style>
+
+#nav1 {
+	list-style-type: none;
+}
+
+</style>
+
 </head>
 <body>
 	<%@ include file="../fragment/main.jsp"%>
 	<!-----------------------------------------main----------------------------------------->
 	<div class="col-xs-10 main">
-		<h1>管理訂單</h1>
+		<h1 class="page-header">管理訂單</h1>
+	<ul>
+<li id="nav1">	
+		
 	<FORM METHOD="post" action='<c:url value="/OrderSelect.do"/>'>
         <b>輸入訂單編號</b>
         <input type="hidden" name="action" value="select_id">
@@ -18,6 +30,9 @@
         <span>${errors.orderId}${errors.orderIdNoData}</span>
         
 </FORM>
+
+</li>
+</ul>
 	<br/>
 	<div class="CSSTableGenerator">	
    <table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed;">

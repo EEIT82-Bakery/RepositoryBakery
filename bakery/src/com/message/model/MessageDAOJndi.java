@@ -363,4 +363,38 @@ public class MessageDAOJndi implements MessageDAO {
 			}
 			return bean;
 		}
+
+	
+	
+	
+	//依據read尋找所有頁面
+	@Override
+	public List<MessageBean> selectAllPage(int pageInt, Integer read_id) {
+		List<MessageBean> list = null;
+		ResultSet rs = null;
+		try(Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+
+					 " ORDER BY Msg_state OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
+			rs = stmt.executeQuery();
+			list = new ArrayList<MessageBean>();
+			while(rs.next()){
+				MessageBean bean  = new MessageBean();
+				bean.setSend_id(rs.getInt("Send_id"));
+				bean.setRead_id(rs.getInt("Read_id"));
+				bean.setSendAccount(rs.getString("sendAccount"));
+				bean.setReadAccount(rs.getString("readAccount"));
+				bean.setMsg_tit(rs.getString("Msg_tit"));
+				bean.setMsg_cont(rs.getString("Msg_cont"));
+				bean.setMsg_date(rs.getTimestamp("Msg_date"));
+				bean.setMsg_state(rs.getInt("Msg_state"));
+				list.add(bean);					
+			}
+			
+	}catch(Exception se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+	
+	}
+	return list;
+	}
 }

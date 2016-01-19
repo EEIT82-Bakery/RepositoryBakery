@@ -26,6 +26,7 @@ public class InsertArticleCollection extends HttpServlet {
 		MemberBean memberBean = (MemberBean) session.getAttribute("isLogin");
 		if (memberBean == null) {
 			out.print("請先登入後，才能收藏。");
+			out.close();
 		} else {
 			int memberId = memberBean.getMember_id();
 			String articleIdTemp = request.getParameter("articleId");
@@ -35,8 +36,10 @@ public class InsertArticleCollection extends HttpServlet {
 				if (!articleCollectionSvc.getHaveCollection(memberId, articleId)) {
 					articleCollectionSvc.addArticleCollection(memberId, articleId);
 					out.print("已收藏成功!");
+					out.close();
 				} else {
 					out.print("您已收藏過!");
+					out.close();
 				}
 			}
 		}

@@ -44,8 +44,7 @@ public class ProductUpdateServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		
 		if ("getOne_For_Update".equals(action)) { // // 來自listAllEmp.jsp的請求
-			
-			String productId=request.getParameter("productId");
+			String whichPage =request.getParameter("whichPage");
 			String productName=request.getParameter("productName");
 			String productStatus=request.getParameter("productStatus");
 			String productPrice=request.getParameter("productPrice");
@@ -56,13 +55,13 @@ public class ProductUpdateServlet extends HttpServlet {
 			request.setAttribute("productPrice", productPrice);
 			request.setAttribute("discount", discount);
 			request.setAttribute("productDate", productDate);
-
+			request.setAttribute("whichPage", whichPage);
 			request.getRequestDispatcher("/back/product/ProductUpdate.jsp").forward(request, response);
 			
 		}
 
 		if ("update".equals(action)) { // 來自update_emp_input.jsp的請求
-
+			String whichPage =request.getParameter("whichPage");
 			Map<String, String> errors = new HashMap<String, String>();
 			request.setAttribute("errors", errors);
 				/***************************
@@ -88,9 +87,11 @@ public class ProductUpdateServlet extends HttpServlet {
 					
 					if (temp1 == null || temp1.trim().length() == 0){
 						errors.put("productPrice", "金額不能為空白");
-					}else if(!temp1.matches("^/+?[1-9][0-9]*$")){
-						errors.put("productPrice", "金額必須為正整數");
-					} else{
+					}
+//					else if(!temp1.matches("^/+?[1-9][0-9]*$")){
+//						errors.put("productPrice", "金額必須為正整數");
+//					} 
+					else{
 						price = Integer.parseInt(temp1);
 					}
 
@@ -130,6 +131,7 @@ public class ProductUpdateServlet extends HttpServlet {
 							
 					if (errors != null && !errors.isEmpty()) {
 						request.setAttribute("errorMsg", errors);
+						request.setAttribute("whichPage", whichPage);
 						request.getRequestDispatcher("/back/product/ProductUpdate.jsp").forward(request, response);
 					}else{
 						ProductBean bean = new ProductBean();
@@ -142,7 +144,7 @@ public class ProductUpdateServlet extends HttpServlet {
 						bean.setProductTypeId(productTypeId);
 						bean.setProductId(productId);
 						productService.update(bean);
-						response.sendRedirect(request.getContextPath() + "/back/product/ProductSelectAll.jsp");
+						response.sendRedirect(request.getContextPath() + "/back/product/ProductSelectAll.jsp?whichPage="+whichPage);
 					}
 				}	
 				
