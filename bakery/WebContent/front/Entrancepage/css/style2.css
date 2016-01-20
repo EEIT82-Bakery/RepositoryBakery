@@ -1,0 +1,31 @@
+﻿#wrapper{ width:1000px;  margin:50px auto;position:relative; }
+  fieldset, img { border: 0; }
+  img { display:inline-block; }
+  ol, ul { list-style: none outside none; }
+  .show_images_list_li {
+    position: absolute;
+    cursor: pointer;
+    vertical-align:bottom; 
+    display:block;
+  }
+  .btn { 
+    width:101px; 
+    height:1px; 
+    right:-430px;
+    position:relative; 
+    padding-top:370px;
+  }
+  .btn a{
+    width:17px; 
+    height:15px; 
+    overflow:none; 
+    display:block;
+    background:url(../img/btn.png) 0 0 no-repeat; 
+    cursor: pointer;
+    float:left;
+  }
+  .btn a.active{ 
+    background:url(../img/btn.png) -17px 0 no-repeat;
+  }
+  .show_images_list_li img{width: 527px; height: 310px;}
+  .show_images_list_li:first-child img{width: 599px; height: 353px;}
