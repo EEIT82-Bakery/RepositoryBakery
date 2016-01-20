@@ -14,10 +14,10 @@ import hibernate.util.HibernateUtil;
 
 public class MemberHibernateservice {
 
-	MemberHibernateDAO dao;
+	MemberHibernateDAO dao= new MemberHibernateDAO();
 	// 扣會員點數100
-	public MemberBean updatePoint(int point,int member_id) {
-		return dao.updatePoint( member_id);
+	public MemberBean updatePoint100(int member_id) {
+		return dao.updatePoint100(member_id);
 
 	}
 
@@ -27,20 +27,6 @@ public class MemberHibernateservice {
 
 	}
 
-	// 禮卷+100
-	public MemberBean updatePoint100(int member_id) {
-		return dao.updatePoint100(member_id);
-	}
-
-	// 禮卷+200
-	public MemberBean updatePoint200(int member_id) {
-		return dao.updatePoint200(member_id);
-	}
-
-	// 禮卷+300
-	public MemberBean updatePoint300(int member_id) {
-		return dao.updatePoint300(member_id);
-	}
 
 	public static void main(String[] args) {
 		// try {
@@ -60,7 +46,7 @@ public class MemberHibernateservice {
 		MemberHibernateDAO dao = new MemberHibernateDAO();
 		// beans = dao.select();
 		// System.out.println(dao.updatePoint(4));
-		dao.updatePoint(1);
+		dao.updatePoint100(1);
 
 	}
 

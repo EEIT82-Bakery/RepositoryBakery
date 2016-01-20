@@ -10,7 +10,7 @@
 	<center>
 		<div class="col-xs-12">
 			<ul class="pagination">
-				<c:if test="${pageNo > 1}">
+			<c:if test="${pageNo > 1}">
 					<li><a href="<c:url value='Forum.do?pageNo=${pageNo-1}' />">
 							<span class="glyphicon glyphicon-backward" aria-hidden="true"></span>
 						</a></li>

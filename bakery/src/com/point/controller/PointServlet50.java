@@ -28,10 +28,10 @@ public class PointServlet50 extends HttpServlet {
 		int member_id = bean.getMember_id();
 		int point = bean.getPoint();
 		System.out.println("servlet:" + point);
-		MemberBean po = sr.updatePoint50(point); // 用我程式去修改他的點數id
+		MemberBean po = sr.updatePoint100(member_id); // 用我程式去修改他的點數id
 		System.out.println("98989898");
 		// System.out.println(poit.getPoint());
-		req.setAttribute("upd", po);// 我的name那邊定義的名字,與這邊的修改方法
+		req.setAttribute("ups", po);
 		req.getRequestDispatcher("/front/activity/Turntable.jsp").forward(req, resp);
 	}
 

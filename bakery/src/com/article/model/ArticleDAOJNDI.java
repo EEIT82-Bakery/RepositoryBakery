@@ -717,4 +717,10 @@ public class ArticleDAOJNDI implements ArticleDAO_interface {
 		
 	}
 
+	@Override
+	public void updateArticleHidden(int articleId, int hidden) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

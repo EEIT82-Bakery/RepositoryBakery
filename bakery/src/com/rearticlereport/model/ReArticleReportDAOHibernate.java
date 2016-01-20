@@ -42,8 +42,6 @@ public class ReArticleReportDAOHibernate implements ReArticleReportDAO_interface
 		
 	}
 
-
-
 	@Override
 	public void updateReArticleReportStatus(int articleId, int reId,
 			int reportStatus) {
@@ -93,6 +91,7 @@ public class ReArticleReportDAOHibernate implements ReArticleReportDAO_interface
 					.setParameter(1, articleId)
 					.setParameter(2, reId)
 					.uniqueResult();
+			System.out.println(bean);
 			session.getTransaction().commit();
 			if(bean != null){
 				return true;

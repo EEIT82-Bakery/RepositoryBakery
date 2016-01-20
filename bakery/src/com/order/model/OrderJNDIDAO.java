@@ -24,6 +24,7 @@ public class OrderJNDIDAO implements OrderDAO_interface{
 	private static final String INSERT=" insert into Ord (Order_name,Order_phone,Order_address,Total_amount,Order_date,Ship_date,Cancel_date,Member_id,Order_status)values (?,?,?,?,GETDATE(),?,null,?,1)";
 	private static final String GET_ORDER_ID = "select MAX(Order_id) as Order_id from Ord";
 	private static final String SELECT_ID="select * from Ord where Order_id=?";
+	private static final String SELECT_MEMBERID="select * from Ord where member_id=? order by Order_status , Order_id desc";
 	private static final String UPDATE="update Ord set Order_status=? where Order_id=?";
 	private static final String DELETE=" delete from Ord where Order_id=?";
 	private static final String SELECTLIST=" select Order_id,Order_name,Ship_date,Member_id,Order_status from Ord order by Order_status , Order_id desc";
@@ -41,6 +42,55 @@ public class OrderJNDIDAO implements OrderDAO_interface{
 	
 	
 	
+			@Override
+			public List<OrderBean> selectMember(int memberId) {
+				List<OrderBean> beans = new ArrayList<>();
+				ResultSet rset = null;
+				Connection conn = null;
+				PreparedStatement stmt = null;
+				try {
+					conn = dataSource.getConnection();
+					stmt = conn.prepareStatement(SELECT_MEMBERID);
+					stmt.setInt(1, memberId);
+					rset = stmt.executeQuery();
+					while (rset.next()) {
+						OrderBean bean = new OrderBean();
+						bean.setOrderId(rset.getInt("Order_id"));
+						bean.setOrderName(rset.getString("Order_name"));
+						bean.setOrderPhone(rset.getString("Order_phone"));
+						bean.setOrderAddress(rset.getString("Order_Address"));
+						bean.setTotalAmount(rset.getInt("Total_amount"));
+						bean.setOrderDate(rset.getDate("Order_date"));
+						bean.setCancelDate(rset.getDate("Cancel_date"));
+						bean.setShipDate(rset.getDate("Ship_date"));
+						bean.setMemberId(rset.getInt("Member_id"));
+						bean.setOrderStaus(rset.getInt("Order_status"));				
+						beans.add(bean);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					if (stmt != null) {
+						try {
+							stmt.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+					if (conn != null) {
+						try {
+							conn.close();
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+
+				return beans;
+			}		
+			
 	@Override
 	public List<OrderBean> selectList() {
 		List<OrderBean> beans = new ArrayList<>();

@@ -1,0 +1,120 @@
+﻿.FindArticle {
+	padding-top: 8px;
+	padding-bottom: 2px;
+	height: 45px;
+}
+
+.class, .post {
+	padding-right: 0px;
+	padding-left: 0px;
+	padding-top: 5px;
+	padding-bottom: 2px;
+}
+
+.class a {
+	float: left;
+	margin-right: 2px;
+	padding: 10px;
+	background-color: #d9d9d9;
+	text-decoration: none;
+	color: black;
+	border-radius: 5px;
+}
+
+.class a:HOVER, .post a:HOVER, .reArticle:HOVER {
+	background-color: #B22222;
+	color: white;
+}
+
+.class .active {
+	background-color: #B22222;
+	color: white;
+}
+
+.post a, .reArticle {
+	float: right;
+	padding: 10px;
+	background-color: #d9d9d9;
+	text-decoration: none;
+	color: black;
+	border-radius: 5px;
+	height: 40px;
+	width: 76px;
+}
+
+.reArticle {
+	float: right;
+	padding: 0px;
+	background-color: #d9d9d9;
+	color: black;
+	border-radius: 5px;
+	height: 40px;
+	width: 76px;
+}
+
+.display {
+	padding: 0;
+}
+
+.display table {
+	width: 100%;
+	text-align: center;
+}
+
+.forumtitle {
+	height: 29px;
+	background-color: #B22222;
+	color: white;
+}
+
+.pagerow {
+	text-align: center;
+	font-size: 20px;
+}
+
+.pagerow a {
+	border: 1px solid #B22222;
+	margin: 2px;
+}
+/* displayarticle */
+.displaytitle {
+	background-color: #B22222;
+}
+
+.displaytitle p {
+	color: white;
+	margin: 5px 0;
+}
+
+.profile {
+	padding: 0;
+	margin: 0;
+}
+
+.profile div {
+	border-bottom: 1px dashed #B22222;
+}
+
+.profile div, .profile img {
+	padding: 5px;
+}
+
+.top {
+	border-bottom: 1px dashed #B22222;
+	height: 31px;
+	padding: 5px;
+}
+
+.content {
+	min-height: 200px;
+	border-bottom: 1px dashed #B22222;
+	padding: 5px;
+}
+
+.ed {
+	padding: 5px;
+}
+
+.articleEnd {
+	border-bottom: 1px solid #B22222;
+}

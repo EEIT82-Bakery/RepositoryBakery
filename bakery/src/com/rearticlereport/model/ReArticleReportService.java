@@ -25,27 +25,24 @@ public class ReArticleReportService {
 		dao.deleteReArticleReport(articleId , reId);
 	}
 
-	public void updateReArticleReportStatus(int articleId, int reId,
-			int reportStatus) {
+	public void updateReArticleReportStatus(int articleId, int reId, int reportStatus) {
 		dao.updateReArticleReportStatus(articleId, reId, reportStatus);
-
 	}
 
 	public ReArticleReportBean getOneReArticleReport(int articleReportId) {
 		return dao.getOneReArticleReport(articleReportId);
-
 	}
 
 	public List<ReArticleReportBean> getAllReArticleReport() {
 		List<ReArticleReportBean> beans = dao.getAllReArticleReport();
+		
 		for (ReArticleReportBean bean : beans) {
 			int Status = bean.getReportStatus();
+			System.out.println(beans);
 			if (Status == 1) {
 				bean.setReportStatuName("未處理");
 			} else if (Status == 2) {
-				bean.setReportStatuName("處理中");
-			} else if (Status == 3) {
-				bean.setReportStatuName("已處理");
+				bean.setReportStatuName("<span style='color:#0000E3'>已處理</span>");
 			}
 		}
 		return beans;
@@ -57,9 +54,7 @@ public class ReArticleReportService {
 			if (reportStatus == 1) {
 				bean.setReportStatuName("未處理");
 			} else if (reportStatus == 2) {
-				bean.setReportStatuName("處理中");
-			} else if (reportStatus == 3) {
-				bean.setReportStatuName("已處理");
+				bean.setReportStatuName("<span style='color:#0000E3'>已處理</span>");
 			}
 		}
 		return beans;

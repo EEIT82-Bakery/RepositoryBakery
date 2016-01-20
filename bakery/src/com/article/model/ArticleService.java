@@ -21,6 +21,10 @@ public class ArticleService {
 	public void updateArticleHidden(int articleId, int memberId, int hidden) {
 		dao.updateArticleHidden(articleId, memberId, hidden);
 	}
+	
+	public void updateArticleHidden(int articleId, int hidden) {
+		dao.updateArticleHidden(articleId, hidden);
+	}
 
 	// 更新瀏覽次數
 	public void updateBrowserCount(int articleId) {
@@ -121,7 +125,9 @@ public class ArticleService {
 			bean.setArticleMakeDate(new ArticleService().convertDate(bean.getArticleMake()));
 			bean.setPicture(Base64.encodeBase64String(bean.getMember().getPicture()));
 			if(bean.getHidden() == 1){
-				bean.setContent("<span style='color:#999999'>此文章已被刪除</span>");
+				bean.setContent("<span style='color:#999999'>此文章已被發文者刪除</span>");
+			}else if(bean.getHidden() == 2){
+				bean.setContent("<span style='color:#999999'>此文章已被管理員刪除</span>");
 			}
 		}
 		return bean; 
