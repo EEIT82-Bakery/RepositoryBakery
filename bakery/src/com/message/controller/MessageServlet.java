@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 
 
+
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.article.model.ArticleService;
+import com.friend.model.FriendBean;
+import com.friend.model.FriendService;
 import com.member.model.MemberBean;
 import com.message.model.MessageBean;
 import com.message.model.MessageService;
@@ -131,7 +135,8 @@ public class MessageServlet extends HttpServlet {
 			req.getRequestDispatcher("/front/member/message/Message.jsp").forward(req, resp);	
 			
 		}
-			System.out.println("action"+action);		
+			System.out.println("action"+action);	
+			
 		if ("count".equals(action)) {
 			Integer send_id=new Integer(req.getParameter("send_id"));
 			Integer read_id=new Integer(req.getParameter("read_id"));
@@ -146,20 +151,18 @@ public class MessageServlet extends HttpServlet {
 			MessageBean bean =messageservice.selectByTime(send_id, read_id, msg_date);
 			messageservice.updatemessage(messbean);	
 			 req.setAttribute("bean", bean); 
-			 req.getRequestDispatcher("/front/member/message/MessageCount.jsp").forward(req, resp);;
+			
+			FriendBean friendbean = new FriendBean();
+			FriendService friendservice = new FriendService();
+			friendbean = friendservice.select(send_id, read_id);
+		
+			
+			System.out.println(friendbean);
+			req.setAttribute("friendstatu", friendbean);
+			req.getRequestDispatcher("/front/member/message/MessageCount.jsp").forward(req, resp);;
 			return;
-		}
+		}	
 		
-		
-		
-		
-		
-		
-		
-		
-	}
-	
-	
-	
+	}	
 
 }

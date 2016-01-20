@@ -1,6 +1,6 @@
 package com.friend.model;
 
-import com.message.model.MessageBean;
+
 
 public class FriendService {
 
@@ -13,6 +13,10 @@ public class FriendService {
 	}
 
 
+	
+	public FriendBean select(Integer invite_id,Integer invitee_id){
+		return dao.select(invite_id, invitee_id);
+	}
 
 	public FriendBean insertFriend(Integer invite_id, Integer invitee_id,Integer friendstatu) {
 		FriendBean bean = new FriendBean();
@@ -29,5 +33,14 @@ public class FriendService {
 		return dao.update(bean);
 	}
 	
+	
+	public void delete(Integer invite_id,Integer invitee_id){
+		if(invite_id!=0 && invitee_id!=0) {
+			dao.delete(invite_id, invitee_id);
+	}
+		
+	
+
+	}
 	
 }
