@@ -63,14 +63,9 @@
 <!-- 						name="action" value="memberSearch"> -->
 <!-- 				</form> -->
 			</div>
-			<div class="col-xs-6 col-sm-3 placeholder">
-				
-		
-			
+			<div class="col-xs-6 col-sm-3 placeholder">	
 			</div>
 			<div class="col-xs-6 col-sm-3 placeholder">
-				
-	
 			</div>
 			<div class="col-xs-6 col-sm-3 placeholder">
 		
@@ -83,15 +78,11 @@
         <span>${errors.rey}${errors.noData}${errors.Null}</span>
 <!--         <input type="hidden" name="action" value="selectid"> -->
     </FORM>
-  
-  
-
-			</div>
+  		</div>
 		</div>
-		<h2 class="sub-header">會員列表</h2>
-		<div class="table-responsive">
-			<table class="table table-striped">
-				<thead>
+		<h2 style="color:#6b3402;">會員列表</h2>
+<div class="CSSTableGenerator" >	
+			<table>
 					<tr>
 						<th>會員編號</th>	
 						<th>會員照片</th>			
@@ -107,8 +98,7 @@
 						<th>bbb</th>
 						<th>bbb</th>
 					</tr>
-				</thead>
-				<tbody>
+				
 					<c:forEach var="Go" items="${bean}">
 						<tr>
 							<td><h6>${Go.member_id}</h6></td>
@@ -122,10 +112,10 @@
 							<td><h6>
 							
 							<c:if test="${Go.status ==2}">
-									一般會員
+									<b style="color:green;font-size:18px;">一般會員</b>
 								</c:if> 
 								<c:if test="${Go.status ==3}">
-									黑名單
+									<b style="color:black;font-size:18px;">黑名單</b>
 								</c:if>
 								</h6> 	
 							<td>				
@@ -138,7 +128,7 @@
 							</td>
 							<td>
 							<form method="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
-								<input type="submit" value="黑名單" ${Go.status==3 ?"disabled" :""}>
+								<input type="submit" value="黑名單" ${Go.status==3 ?"disabled" :""} style="background-color:black;color:white;">
 								<input type="hidden" name="page" value="${page}">
 								<input type="hidden" name="action" value="activateMember">
 								<input type="hidden" name="member_id" value="${Go.member_id}">
@@ -164,9 +154,9 @@
 							<td><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<%=x++%>">詳細會員資料</button></td>
 						</tr>
 					</c:forEach>
-				</tbody>
+				
 			</table>
-	
+		</div>
 	<c:forEach var="gg" items="${bean}">
 		<div class="modal fade" id="myModal<%=i++%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -206,24 +196,16 @@
 			</div>
 		</div>	
 	</c:forEach>
-		
-		
-			<c:if test="${not empty pageCount}">
+	<div class="col-sm-12" align="center">
+		<c:if test="${not empty pageCount}">
 				<c:forEach var="page" begin="1" end="${pageCount}">
-
 					<a href="${pageContext.request.contextPath}/BackAllMember.do?pages=${page}">
-						<c:out value="${page}" /></a>
+						<b style="font-size:2em;">${page}</b>
+						</a>&nbsp;&nbsp;&nbsp;
 				</c:forEach>
 			</c:if>
-		</div>
 	</div>
-
-
-
-
-
-
-
+	</div>
 		<!-- Modal -->
 	
 <script src="../js/jquery-2.1.4.min.js"></script>

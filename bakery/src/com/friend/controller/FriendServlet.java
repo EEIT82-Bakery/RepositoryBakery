@@ -2,7 +2,10 @@ package com.friend.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.LinkedList;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.friend.model.FriendBean;
+import com.friend.model.FriendService;
 import com.member.model.MemberBean;
 import com.member.model.MemberService;
 import com.message.model.MessageBean;
@@ -63,10 +67,16 @@ public class FriendServlet extends HttpServlet{
 	
 			MemberService memberservice = new MemberService();
 			MemberBean memberbean = new MemberBean();
+			
+			
+			
+			FriendService friendservice = new FriendService();
+			friendservice.insertFriend(invite_id, invitee_id);
 			memberbean = memberservice.getOneId(invitee_id);
+			req.setAttribute("memberVO", memberbean);
+			
+			
 			String account = memberbean.getAccount();
-			
-			
 			MessageService messageserviece = new MessageService();
 			messageserviece.insertmessage(messagebean);
 			req.getRequestDispatcher("/homeindex.do?account="+account).forward(req, resp);
@@ -74,25 +84,47 @@ public class FriendServlet extends HttpServlet{
 			
 		}
 		
-		
+		//同意加入
 		if("agree".equals(action)){
 			
+			List<String> errors = new LinkedList<String>();
+			req.setAttribute("errors", errors);
+			String requestURL = req.getParameter("requestURL");
+			try {
+				Integer invite_id = new Integer(req.getParameter("invite_id"));
+				Integer invitee_id = new Integer(req.getParameter("invitee_id"));
+				java.sql.Timestamp msg_date= java.sql.Timestamp.valueOf(req.getParameter("msg_date"));
+				if (!errors.isEmpty()) {
+					FriendBean bean = new FriendBean();
+					bean.setInvite_id(invite_id);
+					bean.setInvitee_id(invitee_id);
+					req.setAttribute("friendBean", bean);RequestDispatcher failureView = req
+							.getRequestDispatcher("/front/friendList/showWhoInvitedMe.jsp");
+					failureView.forward(req, resp);
+					return;
+				}
+				FriendService friendservice = new FriendService();
+				friendservice.insertFriend(invite_id, invitee_id);
+				MemberService memberservice = new MemberService();
+				MemberBean memberbean = new MemberBean();
+				memberbean = memberservice.getOneId(invite_id);
+				req.setAttribute("memberBean", memberbean); 
+				RequestDispatcher successView = req.getRequestDispatcher("/MessageServlet.do?action=count&send_id="+invite_id+"&read_id="+invitee_id+"&msg_date="+msg_date);
+				successView.forward(req, resp);
+				
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			} catch (Exception e) {
+					errors.add(e.getMessage());
+					RequestDispatcher failureView = req.getRequestDispatcher("/front/friend_list/showWhoInvitedMe.jsp");
+					failureView.forward(req, resp);
+					
+				}
 		}
 		
-	
+		
+		
+		
 	}
-
-	
 	
 	
 }

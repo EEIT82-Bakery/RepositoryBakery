@@ -33,38 +33,83 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<style>
+ul#Navigation .active{
+    border-color: white;
+    border-left-color: black; 
+    border-top-color: black;
+    color: white; 
+    background-color: #adadad;
+}
+#thead{
+background-color:#FFDEBD;
+    color: black;
+    }
+</style>
 </head>
 <body>
 
 
 
 
-<div>
-<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">全部</a>
-<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&pages=1" >未讀</a>
-<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1">已讀</a>
-</div>																	
-	<table border="1">
-		<thead>
+
+<!-- <ul id="Navigation"> -->
+<%-- 	<li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1"  class="current-page">全部</a></li> --%>
+<%-- 	<li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&statu=1&pages=1" >信件:未讀</a></li> --%>
+<%-- 	<li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1">信件:已讀</a></li> --%>
+<!-- </ul> -->
+		
+		
+<!-- <div data-role="controlgroup" data-type="horizontal"> -->
+<%--   <a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1" class="ui-btn">全部</a> --%>
+<%--   <a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&statu=1&pages=1" class="ui-btn">未讀</a> --%>
+<%--   <a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1" class="ui-btn">已讀</a> --%>
+<!-- </div>	 -->
+				
+<div data-role="page" id="pageone">
+  <div data-role="header">
+    <h1>我的信件</h1>
+    <div data-role="navbar">
+      <ul>
+       <li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1" class="ui-btn">全部</a></li>
+  	   <li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&statu=1&pages=1" class="ui-btn">未讀</a></li>
+       <li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1" class="ui-btn">已讀</a></li>
+      </ul>
+    </div>
+  </div>	
+		
+  
+<div data-role="main" class="ui-content">									
+	<table align="center" width="100% " >
+		<thead id="thead">
 		<tr>
-			<td>寄件人</td>
-			<td>收件人</td>
-			<td>訊息標題</td>
-			<td>寄送時間</td>
-			<td>寄信狀態</td>
+			<td width="15%" style="padding-left:20px">寄件人</td>
+			<td width="15%" style="padding-left:20px">收件人</td>
+			<td width="40%" style="padding-left:20px">訊息標題</td>
+			<td width="20%" style="padding-left:20px">寄送時間</td>
+			<td width="10%" style="padding-left:20px">寄信狀態</td>
 		</tr>	
+	
+		</thead>
+		
+		<tbody>
+	
 		<c:forEach var="Go" items="${list}">
 		<tr>
-			<td>${Go.sendAccount}</td>
-			<td>
+			<td width="15%" style="padding-left:20px">${Go.sendAccount}</td>
+			<td width="15%" style="padding-left:20px">
 			<c:if test="${Go.read_id==isLogin.member_id}">
 					<p>${Go.readAccount}</p>
 			</c:if>
 			</td>
-			<td><a href="#">${Go.msg_tit}</a></td>
-			<td>${Go.mdate}</td>
+			<td width="40%" style="padding-left:20px"><a href="${pageContext.request.contextPath}/MessageServlet.do?action=count&send_id=${Go.send_id}&read_id=${Go.read_id}&msg_date=${Go.msg_date}">${Go.msg_tit}</a></td>
+			<td width="20%" style="padding-left:20px">${Go.mdate}</td>
 
-			<td>
+			<td width="10%" style="padding-left:20px">
 			 <c:if test="${Go.msg_state==1}">
 		
 		<span style="font-weight: bold;">未讀</span>
@@ -76,8 +121,8 @@
 		</td>
 				</tr>
 		</c:forEach>
+	</tbody>
 	
-		</thead>
 			
 	</table>
 		<c:if test="${not empty pageCount}">
@@ -87,7 +132,8 @@
 						<c:out value="${page}" /></a>
 				</c:forEach>
 		</c:if>
-	
+	 </div>	
+	 </div>
 <%-- <c:choose> --%>
 	
 <%-- 	<c:when test="${IsMyFriend==0}"> --%>
@@ -108,6 +154,18 @@
 <%-- 	</c:when> --%>
 
 <%-- </c:choose> --%>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+    var urlParts = window.location.pathname.split("/"),
+        // get the last section of the url
+        currentPage = urlParts[urlParts.length - 1];
+
+    $("#navigation a[href*=" + currentPage + "]").addClass("current-page");
+});
+</script>
+
 
 </body>
 </html>

@@ -15,8 +15,8 @@ import com.orderlist.model.OrderListBean;
 import com.orderlist.model.OrderListService;
 
 
-@WebServlet("/OrderListServlet2.do")
-public class OrderListServlet extends HttpServlet {
+@WebServlet("/OrderListServlet.do")
+public class OrderListServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
    
@@ -42,7 +42,7 @@ public class OrderListServlet extends HttpServlet {
 //		}
 	
 		request.setAttribute("bean1", bean1);
-		request.getRequestDispatcher("/front/ordermember/orderlistone.jsp").forward(request, response);
+		request.getRequestDispatcher("/back/orderlist/orderlistone.jsp").forward(request, response);
 	}
 
 }

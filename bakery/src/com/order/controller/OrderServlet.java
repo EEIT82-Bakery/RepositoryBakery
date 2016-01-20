@@ -51,7 +51,7 @@ public class OrderServlet extends HttpServlet {
 		for(ProductBean bean : buylist){
 			OrderListBean orderListBean = new OrderListBean();
 			orderListBean.setProductId(bean.getProductId());
-			orderListBean.setCount( bean.getQuantity());
+			orderListBean.setQuantity(bean.getQuantity());
 			beans.add(orderListBean);
 		}		
 		String orderName = request.getParameter("orderName");

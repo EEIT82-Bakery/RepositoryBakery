@@ -23,15 +23,13 @@ public class PointServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(); // 抓李傑的session
-		System.out.println("----------");
 		MemberBean bean = (MemberBean) session.getAttribute("isLogin");// 抓他的登入
 		int point = bean.getPoint();
 		int mb = bean.getMember_id();
 		System.out.println("servlet:" + point);
-		MemberBean po = sr.updatePoint(point,mb); // 用我程式去修改他的點數id
-		System.out.println("989898989");
+		MemberBean po = sr.updatePoint100(point); // 用我程式去修改他的點數id
 		// System.out.println(poit.getPoint());
-		req.setAttribute("upd", po);// 我的name那邊定義的名字,與這邊的修改方法
+		req.setAttribute("upd", po);
 		req.getRequestDispatcher("/front/activity/Jiugongge_OK.jsp").forward(req, resp);
 	}
 

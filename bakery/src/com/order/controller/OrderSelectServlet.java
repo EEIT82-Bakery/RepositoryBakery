@@ -28,6 +28,7 @@ public class OrderSelectServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		String whichPage = request.getParameter("whichPage");
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errors", errors);
 		
@@ -41,7 +42,7 @@ public class OrderSelectServlet extends HttpServlet {
 				}
 				
 				if (!errors.isEmpty()) {
-					RequestDispatcher failureView = request.getRequestDispatcher("/OrderMemberServlet.do");
+					RequestDispatcher failureView = request.getRequestDispatcher("/back/orderlist/orderlist.jsp");
 					failureView.forward(request, response);
 					return;//程式中斷
 				}
@@ -54,7 +55,7 @@ public class OrderSelectServlet extends HttpServlet {
 				}
 				
 				if (!errors.isEmpty()) {
-					RequestDispatcher failureView = request.getRequestDispatcher("/OrderMemberServlet.do");
+					RequestDispatcher failureView = request.getRequestDispatcher("/back/orderlist/orderlist.jsp");
 					failureView.forward(request, response);
 					return;//程式中斷
 				}
@@ -66,7 +67,7 @@ public class OrderSelectServlet extends HttpServlet {
 				/***************************其他可能的錯誤處理*************************************/
 			} catch (Exception e) {
 				errors.put("productNullData","無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = request.getRequestDispatcher("/OrderMemberServlet.do");
+				RequestDispatcher failureView = request.getRequestDispatcher("/back/orderlist/orderlist.jsp");
 				failureView.forward(request, response);
 			}
 			
@@ -99,14 +100,13 @@ public class OrderSelectServlet extends HttpServlet {
 				List<OrderBean> beans =orderService.select(orderIdu);
 				request.setAttribute("aBean", beans);
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/OrderMemberServlet.do";
-				RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 orderlist.jsp
+				RequestDispatcher successView = request.getRequestDispatcher("/back/orderlist/orderlist.jsp?whichPage="+whichPage); // 成功轉交 orderlist.jsp
 				successView.forward(request, response);
 				
 				/***************************其他可能的錯誤處理**********************************/
 			} catch (Exception e) {
 				errors.put("deleteNo","刪除資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = request.getRequestDispatcher("/OrderMemberServlet.do");
+				RequestDispatcher failureView = request.getRequestDispatcher("/back/orderlist/orderlist.jsp?whichPage="+whichPage);
 				failureView.forward(request, response);
 			}
 		}
@@ -122,14 +122,13 @@ public class OrderSelectServlet extends HttpServlet {
 						orderListService.delete(orderIdd);
 						
 						/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-						String url = "/OrderMemberServlet.do";
-						RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 orderlist.jsp
+						RequestDispatcher successView = request.getRequestDispatcher("/back/orderlist/orderlist.jsp?whichPage="+whichPage); // 成功轉交 orderlist.jsp
 						successView.forward(request, response);
 						
 						/***************************其他可能的錯誤處理**********************************/
 					} catch (Exception e) {
 						errors.put("deleteNo","刪除資料失敗:"+e.getMessage());
-						RequestDispatcher failureView = request.getRequestDispatcher("/OrderMemberServlet.do");
+						RequestDispatcher failureView = request.getRequestDispatcher("/back/orderlist/orderlist.jsp?whichPage="+whichPage);
 						failureView.forward(request, response);
 					}
 				}

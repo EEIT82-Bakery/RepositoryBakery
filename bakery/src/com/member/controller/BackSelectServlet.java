@@ -122,7 +122,7 @@ public class BackSelectServlet extends HttpServlet {
 			MemberService service = new MemberService();
 			service.updateStatus(memberid, 2);
 			String page = req.getParameter("page");
-			resp.sendRedirect(req.getContextPath() + "/BackAllMember.do?pages=1");
+			resp.sendRedirect(req.getContextPath() + "/BackAllMember.do?pages="+page);
 			}catch (Exception e) {
 			RequestDispatcher failureView = req.getRequestDispatcher("/BackAllMember.do?pages=1");
 			failureView.forward(req, resp);
@@ -137,7 +137,7 @@ public class BackSelectServlet extends HttpServlet {
 				MemberService service = new MemberService();
 				service.updateStatus(memberid, 3);
 				String page = req.getParameter("page");
-				resp.sendRedirect(req.getContextPath() + "/BackAllMember.do?pages=1");
+				resp.sendRedirect(req.getContextPath() + "/BackAllMember.do?pages="+page);
 				
 			}catch (Exception e) {
 				RequestDispatcher failureView = req.getRequestDispatcher("/BackAllMember.do?pages=1");

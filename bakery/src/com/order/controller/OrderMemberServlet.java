@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.member.model.MemberBean;
 import com.member.model.MemberService;
@@ -30,14 +31,19 @@ public class OrderMemberServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-
-		List<OrderBean> lists = orderService.selectList();
+		HttpSession session =request.getSession();
+		MemberBean memberBean = (MemberBean)session.getAttribute("isLogin");
+		if(memberBean == null ){
+			response.sendRedirect(request.getContextPath()+"/front/article/error/NotLogin.jsp");
+		}else{
+		int memberId= memberBean.getMember_id();
+		List<OrderBean> lists = orderService.selectMember(memberId);
 	 	request.setAttribute("listOrder", lists);
 		
-	 	String url = "/back/orderlist/orderlist.jsp";
+	 	String url = "/front/ordermember/orderlist.jsp";
 		RequestDispatcher successView = request.getRequestDispatcher(url); // 成功轉交 orderlist.jsp
 		successView.forward(request, response);
-	
+		}
 
 	}
 

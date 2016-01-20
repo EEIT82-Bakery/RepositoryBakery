@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.order.model.*"%>
+<%@ page import="java.util.*"%>
+<%
+	OrderService orderService = new OrderService();
+	List<OrderBean> list = orderService.selectList();
+    pageContext.setAttribute("list",list);
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,7 +38,7 @@
 </ul>
 	<br/>
 	<div class="CSSTableGenerator" >
-   <table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed;">
+   <table width="100%" style="table-layout:fixed;">
   <tr>
    		<th>會員ID</th>
 		<th>訂單ID</th>
@@ -41,8 +48,8 @@
 		<th>修改</th>
 		<th>刪除</th>
 	</tr>
-	
-	<c:forEach var="aBean" items="${listOrder}">
+	<%@ include file="page1.file" %>
+	<c:forEach var="aBean" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr align='center' valign='middle'>
 			<td>${aBean.memberId}</td>
 			<td><a href="${pageContext.request.contextPath}/OrderListServlet.do?orderId=${aBean.orderId}">${aBean.orderId}</a></td>
@@ -63,6 +70,7 @@
 			<input type="hidden" name="action" value="update">
 			 <input type="hidden" name="orderIdu" value="${aBean.orderId}">
 			 <input type="hidden" name="orderSatus" value="${aBean.orderStaus}">
+			 <input type="hidden" name="whichPage" value="${param.whichPage}">
 			 <input type="submit" value="修改">
 				</FORM>
 			</td>
@@ -71,11 +79,13 @@
 			<FORM METHOD="post" action='<c:url value="/OrderSelect.do"/>'>
 			<input type="hidden" name="action" value="delete">
 			 <input type="hidden" name="orderIdd" value="${aBean.orderId}">
+			 <input type="hidden" name="whichPage" value="${param.whichPage}">
 			 <input type="submit" value="刪除">
 			 </FORM>
 			</td>
 		</tr>
 			</c:forEach>
+				<%@ include file="page2.file" %>
 	</table>
 	 
 	</div>
