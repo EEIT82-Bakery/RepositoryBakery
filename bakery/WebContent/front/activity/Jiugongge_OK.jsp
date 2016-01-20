@@ -109,7 +109,8 @@
 			$('#result').hide();
 
 		})
-	}
+	};
+	
 	function dsd() {
 		$('#result').hide();
 		if (click) {
@@ -129,36 +130,25 @@
 	</script>
 	
 	<script>
-	
-	function f(){
-		
-	}
-	
-	function retrnD() {
-		if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-			var data = xmlHttp.responseText;
-			alert("data" +data);
+	function Jiugongge_OK(){
+		xmlHttp = new XMLHttpRequest();
+		if (xmlHttp != null) {
+			xmlHttp.open("GET","${pageContext.request.contextPath}/PointServlet50.do",
+					true);
+			xmlHttp.addEventListener("readystatechange", callback, false);
+			xmlHttp.send(null);
+		} else {
+			alert("您的瀏覽器不支援Ajax的功能!!");
 		}
-	}
-	
-	  
-		function Jiugongge_OK(Member_id, point) {
-			var Jiug = document.getElementsByName("Jiug");
-			xmlHttp = new XMLHttpRequest();
-			if (xmlHttp != null) {
-				xmlHttp.open("GET",
-						"${pageContext.request.contextPath}/PointServlet50.do",
-						true);
-				xmlHttp.addEventListener("readystatechange", retrnD, false);
-				xmlHttp.send("action=ADD" + "&member_id=" + member_id
-						+ "&point=" + point);
-				alert("asdas")
-			} else {
-				alert("您的瀏覽器不支援Ajax的功能!!");
+		function callback() {
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+				var data = JSON.parse(xmlHttp.responseText);
+				var myPoint = document.getElementById("tdPoint");
+				myPoint.innerHTML = "客戶點數:" + data.point;
 			}
-			dsd();
-
 		}
+		dsd();
+	}
 	</script>
 	
 	
@@ -215,7 +205,7 @@
 			<form action="<c:url value='/PointServlet.do '/>" method="get">
 				<!-- 			<input type="button" value="遊戲開始" name="upd" onclick="dsd()" -->
 				<!-- 				class="button button-3d button-action button-pil"> -->
-				<input type="submit" value="遊戲開始"  onclick="Jiugongge_OK()"
+				<input type="button" value="遊戲開始"  onclick="Jiugongge_OK()"
 
 					class="button button-3d button-royal">
 					
@@ -224,7 +214,7 @@
 				style="background: #F5EBFF; border-color: rgb(100, 100, 255); margin-top: 8px;">
 				<tr>
 					<TD>客戶姓名:${isLogin.username}</TD>
-					<TD>客戶點數:${isLogin.point}</TD>
+					<TD id="tdPoint">客戶點數:${Point}</TD>
 				<tr>
 			</table>
 

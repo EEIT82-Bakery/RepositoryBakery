@@ -20,6 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.member.model.MemberBean;
+import com.member.model.MemberDAOHibernate;
 import com.point.model.MemberHibernateDAO;
 import com.point.model.MemberHibernateservice;
 
@@ -35,15 +36,12 @@ public class PointServlet extends HttpServlet {
 	
 		PrintWriter out = resp.getWriter();
 		HttpSession session = req.getSession(); // 抓李傑的session
-		MemberBean bean = (MemberBean) session.getAttribute("isLogin");// 抓他的登入
-		int point = bean.getMember_id();
-		int mb = bean.getMember_id();
-		MemberBean po = sr.updatePoint100(point); // 用我程式去修改他的點數id
+		MemberBean bean = (MemberBean) session.getAttribute("isLogin");// 抓他的登
+		int mbs = bean.getMember_id();
+		MemberBean po = sr.selectp(mbs); // 用我程式去修改他的點數id
 		JSONObject jsonObjectMary = new JSONObject(po);	
 		out.print(jsonObjectMary);
-		System.out.println("point"+po);
 
-		
 		// System.out.println(poit.getPoint());
 //		req.setAttribute("upd", po);
 //		req.getRequestDispatcher("/front/activity/Jiugongge_OK.jsp").forward(req, resp);

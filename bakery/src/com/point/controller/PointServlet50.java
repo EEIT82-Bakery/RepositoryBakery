@@ -2,6 +2,7 @@ package com.point.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,17 +25,23 @@ public class PointServlet50 extends HttpServlet {
 	MemberHibernateservice sr = new MemberHibernateservice();
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
+		int count = 0;
 		PrintWriter out = resp.getWriter();
-		HttpSession session = req.getSession(); // 抓李傑的session
+		HttpSession session = req.getSession(); // 抓豊傑的session
 		MemberBean bean = (MemberBean) session.getAttribute("isLogin");// 抓他的登入
-		int point = bean.getMember_id();
-		int mb = bean.getMember_id();
-		MemberBean po = sr.updatePoint50(point); // 用我程式去修改他的點數id
-		JSONObject jsonObjectMary = new JSONObject(po);	
-		out.print(jsonObjectMary);
+		int mbId = bean.getMember_id();
+		MemberBean po = sr.selectp50(mbId); // 用我程式去修改他的點數id
+		if(count == 0){
+			req.setAttribute("Point", po.getPoint());
+			req.getRequestDispatcher("/front/activity/Turntable.jsp").forward(req, resp);
+			count = 1;
+		}else{
+			JSONObject jsonObjectMary = new JSONObject(po);	
+			out.print(jsonObjectMary);
+		}
 		
-//		req.getRequestDispatcher("/front/activity/Turntable.jsp").forward(req, resp);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

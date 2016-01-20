@@ -18,7 +18,7 @@
 		    <div id="huadong">
 		      <ul class="show_images_list">
 		        <li class="show_images_list_li show_images_1" style="z-index: 15; top: 1px; left: 200px;">
-			        <a href="../activity/Turntable.jsp" target="_blank">
+			        <a href="/bakery/PointServlet50.do" target="_blank">
 			        	<img  class="show_images_1_img" src="img/011.png">
 			        </a>
 			        <input type="hidden" name="s1" value="${isLogin.username}"><!-- e1的呼叫 -->
