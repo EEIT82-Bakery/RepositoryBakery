@@ -1,5 +1,6 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@page import="com.message.model.*"%>
 <%@page import="java.util.*"%>
 
@@ -7,13 +8,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
-<title>Insert title here</title>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-=======
+
 <title>信箱 - 焙客栗工坊</title>
->>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
+
 <%@ include file="../../fragment/css.jsp"%>
 
 <style>
@@ -22,6 +19,7 @@
 	background-color: #e5e5e5;
 	color: black;
 }
+
 .display {
 	padding: 0;
 }
@@ -47,66 +45,66 @@
 	background-color: #007aff;
 	border-color: #007aff;
 }
-
 </style>
 </head>
 <body>
 	<%@ include file="../../fragment/nav.jsp"%>
-<<<<<<< HEAD
 
-=======
-<div class="row">
-<div class="col-xs-offset-2 col-xs-8">
->>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
-	<h1>我的信件</h1>
-	<div class="btn-group btn-group-justified demoPadder" role="group" aria-label="Justified button group">
-		<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1" class="btn btn-default">全部</a>
-		<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&statu=1&pages=1" class="btn btn-default">未讀</a>
-		<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1" class="btn btn-default">已讀</a>
+	<div class="row">
+		<div class="col-xs-offset-2 col-xs-8">
+			<h1>我的信件</h1>
+			<div class="btn-group btn-group-justified demoPadder" role="group"
+				aria-label="Justified button group">
+				<a
+					href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1"
+					class="btn btn-default">全部</a> <a
+					href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&statu=1&pages=1"
+					class="btn btn-default">未讀</a> <a
+					href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1"
+					class="btn btn-default">已讀</a>
+			</div>
+			<div class="col-xs-12 display">
+				<table>
+					<tr class="forumtitle">
+						<td width="20%">寄件人</td>
+						<td width="40%">訊息標題</td>
+						<td width="20%">寄送時間</td>
+						<td width="20%">寄信狀態</td>
+					</tr>
+					<c:forEach varStatus="stVar" var="Go" items="${list}">
+						<!-- 用兩種顏色交替使用作為顯示商品資料的背景底色 -->
+						<c:set var="rowColor" value="#F5DEB3" />
+						<c:if test="${ stVar.count % 2 == 0 }">
+							<c:set var="rowColor" value="#FFEFD5" />
+						</c:if>
+						<tr height='18' bgColor="${rowColor}">
+							<td style="height: 30px;">${Go.sendAccount}</td>
+							<td><a
+								href="${pageContext.request.contextPath}/MessageServlet.do?action=count&send_id=${Go.send_id}&read_id=${Go.read_id}&msg_date=${Go.msg_date}">${Go.msg_tit}</a></td>
+							<td>${Go.mdate}</td>
+
+							<td><c:if test="${Go.msg_state==1}">
+
+									<span style="font-weight: bold;">未讀</span>
+								</c:if> <c:if test="${Go.msg_state==2}">
+									<span style="font-weight: bold;">已讀</span>
+
+								</c:if></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
+
+			<c:if test="${not empty pageCount}">
+				<c:forEach var="page" begin="1" end="${pageCount}">
+
+					<a
+						href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=${page}">
+						<c:out value="${page}" />
+					</a>
+				</c:forEach>
+			</c:if>
+		</div>
 	</div>
-	<div class="col-xs-12 display">
-		<table>
-			<tr class="forumtitle">
-				<td width="20%">寄件人</td>
-				<td width="40%">訊息標題</td>
-				<td width="20%">寄送時間</td>
-				<td width="20%">寄信狀態</td>
-			</tr>
-			<c:forEach varStatus="stVar" var="Go" items="${list}">
-				<!-- 用兩種顏色交替使用作為顯示商品資料的背景底色 -->
-				<c:set var="rowColor" value="#F5DEB3" />
-				<c:if test="${ stVar.count % 2 == 0 }">
-					<c:set var="rowColor" value="#FFEFD5" />
-				</c:if>
-				<tr height='18' bgColor="${rowColor}">
-					<td style="height:30px;">${Go.sendAccount}</td>
-					<td><a href="${pageContext.request.contextPath}/MessageServlet.do?action=count&send_id=${Go.send_id}&read_id=${Go.read_id}&msg_date=${Go.msg_date}">${Go.msg_tit}</a></td>
-					<td>${Go.mdate}</td>
-
-					<td><c:if test="${Go.msg_state==1}">
-
-							<span style="font-weight: bold;">未讀</span>
-						</c:if> <c:if test="${Go.msg_state==2}">
-							<span style="font-weight: bold;">已讀</span>
-
-						</c:if></td>
-				</tr>
-			</c:forEach>
-		</table>
-	</div>
-
-	<c:if test="${not empty pageCount}">
-		<c:forEach var="page" begin="1" end="${pageCount}">
-
-			<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=${page}">
-				<c:out value="${page}" />
-			</a>
-		</c:forEach>
-	</c:if>
-<<<<<<< HEAD
-=======
-	</div>
-	</div>
->>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
 </body>
 </html>

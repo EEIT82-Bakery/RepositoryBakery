@@ -1,6 +1,7 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <%@page import="com.message.model.*"%>
 <%@page import="java.util.*"%>
@@ -9,12 +10,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<<<<<<< HEAD
-<title>Insert title here</title>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<%@ include file="../../fragment/css.jsp"%>
-=======
+
 <title>信箱 - 焙客栗工坊</title>
 <%@ include file="../../fragment/css.jsp"%>
 
@@ -24,18 +20,14 @@
 	background-color: #B22222;
 	color: white;
 }
->>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
 
-<<<<<<< HEAD
-<style>
-.forumtitle {
+<
+style>.forumtitle {
 	height: 29px;
 	background-color: #B22222;
 	color: white;
 }
 
-=======
->>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
 .display {
 	padding: 0;
 }
@@ -65,47 +57,20 @@
 </head>
 <body>
 	<%@ include file="../../fragment/nav.jsp"%>
-<<<<<<< HEAD
 
-	<h1>我的信件</h1>
-	<div class="btn-group btn-group-justified demoPadder" role="group" aria-label="Justified button group">
-		<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1" class="btn btn-default">全部</a>
-		<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&statu=1&pages=1" class="btn btn-default">未讀</a>
-		<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1" class="btn btn-default">已讀</a>
-	</div>
-	<div class="col-xs-12 display">
-		<table>
-			<tr class="forumtitle">
-			<tr>
-				<td width="20%">寄件人</td>
-				<td width="40%">信件標題</td>
-				<td width="20%">寄送時間</td>
-			</tr>
-			<tr>
-				<td>${bean.send_id}</td>
-				<td>${bean.msg_tit}</td>
-				<td><fmt:formatDate value="${bean.msg_date}" pattern="yyyy-MM-dd HH:mm:ss" />
-			</tr>
-		</table>
-		<c:if test="${friendstatu.friendstatu==0}">
-			<h5 class="ui top attached header">信件內容</h5>
-			<div class="ui attached segment">
-				<pre>${bean.msg_cont} <a
-						href="${pageContext.request.contextPath}/FriendServlet.controller?action=agree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}"
-						onclick="$('>form',this).submit()">接受</a>/<a
-						href="${pageContext.request.contextPath}/FriendServlet.controller?action=noagree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}"
-						onclick="$('>form',this).submit()">拒絕</a>
-				</pre>
-			</div>
-		</c:if>
-=======
+
 	<div class="row">
 		<div class="col-xs-offset-2 col-xs-8">
 			<h1>我的信件</h1>
-			<div class="btn-group btn-group-justified demoPadder" role="group" aria-label="Justified button group">
-				<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1" class="btn btn-default">全部</a>
-				<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&statu=1&pages=1" class="btn btn-default">未讀</a>
-				<a href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1" class="btn btn-default">已讀</a>
+			<div class="btn-group btn-group-justified demoPadder" role="group"
+				aria-label="Justified button group">
+				<a
+					href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1"
+					class="btn btn-default">全部</a> <a
+					href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&statu=1&pages=1"
+					class="btn btn-default">未讀</a> <a
+					href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1"
+					class="btn btn-default">已讀</a>
 			</div>
 			<div class="col-xs-12 display">
 				<table>
@@ -118,18 +83,23 @@
 					<tr>
 						<td>${bean.send_id}</td>
 						<td>${bean.msg_tit}</td>
-						<td><fmt:formatDate value="${bean.msg_date}" pattern="yyyy-MM-dd HH:mm:ss" />
+						<td><fmt:formatDate value="${bean.msg_date}"
+								pattern="yyyy-MM-dd HH:mm:ss" />
 					</tr>
 				</table>
-				<h5 class="ui top attached header">信件內容</h5>
-				<div class="ui attached segment">
-					<pre>${bean.msg_cont} <a href="${pageContext.request.contextPath}/FriendServlet.controller?action=agree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}"
-							onclick="$('>form',this).submit()">接受</a>/<a href="#">拒絕</a>
-	</pre>
-				</div>
+				<c:if test="${friendstatu.friendstatu==0}">
+					<h5 class="ui top attached header">信件內容</h5>
+					<div class="ui attached segment">
+						<pre>${bean.msg_cont} <a
+								href="${pageContext.request.contextPath}/FriendServlet.controller?action=agree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}"
+								onclick="$('>form',this).submit()">接受</a>/<a
+								href="${pageContext.request.contextPath}/FriendServlet.controller?action=noagree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}"
+								onclick="$('>form',this).submit()">拒絕</a>
+				</pre>
+					</div>
+				</c:if>
 			</div>
 		</div>
->>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
 	</div>
 </body>
 </html>

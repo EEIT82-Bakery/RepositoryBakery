@@ -162,17 +162,10 @@
 										<i class="glyphicon glyphicon-user"></i> 個人訊息
 
 									</a></li>
-								<li><a href="#">
-										<i class="glyphicon glyphicon-book"></i> 訊息
-
-									</a></li>
+						
 								<li><a href="#">
 										<i class="glyphicon glyphicon-list-alt"></i> 好友名單
 									</a></li>
-
-								<c:if test="${isLogin.member_id==member.member_id}">
-								<li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">我的訊息</a></li>
-								</c:if>
 
 									<li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1" target="_blank"><i class="glyphicon glyphicon-envelope"></i>信箱</a></li>								
 
