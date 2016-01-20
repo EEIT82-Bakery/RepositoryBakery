@@ -247,5 +247,46 @@ public class FriendDAOJndi implements FriendDAO {
 		return updateCount;
 	}
 	
+	
+	
+	
+	private static final String DELETE = "DELETE FROM Friend_List where invite_id=? and invitee_id=? ";
+	@Override
+	public void delete(Integer invite_id, Integer invitee_id) {
+		try (Connection conn = ds.getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(DELETE)){
+			pstmt.setInt(1, invite_id);
+			pstmt.setInt(2, invitee_id);
+			pstmt.executeUpdate();
+
+		} catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			
+		}
+	
+	}
+	
+	private static final String SELECT_FRIEND_MAIL = "SELECT friendstatu from Friend_List where invite_id=? and invitee_id=?";
+	@Override
+	public FriendBean select(Integer invite_id, Integer invitee_id) {
+		FriendBean bean = null;
+		ResultSet rset = null;
+		try(Connection conn=ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELECT_FRIEND_MAIL)){
+			stmt.setInt(1, invite_id);
+			stmt.setInt(2, invitee_id);
+			rset = stmt.executeQuery();
+			if(rset.next()){
+//				count = rset.getInt("friendstatu");	
+				bean = new FriendBean();
+				bean.setFriendstatu(rset.getInt("friendstatu"));
+			}	
+		}catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}
+		return	bean;
+	}
 
 }

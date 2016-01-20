@@ -85,15 +85,13 @@ public class MessageDAOJndi implements MessageDAO {
 	}
 
 
-	private static final String DELETE = "DELETE FROM Message where Send_id=? and Read_id=? and Msg_date=?";
+	private static final String DELETE = "DELETE FROM Message where Msg_id";
 	@Override
-	public int delete(Integer send_id, Integer read_id, Timestamp msg_date) {
+	public int delete(Integer msg_id) {
 		int updateCount = 0;
 		try (Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(DELETE);){
-				pstmt.setInt(1, send_id);
-				pstmt.setInt(2,read_id);
-				pstmt.setTimestamp(3,msg_date);	
+				pstmt.setInt(1, msg_id);
 			updateCount = pstmt.executeUpdate();
 				}catch (Exception e) {
 			throw new RuntimeException("A database error occured. "
@@ -110,7 +108,6 @@ public class MessageDAOJndi implements MessageDAO {
 		int updateCount = 0;
 		try (Connection conn = ds.getConnection();
 			PreparedStatement pstmt=conn.prepareStatement(UPDATE)){
-		
 			pstmt.setInt(1, bean.getMsg_state());
 			pstmt.setInt(2, bean.getSend_id());
 			pstmt.setInt(3, bean.getRead_id());
@@ -128,7 +125,7 @@ public class MessageDAOJndi implements MessageDAO {
 	
 	
 	
-	private static final String SELECTALL="SELECT Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state From Message";
+	private static final String SELECTALL="SELECT Msg_id,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state From Message";
 	@Override
 	public List<MessageBean> selectAll() {
 		List<MessageBean> list = null;
@@ -139,6 +136,7 @@ public class MessageDAOJndi implements MessageDAO {
 			list =  new ArrayList<MessageBean>();
 			while(rs.next()){
 				MessageBean bean  = new MessageBean();
+				bean.setMsg_id(rs.getInt("Msg_id"));
 				bean.setSend_id(rs.getInt("Send_id"));
 				bean.setRead_id(rs.getInt("Read_id"));
 				bean.setMsg_tit(rs.getString("Msg_tit"));
@@ -174,6 +172,7 @@ public class MessageDAOJndi implements MessageDAO {
 			list = new ArrayList<MessageBean>();
 			while(rs.next()){
 				MessageBean bean  = new MessageBean();
+				bean.setMsg_id(rs.getInt("Msg_id"));
 				bean.setSend_id(rs.getInt("Send_id"));
 				bean.setRead_id(rs.getInt("Read_id"));
 				bean.setMsg_tit(rs.getString("Msg_tit"));
@@ -199,12 +198,13 @@ public class MessageDAOJndi implements MessageDAO {
 		List<MessageBean> list = null;
 		ResultSet rs = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+"and Msg_state="+msg_state
+			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Msg_id , Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+"and Msg_state="+msg_state
 					+ " ORDER BY Msg_state OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
 			rs = stmt.executeQuery();
 			list = new ArrayList<MessageBean>();
 			while(rs.next()){
 				MessageBean bean  = new MessageBean();
+				bean.setMsg_id(rs.getInt("Msg_id"));
 				bean.setSend_id(rs.getInt("Send_id"));
 				bean.setRead_id(rs.getInt("Read_id"));
 				bean.setSendAccount(rs.getString("sendAccount"));
@@ -363,12 +363,13 @@ public class MessageDAOJndi implements MessageDAO {
 		List<MessageBean> list = null;
 		ResultSet rs = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+
+			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Msg_id,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+
 					 " ORDER BY Msg_state OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
 			rs = stmt.executeQuery();
 			list = new ArrayList<MessageBean>();
 			while(rs.next()){
 				MessageBean bean  = new MessageBean();
+				bean.setMsg_id(rs.getInt("Msg_id"));
 				bean.setSend_id(rs.getInt("Send_id"));
 				bean.setRead_id(rs.getInt("Read_id"));
 				bean.setSendAccount(rs.getString("sendAccount"));
