@@ -3,6 +3,7 @@ package com.message.controller;
 import java.io.IOException;
 import java.util.List;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +15,7 @@ import com.article.model.ArticleService;
 import com.member.model.MemberBean;
 import com.message.model.MessageBean;
 import com.message.model.MessageService;
+
 
 
 @WebServlet("/MessageServlet.do")
@@ -54,7 +56,6 @@ public class MessageServlet extends HttpServlet {
 			int pageInt = Integer.parseInt(pageStr);
 			
 			MessageService messageservice = new MessageService();
-			MessageBean messagebean = new MessageBean();
 			List<MessageBean> list = messageservice.seletAllPage(pageInt, memberid);
 			for(MessageBean be :list){
 				ArticleService articleSvc = new ArticleService();
@@ -81,16 +82,18 @@ public class MessageServlet extends HttpServlet {
 			int pageSize=5;
 			String pageStr = req.getParameter("pages");
 			int pageInt = Integer.parseInt(pageStr);
-			MessageService messageservice = new MessageService();
-			MessageBean messagebean = new MessageBean();
-
-			List<MessageBean> list = messageservice.seletPage(pageInt, memberid, 1);
-			for(MessageBean be :list){
-				ArticleService articleSvc = new ArticleService();
-				be.setMdate(articleSvc.convertDate(be.getMsg_date())); 
-
-			}
 			
+			Integer status = new Integer(req.getParameter("statu"));
+			
+	
+				MessageService messageservice = new MessageService();
+
+				List<MessageBean> list = messageservice.seletPage(pageInt, memberid, status);
+				for(MessageBean be :list){
+					ArticleService articleSvc = new ArticleService();
+					be.setMdate(articleSvc.convertDate(be.getMsg_date())); 
+
+				}
 			req.setAttribute("list", list);
 		
 			req.setAttribute("page", pageInt);
@@ -99,6 +102,8 @@ public class MessageServlet extends HttpServlet {
 			req.setAttribute("pageCount", pageCount);
 			req.getRequestDispatcher("/front/member/message/Message.jsp").forward(req, resp);
 			}
+				
+		
 			
 		
 		
@@ -126,7 +131,24 @@ public class MessageServlet extends HttpServlet {
 			req.getRequestDispatcher("/front/member/message/Message.jsp").forward(req, resp);	
 			
 		}
-		
+			System.out.println("action"+action);		
+		if ("count".equals(action)) {
+			Integer send_id=new Integer(req.getParameter("send_id"));
+			Integer read_id=new Integer(req.getParameter("read_id"));
+			java.sql.Timestamp msg_date= java.sql.Timestamp.valueOf(req.getParameter("msg_date"));
+			
+			MessageBean messbean=new MessageBean();
+			messbean.setSend_id(send_id);
+			messbean.setRead_id(read_id);
+			messbean.setMsg_date(msg_date);
+			messbean.setMsg_state(2);
+			MessageService messageservice=new MessageService();
+			MessageBean bean =messageservice.selectByTime(send_id, read_id, msg_date);
+			messageservice.updatemessage(messbean);	
+			 req.setAttribute("bean", bean); 
+			 req.getRequestDispatcher("/front/member/message/MessageCount.jsp").forward(req, resp);;
+			return;
+		}
 		
 		
 		
