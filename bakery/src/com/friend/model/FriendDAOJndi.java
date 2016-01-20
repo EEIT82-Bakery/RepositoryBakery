@@ -27,7 +27,7 @@ public class FriendDAOJndi implements FriendDAO {
 	}
 	
 	
-	private static final String INSERTFRIEND = "insert into friend_list(invite_id,invitee_id) values (?,?)";
+	private static final String INSERTFRIEND = "insert into friend_list(invite_id,invitee_id,friendstatu) values (?,?,?)";
 	
 	@Override
 	public void insert(FriendBean bean) {
@@ -39,6 +39,7 @@ public class FriendDAOJndi implements FriendDAO {
 			conn.setAutoCommit(false);
 			stmt.setInt(1, bean.getInvite_id());
 			stmt.setInt(2,bean.getInvitee_id());
+			stmt.setInt(3, bean.getFriendstatu());
 			stmt.executeUpdate();
 			conn.commit();
 		}catch(SQLException e) {
@@ -223,5 +224,28 @@ public class FriendDAOJndi implements FriendDAO {
 		}
 		return list;
 	}
+	
+	
+	
+	private static final String UPDATE = "UPDATE Friend_List set friendstatu=? where invite_id=? and invitee_id=?";
+	@Override
+	public int update(FriendBean bean) {
+		int updateCount = 0;
+		try (Connection conn = ds.getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(UPDATE)){
+			pstmt.setInt(1, bean.getFriendstatu());
+			pstmt.setInt(2, bean.getInvite_id());
+			pstmt.setInt(3, bean.getInvitee_id());
+		
+			updateCount = pstmt.executeUpdate();
+
+		} catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			
+		}
+		return updateCount;
+	}
+	
 
 }

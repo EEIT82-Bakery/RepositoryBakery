@@ -71,7 +71,7 @@ public class FriendServlet extends HttpServlet{
 			
 			
 			FriendService friendservice = new FriendService();
-			friendservice.insertFriend(invite_id, invitee_id);
+			friendservice.insertFriend(invite_id, invitee_id,0);
 			memberbean = memberservice.getOneId(invitee_id);
 			req.setAttribute("memberVO", memberbean);
 			
@@ -104,7 +104,12 @@ public class FriendServlet extends HttpServlet{
 					return;
 				}
 				FriendService friendservice = new FriendService();
-				friendservice.insertFriend(invite_id, invitee_id);
+				FriendBean friendbean = new FriendBean();
+				friendbean.setInvite_id(invite_id);
+				friendbean.setInvitee_id(invitee_id);
+				friendbean.setFriendstatu(1);
+				
+				friendservice.updatemessage(friendbean);
 				MemberService memberservice = new MemberService();
 				MemberBean memberbean = new MemberBean();
 				memberbean = memberservice.getOneId(invite_id);

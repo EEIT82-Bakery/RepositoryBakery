@@ -35,7 +35,8 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<!-- <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> -->
+<%@ include file="../../fragment/css.jsp"%>
 
 <style>
 ul#Navigation .active{
@@ -49,12 +50,13 @@ ul#Navigation .active{
 background-color:#FFDEBD;
     color: black;
     }
+
 </style>
 </head>
 <body>
 
 
-
+<%@ include file="../../fragment/nav.jsp"%>
 
 
 <!-- <ul id="Navigation"> -->

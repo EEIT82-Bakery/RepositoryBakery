@@ -6,6 +6,7 @@ public class FriendBean {
 	private Integer friendstatu; //0.邀請  1.朋友 2.黑名單
 	
 	
+	
 	public Integer getInvite_id() {
 		return invite_id;
 	}
