@@ -7,7 +7,7 @@ public interface MessageDAO {
 
 	public MessageBean select(Integer send_id,Integer read_id,Timestamp msg_date);
 	public int insert(MessageBean bean);
-	public int delete(Integer send_id,Integer read_id,Timestamp msg_date);
+	public int delete(Integer Msg_id);
 	public int update(MessageBean bean);
 	public List<MessageBean> selectAll();
 	public List<MessageBean> getgivemymsg(Integer read_id,Integer msg_state );
