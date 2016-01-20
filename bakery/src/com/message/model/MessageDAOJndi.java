@@ -26,7 +26,7 @@ public class MessageDAOJndi implements MessageDAO {
 			e.printStackTrace();
 		}
 	}
-	private static final String SELECT="SELECT Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state From Message where send_id=?,read_id=?,msg_date=?";
+	private static final String SELECT="SELECT Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state From Message WHERE Send_id=? and Read_id=? and Msg_date=?";
 	@Override
 	public MessageBean select(Integer send_id, Integer read_id,Timestamp msg_date) {
 		MessageBean bean = null;
@@ -102,12 +102,32 @@ public class MessageDAOJndi implements MessageDAO {
 			return updateCount;
 	}
 
+	
+	
+	private static final String UPDATE = "UPDATE Message set Msg_state=? where Send_id=? and Read_id=? and Msg_date=?";
 	@Override
-	public MessageBean update(MessageBean bean) {
+	public int update(MessageBean bean) {
+		int updateCount = 0;
+		try (Connection conn = ds.getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(UPDATE)){
 		
-		return null;
-	}
+			pstmt.setInt(1, bean.getMsg_state());
+			pstmt.setInt(2, bean.getSend_id());
+			pstmt.setInt(3, bean.getRead_id());
+			pstmt.setTimestamp(4, bean.getMsg_date());
+			updateCount = pstmt.executeUpdate();
 
+		} catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			
+		}
+		return updateCount;
+	}
+	
+	
+	
+	
 	private static final String SELECTALL="SELECT Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state From Message";
 	@Override
 	public List<MessageBean> selectAll() {
@@ -138,7 +158,10 @@ public class MessageDAOJndi implements MessageDAO {
 	
 	
 	
-	private static final String SELECTSTATE_a="SELECT *FROM MESSAGE WHERE RECE_ID=? AND  (MSG_STATE=0 or MSG_STATE=2) ORDER BY msg_date desc";//柏翔
+	
+	
+	
+	private static final String SELECTSTATE_a="SELECT *FROM MESSAGE WHERE read_ID=? AND  (MSG_STATE=1 or MSG_STATE=2) ORDER BY msg_date desc";
 	private static final String SELECTSTATE = "SELECT * FROM Message where Read_id=?,Msg_state=?";
 	@Override
 	public List<MessageBean> getgivemymsg(Integer read_id, Integer msg_state) {
@@ -207,38 +230,21 @@ public class MessageDAOJndi implements MessageDAO {
 	private static final String MESSAGE_state = "SELECT count(Read_id)  from Message where msg_state=?";
 	@Override
 	public int getState(Integer msg_state) {
-		PreparedStatement pstmt = null;
-		Connection conn = null;
-		ResultSet rs = null;
+		ResultSet rest = null;
 		int result = 0;
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(MESSAGE_state);
-			pstmt.setInt(1, msg_state);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				result = rs.getInt(1);
+		try (Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(MESSAGE_state)){
+			stmt.setInt(1, msg_state);
+			rest = stmt.executeQuery();
+			if (rest.next()) {
+				result = rest.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (rs != null) {
+			if (rest != null) {
 				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
+					rest.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -252,37 +258,21 @@ public class MessageDAOJndi implements MessageDAO {
 	private static final String MESSAGE = "SELECT count(Read_id)  from Message";
 	@Override
 	public int getProduct() {
-		PreparedStatement pstmt = null;
-		Connection conn = null;
-		ResultSet rs = null;
 		int result = 0;
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(MESSAGE);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				result = rs.getInt(1);
+		ResultSet rest = null;
+		try (Connection conn = ds.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(MESSAGE);){
+	
+			rest = pstmt.executeQuery();
+			if (rest.next()) {
+				result = rest.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if (rs != null) {
+			if (rest != null) {
 				try {
-					rs.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-			if (conn != null) {
-				try {
-					conn.close();
+					rest.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

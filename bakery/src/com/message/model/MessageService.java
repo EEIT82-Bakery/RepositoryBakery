@@ -1,5 +1,6 @@
 package com.message.model;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -12,6 +13,14 @@ public class MessageService {
 		dao = new MessageDAOJndi();
 	}
 	
+
+	
+	public MessageBean selectByTime(Integer send_id, Integer read_id, Timestamp msg_date){
+		return dao.select(send_id, read_id, msg_date);
+	}
+	
+
+	
 	public int getStateCount(Integer msg_state){
 		return 1;
 	}
@@ -22,6 +31,11 @@ public class MessageService {
 	}
 	
 
+	public int updatemessage(MessageBean bean){
+		return dao.update(bean);
+	}
+	
+	
 	//依照reader statu 來分頁數
 	public List<MessageBean> seletPage(int pageInt,Integer read_id, Integer msg_state){
 		
