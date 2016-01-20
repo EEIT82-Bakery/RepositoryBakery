@@ -26,16 +26,10 @@
 						<a href="javascript:;">純手工蛋糕</a>
 						<ul>
 							<li>
-								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=1&page=1">6吋蛋糕</a>
+								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=1&page=1">8吋蛋糕</a>
 							</li>
 							<li>
-								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=2&page=1">8吋蛋糕</a>
-							</li>
-							<li>
-								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=3&page=1">長條蛋糕</a>
-							</li>
-							<li>
-								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=4&page=1">造型蛋糕</a>
+								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=2&page=1">疊層蛋糕</a>
 							</li>
 						</ul>
 					</li>
@@ -46,13 +40,13 @@
 						<a href="javascript:;">伴手禮盒</a>
 						<ul>
 							<li>
-								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=6&page=1">手工餅乾</a>
+								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=6&page=1">小蛋糕</a>
 							</li>
 							<li>
-								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=7&page=1">精緻禮盒</a>
+								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=7&page=1">長條蛋糕</a>
 							</li>
 							<li>
-								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=8&page=1">精緻糕點</a>
+								<a href="<%=request.getContextPath()%>/product2.controller?productTypeId=8&page=1">手工餅乾</a>
 							</li>
 						</ul>
 					</li>

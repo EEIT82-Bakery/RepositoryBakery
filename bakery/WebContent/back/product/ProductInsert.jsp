@@ -24,52 +24,56 @@ function clearForm() {
 <body>
 	<%@ include file="../fragment/main.jsp"%>
 	<div class="col-xs-10 main">
-		<h1 class="page-header">產品</h1>
+		<h1 class="page-header">管理產品</h1>
 		<div class="row producttable">
+		<div class="col-xs-8">
 			<form action='<c:url value="/ProductInsert.do"/>'
 				method="POST" enctype="multipart/form-data">
-				<table>
-					<thead>
+				<div class="CSSTableGenerator">
+				<table>				
 						<tr>
 							<th colspan="3">新增產品資料</th>
 						</tr>
-					</thead>
+				
 					<tr>
 						<td>產品名稱 :</td>
 						<td><input type="text" name="productName"
-							value="${param.productName}" size="40"></td>
-						<td>${errors.productName}</td>
+							value="${param.productName}" size="40"><br/>
+							${errors.productName}
+							</td>
+						
 					</tr>
 					<tr>
 						<td>產品材料描述 :</td>
 						<td><input type="text" name="productStatus"
-							value="${param.productStatus}" size="40"></td>
-						<td>${errors.productStatus}</td>
+							value="${param.productStatus}" size="40"><br/>
+							${errors.productStatus}
+							</td>				
 					</tr>
 					<tr>
 						<td>價格 :</td>
 						<td><input type="text" name="productPrice"
-							value="${param.productPrice}" size="40"></td>
-						<td>${errors.productPrice}
-						</td>
+							value="${param.productPrice}" size="40"><br/>
+							${errors.productPrice}
+							</td>	
 					</tr>
 					<tr>
 						<td>產品圖片 :</td>
 						<td><input Type="file" name="mainPhoto"
-							value="${param.mainPhoto}" size="40"></td>
-						<td>${errors.mainPhoto}</td>
+							value="${param.mainPhoto}" size="40"><br/>
+						${errors.mainPhoto}</td>
 					</tr>
 					<tr>
 						<td>折扣 :</td>
 						<td><input type="text" name="discount"
-							value="${param.discount}" size="40"></td>
-						<td>${errors.discount}</td>
+							value="${param.discount}" size="40"><br/>
+						${errors.discount}</td>
 					</tr>
 					<tr>
 						<td>日期 :</td>
 						<td><input type="text" name="productDate"
-							value="${param.productDate}" size="40"></td>
-						<td>${errors.productDate}</td>
+							value="${param.productDate}" size="40"><br/>
+						${errors.productDate}</td>
 					</tr>
 										<tr>
 						<td>產品類型 :</td>
@@ -81,18 +85,20 @@ function clearForm() {
 								<option value="${productVO.productTypeId}">${productVO.productType}</option>
 							</c:forEach>
 						</select>
-							</td>
-						<td>${errors.productTypeId}</td>
+							${errors.productTypeId}</td>
 					</tr>
-					<tr>
 					
-						<td colspan="2" align="center"><input type="submit"
-							name="prodaction" value="Insert"><input type="button"
-							value="Clear" onclick="clearForm()"></td>
+					<tr>	
+						<td colspan="2" align="center">
+						<input type="submit" name="prodaction" value="Insert">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="button" value="Clear" onclick="clearForm()"></td>
 					</tr>
 				</table>
+				</div>
+				</form>
 				
-			</form>
+				</div>
+			
 		</div>
 	</div>
 	<%@ include file="../fragment/js.jsp"%>

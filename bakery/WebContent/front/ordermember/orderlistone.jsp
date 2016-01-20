@@ -29,13 +29,11 @@
 				<!-----------------------------------------main----------------------------------------->
 
 				<div class="col-md-3">
-<div class="CSSTableGenerator" style="margin-left:25%;">
+<div class="CSSTableGenerator" style="margin-left:35%;">
 		<table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed;">
 
 			<c:forEach var="aBean" items="${beans}">
-				<tr>
-					<td><h4>會員ID：${aBean.memberId}</h4></td>
-				</tr>
+				
 				<tr>
 					<td><h4>訂單編號：${aBean.orderId}</h4></td>
 				</tr>
@@ -71,10 +69,10 @@
 <div class="col-md-1">
 </div>
 <div class="col-md-4">
-<div class="CSSTableGenerator" style="margin-left:25%;" >
+<div class="CSSTableGenerator" style="margin-left:30%;" >
 <table style="text-align:center;table-layout:fixed">
 <tr>
-<td colspan="2">訂購清單</td>
+<td colspan="2"><h4>訂購清單</h4></td>
 </tr>
 
 <tr>
