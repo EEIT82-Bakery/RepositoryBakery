@@ -36,8 +36,8 @@ public class ReArticleService {
 		dao.updateReArticleHidden(articleId, reId, memberId, hidden);
 	}
 	
-	public void updateReArticleHidden(int articleId, int reId, int hidden){
-		dao.updateReArticleHidden(articleId, reId, hidden);
+	public void updateReArticleHidden(int Id, int hidden){
+		dao.updateReArticleHidden(Id, hidden);
 	}
 
 	public ReArticleBean getOneReArticle(int articleId, int reId) {

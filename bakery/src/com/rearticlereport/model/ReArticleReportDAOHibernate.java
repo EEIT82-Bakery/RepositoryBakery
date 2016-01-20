@@ -27,13 +27,14 @@ public class ReArticleReportDAOHibernate implements ReArticleReportDAO_interface
 	}
 
 	@Override
-	public void deleteReArticleReport(int articleId, int reId) {
+	public void deleteReArticleReport(int reReportId) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.createQuery("delete Form ReArticleReportBean where article_Id = ?")
-			.setInteger(0, articleId)
-			.executeUpdate();
+			ReArticleReportBean bean = (ReArticleReportBean) session.get(ReArticleReportBean.class, reReportId);
+			if(bean != null){
+				session.delete(bean);
+			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -43,15 +44,13 @@ public class ReArticleReportDAOHibernate implements ReArticleReportDAO_interface
 	}
 
 	@Override
-	public void updateReArticleReportStatus(int articleId, int reId,
-			int reportStatus) {
+	public void updateReArticleReportStatus(int Id, int reportStatus) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.createQuery("update ReArticleReportBean set report_Status  = ? where article_Id = ? and re_Id = ?")
+			session.createSQLQuery("update Re_Article_Report set report_Status  = ? where Id = ?")
 			.setParameter(0, reportStatus)
-			.setParameter(1, articleId)
-			.setParameter(2, reId)
+			.setParameter(1, Id)
 			.executeUpdate();
 			session.getTransaction().commit();
 		} catch (Exception e) {
@@ -81,17 +80,15 @@ public class ReArticleReportDAOHibernate implements ReArticleReportDAO_interface
 
 
 	@Override
-	public boolean isReReport(int memberId, int articleId, int reId) {
+	public boolean isReReport(int memberId, int Id) {
 		ReArticleReportBean bean = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			bean =  (ReArticleReportBean) session.createQuery("From ReArticleReportBean where member_Id = ? and article_Id = ? and re_Id = ?")
+			bean =  (ReArticleReportBean) session.createQuery("From ReArticleReportBean where member_Id = ? and Id = ?")
 					.setParameter(0, memberId)
-					.setParameter(1, articleId)
-					.setParameter(2, reId)
+					.setParameter(1, Id)
 					.uniqueResult();
-			System.out.println(bean);
 			session.getTransaction().commit();
 			if(bean != null){
 				return true;

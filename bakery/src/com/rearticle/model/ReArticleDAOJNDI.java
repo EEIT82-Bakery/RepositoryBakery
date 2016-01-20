@@ -310,8 +310,9 @@ public class ReArticleDAOJNDI implements ReArticleDAO_interface {
 		}
 	}
 
+
 	@Override
-	public void updateReArticleHidden(int articleId, int reId, int hidden) {
+	public void updateReArticleHidden(int Id, int hidden) {
 		// TODO Auto-generated method stub
 		
 	}
