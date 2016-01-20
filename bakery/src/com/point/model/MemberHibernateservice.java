@@ -29,18 +29,6 @@ public class MemberHibernateservice {
 
 
 	public static void main(String[] args) {
-		// try {
-		// Session session =
-		// HibernateUtil.getSessionFactory().getCurrentSession();
-		// session.beginTransaction();
-		//
-		// MemberHibernateDAO dao = new MemberHibernateDAO(session);
-		// System.out.println(dao.updatePoint(1));
-		//
-		// session.getTransaction().commit();
-		// } finally {
-		// HibernateUtil.closeSessionFactory();
-		// }
 		MemberBean bean = new MemberBean();
 		List<MemberBean> beans = null;
 		MemberHibernateDAO dao = new MemberHibernateDAO();

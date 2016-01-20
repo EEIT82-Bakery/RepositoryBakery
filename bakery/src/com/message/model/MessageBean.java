@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class MessageBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	private Integer msg_id;
 	private Integer send_id;
 	private Integer read_id; // 收到的人
 	private String msg_tit; // 訊息的標題
@@ -17,6 +17,14 @@ public class MessageBean implements Serializable {
 	private String sendAccount;
 
 	private String readAccount;
+
+	public Integer getMsg_id() {
+		return msg_id;
+	}
+
+	public void setMsg_id(Integer msg_id) {
+		this.msg_id = msg_id;
+	}
 
 	public String getSendAccount() {
 		return sendAccount;

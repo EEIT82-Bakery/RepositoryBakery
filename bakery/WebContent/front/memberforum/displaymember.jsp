@@ -160,16 +160,22 @@
 							<ul class="nav">
 								<li><a href="${pageContext.request.contextPath}/AllMemberServlet.do?account=${member.account}">
 										<i class="glyphicon glyphicon-user"></i> 個人訊息
+
 									</a></li>
 								<li><a href="#">
 										<i class="glyphicon glyphicon-book"></i> 訊息
+
 									</a></li>
 								<li><a href="#">
 										<i class="glyphicon glyphicon-list-alt"></i> 好友名單
 									</a></li>
+
 								<c:if test="${isLogin.member_id==member.member_id}">
 								<li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">我的訊息</a></li>
 								</c:if>
+
+									<li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1" target="_blank"><i class="glyphicon glyphicon-envelope"></i>信箱</a></li>								
+
 							</ul>
 						</div>
 						<!-- END MENU -->
@@ -215,12 +221,10 @@
 		<!--------footer-------->
 	</div>
 	<%@ include file="../fragment/js.jsp"%>
+
 	<!-- 		 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
 	<!--     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
 
-	<script type="text/javascript">
-		
-	</script>
 
 
 

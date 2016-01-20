@@ -7,9 +7,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<<<<<<< HEAD
 <title>Insert title here</title>
 <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+=======
+<title>信箱 - 焙客栗工坊</title>
+>>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
 <%@ include file="../../fragment/css.jsp"%>
 
 <style>
@@ -48,7 +52,12 @@
 </head>
 <body>
 	<%@ include file="../../fragment/nav.jsp"%>
+<<<<<<< HEAD
 
+=======
+<div class="row">
+<div class="col-xs-offset-2 col-xs-8">
+>>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
 	<h1>我的信件</h1>
 	<div class="btn-group btn-group-justified demoPadder" role="group" aria-label="Justified button group">
 		<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1" class="btn btn-default">全部</a>
@@ -94,5 +103,10 @@
 			</a>
 		</c:forEach>
 	</c:if>
+<<<<<<< HEAD
+=======
+	</div>
+	</div>
+>>>>>>> branch 'master' of https://github.com/EEIT82-Bakery/RepositoryBakery.git
 </body>
 </html>

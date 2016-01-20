@@ -125,7 +125,44 @@
 
 		})
 	}
-</script>
+	
+	</script>
+	
+	<script>
+	
+	function f(){
+		
+	}
+	
+	function retrnD() {
+		if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+			var data = xmlHttp.responseText;
+			alert("data" +data);
+		}
+	}
+	
+	  
+		function Jiugongge_OK(Member_id, point) {
+			var Jiug = document.getElementsByName("Jiug");
+			xmlHttp = new XMLHttpRequest();
+			if (xmlHttp != null) {
+				xmlHttp.open("GET",
+						"${pageContext.request.contextPath}/PointServlet50.do",
+						true);
+				xmlHttp.addEventListener("readystatechange", retrnD, false);
+				xmlHttp.send("action=ADD" + "&member_id=" + member_id
+						+ "&point=" + point);
+				alert("asdas")
+			} else {
+				alert("您的瀏覽器不支援Ajax的功能!!");
+			}
+			dsd();
+
+		}
+	</script>
+	
+	
+
 </head>
 <body>
 	<!-----------------------------------------nav------------------------------------------>
@@ -178,7 +215,8 @@
 			<form action="<c:url value='/PointServlet.do '/>" method="get">
 				<!-- 			<input type="button" value="遊戲開始" name="upd" onclick="dsd()" -->
 				<!-- 				class="button button-3d button-action button-pil"> -->
-				<input type="submit" value="遊戲開始"  onclick="dsd()"
+				<input type="submit" value="遊戲開始"  onclick="Jiugongge_OK()"
+
 					class="button button-3d button-royal">
 					
 			</form>
@@ -187,7 +225,6 @@
 				<tr>
 					<TD>客戶姓名:${isLogin.username}</TD>
 					<TD>客戶點數:${isLogin.point}</TD>
-					<TD>客戶點數:${upd.point}</TD>
 				<tr>
 			</table>
 

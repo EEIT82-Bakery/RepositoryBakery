@@ -69,8 +69,28 @@
 		}
 	}
 </script>
-	    
-	    
+
+<script>
+	   function Jiugongge_OK(Member_id ,point){
+		 var  Jiug =  document.getElementsByName("Jiug");
+		 xmlHttp = new XMLHttpRequest();
+		 if (xmlHttp != null) {
+				xmlHttp.open("GET", "${pageContext.request.contextPath}/PointServlet50.do", true);
+				xmlHttp.addEventListener("readystatechange", retrnD, false);
+				xmlHttp.send("action=ADD" + "&member_id=" + member_id + "&point=" +point);
+			alert("asdas")
+			} else {
+				alert("您的瀏覽器不支援Ajax的功能!!");
+			}
+			function retrnD() {
+				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+					//
+				}
+			}
+		}
+		   
+	   
+  </script>
 </head>
 <body>
 	<!-----------------------------------------nav------------------------------------------>
@@ -80,7 +100,7 @@
 		<!-----------------------------------------main----------------------------------------->
 		 <marquee behavior="alternate" bgcolor="#FF44AA">
 		<img src="img/duck2.jpg" width="50" height="50">按下按鈕立即遊玩
-		,遊戲每次扣100點 盡情遊玩吧
+		,遊戲每次扣50點 盡情遊玩吧
 	</marquee>
 
 	<div class="root">
