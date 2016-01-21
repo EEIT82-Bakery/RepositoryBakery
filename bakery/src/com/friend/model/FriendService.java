@@ -1,5 +1,7 @@
 package com.friend.model;
 
+import java.util.List;
+
 
 
 public class FriendService {
@@ -11,10 +13,23 @@ public class FriendService {
 	public FriendService() {
 		dao = new FriendDAOJndi();
 	}
-
-
 	
-	public FriendBean select(Integer invite_id,Integer invitee_id){
+	
+	
+	public FriendBean selecte(Integer invite_id,Integer invitee_id){
+		return dao.selec(invite_id, invitee_id);
+	}
+
+
+	//**找出我的好友
+	public List<FriendBean> selectFriendList(Integer invite_id){
+		return dao.selectIsFriend(invite_id);
+	}
+	
+	
+	
+	
+	public int select(Integer invite_id,Integer invitee_id){
 		return dao.select(invite_id, invitee_id);
 	}
 
@@ -39,6 +54,9 @@ public class FriendService {
 			dao.delete(invite_id, invitee_id);
 	}
 		
+		
+	//**
+
 	
 
 	}

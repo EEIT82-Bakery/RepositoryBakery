@@ -1,6 +1,5 @@
 package com.friend.model;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -8,6 +7,8 @@ import java.util.List;
 
 
 public interface FriendDAO {
+	
+	public FriendBean selec(Integer invite_id,Integer invitee_id);
 	public void insert(FriendBean bean);
 	public List<FriendBean>getMyfriendsAll(Integer invite_id);//搜尋已成為我的好友
 	
@@ -16,9 +17,12 @@ public interface FriendDAO {
 	
 	public int update(FriendBean bean);
 	public void delete(Integer invite_id, Integer invitee_id);
+	public int select(Integer invite_id, Integer invitee_id);
 	
 	
 	
-	public FriendBean select(Integer invite_id, Integer invitee_id);
+	public List<FriendBean> selectIsFriend(Integer invite_id);
+
+	
 	
 }
