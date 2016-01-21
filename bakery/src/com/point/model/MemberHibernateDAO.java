@@ -13,26 +13,6 @@ import hibernate.util.HibernateUtil;
 
 public class MemberHibernateDAO {
 
-	// private Session session;
-	// public Session getSession() {
-	// return session ;
-	//
-	// }
-
-	// static final String UPDATE_POINT = "Update MemberBean set point = point -
-	// 100 where Member_id=?";
-	// static final String UPDATE_POINT2 = "Update MemberBean set point = point
-	// +500 where Member_id=?";
-	// static final String UPDATE_POINT50 = "Update MemberBean set point = point
-	// -50 where Member_id=?";
-	//
-	// static final String UPDATE_POINT100 = "Update MemberBean set point =
-	// point + 100 where Member_id=?";
-	// static final String UPDATE_POINT200 = "Update MemberBean set point =
-	// point + 200 where Member_id=?";
-	// static final String UPDATE_POINT300 = "Update MemberBean set point =
-	// point + 300 where Member_id=?";
-
 	// 點數扣100點
 	public MemberBean updatePoint100(int member_id) {
 		MemberBean a=null;
@@ -46,7 +26,6 @@ public class MemberHibernateDAO {
 			}
 			session.getTransaction().commit();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return a;

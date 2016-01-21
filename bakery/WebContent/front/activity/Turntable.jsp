@@ -71,26 +71,27 @@
 </script>
 
 <script>
-	   function Jiugongge_OK(Member_id ,point){
-		 var  Jiug =  document.getElementsByName("Jiug");
-		 xmlHttp = new XMLHttpRequest();
-		 if (xmlHttp != null) {
-				xmlHttp.open("GET", "${pageContext.request.contextPath}/PointServlet50.do", true);
-				xmlHttp.addEventListener("readystatechange", retrnD, false);
-				xmlHttp.send("action=ADD" + "&member_id=" + member_id + "&point=" +point);
-			alert("asdas")
-			} else {
-				alert("您的瀏覽器不支援Ajax的功能!!");
-			}
-			function retrnD() {
-				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-					//
-				}
+	function Jiugongge_OK(){
+		xmlHttp = new XMLHttpRequest();
+		if (xmlHttp != null) {
+			xmlHttp.open("GET","${pageContext.request.contextPath}/PointServlet50.do",
+					true);
+			xmlHttp.addEventListener("readystatechange", callback, false);
+			xmlHttp.send(null);
+		} else {
+			alert("您的瀏覽器不支援Ajax的功能!!");
+		}
+		function callback() {
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+				var data = JSON.parse(xmlHttp.responseText);
+				var myPoint = document.getElementById("tdPoint");
+				myPoint.innerHTML = "客戶點數:" + data.point; //蓋掉點數
 			}
 		}
-		   
-	   
-  </script>
+		dsd();
+	}
+</script>
+
 </head>
 <body>
 	<!-----------------------------------------nav------------------------------------------>
@@ -111,6 +112,7 @@
 			<img src="img/start.png" id="startok">
 		</div>
 		<div class="result" id="result">
+		<img src="img/close.png" style="float: right"/>
 			<p id="Txt"></p>
 			<a href="javascript:" id="Btn" title="關閉">關閉</a>
 		</div>
@@ -119,13 +121,13 @@
 				style="background: #F5EBFF; border-color: rgb(100, 100, 255)">
 				<tr>
 					<TD>客戶姓名:${isLogin.username}</TD>
-					<TD>客戶點數:${isLogin.point}</TD>
+					<TD id="tdPoint">客戶點數:${isLogin.point}</TD>
 				<tr>
 					<div class="ros">
-						<form action="<c:url value='/PointServlet50.do '/>" method="get">
+						<form action="<c:url value='/PointServlet50.do'/>" method="post">
 <!-- 														<input type="button" value="遊戲開始" name="ups" onclick="dsd()" -->
 <!-- 															class="button button-3d button-royal"> -->
-							<input type="submit" value="遊戲開始" name="upd" onclick="dsd()"
+							<input type="button" value="遊戲開始" name="upd" onclick="Jiugongge_OK()"
 								class="button button-3d button-royal">
 						</form>
 					</div>	

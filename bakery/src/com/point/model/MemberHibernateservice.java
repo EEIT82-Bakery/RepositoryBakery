@@ -9,12 +9,14 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.member.model.MemberBean;
+import com.member.model.MemberDAOHibernate;
 
 import hibernate.util.HibernateUtil;
 
 public class MemberHibernateservice {
 
 	MemberHibernateDAO dao= new MemberHibernateDAO();
+	MemberDAOHibernate sq = new  MemberDAOHibernate();
 	// 扣會員點數100
 	public MemberBean updatePoint100(int member_id) {
 		return dao.updatePoint100(member_id);
@@ -26,7 +28,20 @@ public class MemberHibernateservice {
 		return dao.updatePoint50(member_id);
 
 	}
-
+	//查詢點數 扣100點
+	public MemberBean selectp100(int member_id){
+		MemberBean bean=sq.getOne(member_id);
+		MemberBean newBena=dao.updatePoint100(bean.getMember_id());
+		return newBena;
+	}
+	//查詢點數 扣50點
+	public MemberBean selectp50(int member_id){
+		MemberBean bean=sq.getOne(member_id);
+		MemberBean newBena=dao.updatePoint50(bean.getMember_id());
+		return newBena;
+	}
+	
+	
 
 	public static void main(String[] args) {
 		MemberBean bean = new MemberBean();
