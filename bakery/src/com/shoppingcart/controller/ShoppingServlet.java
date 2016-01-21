@@ -32,7 +32,6 @@ public class ShoppingServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		MemberBean mb = (MemberBean) session.getAttribute("isLogin");

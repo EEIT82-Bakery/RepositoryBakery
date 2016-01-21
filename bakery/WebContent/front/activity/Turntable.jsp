@@ -69,8 +69,29 @@
 		}
 	}
 </script>
-	    
-	    
+
+<script>
+	function Jiugongge_OK(){
+		xmlHttp = new XMLHttpRequest();
+		if (xmlHttp != null) {
+			xmlHttp.open("GET","${pageContext.request.contextPath}/PointServlet50.do",
+					true);
+			xmlHttp.addEventListener("readystatechange", callback, false);
+			xmlHttp.send(null);
+		} else {
+			alert("您的瀏覽器不支援Ajax的功能!!");
+		}
+		function callback() {
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+				var data = JSON.parse(xmlHttp.responseText);
+				var myPoint = document.getElementById("tdPoint");
+				myPoint.innerHTML = "客戶點數:" + data.point; //蓋掉點數
+			}
+		}
+		dsd();
+	}
+</script>
+
 </head>
 <body>
 	<!-----------------------------------------nav------------------------------------------>
@@ -80,7 +101,7 @@
 		<!-----------------------------------------main----------------------------------------->
 		 <marquee behavior="alternate" bgcolor="#FF44AA">
 		<img src="img/duck2.jpg" width="50" height="50">按下按鈕立即遊玩
-		,遊戲每次扣100點 盡情遊玩吧
+		,遊戲每次扣50點 盡情遊玩吧
 	</marquee>
 
 	<div class="root">
@@ -99,13 +120,13 @@
 				style="background: #F5EBFF; border-color: rgb(100, 100, 255)">
 				<tr>
 					<TD>客戶姓名:${isLogin.username}</TD>
-					<TD>客戶點數:${isLogin.point}</TD>
+					<TD id="tdPoint">客戶點數:${isLogin.point}</TD>
 				<tr>
 					<div class="ros">
-						<form action="<c:url value='/PointServlet50.do '/>" method="get">
+						<form action="<c:url value='/PointServlet50.do'/>" method="get">
 <!-- 														<input type="button" value="遊戲開始" name="ups" onclick="dsd()" -->
 <!-- 															class="button button-3d button-royal"> -->
-							<input type="submit" value="遊戲開始" name="upd" onclick="dsd()"
+							<input type="button" value="遊戲開始" name="upd" onclick="Jiugongge_OK()"
 								class="button button-3d button-royal">
 						</form>
 					</div>	

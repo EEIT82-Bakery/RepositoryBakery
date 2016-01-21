@@ -30,8 +30,6 @@
 .profile-usertitle {
 	text-align: center;
 	margin-top: 20px;
-
-	
 }
 
 .profile-usertitle-name {
@@ -67,8 +65,6 @@
 
 .profile-usermenu {
 	margin-top: 20px;
-	
-
 }
 
 .profile-usermenu ul li {
@@ -139,78 +135,40 @@
 									<c:param name="phone" value="${member.phone}" />
 									<c:param name="phone" value="${member.phone}" />
 								</c:url>
-								<a href="${pageContext.request.contextPath}/homeindex.do?account=${member.account}">${member.account}</a>			
+								<a href="${pageContext.request.contextPath}/homeindex.do?account=${member.account}">${member.account}</a>
 							</div>
 						</div>
 						<!-- END SIDEBAR USER TITLE -->
 						<!-- SIDEBAR BUTTONS -->
-						<div class="profile-userbuttons">		
+						<div class="profile-userbuttons">
 							<FORM METHOD="post" action="${pageContext.request.contextPath}/FriendServlet.controller">
-									<div class="ui primary mini labeled icon button" onclick="$(this).parent().submit()"><i class="add user icon"></i>加入好友</div>
-									<button type="submit" class="btn btn-success btn-sm">加入好友</button>
-									<input type="hidden" name="invite_id" value="${isLogin.member_id}"> 
-									<input	type="hidden" name="invitee_id" value="${member.member_id}">
-									<input type="hidden" name="msgtitle"value="${isLogin.username}"> 
-									<input type="hidden" name="msgcount" value="${isLogin.username}">	
-									<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
-									<input type="hidden" name="action" value="addfriend">
-								</FORM>
-
-							
-							
-							
-							
-						
-							
-
-
-
-
-
-
+								<div class="ui primary mini labeled icon button" onclick="$(this).parent().submit()">
+									<i class="add user icon"></i>加入好友
+								</div>
+								<button type="submit" class="btn btn-success btn-sm">加入好友</button>
+								<input type="hidden" name="invite_id" value="${isLogin.member_id}">
+								<input type="hidden" name="invitee_id" value="${member.member_id}">
+								<input type="hidden" name="msgtitle" value="${isLogin.username}">
+								<input type="hidden" name="msgcount" value="${isLogin.username}">
+								<input type="hidden" name="requestURL" value="<%=request.getServletPath()%>">
+								<input type="hidden" name="action" value="addfriend">
+							</FORM>
 						</div>
 						<!-- END SIDEBAR BUTTONS -->
 						<!-- SIDEBAR MENU -->
 						<div class="profile-usermenu">
-							<ul class="nav">							
-								<li>
-								<a href="${pageContext.request.contextPath}/AllMemberServlet.do?account=${member.account}">
-										<i class="glyphicon glyphicon-user"></i> 個人訊息</a>
-						
-								</li>
-								
-								<li><a href="${pageContext.request.contextPath}/KanbanServlet.do?v=${member.member_id}"><i class="glyphicon glyphicon-book"></i> 心情看版</a>
-								</li>
-								
-								<li><a href="#">
-										<i class="glyphicon glyphicon-book"></i> 訊息
+							<ul class="nav">
+								<li><a href="${pageContext.request.contextPath}/AllMemberServlet.do?account=${member.account}">
+										<i class="glyphicon glyphicon-user"></i> 個人訊息
+
 									</a></li>
+						
 								<li><a href="#">
 										<i class="glyphicon glyphicon-list-alt"></i> 好友名單
 									</a></li>
-							
-								<li>
-								
-									<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">我的訊息</a>
-								</li>
-								
-								<li>
-								<a href="<c:url value="/AllMemberServlet.do" >
-								<c:param name="account" value="${member.account}" />
-									</c:url>">
-									<i class="glyphicon glyphicon-list-alt"></i> 收藏文章
-								</a>
-								</li>
-								
-								<li>
-								<a href="<c:url value="/AllMemberServlet.do">
-								<c:param name="action" value="insert" />
-								</c:url>">
-								<i class="glyphicon glyphicon-list-alt"></i> 收藏文章
-								</a>
-								</li>
-								
-								
+
+									<li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1" target="_blank"><i class="glyphicon glyphicon-envelope"></i>信箱</a></li>								
+
 							</ul>
 						</div>
 						<!-- END MENU -->
@@ -226,30 +184,27 @@
 								<td>${element.address}</td>
 							</tr>
 						</c:forEach>
-						
+
 						<div class="col-md-4">
 							<p>我的個人資訊</p>
-					</div>					
-					<div class="col-md-4 .col.md.offset-4">
-					  <form action="<c:url value='/MessageServlet.do'/>"  method="post">
-						<c:if test="${member.account  == isLogin.account}">
-						<input type="button" name="action" value="新增" />
-						<input  type="button" name="action" value="修改" />
-						<input type="button" name="action" value="刪除" />
-						</c:if>
-						</form>
-					</div>
-					<br>
-					<div class="col-md-10">
-					<p>我的狀態:${member.kanban}</p>
-					</div>
-					<div class="col-md-2">				
-					</div>
+						</div>
+						<div class="col-md-4 .col.md.offset-4">
+							<form action="<c:url value='/MessageServlet.do'/>" method="post">
+								<c:if test="${member.account  == isLogin.account}">
+									<input type="button" name="action" value="新增" />
+									<input type="button" name="action" value="修改" />
+									<input type="button" name="action" value="刪除" />
+								</c:if>
+							</form>
+						</div>
+						<br>
+						<div class="col-md-10">
+							<p>我的狀態:${member.kanban}</p>
+						</div>
+						<div class="col-md-2"></div>
 					</div>
 				</div>
-				<div class="col-xs-2">
-				這裡是444`````````````````````````
-				</div>
+				<div class="col-xs-2">這裡是444`````````````````````````</div>
 			</div>
 		</c:if>
 
@@ -259,16 +214,14 @@
 		<!--------footer-------->
 	</div>
 	<%@ include file="../fragment/js.jsp"%>
-<!-- 		 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
+
+	<!-- 		 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> -->
 	<!--     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
-	
-	<script type="text/javascript">
 
-	</script>
-	
 
-	
 
-	
+
+
+
 </body>
 </html>

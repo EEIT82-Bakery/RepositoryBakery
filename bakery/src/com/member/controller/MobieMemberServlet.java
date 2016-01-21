@@ -28,6 +28,9 @@ public class MobieMemberServlet extends HttpServlet {
 		MemberService memberservice = new MemberService();
 		MemberBean bean = memberservice.getAccount(account);
 		bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));	
+//		FriendBean friendbean = new FriendBean();
+		
+		
 		req.setAttribute("member", bean);
 		req.getRequestDispatcher("/front/memberforum/displaymember.jsp").forward(req, resp);
 		// ----------------------------------------------------//

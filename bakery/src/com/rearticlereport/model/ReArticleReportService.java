@@ -2,6 +2,8 @@ package com.rearticlereport.model;
 
 import java.util.List;
 
+import com.article.model.ArticleService;
+
 public class ReArticleReportService {
 	private ReArticleReportDAO_interface dao;
 
@@ -9,33 +11,31 @@ public class ReArticleReportService {
 		dao = new ReArticleReportDAOHibernate();
 	}
 
-	public void insertReArticleReport(int memberId, int articleId, int reId,
-			String reportMsg) {
+	public void insertReArticleReport(int memberId, int Id, String reportMsg) {
 		ReArticleReportBean bean = new ReArticleReportBean();
 		bean.setMemberId(memberId);
-		bean.setArticleId(articleId);
-		bean.setReId(reId);
+		bean.setId(Id);
 		bean.setReportMsg(reportMsg);
 		bean.setReportDate(new java.util.Date());
 		bean.setReportStatus(1);
 		dao.insertReArticleReport(bean);
 	}
 
-	public void deleteReArticleReport(int articleId , int reId) {
-		dao.deleteReArticleReport(articleId , reId);
+	public void deleteReArticleReport(int reReportId) {
+		dao.deleteReArticleReport(reReportId);
 	}
 
-	public void updateReArticleReportStatus(int articleId, int reId, int reportStatus) {
-		dao.updateReArticleReportStatus(articleId, reId, reportStatus);
+	public void updateReArticleReportStatus(int Id, int reportStatus) {
+		dao.updateReArticleReportStatus(Id, reportStatus);
 	}
 
-	public ReArticleReportBean getOneReArticleReport(int articleReportId) {
-		return dao.getOneReArticleReport(articleReportId);
+	public ReArticleReportBean getOneReArticleReport(int reReportId) {
+		return dao.getOneReArticleReport(reReportId);
 	}
 
 	public List<ReArticleReportBean> getAllReArticleReport() {
 		List<ReArticleReportBean> beans = dao.getAllReArticleReport();
-		
+
 		for (ReArticleReportBean bean : beans) {
 			int Status = bean.getReportStatus();
 			System.out.println(beans);
@@ -49,7 +49,7 @@ public class ReArticleReportService {
 	}
 
 	public List<ReArticleReportBean> getAllReArticleReport(int reportStatus) {
-		List<ReArticleReportBean> beans = dao.getAllReArticleReport();
+		List<ReArticleReportBean> beans = dao.getAllReArticleReport(reportStatus);
 		for (ReArticleReportBean bean : beans) {
 			if (reportStatus == 1) {
 				bean.setReportStatuName("未處理");
@@ -60,8 +60,8 @@ public class ReArticleReportService {
 		return beans;
 	}
 
-	public boolean isReReport(int memberId, int articleId, int reId) {
-		return dao.isReReport(memberId, articleId, reId);
+	public boolean isReReport(int memberId, int Id) {
+		return dao.isReReport(memberId, Id);
 	}
 
 }

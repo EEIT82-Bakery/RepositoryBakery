@@ -27,7 +27,7 @@ public class FriendDAOJndi implements FriendDAO {
 	}
 	
 	
-	private static final String INSERTFRIEND = "insert into friend_list(invite_id,invitee_id) values (?,?)";
+	private static final String INSERTFRIEND = "insert into friend_list(invite_id,invitee_id,friendstatu) values (?,?,?)";
 	
 	@Override
 	public void insert(FriendBean bean) {
@@ -39,6 +39,7 @@ public class FriendDAOJndi implements FriendDAO {
 			conn.setAutoCommit(false);
 			stmt.setInt(1, bean.getInvite_id());
 			stmt.setInt(2,bean.getInvitee_id());
+			stmt.setInt(3, bean.getFriendstatu());
 			stmt.executeUpdate();
 			conn.commit();
 		}catch(SQLException e) {
@@ -222,6 +223,70 @@ public class FriendDAOJndi implements FriendDAO {
 			}
 		}
 		return list;
+	}
+	
+	
+	
+	private static final String UPDATE = "UPDATE Friend_List set friendstatu=? where invite_id=? and invitee_id=?";
+	@Override
+	public int update(FriendBean bean) {
+		int updateCount = 0;
+		try (Connection conn = ds.getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(UPDATE)){
+			pstmt.setInt(1, bean.getFriendstatu());
+			pstmt.setInt(2, bean.getInvite_id());
+			pstmt.setInt(3, bean.getInvitee_id());
+		
+			updateCount = pstmt.executeUpdate();
+
+		} catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			
+		}
+		return updateCount;
+	}
+	
+	
+	
+	
+	private static final String DELETE = "DELETE FROM Friend_List where invite_id=? and invitee_id=? ";
+	@Override
+	public void delete(Integer invite_id, Integer invitee_id) {
+		try (Connection conn = ds.getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(DELETE)){
+			pstmt.setInt(1, invite_id);
+			pstmt.setInt(2, invitee_id);
+			pstmt.executeUpdate();
+
+		} catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			
+		}
+	
+	}
+	
+	private static final String SELECT_FRIEND_MAIL = "SELECT friendstatu from Friend_List where invite_id=? and invitee_id=?";
+	@Override
+	public FriendBean select(Integer invite_id, Integer invitee_id) {
+		FriendBean bean = null;
+		ResultSet rset = null;
+		try(Connection conn=ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELECT_FRIEND_MAIL)){
+			stmt.setInt(1, invite_id);
+			stmt.setInt(2, invitee_id);
+			rset = stmt.executeQuery();
+			if(rset.next()){
+//				count = rset.getInt("friendstatu");	
+				bean = new FriendBean();
+				bean.setFriendstatu(rset.getInt("friendstatu"));
+			}	
+		}catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}
+		return	bean;
 	}
 
 }

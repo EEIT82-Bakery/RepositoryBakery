@@ -31,7 +31,7 @@ public class ArticleReportDAOHibernate implements ArticleReportDAO_interface{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.createQuery("delete Form ArticleReportBean where article_Id = ?")
+			session.createSQLQuery("delete Form Article_Report where article_Id = ?")
 			.setInteger(0, articleId)
 			.executeUpdate();
 			session.getTransaction().commit();
@@ -46,7 +46,7 @@ public class ArticleReportDAOHibernate implements ArticleReportDAO_interface{
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			session.createQuery("update ArticleReportBean set report_Status  = ? where article_Id = ?")
+			session.createSQLQuery("update Article_Report set report_Status  = ? where article_Id = ?")
 			.setParameter(0, reportStatus)
 			.setParameter(1, articleId)
 			.executeUpdate();

@@ -9,19 +9,12 @@
 <%@page import="com.membergrade.model.MemberGradeBean"%>  
 <%@page import="com.member.model.*"%>   
 <%
-
 	MemberService service = new MemberService();
-	
-
- 	List<MemberBean> lists = service.getAllMemBer();
-
+	List<MemberBean> lists = service.getAllMemBer();
  	pageContext.setAttribute("listWhoInvitedMe", lists);
-	
-
 %>
 
 <%
-
 	int i = 0;
     int x = 0;
 %>
