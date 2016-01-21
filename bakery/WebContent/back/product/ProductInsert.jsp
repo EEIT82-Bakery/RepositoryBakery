@@ -45,8 +45,11 @@ function clearForm() {
 					</tr>
 					<tr>
 						<td>產品材料描述 :</td>
-						<td><input type="text" name="productStatus"
-							value="${param.productStatus}" size="40"><br/>
+						
+						<td>
+						<textarea name="productStatus" style="width:40%;height:150px;resize: none;">${param.productStatus}</textarea><br/>
+<!-- 						<input type="text" name="productStatus" -->
+<%-- 							value="${param.productStatus}" size="100"><br/> --%>
 							${errors.productStatus}
 							</td>				
 					</tr>
@@ -81,7 +84,6 @@ function clearForm() {
 						<jsp:useBean id="aBean" scope="page" class="com.product.model.ProductService"></jsp:useBean>						
 						<select size="1" name="proTypeId">
 							<c:forEach var="productVO" items="${aBean.selectType}">
-							
 								<option value="${productVO.productTypeId}">${productVO.productType}</option>
 							</c:forEach>
 						</select>

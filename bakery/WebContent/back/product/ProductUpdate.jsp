@@ -30,7 +30,9 @@ function clearForm() {
 			<form action='<c:url value="ProductUpdateServlet.do"/>'
 				method="POST" enctype="multipart/form-data">
 				<div class="CSSTableGenerator">
+				
 				<table>
+				
 						<tr>
 							<th colspan="3">修改產品資料</th>
 						</tr>
@@ -38,39 +40,43 @@ function clearForm() {
 					<tr>
 						<td>產品名稱:</td>
 						<td><input type="hidden" name="productId" readonly="readonly" 
-							value="${param.productId}" >
+							value="${productId}" >
 						<input type="text" name="productName"
-							value="${param.productName}" size="40"><br/>
+							value="${productName}" size="40"><br/>
 							${errors.productName}</td>
 					</tr>
 					<tr>
 						<td>產品材料描述 :</td>
-						<td><input type="text" name="productStatus"
-							value="${param.productStatus}" size="40"><br/>
-							${errors.productStatus}</td>
+						
+						<td>
+						<textarea name="productStatus" style="width:40%;height:150px;resize: none;">${productStatus}</textarea><br/>
+<!-- 						<input type="text" name="productStatus" -->
+<%-- 							value="${param.productStatus}" size="100"><br/> --%>
+							${errors.productStatus}
+							</td>				
 					</tr>
 					<tr>
 						<td>價格 :</td>
 						<td><input type="text" name="productPrice"
-							value="${param.productPrice}" size="40"><br/>
+							value="${productPrice}" size="40"><br/>
 							${errors.productPrice}</td>
 					</tr>
 					<tr>
 						<td>產品圖片 :</td>
 						<td><input Type="file" name="mainPhoto"
-							value="${param.mainPhoto}" size="40"><br/>
+							 size="40"><br/>
 							${errors.mainPhoto}</td>
 					</tr>
 					<tr>
 						<td>折扣 :</td>
 						<td><input type="text" name="discount"
-							value="${param.discount}" size="40"><br/>
+							value="${discount}" size="40"><br/>
 							${errors.discount}</td>
 					</tr>
 					<tr>
 						<td>日期 :</td>
 						<td><input type="text" name="productDate"
-							value="${param.productDate}" size="40"><br/>
+							value="${productDate}" size="40"><br/>
 							${errors.productDate}</td>
 					</tr>
 										<tr>

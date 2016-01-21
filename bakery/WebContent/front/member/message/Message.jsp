@@ -83,30 +83,37 @@ background-color:#FFDEBD;
   </div>	
 		
   
-<div data-role="main" class="ui-content">									
+<div class="col-sm-12" align="center">	
+<FORM METHOD="post" action='<c:url value="/MessageDeleteServlet.do"/>'>							
 	<table align="center" width="100% " >
 		<thead id="thead">
+		
 		<tr>
+			<td width="3%"></td>
 			<td width="15%" style="padding-left:20px">寄件人</td>
 			<td width="15%" style="padding-left:20px">收件人</td>
-			<td width="40%" style="padding-left:20px">訊息標題</td>
+			<td width="37%" style="padding-left:20px">訊息標題</td>
 			<td width="20%" style="padding-left:20px">寄送時間</td>
 			<td width="10%" style="padding-left:20px">寄信狀態</td>
 		</tr>	
-	
-		</thead>
-		
+			
+		</thead>		
 		<tbody>
-	
-		<c:forEach var="Go" items="${list}">
+		
+		<c:forEach var="Go" items="${list}" varStatus="theCount">
 		<tr>
+		  <td width="3%">
+		  
+		  <input type="checkbox" name="number${theCount.count}"  value="${Go.msg_tit}">
+		  
+		  </td>
 			<td width="15%" style="padding-left:20px">${Go.sendAccount}</td>
 			<td width="15%" style="padding-left:20px">
 			<c:if test="${Go.read_id==isLogin.member_id}">
 					<p>${Go.readAccount}</p>
 			</c:if>
 			</td>
-			<td width="40%" style="padding-left:20px"><a href="${pageContext.request.contextPath}/MessageServlet.do?action=count&send_id=${Go.send_id}&read_id=${Go.read_id}&msg_date=${Go.msg_date}">${Go.msg_tit}</a></td>
+			<td width="37%" style="padding-left:20px"><a href="${pageContext.request.contextPath}/MessageServlet.do?action=count&send_id=${Go.send_id}&read_id=${Go.read_id}&msg_date=${Go.msg_date}">${Go.msg_tit}</a></td>
 			<td width="20%" style="padding-left:20px">${Go.mdate}</td>
 
 			<td width="10%" style="padding-left:20px">
@@ -120,18 +127,26 @@ background-color:#FFDEBD;
 		</c:if>
 		</td>
 				</tr>
-		</c:forEach>
+		</c:forEach>		
 	</tbody>
-	
-			
+		
 	</table>
+	<input type="submit" value="多筆刪除" id="buttonToggle">
+	</form>
+	
+	</div>	
+	
+	   
+	
+	
+	<div class="col-sm-12" align="center">
 		<c:if test="${not empty pageCount}">
 				<c:forEach var="page" begin="1" end="${pageCount}">
-
 					<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=${page}">
 						<c:out value="${page}" /></a>
 				</c:forEach>
 		</c:if>
+		 </div>	
 	 </div>	
 	 </div>
 <%-- <c:choose> --%>
@@ -157,6 +172,16 @@ background-color:#FFDEBD;
 
 
 <script type="text/javascript">
+
+$('#buttonToggle').click(function(){		 
+    $(':checkbox').each(function(){
+  	  //$(this).prop('checked')  => true or false
+  	  var b = !$(this).prop('checked');
+  	  $(this).prop('checked',b);
+    });
+	  
+});
+
 $(document).ready(function() {
     var urlParts = window.location.pathname.split("/"),
         // get the last section of the url

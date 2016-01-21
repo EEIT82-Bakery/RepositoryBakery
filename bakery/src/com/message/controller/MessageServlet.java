@@ -68,7 +68,6 @@ public class MessageServlet extends HttpServlet {
 	
 			int allcount= messageservice.getReadCount(memberid);
 			int pageCount = allcount/pageSize + (allcount % pageSize != 0 ? 1 : 0);
-			System.out.println(pageCount);
 			req.setAttribute("pageCount", pageCount);
 			req.getRequestDispatcher("/front/member/message/Message.jsp").forward(req, resp);
 		}
@@ -108,7 +107,6 @@ public class MessageServlet extends HttpServlet {
 		
 		
 		if("selecNoRead".equals(action)){
-			System.out.println(action);
 			HttpSession session = req.getSession();
 			MemberBean bean = (MemberBean) session.getAttribute("isLogin");
 			Integer memberid =  bean.getMember_id();
@@ -126,12 +124,10 @@ public class MessageServlet extends HttpServlet {
 			req.setAttribute("page", pageInt);
 			int allcount= messageservice.getReadCount(memberid);
 			int pageCount = allcount/pageSize + (allcount % pageSize != 0 ? 1 : 0);
-			System.out.println(pageCount);
 			req.setAttribute("pageCount", pageCount);
 			req.getRequestDispatcher("/front/member/message/Message.jsp").forward(req, resp);	
 			
-		}
-			System.out.println("action"+action);		
+		}	
 		if ("count".equals(action)) {
 			Integer send_id=new Integer(req.getParameter("send_id"));
 			Integer read_id=new Integer(req.getParameter("read_id"));
