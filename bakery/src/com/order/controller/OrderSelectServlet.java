@@ -74,7 +74,6 @@ public class OrderSelectServlet extends HttpServlet {
 	}
 		
 		if ("update".equals(action)) { // 來自orderlist.jsp
-		
 			try {
 				/***************************1.接收請求參數***************************************/
 				Integer orderIdu = new Integer(request.getParameter("orderIdu"));

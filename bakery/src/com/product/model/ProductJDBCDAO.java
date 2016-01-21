@@ -92,4 +92,10 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		return null;
 	}
 
+	@Override
+	public ProductBean selectId(int productId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -21,10 +21,8 @@ public class OrderListReaderServlet extends HttpServlet {
     
     try {
         String productId = req.getParameter("productId");
-        System.out.println(productId);
         ProductJNDIDAO dao = new ProductJNDIDAO();
         ProductBean bean = dao.selectPhoto(new Integer(productId));
-//        System.out.println(bean);
         byte[] buf = bean.getMain_photo();  // 4K buffer
         out.write(buf);
         out.close();
