@@ -132,7 +132,7 @@ border:3px #C29793 dashed
 		<%@ include file="./front/fragment/footer.jsp"%>
 		<!--------footer-------->
 	</div>
-	<%-- 	<%@ include file="./front/fragment/js.jsp"%>\ --%>
+		<%@ include file="./front/fragment/js.jsp"%>\
 	<script
 		src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript"
