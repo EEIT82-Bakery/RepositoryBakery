@@ -80,13 +80,13 @@ public class ArticleService {
 					.getArticleClassName());
 			if (bean.getReArticleCount() == 0) {
 				bean.setReAuthor(bean.getMember().getAccount());
-				bean.setReArticleMakeDate(new ArticleService().convertDate(bean
+				bean.setReArticleMakeDate(convertDate(bean
 						.getArticleMake()));
 			}else{
 				ReArticleDAOHibernate dao = new ReArticleDAOHibernate();
 				ReArticleBean reArticleBean = dao.getLastReArticle(bean.getArticleId());
 				bean.setReAuthor(reArticleBean.getMember().getAccount());
-				bean.setReArticleMakeDate(new ArticleService().convertDate(reArticleBean.getReMake()));
+				bean.setReArticleMakeDate(convertDate(reArticleBean.getReMake()));
 			}
 		}
 		return beans;
@@ -104,13 +104,13 @@ public class ArticleService {
 					.getArticleClassName());
 			if (bean.getReArticleCount() == 0) {
 				bean.setReAuthor(bean.getMember().getAccount());
-				bean.setReArticleMakeDate(new ArticleService().convertDate(bean
+				bean.setReArticleMakeDate(convertDate(bean
 						.getArticleMake()));
 			}else{
 				ReArticleDAOHibernate dao = new ReArticleDAOHibernate();
 				ReArticleBean reArticleBean = dao.getLastReArticle(bean.getArticleId());
 				bean.setReAuthor(reArticleBean.getMember().getAccount());
-				bean.setReArticleMakeDate(new ArticleService().convertDate(reArticleBean.getReMake()));
+				bean.setReArticleMakeDate(convertDate(reArticleBean.getReMake()));
 			}
 		}
 		return beans;

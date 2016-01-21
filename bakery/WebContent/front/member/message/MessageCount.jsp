@@ -87,6 +87,14 @@ style>.forumtitle {
 								pattern="yyyy-MM-dd HH:mm:ss" />
 					</tr>
 				</table>
+				<c:if test="${friendstatu.friendstatu==1}">
+					<p>已成為好友</p>
+				</c:if>
+				<c:if test="${empty friendstatu.friendstatu}">
+					<p>已拒絕好友</p>
+				</c:if>
+
+
 				<c:if test="${friendstatu.friendstatu==0}">
 					<h5 class="ui top attached header">信件內容</h5>
 					<div class="ui attached segment">
@@ -95,9 +103,11 @@ style>.forumtitle {
 								onclick="$('>form',this).submit()">接受</a>/<a
 								href="${pageContext.request.contextPath}/FriendServlet.controller?action=noagree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}"
 								onclick="$('>form',this).submit()">拒絕</a>
-				</pre>
+						</pre>
+						
 					</div>
 				</c:if>
+				<span>${message}</span>
 			</div>
 		</div>
 	</div>

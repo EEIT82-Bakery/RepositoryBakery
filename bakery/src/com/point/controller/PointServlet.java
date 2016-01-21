@@ -34,11 +34,14 @@ public class PointServlet extends HttpServlet {
 		
 	
 	
+		req.setCharacterEncoding("UTF-8");
+		resp.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = resp.getWriter();
-		HttpSession session = req.getSession(); // 抓李傑的session
-		MemberBean bean = (MemberBean) session.getAttribute("isLogin");// 抓他的登
-		int mbs = bean.getMember_id();
-		MemberBean po = sr.selectp(mbs); // 用我程式去修改他的點數id
+		HttpSession session = req.getSession(); // 抓豊傑的session
+		MemberBean bean = (MemberBean) session.getAttribute("isLogin");// 抓他的登入
+		int mbId = bean.getMember_id();
+		MemberBean po = sr.selectp100(mbId); // 用我程式去修改他的點數id
+		session.setAttribute("isLogin", po);
 		JSONObject jsonObjectMary = new JSONObject(po);	
 		out.print(jsonObjectMary);
 
