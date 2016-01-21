@@ -203,7 +203,7 @@
 
 
 		<div class="absolute">
-			<form action="<c:url value='/PointServlet.do '/>" method="get">
+			<form action="<c:url value='/PointServlet.do '/>" method="post">
 				<!-- 			<input type="button" value="遊戲開始" name="upd" onclick="dsd()" -->
 				<!-- 				class="button button-3d button-action button-pil"> -->
 				<input type="button" value="遊戲開始"  onclick="Jiugongge_OK()"

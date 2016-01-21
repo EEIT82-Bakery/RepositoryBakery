@@ -97,7 +97,7 @@
 					感謝您拜訪焙客栗工坊網站，如果您有任何聯絡事項，<br /> 歡迎填寫下列表單， 我們將會用最快的速度與您聯絡。
 				</h4>
 			</div>
-			<form action="<c:url value='/ContectUsServelt.do'/>" method="get">
+			<form action="<c:url value='/ContectUsServelt.do'/>" method="post">
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="person">連絡人</label>

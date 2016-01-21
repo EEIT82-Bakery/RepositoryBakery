@@ -124,7 +124,7 @@
 					<TD id="tdPoint">客戶點數:${isLogin.point}</TD>
 				<tr>
 					<div class="ros">
-						<form action="<c:url value='/PointServlet50.do'/>" method="get">
+						<form action="<c:url value='/PointServlet50.do'/>" method="post">
 <!-- 														<input type="button" value="遊戲開始" name="ups" onclick="dsd()" -->
 <!-- 															class="button button-3d button-royal"> -->
 							<input type="button" value="遊戲開始" name="upd" onclick="Jiugongge_OK()"
