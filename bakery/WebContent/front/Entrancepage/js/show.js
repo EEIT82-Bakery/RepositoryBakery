@@ -8,10 +8,10 @@
         none: [".show_images_4", ".show_images_4_img"],
         duration: 600,
         start: function () {
-            $(".header_text").fadeOut(250);
+            $(".header_text").fadeOut(150);
         },
         end: function () {
-            $(".header_text").fadeIn(250);
+            $(".header_text").fadeIn(150);
         },
         autoChange: true,
         changeTimeout: 3000,
