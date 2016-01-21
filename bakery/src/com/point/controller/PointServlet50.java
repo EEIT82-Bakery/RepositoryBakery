@@ -33,7 +33,7 @@ public class PointServlet50 extends HttpServlet {
 		int mbId = bean.getMember_id();
 		MemberBean po = sr.selectp50(mbId); // 用我程式去修改他的點數id
 		session.setAttribute("isLogin", po);
-		JSONObject jsonObjectMary = new JSONObject(po);	
+		JSONObject jsonObjectMary = new JSONObject(po);
 		out.print(jsonObjectMary);
 //		req.getRequestDispatcher("/front/activity/Turntable.jsp").forward(req, resp);
 
