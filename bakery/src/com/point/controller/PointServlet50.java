@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.hibernate.Session;
 import org.json.JSONObject;
 
@@ -33,6 +34,7 @@ public class PointServlet50 extends HttpServlet {
 		int mbId = bean.getMember_id();
 		MemberBean po = sr.selectp50(mbId); // 用我程式去修改他的點數id
 		session.setAttribute("isLogin", po);
+		po.setMpicture(Base64.encodeBase64String(po.getPicture()));
 		JSONObject jsonObjectMary = new JSONObject(po);	
 		out.print(jsonObjectMary);
 //		req.getRequestDispatcher("/front/activity/Turntable.jsp").forward(req, resp);

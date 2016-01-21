@@ -79,7 +79,7 @@ public class ShoppingServlet extends HttpServlet {
 				}
 				session.setAttribute("shoppingcart", buylist);
 			}
-		}  	else if (action.equals("CHECKOUT")) {
+		} else if (action.equals("CHECKOUT")){
 			if (mb == null) {
 				response.sendRedirect(request.getContextPath() + "/front/article/error/NotLogin.jsp");
 			} else if(buylist==null){
@@ -96,7 +96,6 @@ public class ShoppingServlet extends HttpServlet {
 					total += (price * quantity * f);
 				}
 				String amount = String.valueOf(total);
-
 				session.setAttribute("amount", amount);
 				session.setAttribute("shoppingcart", buylist);
 				String url = "/front/ShoppingCart/CheckoutForEach.jsp";
