@@ -8,10 +8,6 @@ import org.hibernate.Session;
 
 
 public class ArticleReportDAOHibernate implements ArticleReportDAO_interface{
-	
-	public static void main(String[] args){
-		ArticleReportDAOHibernate dao = new ArticleReportDAOHibernate();
-	}
 
 	@Override
 	public void insertArticleReport(ArticleReportBean bean) {

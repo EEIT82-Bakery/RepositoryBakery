@@ -17,11 +17,13 @@ public class ForumServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 
@@ -41,13 +43,11 @@ public class ForumServlet extends HttpServlet {
 
 		int pageNo = 0;
 		String pageNoStr = request.getParameter("pageNo");
-		if (pageNoStr == null)
-
-		{ // 沒有頁數的話
+		// 沒有頁數的話
+		if (pageNoStr == null) { 
 			pageNo = 1;
-		} else
-
-		{ // 第二次執行
+		} else { 
+			// 第二次執行
 			try {
 				int pageNoTemp = Integer.parseInt(pageNoStr);
 				if (pageNoTemp < 0) {
@@ -61,7 +61,6 @@ public class ForumServlet extends HttpServlet {
 				pageNo = 1;
 			}
 		}
-
 		List<ArticleBean> beans = articleSvc.getPageArticles(articleClassNo, pageNo);
 		request.setAttribute("pageNo", pageNo);
 		request.setAttribute("totalPages", totalPages);

@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.binary.Base64;
-
 import com.article.model.ArticleBean;
 import com.article.model.ArticleService;
 import com.rearticle.model.ReArticleBean;

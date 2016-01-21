@@ -33,8 +33,7 @@ public class MobieMemberServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 		MemberBean memberbean = (MemberBean) session.getAttribute("isLogin");
 		if (memberbean == null) {
-			String path = req.getContextPath();
-			resp.sendRedirect(path + "/front/article/error/NotLogin.jsp");
+			resp.sendRedirect(req.getContextPath() + "/front/article/error/NotLogin.jsp");
 			return;
 		} else {
 			String account = req.getParameter("account");
@@ -50,7 +49,5 @@ public class MobieMemberServlet extends HttpServlet {
 			req.getRequestDispatcher("/front/memberforum/displaymember.jsp")
 					.forward(req, resp);
 		}
-		// ----------------------------------------------------//
 	}
-
 }

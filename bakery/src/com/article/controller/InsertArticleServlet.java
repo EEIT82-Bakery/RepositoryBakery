@@ -77,7 +77,6 @@ public class InsertArticleServlet extends HttpServlet {
 				} else {
 					request.getRequestDispatcher("/front/article/InsertArticle.jsp?type=1").forward(request, response);
 				}
-
 			} else if ("2".equals(type)) { // 回覆文章
 				// 接收資料
 				String articleIdTemp = request.getParameter("articleId");
