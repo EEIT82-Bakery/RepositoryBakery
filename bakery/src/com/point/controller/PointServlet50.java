@@ -33,7 +33,6 @@ public class PointServlet50 extends HttpServlet {
 		MemberBean po = sr.selectp50(mbId); // 用我程式去修改他的點數id
 		po.setMpicture(Base64.encodeBase64String(po.getPicture()));
 		session.setAttribute("isLogin", po);
-		
 		JSONObject jsonObjectMary = new JSONObject(po);
 		out.print(jsonObjectMary);
 	}

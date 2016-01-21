@@ -36,16 +36,13 @@ public class RegisterServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
-	private static final String DADA = "/front/member/images/picture.jpg";
-	private static final int statu = 1;
-	private static final int point = 0;
-	private static final int order = 0;
-	private static final String kanban = null;
-	private MemberService memberservice = new MemberService();
-
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+		private static final String DADA = "/front/member/images/picture.jpg";
+		private static final int statu = 2;
+		private static final int point = 0;
+		private static final int order = 0;
+		private static final String kanban = null;
+		private MemberService memberservice = new MemberService();
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
 		HttpSession session = req.getSession();
