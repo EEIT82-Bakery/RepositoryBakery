@@ -3,7 +3,7 @@
 <nav class="navbar navbar navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a href="bakerystage.jsp">
+			<a href="${pageContext.request.contextPath}/back/product/ProductSelectAll.jsp">
 				<img src="${pageContext.request.contextPath}/back/HtmlData/images/logo1.png" width="212" height="50" alt="" />
 			</a>
 		</div>

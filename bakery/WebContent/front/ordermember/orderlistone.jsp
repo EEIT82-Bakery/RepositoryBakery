@@ -93,7 +93,12 @@
 				
 			</c:forEach>	
 		</table>
+	
 		</div>
+		<a href="${pageContext.request.contextPath}/OrderMemberServlet.do">
+		<input type="button" value="回上一頁" style="margin-left: 30%; margin-top: 8%;">
+		</a>
+			
 </div>
 			</div>
 		</div>

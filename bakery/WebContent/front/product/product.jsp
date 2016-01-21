@@ -108,7 +108,7 @@
 		<%@ include file="../fragment/footer.jsp"%>
 		<!--------footer-------->
 	</div>
-	<%-- 	<%@ include file="../fragment/js.jsp"%> --%>
+<%-- 		<%@ include file="../fragment/js.jsp"%> --%>
 	<script>
 	function Content(productId) {			
 		xmlHttp = new XMLHttpRequest();
