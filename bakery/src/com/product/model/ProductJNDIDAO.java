@@ -24,10 +24,11 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 //	private static final String SELECT_BY_CAKE = "select *from product where product_type_id like ?";
 //	private static final String SELECT_TYPE="select * from product_type";
 //	
-	private static final String INSERT_STMT = "INSERT INTO Product VALUES (? , ? , ? , ? , ? , ?, ?)"; 
-	 private static final String SELECT_ALL = "select Product_id, Product_name,Product_status,Product_price,Main_photo,Discount,Product_date,Product_type from Product p join product_type t on p.product_type_id=t.product_type_id"; 
+	 private static final String INSERT_STMT = "INSERT INTO Product VALUES (? , ? , ? , ? , ? , ?, ?)"; 
+	 private static final String SELECT_ALL = "select Product_id, Product_name,Product_status,Product_price,Main_photo,Discount,Product_date,Product_type from Product p join product_type t on p.product_type_id=t.product_type_id order by Product_id desc"; 
 	 private static final String UPDATE = "update Product set Product_name=?, Product_status=?,Product_price=?,Main_photo=?,Discount=?,Product_date=?,product_type_id=? where Product_id=?"; 
 	 private static final String DELETE_PHOTO = "delete from Product_photo where Product_id=?"; 
+	 private static final String SELECT_ID="select * from Product where Product_id=?";
 	 private static final String DELETE = "delete from Product where Product_id=?"; 
 	 private static final String SELECT_BY_PHOTO = "select Main_photo from Product where Product_id=?"; 
 	 private static final String SELECT_BY_CAKE = "select * from product where product_type_id like ?"; 
@@ -44,6 +45,50 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 		}
 	}
 		
+	@Override
+	public ProductBean selectId(int productId){
+		ProductBean result = null;
+		ResultSet rset = null;
+		PreparedStatement stmt = null;
+		Connection conn = null;
+		try {
+			conn = dataSource.getConnection();
+			stmt = conn.prepareStatement(SELECT_ID);
+			stmt.setInt(1, productId);
+			rset = stmt.executeQuery();
+			if (rset.next()) {
+				result = new ProductBean();
+				result.setProductId(rset.getInt("Product_id"));
+				result.setProductName(rset.getString("Product_name"));
+				result.setProductStatus(rset.getString("Product_status"));
+				result.setProductPrice(rset.getInt("Product_price"));
+				result.setMain_photo(rset.getBytes("Main_photo"));
+				result.setDiscount(rset.getString("Discount"));
+				result.setProductDate(rset.getDate("Product_date"));
+				result.setProductType(rset.getString("Product_type_id"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return result;
+	}
+	
 	@Override
 	public List<ProductBean> selectType(){
 		List<ProductBean> result = null;
@@ -149,7 +194,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setMain_photo(rset.getBytes("Main_photo"));
 				bean.setDiscount(rset.getString("Discount"));
 				bean.setProductDate(rset.getDate("Product_date"));
-				bean.setProductType(rset.getString("Product_type"));
+				bean.setProductType(rset.getString("Product_type_id"));
 				beans.add(bean);
 			}
 		} catch (SQLException e) {

@@ -50,6 +50,7 @@
 					<span class="glyphicon glyphicon-home" aria-hidden="true">首頁</span>
 				</a>
 			</li>
+			
 			<li>
 				<a href="${pageContext.request.contextPath}/front/ShoppingCart/Cart.jsp">
 					<span class="glyphicon glyphicon-shopping-cart" aria-hidden="true">購物車</span>

@@ -27,21 +27,16 @@ public class PointServlet50 extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=UTF-8");
-		int count = 0;
 		PrintWriter out = resp.getWriter();
 		HttpSession session = req.getSession(); // 抓豊傑的session
 		MemberBean bean = (MemberBean) session.getAttribute("isLogin");// 抓他的登入
 		int mbId = bean.getMember_id();
 		MemberBean po = sr.selectp50(mbId); // 用我程式去修改他的點數id
-		if(count == 0){
-			req.setAttribute("Point", po.getPoint());
-			req.getRequestDispatcher("/front/activity/Turntable.jsp").forward(req, resp);
-			count = 1;
-		}else{
-			JSONObject jsonObjectMary = new JSONObject(po);	
-			out.print(jsonObjectMary);
-		}
-		
+		session.setAttribute("isLogin", po);
+		JSONObject jsonObjectMary = new JSONObject(po);	
+		out.print(jsonObjectMary);
+//		req.getRequestDispatcher("/front/activity/Turntable.jsp").forward(req, resp);
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
