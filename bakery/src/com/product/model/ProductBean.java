@@ -2,7 +2,6 @@ package com.product.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 
 
@@ -108,15 +107,6 @@ public class ProductBean implements java.io.Serializable{
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-
-	@Override
-	public String toString() {
-		return "ProductBean [productTypeId=" + productTypeId + ", productType=" + productType + ", productId="
-				+ productId + ", productName=" + productName + ", productStatus=" + productStatus + ", productPrice="
-				+ productPrice + ", main_photo=" + Arrays.toString(main_photo) + ", discount=" + discount
-				+ ", productDate=" + productDate + ", photoId=" + photoId + ", productPhoto="
-				+ Arrays.toString(productPhoto) + ", quantity=" + quantity + "]";
 	}
 
 	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");
