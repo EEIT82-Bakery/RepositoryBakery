@@ -138,34 +138,7 @@ public class MessageServlet extends HttpServlet {
 				req.getRequestDispatcher("/front/member/message/MessageCount.jsp").forward(req, resp);
 			}
 			
-//			String sQuantity = req.getParameter("read_id");
-//			if(ssend_id==null||ssend_id.length()==0||sQuantity==null||sQuantity.length()==0){
-//				out.println("<SCRIPT LANGUAGE='JavaScript'>");
-//				out.print("alert('沒有此文章');");
-//				out.println("</SCRIPT>");
-//				out.close();
-//				String path = req.getContextPath();
-//			    resp.sendRedirect(path+"/front/member/message/Message.jsp");
-//			    return;
-//			}
-//			Integer send_id = Integer.parseInt(ssend_id);
-//			Integer read_id = Integer.parseInt(sQuantity);
-//			java.sql.Timestamp msg_date = java.sql.Timestamp.valueOf(req.getParameter("msg_date"));
-//			MessageBean messbean = new MessageBean();
-//			messbean.setSend_id(send_id);
-//			messbean.setRead_id(read_id);
-//			messbean.setMsg_date(msg_date);
-//			messbean.setMsg_state(2);
-//			MessageService messageservice = new MessageService();
-//			MessageBean bean = messageservice.selectByTime(send_id, read_id, msg_date);
-//			messageservice.updatemessage(messbean);
-			
-//			FriendBean friendbean = new FriendBean();
-//			FriendService friendservice = new FriendService();
-//			friendbean = friendservice.selecte(send_id, read_id);
-//			req.setAttribute("bean", bean);
-//			req.setAttribute("friendstatu", friendbean);
-//			req.getRequestDispatcher("/front/member/message/MessageCount.jsp").forward(req, resp);
+
 		}
 	}
 }
