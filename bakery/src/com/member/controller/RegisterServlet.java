@@ -9,7 +9,6 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.member.model.MemberService;
-
 
 @MultipartConfig
 @WebServlet("/front/member/regitser/regis.do")
@@ -46,19 +44,20 @@ public class RegisterServlet extends HttpServlet {
 		private MemberService memberservice = new MemberService();
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/plain; charset=utf-8");
+		resp.setContentType("text/html; charset=utf-8");
 		HttpSession session = req.getSession();
 		Map<String, String> errorMessage = new HashMap<String, String>();
 		req.setAttribute("ErrorMsg", errorMessage);
 		Map<String, String> msgOK = new HashMap<String, String>();
 		session.setAttribute("ok", msgOK);
 		String account = req.getParameter("m_account");
-		if (account == null || account.isEmpty() || account.trim().length() == 0) {
+		if (account == null || account.isEmpty()
+				|| account.trim().length() == 0) {
 			errorMessage.put("x_account", "帳號欄必須輸入");
 		}
-//			else if (accountlist.contains(account)) {
-//			errorMessage.put("x_account", "帳號重複");
-//		}
+		// else if (accountlist.contains(account)) {
+		// errorMessage.put("x_account", "帳號重複");
+		// }
 		String password1 = req.getParameter("m_password").trim().toLowerCase();
 		if (password1 == null || password1.isEmpty() || password1.length() == 0) {
 			errorMessage.put("x_password", "密碼欄必須輸入");
@@ -66,7 +65,7 @@ public class RegisterServlet extends HttpServlet {
 			errorMessage.put("x_password", "確認密碼錯誤");
 		}
 		byte[] password = password1.getBytes();
-		password = messageDigest.digest(password);	
+		password = messageDigest.digest(password);
 		String username = req.getParameter("m_name").trim();
 		if (username == null || username.length() == 0) {
 			errorMessage.put("x_m_name", "名子不能為空白");
@@ -91,8 +90,8 @@ public class RegisterServlet extends HttpServlet {
 		String email = req.getParameter("m_email").trim().toLowerCase();
 		if (email == null || email.length() == 0) {
 			errorMessage.put("x_m_email", "信箱: 請勿空白");
-		} else if (!email.matches("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$"))
-		{
+		} else if (!email
+				.matches("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$")) {
 			errorMessage.put("x_m_email", "非有效的e-mail格式");
 		}
 		// else if (xemail.contains(email)) {
@@ -105,8 +104,7 @@ public class RegisterServlet extends HttpServlet {
 			errorMessage.put("x_e_phone", "且確認電話格式");
 		}
 		String address = req.getParameter("m_address").trim();
-		if (address == null || address.length() == 0)
-		{
+		if (address == null || address.length() == 0) {
 			errorMessage.put("m_m", "請輸入地址");
 		}
 		Timestamp last_date = new Timestamp(System.currentTimeMillis());
@@ -135,17 +133,16 @@ public class RegisterServlet extends HttpServlet {
 		if (nickname == null || nickname.length() == 0) {
 			errorMessage.put("m_nick", "暱稱為必填欄位，不得為空白");
 		}
-		if (!errorMessage.isEmpty())			
-		{
+		if (!errorMessage.isEmpty()) {
 			req.getRequestDispatcher("/front/member/register/regis.jsp").forward(req, resp);
 			return;
 		}
 		memberservice = new MemberService();
-		memberservice.addMember(account, password, username, sex, birth, email, phone, address, last_date, picture, statu, point, order, nickname,kanban);
+		memberservice.addMember(account, password, username, sex, birth, email,
+				phone, address, last_date, picture, statu, point, order,
+				nickname, kanban);
 		String path = req.getContextPath();
 		resp.sendRedirect(resp.encodeRedirectURL(path + "/index.jsp"));
 		return;
 	}
 }
-
-// }
