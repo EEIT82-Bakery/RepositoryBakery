@@ -195,8 +195,9 @@
 	</div>
 	<div class="lottery">
 		<div class="result" id="result">
+			<img src="img/close.png" style="float: right"/>
 			<p id="Txt"></p>
-			<a href="javascript:" id="Btn" title="關閉">關閉</a>
+			<a href="javascript:" id="Btn" title="關閉" >關閉</a>
 		</div>
 	</div>
 

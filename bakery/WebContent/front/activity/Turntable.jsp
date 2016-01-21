@@ -112,6 +112,7 @@
 			<img src="img/start.png" id="startok">
 		</div>
 		<div class="result" id="result">
+		<img src="img/close.png" style="float: right"/>
 			<p id="Txt"></p>
 			<a href="javascript:" id="Btn" title="關閉">關閉</a>
 		</div>
