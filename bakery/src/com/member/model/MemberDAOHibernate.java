@@ -183,6 +183,8 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		return bean;
 	}
 
+	
+	
 	@Override
 	public MemberBean getMember(String account) {
 		Session session = null;
@@ -268,7 +270,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			Query query = session
-					.createQuery("From MemberBean order by Member_id");
+					.createQuery("From MemberBean where statu > 1 order by Member_id");
 			query.setFirstResult((pageInt - 1) * 5);
 			query.setMaxResults(5);
 			beans = query.list();
