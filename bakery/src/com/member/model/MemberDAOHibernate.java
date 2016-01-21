@@ -186,6 +186,8 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		return bean;
 	}
 
+	
+	
 	@Override
 	public MemberBean getMember(String account) {
 		Session session = null;
