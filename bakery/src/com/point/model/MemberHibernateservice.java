@@ -29,7 +29,7 @@ public class MemberHibernateservice {
 
 	}
 	//查詢點數 扣100點
-	public MemberBean selectp(int member_id){
+	public MemberBean selectp100(int member_id){
 		MemberBean bean=sq.getOne(member_id);
 		MemberBean newBena=dao.updatePoint100(bean.getMember_id());
 		return newBena;

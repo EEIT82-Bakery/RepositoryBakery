@@ -86,7 +86,6 @@ public class IsLoginServlet extends HttpServlet {
 				resp.getWriter().write("True");
 			}
 		}
-		System.out.println(action);
 		if ("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			if (session != null) {
@@ -95,35 +94,23 @@ public class IsLoginServlet extends HttpServlet {
 			String path = req.getContextPath();
 			resp.sendRedirect(path + "/index.jsp");
 		}
-
-		
-			if("select".equals(action)){
-			
+	
+			if("select".equals(action)){		
 			String email  = req.getParameter("email");
-			System.out.println(email);
 			String account  = req.getParameter("account");
-			System.out.println(account);
 			Map<String,String> errors = new HashMap<String,String>();
 			req.setAttribute("errors", errors);
-			
-			
 			if(email==null||email.length()==0){
-				System.out.println("ERROR1");
 				errors.put("email_error", "請輸入信箱");
 			}
 			if(account==null||account.length()==0){
-				System.out.println("ERROR2");
 				errors.put("account_error", "請輸入帳號");
 			}
 			if(errors!=null&&!errors.isEmpty()){
-				System.out.println("ERROR3");
 				req.getRequestDispatcher("/front/member/login/selectPassword.jsp").forward(req, resp);
 				return;
 			}
-			System.out.println("no error");
 			service = new MemberService();			
-
-//			MemberBean bean = service.getAccount(account);		
 			MemberBean bean = service.getAccountEmail(account,email);
 
 			if (bean == null) {
@@ -132,12 +119,8 @@ public class IsLoginServlet extends HttpServlet {
 				return;
 			}	
 			
-			System.out.println("-------------------");
 			if (bean != null && email.equals(bean.getEmail())) {
-				System.out.println("-----------11111111111--------");
-				String name = bean.getUsername();
-				System.out.println("name:"+name);
-				
+				String name = bean.getUsername();				
 				String mem_psw = RandomPassWord.getRandomPassWord(7);
 				service.updatePassword(account, mem_psw);
 				String to = email;

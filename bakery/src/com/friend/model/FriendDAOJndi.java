@@ -269,7 +269,51 @@ public class FriendDAOJndi implements FriendDAO {
 	
 	private static final String SELECT_FRIEND_MAIL = "SELECT friendstatu from Friend_List where invite_id=? and invitee_id=?";
 	@Override
-	public FriendBean select(Integer invite_id, Integer invitee_id) {
+	public int select(Integer invite_id, Integer invitee_id) {
+		int statu = -1;
+		ResultSet rset = null;
+		try(Connection conn=ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELECT_FRIEND_MAIL)){
+			stmt.setInt(1, invite_id);
+			stmt.setInt(2, invitee_id);
+			rset = stmt.executeQuery();
+			if(rset.next()){
+				statu = rset.getInt("friendstatu");
+			}	
+		}catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}
+		return	statu;
+	}
+	
+	
+	
+	private static final String CHRCKFRIEND = "SELECT invitee_id, friendstatu from friend_List where invite_id=?";
+	@Override
+	public List<FriendBean> selectIsFriend(Integer invite_id) {
+		List<FriendBean> list = null;
+		FriendBean bean = null;
+		ResultSet rset = null;
+		try(Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(CHRCKFRIEND);){
+			stmt.setInt(1, invite_id);
+			rset = stmt.executeQuery();
+			list = new ArrayList<FriendBean>();
+			while(rset.next()){				
+				bean = new FriendBean();
+				bean.setInvitee_id(rset.getInt("invitee_id"));
+				bean.setFriendstatu(rset.getInt("friendstatu"));
+				list.add(bean);		
+			}			
+		}catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}
+		return	list;
+	}
+	@Override
+	public FriendBean selec(Integer invite_id, Integer invitee_id) {
 		FriendBean bean = null;
 		ResultSet rset = null;
 		try(Connection conn=ds.getConnection();
@@ -278,7 +322,7 @@ public class FriendDAOJndi implements FriendDAO {
 			stmt.setInt(2, invitee_id);
 			rset = stmt.executeQuery();
 			if(rset.next()){
-//				count = rset.getInt("friendstatu");	
+//
 				bean = new FriendBean();
 				bean.setFriendstatu(rset.getInt("friendstatu"));
 			}	
@@ -288,5 +332,13 @@ public class FriendDAOJndi implements FriendDAO {
 		}
 		return	bean;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

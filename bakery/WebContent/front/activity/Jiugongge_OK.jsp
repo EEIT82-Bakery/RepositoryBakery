@@ -195,14 +195,15 @@
 	</div>
 	<div class="lottery">
 		<div class="result" id="result">
+			<img src="img/close.png" style="float: right"/>
 			<p id="Txt"></p>
-			<a href="javascript:" id="Btn" title="關閉">關閉</a>
+			<a href="javascript:" id="Btn" title="關閉" >關閉</a>
 		</div>
 	</div>
 
 
 		<div class="absolute">
-			<form action="<c:url value='/PointServlet.do '/>" method="get">
+			<form action="<c:url value='/PointServlet.do '/>" method="post">
 				<!-- 			<input type="button" value="遊戲開始" name="upd" onclick="dsd()" -->
 				<!-- 				class="button button-3d button-action button-pil"> -->
 				<input type="button" value="遊戲開始"  onclick="Jiugongge_OK()"
@@ -214,7 +215,7 @@
 				style="background: #F5EBFF; border-color: rgb(100, 100, 255); margin-top: 8px;">
 				<tr>
 					<TD>客戶姓名:${isLogin.username}</TD>
-					<TD id="tdPoint">客戶點數:${Point}</TD>
+					<TD id="tdPoint">客戶點數:${isLogin.point}</TD>
 				<tr>
 			</table>
 

@@ -43,7 +43,7 @@ public class ProductInsertServlet extends HttpServlet {
 
 		if ("Insert".equals(prodaction)) {
 			if (pname == null || pname.length() == 0) {
-				errors.put("productName", "請輸入產品名稱以便執行" + prodaction);
+				errors.put("productName", "請輸入產品名稱");
 			}
 
 			String pstatus = request.getParameter("productStatus");
@@ -54,15 +54,11 @@ public class ProductInsertServlet extends HttpServlet {
 
 			int price = 0;
 			String temp1 = request.getParameter("productPrice");
-
 			if (temp1 == null || temp1.trim().length() == 0){
 				errors.put("productPrice", "金額不能為空白");
-
-//			}
-//			else if(!temp1.matches("^/+?[1-9][0-9]*$")){
-//				errors.put("productPrice", "金額必須為正整數");
+			}else	if(!temp1.matches("^+?[1-9][0-9]*$")){
+				errors.put("productPrice", "金額必須為非零的正整數");
 			} else{
-
 				price = Integer.parseInt(temp1);
 			}
 
@@ -82,9 +78,9 @@ public class ProductInsertServlet extends HttpServlet {
 			if (temp3 == null || (temp3.trim()).length() == 0) {
 				errors.put("discount", "請輸入折扣");
 
-//			} else
-//				if(!temp3.matches("^/+?[1-9][0-9]*$")){
-//				errors.put("discount", "折扣必須是介於0~1之間的小數");
+			} else
+				if(!temp3.matches("^[0-9]+(.[0-9]{1})?$")){
+				errors.put("discount", "折扣格式必須是0.X");
 			} 
 				else{
 				discount = temp3;
@@ -100,7 +96,7 @@ public class ProductInsertServlet extends HttpServlet {
 			if (temp4 != null && temp4.length() != 0) {
 				product_date = ProductBean.convertDate(temp4);
 			} else {
-				errors.put("productDate", "product_date必須是日期必且擁有yyyy-MM-dd的格式");
+				errors.put("productDate", "日期格式必須是XXXX-XX-XX");
 			}
 
 			String temp5 = request.getParameter("proTypeId").trim();
