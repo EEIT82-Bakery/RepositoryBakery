@@ -29,7 +29,6 @@ import com.member.model.MemberService;
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService memberservice = new MemberService();
-//	private static final String CHANGEPASSWORD = "/front/member/main/CHGpassword.jsp";
 	private MessageDigest messageDigest;
 	public MemberServlet() {
 		try {
@@ -68,12 +67,8 @@ public class MemberServlet extends HttpServlet {
 			req.setAttribute("error", errors);
 			int memberid = (int) session.getAttribute("id");
 //			MemberBean bean = memberservice.getOneId(memberid);
-//			System.out.println(memberid);
-			
 			MemberBean beans = memberservice.getOneId(memberid);
-			
 			String nickname = req.getParameter("nickname").trim();
-			System.out.println("暱稱"+nickname);
 			String phone = req.getParameter("phone").trim();
 			String email = req.getParameter("email").trim();
 			String address = req.getParameter("address").trim();
@@ -119,19 +114,12 @@ public class MemberServlet extends HttpServlet {
 			is.close();
 			
 			if (errors == null ||errors.isEmpty()) {
-				MemberBean bean = new MemberBean();
-				bean.setNickname(nickname);
-				bean.setPhone(phone);
-				bean.setEmail(email);
-				bean.setAddress(address);
-				bean.setMember_id(memberid);
-				System.out.println("noError");
+				MemberBean bean = null;
 				bean = memberservice.updateimf(phone, email, address, nickname,mem_pic,memberid);
 				bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));
-				session.setAttribute("xxx", bean);
+				session.setAttribute("isLogin", bean);
 				resp.sendRedirect(req.getContextPath() + "/front/member/main/member.do?action=select&id="+memberid);
 				 return;
-				
 			} else{
 				req.getRequestDispatcher("/front/member/myimformation/test.jsp").forward(req,resp);
 				
@@ -141,6 +129,7 @@ public class MemberServlet extends HttpServlet {
 		
 		
 		if ("ChangePassword".equals(action)) {
+				
 			Map<String, String> errors = new HashMap<String, String>();
 			req.setAttribute("errors", errors);
 			try {

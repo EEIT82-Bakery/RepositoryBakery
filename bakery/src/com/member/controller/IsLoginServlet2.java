@@ -22,11 +22,11 @@ import com.member.model.MemberBean;
 import com.member.model.MemberService;
 import com.member.model.RandomPassWord;
 
-@WebServlet("/front/member/login/login.do")
-public class IsLoginServlet extends HttpServlet {
+@WebServlet("/front/member/login/login2.do")
+public class IsLoginServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String LOGIN = "/front/member/login/login.jsp";
+	private static final String LOGIN = "/back/login/login.jsp";
 	private MemberService service = new MemberService();
 
 	@Override
@@ -64,18 +64,17 @@ public class IsLoginServlet extends HttpServlet {
 			if (memberbean == null) {
 				errorMsg.put("LoginError", "無此帳號或是帳號密碼錯誤");
 				req.getRequestDispatcher(LOGIN).forward(req, resp);
-			} else if(memberbean.getStatus()==3){
-				errorMsg.put("LoginError", "此帳號是黑名單");
+			} else if(memberbean.getStatus()!=1){
+				errorMsg.put("LoginStatus", "此帳號權限不足");
 				req.getRequestDispatcher(LOGIN).forward(req, resp);
 			}
-			 else if(memberbean.getStatus()==1){
-					errorMsg.put("LoginError", "無此帳號");
-					req.getRequestDispatcher(LOGIN).forward(req, resp);
-				}
-			else if(memberbean.getStatus()==2){
+			
+			
+			
+			else if(memberbean.getStatus()==1) {
 				HttpSession session = req.getSession();
 				memberbean.setMpicture(Base64.encodeBase64String(memberbean.getPicture()));
-				session.setAttribute("isLogin", memberbean);
+				session.setAttribute("loginback", memberbean);
 				int id = memberbean.getMember_id();
 				session.setAttribute("id", id);
 				String acc = memberbean.getAccount();
@@ -90,74 +89,22 @@ public class IsLoginServlet extends HttpServlet {
 				int sta = memberbean.getStatus();
 				session.setAttribute("statu", sta);
 				String path = req.getContextPath();
-				resp.sendRedirect(path + "/index.jsp");
+				resp.sendRedirect(path + "/back/product/ProductSelectAll.jsp");
 				resp.getWriter().write("True");
 			}
 		}
+		System.out.println(action);
 		if ("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			if (session != null) {
-				session.removeAttribute("isLogin");
+				session.removeAttribute("loginback");
 			}
 			String path = req.getContextPath();
-			resp.sendRedirect(path + "/index.jsp");
+			resp.sendRedirect(path + LOGIN);
 		}
-	
-			if("select".equals(action)){		
-			String email  = req.getParameter("email");
-			String account  = req.getParameter("account");
-			Map<String,String> errors = new HashMap<String,String>();
-			req.setAttribute("errors", errors);
-			if(email==null||email.length()==0){
-				errors.put("email_error", "請輸入信箱");
-			}
-			if(account==null||account.length()==0){
-				errors.put("account_error", "請輸入帳號");
-			}
-			if(errors!=null&&!errors.isEmpty()){
-				req.getRequestDispatcher("/front/member/login/selectPassword.jsp").forward(req, resp);
-				return;
-			}
-			service = new MemberService();			
-			MemberBean bean = service.getAccountEmail(account,email);
+			
+		}
 
-			if (bean == null) {
-				errors.put("account", "無此帳號");
-				req.getRequestDispatcher("/front/member/login/selectPassword.jsp").forward(req, resp);
-				return;
-			}	
-			
-			if (bean != null && email.equals(bean.getEmail())) {
-				String name = bean.getUsername();				
-				String mem_psw = RandomPassWord.getRandomPassWord(7);
-				service.updatePassword(account, mem_psw);
-				String to = email;
-				String from = "q22488757@gmail.com";
-				String subject = "會員密碼通知";
-				List<String> attachment = Arrays.asList(
-						   new String[]{
-								
-								   });;
-				String messageText = name + "先生/小姐 您好，請謹記此密碼: " + mem_psw;
-				JavaMailUtil  util = new JavaMailUtil(from, to,subject,messageText,attachment);
-				
-				if (util.send()){
-					   System.out.println("發信成功");
-					} else {
-					   System.out.println("發信失敗");
-					}
-				req.getRequestDispatcher("/front/member/login/login.jsp").forward(req,resp);
-				}					
-			}
-				
-			
-			
-			
-			
-		}
-		
-		
-		
 	}
 
 

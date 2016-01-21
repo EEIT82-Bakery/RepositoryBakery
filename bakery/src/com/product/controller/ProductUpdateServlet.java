@@ -45,16 +45,16 @@ public class ProductUpdateServlet extends HttpServlet {
 		
 		if ("getOne_For_Update".equals(action)) { // // 來自listAllEmp.jsp的請求
 			String whichPage =request.getParameter("whichPage");
-			String productName=request.getParameter("productName");
-			String productStatus=request.getParameter("productStatus");
-			String productPrice=request.getParameter("productPrice");
-			String discount=request.getParameter("discount");
-			String productDate=request.getParameter("productDate");
-			request.setAttribute("productName", productName);
-			request.setAttribute("productStatus", productStatus);
-			request.setAttribute("productPrice", productPrice);
-			request.setAttribute("discount", discount);
-			request.setAttribute("productDate", productDate);
+			String temp1=request.getParameter("productId");
+			int productId=Integer.parseInt(temp1);
+			ProductBean bean= productService.selectId(productId);
+			request.setAttribute("vbean", bean);
+			request.setAttribute("productId", bean.getProductId());
+			request.setAttribute("productName", bean.getProductName());
+			request.setAttribute("productStatus", bean.getProductStatus());
+			request.setAttribute("productPrice", bean.getProductPrice());
+			request.setAttribute("discount", bean.getDiscount());
+			request.setAttribute("productDate", bean.getProductDate());
 			request.setAttribute("whichPage", whichPage);
 			request.getRequestDispatcher("/back/product/ProductUpdate.jsp").forward(request, response);
 			
@@ -69,31 +69,33 @@ public class ProductUpdateServlet extends HttpServlet {
 				 ****************************************/
 				String temp6= request.getParameter("productId");
 				int productId = Integer.parseInt(temp6);
+				request.setAttribute("productId", productId);
 				
 				String pname = request.getParameter("productName");	
 				
-					if (pname == null || pname.length() == 0) {
-						errors.put("productName", "請輸入產品名稱以便執行" );
-					}
+				if (pname == null || pname.length() == 0) {
+					errors.put("productName", "請輸入產品名稱");
+				}
+				request.setAttribute("productName", pname);
+				
+				String pstatus = request.getParameter("productStatus");
 
-					String pstatus = request.getParameter("productStatus");
-
-					if (pstatus == null || pstatus.trim().length() == 0) {
-						errors.put("productStatus", "產品描述必須輸入");
-					}
-
+				if (pstatus == null || pstatus.trim().length() == 0) {
+					errors.put("productStatus", "產品描述必須輸入");
+				}
+				request.setAttribute("productStatus", pstatus);
+					
 					int price = 0;
 					String temp1 = request.getParameter("productPrice");
-					
 					if (temp1 == null || temp1.trim().length() == 0){
 						errors.put("productPrice", "金額不能為空白");
-					}
-//					else if(!temp1.matches("^/+?[1-9][0-9]*$")){
-//						errors.put("productPrice", "金額必須為正整數");
-//					} 
-					else{
+					}else	if(!temp1.matches("^+?[1-9][0-9]*$")){
+						errors.put("productPrice", "金額必須為非零的正整數");
+					} else{
 						price = Integer.parseInt(temp1);
 					}
+					
+					request.setAttribute("productPrice", price);
 
 					Part temp2 = request.getPart("mainPhoto");
 					if (temp2 == null) {
@@ -105,21 +107,28 @@ public class ProductUpdateServlet extends HttpServlet {
 					fi.close();
 
 					
-					String discount = request.getParameter("discount");
-					if (discount == null || (discount.trim()).length() == 0) {
+					String discount =null;
+					
+					String temp3 = request.getParameter("discount");
+					if (temp3 == null || (temp3.trim()).length() == 0) {
 						errors.put("discount", "請輸入折扣");
-					} else if(!discount.matches("^[0-9]+(.[0-9]{1})?$")){
-						errors.put("discount", "折扣必須是0.1~0.9之間");
-					}
+					} else
+						if(!temp3.matches("^[0]+(.[0-9]{1})?$")){
+						errors.put("discount", "折扣格式必須是0.X");
+					} 
+						else{
+						discount = temp3;
+					} 
+					request.setAttribute("discount", temp3);
 					
 					String temp4 = request.getParameter("productDate");
 					java.util.Date product_date = null;
 					if (temp4 != null && temp4.length() != 0) {
 						product_date = ProductBean.convertDate(temp4);
 					} else {
-						errors.put("productDate", "product_date必須是日期必且擁有yyyy-MM-dd的格式");
+						errors.put("productDate", "日期格式必須是XXXX-XX-XX");
 					}
-
+					request.setAttribute("productDate", temp4);
 					String temp5 = request.getParameter("proTypeId").trim();
 					int productTypeId = 0;
 					if (temp5 == null || temp5.length() == 0 || temp5.equals("0")) {
@@ -132,6 +141,8 @@ public class ProductUpdateServlet extends HttpServlet {
 					if (errors != null && !errors.isEmpty()) {
 						request.setAttribute("errorMsg", errors);
 						request.setAttribute("whichPage", whichPage);
+//						ProductBean bean= productService.selectId(productId);
+//						request.setAttribute("vbean", bean);
 						request.getRequestDispatcher("/back/product/ProductUpdate.jsp").forward(request, response);
 					}else{
 						ProductBean bean = new ProductBean();

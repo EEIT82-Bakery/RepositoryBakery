@@ -43,31 +43,26 @@
 					<li><a href="javascript:;">純手工蛋糕</a>
 						<ul>
 							<li><a
-								href="<%=request.getContextPath()%>/product2.controller?productTypeId=1&page=1">6吋蛋糕</a>
+								href="<%=request.getContextPath()%>/product2.controller?productTypeId=1&page=1">8吋蛋糕</a>
 							</li>
 							<li><a
-								href="<%=request.getContextPath()%>/product2.controller?productTypeId=2&page=1">8吋蛋糕</a>
+								href="<%=request.getContextPath()%>/product2.controller?productTypeId=2&page=1">疊層蛋糕</a>
 							</li>
-							<li><a
-								href="<%=request.getContextPath()%>/product2.controller?productTypeId=3&page=1">長條蛋糕</a>
-							</li>
-							<li><a
-								href="<%=request.getContextPath()%>/product2.controller?productTypeId=4&page=1">造型蛋糕</a>
-							</li>
+							
 						</ul></li>
 					<li><a
-						href="<%=request.getContextPath()%>/product2.controller?productTypeId=5&page=1">過年專區</a>
+						href="<%=request.getContextPath()%>/product2.controller?productTypeId=3&page=1">過年專區</a>
 					</li>
 					<li><a href="javascript:;">伴手禮盒</a>
 						<ul>
 							<li><a
+								href="<%=request.getContextPath()%>/product2.controller?productTypeId=4&page=1">小蛋糕</a>
+							</li>
+							<li><a
+								href="<%=request.getContextPath()%>/product2.controller?productTypeId=5&page=1">長條蛋糕</a>
+							</li>
+							<li><a
 								href="<%=request.getContextPath()%>/product2.controller?productTypeId=6&page=1">手工餅乾</a>
-							</li>
-							<li><a
-								href="<%=request.getContextPath()%>/product2.controller?productTypeId=7&page=1">精緻禮盒</a>
-							</li>
-							<li><a
-								href="<%=request.getContextPath()%>/product2.controller?productTypeId=8&page=1">精緻糕點</a>
 							</li>
 						</ul></li>
 				</ul>
@@ -156,10 +151,13 @@
 					document.getElementById("myModalLabel").innerText = product.ProductName;
 					document.getElementById("myStatus").innerText = product.Status;
 					$('#product').modal('show');
+
 				}
 			}
 		}
 	</script>
+	
+
 	<script>
 		function reset() {
 			$("#toggleCSS");

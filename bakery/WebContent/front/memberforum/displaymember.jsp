@@ -140,12 +140,24 @@
 						</div>
 						<!-- END SIDEBAR USER TITLE -->
 						<!-- SIDEBAR BUTTONS -->
+						
 						<div class="profile-userbuttons">
 							<FORM METHOD="post" action="${pageContext.request.contextPath}/FriendServlet.controller">
-								<div class="ui primary mini labeled icon button" onclick="$(this).parent().submit()">
-									<i class="add user icon"></i>加入好友
-								</div>
-								<button type="submit" class="btn btn-success btn-sm">加入好友</button>
+							<c:if test="${isLogin.account == member.account}">
+							<h1>${isLogin.kanban}</h1>
+							</c:if>
+							<c:if test="${isLogin.account != member.account}">
+							<c:if test="${statu == -1 }" >
+								<button type="submit" class="btn btn-success btn-sm" >加入好友</button>
+							</c:if>
+							<c:if test="${statu == 0}">
+								<button type="button" class="btn btn-success btn-sm" ${statu==0 ?"disabled" :""}>已送出邀請</button>
+							</c:if>
+							<c:if test="${statu == 1}">
+								<button type="button" class="btn btn-success btn-sm" ${statu==1 ?"disabled" :""}>已經是好友</button>
+							</c:if>
+							</c:if>
+							
 								<input type="hidden" name="invite_id" value="${isLogin.member_id}">
 								<input type="hidden" name="invitee_id" value="${member.member_id}">
 								<input type="hidden" name="msgtitle" value="${isLogin.username}">
@@ -154,6 +166,7 @@
 								<input type="hidden" name="action" value="addfriend">
 							</FORM>
 						</div>
+					
 						<!-- END SIDEBAR BUTTONS -->
 						<!-- SIDEBAR MENU -->
 						<div class="profile-usermenu">

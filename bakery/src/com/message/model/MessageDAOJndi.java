@@ -26,7 +26,7 @@ public class MessageDAOJndi implements MessageDAO {
 			e.printStackTrace();
 		}
 	}
-	private static final String SELECT="SELECT Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state From Message WHERE Send_id=? and Read_id=? and Msg_date=?";
+	private static final String SELECT="SELECT Msg_id, Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state From Message WHERE Send_id=? and Read_id=? and Msg_date=?";
 	@Override
 	public MessageBean select(Integer send_id, Integer read_id,Timestamp msg_date) {
 		MessageBean bean = null;
@@ -364,7 +364,7 @@ public class MessageDAOJndi implements MessageDAO {
 		ResultSet rs = null;
 		try(Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Msg_id,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+
-					 " ORDER BY Msg_state OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
+					 " ORDER BY Msg_date desc OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
 			rs = stmt.executeQuery();
 			list = new ArrayList<MessageBean>();
 			while(rs.next()){
@@ -387,5 +387,59 @@ public class MessageDAOJndi implements MessageDAO {
 	
 	}
 	return list;
+	}
+
+
+
+	private static final String SELECT_MESSAGE="SELECT Msg_id, Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state  From Message WHERE Msg_id=? and read_id=? order by Msg_date";
+	@Override
+	public MessageBean selectMessage(Integer msg_id , Integer member_id) {
+		MessageBean bean = null;
+		ResultSet rs = null;
+		try(Connection conn = ds.getConnection();
+			PreparedStatement stmt = conn.prepareStatement(SELECT_MESSAGE);){
+			stmt.setInt(1, msg_id);
+			stmt.setInt(2, member_id);
+			rs = stmt.executeQuery();
+			while(rs.next()){
+				bean = new MessageBean();
+				bean.setMsg_id(rs.getInt("Msg_id"));
+				bean.setSend_id(rs.getInt("Send_id"));
+				bean.setRead_id(rs.getInt("Read_id"));
+				bean.setMsg_tit(rs.getString("Msg_tit"));
+				bean.setMsg_cont(rs.getString("Msg_cont"));
+				bean.setMsg_date(rs.getTimestamp("Msg_date"));
+				bean.setMsg_state(rs.getInt("Msg_state"));
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				if (rs!=null) {
+					try {
+						rs.close();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}
+			return bean;
+		}
+
+
+
+	private static final String UPDATE_STATE = "UPDATE Message set Msg_state=? where Msg_id = ?";
+	@Override
+	public int updateState(MessageBean bean) {
+		int updateCount = 0;
+		try (Connection conn = ds.getConnection();
+			PreparedStatement pstmt=conn.prepareStatement(UPDATE_STATE)){
+			pstmt.setInt(1, bean.getMsg_state());
+			pstmt.setInt(2, bean.getMsg_id());
+			updateCount = pstmt.executeUpdate();
+		} catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}
+		return updateCount;
 	}
 }

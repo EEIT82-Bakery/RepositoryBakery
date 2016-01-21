@@ -82,7 +82,10 @@ public class ShoppingServlet extends HttpServlet {
 		} else if (action.equals("CHECKOUT")){
 			if (mb == null) {
 				response.sendRedirect(request.getContextPath() + "/front/article/error/NotLogin.jsp");
-			} else {
+			} else if(buylist.size()==0){
+				response.sendRedirect(request.getContextPath() + "/front/article/error/NotShopping.jsp");
+			}	
+			else {
 				int total = 0;
 				for (int i = 0; i < buylist.size(); i++) {
 					ProductBean order = buylist.get(i);

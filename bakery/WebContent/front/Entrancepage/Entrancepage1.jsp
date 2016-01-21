@@ -24,7 +24,7 @@
 			        <input type="hidden" name="s1" value="${isLogin.username}"><!-- e1的呼叫 -->
 		        </li>
 		        <li class="show_images_list_li show_images_2" style="z-index: 10; top: 20px; left: 0px;">
-			        <a href="#" target="_blank">
+			     <a href="${pageContext.request.contextPath}/index.jsp" target="_blank">
 			        	<img class="show_images_2_img" src="img/014.png">
 			        </a>
 		        </li>
@@ -35,12 +35,11 @@
 			        <input type="hidden" name="s1" value="${isLogin.username}"> <!-- e1的呼叫 -->
 		        </li>
 		        <li class="show_images_list_li show_images_4" style="z-index: 0; top: 20px; left: 200px;">
-			        <a href="#" target="_blank">
+		        <a href="${pageContext.request.contextPath}/index.jsp" target="_blank">
 			        	<img class="show_images_4_img" src="img/013.png">
 			        </a>
 		        </li>
 		      </ul>
-		      
 		    </div>
 		    <div class="btn"> 
 			    <a class="btn1" rel="1" ></a> 
