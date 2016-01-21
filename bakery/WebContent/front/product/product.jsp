@@ -11,10 +11,11 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/front/HtmlData/css/alertify.core.css" />
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/front/HtmlData/css/alertify.default.css"
-	id="toggleCSS" />
+	href="${pageContext.request.contextPath}/front/HtmlData/css/alertify.default.css" />
+<link
+	href="${pageContext.request.contextPath}/front/product/css/main.css"
+	rel="stylesheet" />
 
-<!-- <meta name="viewport" content="width=device-width"> -->
 </head>
 <script
 	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
@@ -78,12 +79,10 @@
 				<c:forEach var="aBean" items="${productList}" varStatus="theCount">
 					<div class="col-xs-4">
 						<h4>${aBean.productName}</h4>
-						<a herf ="href="javascript:yourFunction();/>
-						<img src="<%=request.getContextPath()%>/DBGifReader.do?productId=${aBean.productId}"
-							width="150px" height="150px"> 
-							
+						<a href="javascript:Content('${aBean.productId}')"><img
+							src="<%=request.getContextPath()%>/DBGifReader.do?productId=${aBean.productId}"
+							width="150px" height="150px" /></a>
 						<h6>單價 :${aBean.productPrice}</h6>
-
 						<div>
 							數量： <input type="number" id="number${theCount.count}"
 								name="quantity" value=1 min="0" max="10" style="width: 36px">
@@ -92,8 +91,30 @@
 						</div>
 					</div>
 				</c:forEach>
-				<div id="toggleCSS"></div>
 			</div>
+			<!-- 產品描述 -->
+			<div class="modal fade" id="product" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+							</button>
+							<span>產品名稱:</span><span class="modal-title" id="myModalLabel"></span>
+						</div>
+						<div class="modal-body">
+							<img src="" id="myimg" width="150" height="150" /> <span>產品描述:</span><span
+								id="myStatus"></span>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default"
+								data-dismiss="modal">關閉</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end -->
 			<c:if test="${not empty pageCount}">
 				<div class="page">
 					<ul class="page_ul">
@@ -113,21 +134,31 @@
 		<%@ include file="../fragment/footer.jsp"%>
 		<!--------footer-------->
 	</div>
-	<%-- 	<%@ include file="../fragment/js.jsp"%> --%>
+	<%@ include file="../fragment/js.jsp"%>
 	<script>
-	function Content() {			
-		xmlHttp = new XMLHttpRequest();
-		if (xmlHttp != null) {
-			xmlHttp.open("POST","${pageContext.request.contextPath}/ProductDetil.do", true);
-			xmlHttp.addEventListener("readystatechange", callback, false);
-			xmlHttp.setRequestHeader("Content-Type",
-					"application/x-www-form-urlencoded")
-			xmlHttp.send("" + del);
-
-		} else {
-			alert("您得瀏覽器不支援Ajax的功能!!");
-	
-	
+		function Content(productId) {
+			xmlHttp = new XMLHttpRequest();
+			if (xmlHttp != null) {
+				xmlHttp.open("POST",
+						"${pageContext.request.contextPath}/ProductDetil.do",
+						true);
+				xmlHttp.addEventListener("readystatechange", callback, false);
+				xmlHttp.setRequestHeader("Content-Type",
+						"application/x-www-form-urlencoded")
+				xmlHttp.send("productId=" + productId);
+			} else {
+				alert("您得瀏覽器不支援Ajax的功能!!");
+			}
+			function callback() {
+				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+					var product = JSON.parse(xmlHttp.responseText);
+					document.getElementById("myimg").src = "data:image/jpeg;base64,"+ product.Picture;
+					document.getElementById("myModalLabel").innerText = product.ProductName;
+					document.getElementById("myStatus").innerText = product.Status;
+					$('#product').modal('show');
+				}
+			}
+		}
 	</script>
 	<script>
 		function reset() {
@@ -158,10 +189,12 @@
 			} else {
 				alert("您的瀏覽器不支援Ajax的功能!!");
 			}
+
 			function callback() {
 				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
 					reset();
-					alertify.success(productName + "已經加入" + quantity + "個到購物車了");
+					alertify
+							.success(productName + "已經加入" + quantity + "個到購物車了");
 				}
 			}
 		}
