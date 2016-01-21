@@ -79,8 +79,7 @@
 						</c:if>
 						<tr height='18' bgColor="${rowColor}">
 							<td style="height: 30px;">${Go.sendAccount}</td>
-							<td><a
-								href="${pageContext.request.contextPath}/MessageServlet.do?action=count&send_id=${Go.send_id}&read_id=${Go.read_id}&msg_date=${Go.msg_date}">${Go.msg_tit}</a></td>
+							<td><a href="${pageContext.request.contextPath}/MessageServlet.do?action=count&Msg_id=${Go.msg_id}">${Go.msg_tit}</a></td>
 							<td>${Go.mdate}</td>
 
 							<td><c:if test="${Go.msg_state==1}">

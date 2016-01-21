@@ -7,7 +7,7 @@ public interface MemberDAO_Interface {
 	public MemberBean getOne(int memberid);
 	public MemberBean getAccount(String account);
 	public List<MemberBean> getALL();
-	public void update(String phone,String email,String address,String nickname,byte[] picture ,int memberid);
+	public MemberBean update(String phone,String email,String address,String nickname,byte[] picture ,int memberid);
 	public List<MemberBean> getAllMem(String account);
 		
 	//更新個人資料
