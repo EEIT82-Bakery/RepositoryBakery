@@ -13,7 +13,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>焙客栗工坊</title>
 <link href="../css/main.css" rel="stylesheet" />
 <link href="../css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
@@ -142,9 +142,7 @@
 			
 <br> <br>
 		<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">修改會員資料</button>
-
 		<!-- Modal -->
-		
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -170,7 +168,7 @@
 							(點此修改圖片)
 		<br>
 		<hr>
-							暱稱:<input type="text" name="nickname" value="${SelectMo.nickname}" /> 
+						暱稱:<input type="text" name="nickname" value="${SelectMo.nickname}" /> 
 						 <span>${error.nickname}</span>
 						<br>
 						<br> 
@@ -197,7 +195,6 @@
 		</div>
 	</center>
 	<script src="../js/jquery-2.1.4.min.js"></script>
-	
 		<script>
 		$(function() {
 
@@ -205,26 +202,19 @@
 				var size = Math.pow(10, pos);
 				return Math.round(num * size) / size;
 			}
-
 			function preview(input) {
-
 				if (input.files && input.files[0]) {
 					var reader = new FileReader();
-
 					reader.onload = function(e) {
 						$('.preview').attr('src', e.target.result);
 						var KB = format_float(e.total / 1024, 2);
-
 					}
-
 					reader.readAsDataURL(input.files[0]);
 				}
 			}
-
 			$("body").on("change", ".upl", function() {
 				preview(this);
 			})
-
 		})
 	</script>
 

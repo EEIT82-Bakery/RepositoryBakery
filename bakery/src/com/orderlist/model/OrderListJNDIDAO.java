@@ -143,9 +143,9 @@ public class OrderListJNDIDAO implements OrderList_interface{
 		}
 	}
 	
-	private static final String SELECT_TOP3="select top(3) product_id , sum(Quantity) as 'Quantity' from Ord_list group by product_id order by Quantity desc";
+	private static final String SELECT_TOP5="select top(5) product_id , sum(Quantity) as 'Quantity' from Ord_list group by product_id order by Quantity desc";
 	
-	public List<OrderListBean> selectTop3(){
+	public List<OrderListBean> selectTop5(){
 		List<OrderListBean> beans = new ArrayList<OrderListBean>();
 		ResultSet rset = null;
 		Connection conn = null;
@@ -153,7 +153,7 @@ public class OrderListJNDIDAO implements OrderList_interface{
 		PreparedStatement stmt = null;
 		try {
 			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement(SELECT_TOP3);
+			stmt = conn.prepareStatement(SELECT_TOP5);
 			rset = stmt.executeQuery();
 			while (rset.next()) {
 				bean= new OrderListBean();

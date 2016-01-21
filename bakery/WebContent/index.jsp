@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.orderlist.model.*"%>
 <%@ page import="java.util.*"%>
@@ -7,10 +8,10 @@
 <html>
 <head>
 <%@ include file="./front/fragment/css.jsp"%>
-<% 
-OrderListJNDIDAO top3= new OrderListJNDIDAO();
-List<OrderListBean> topphoto=top3.selectTop3();
-pageContext.setAttribute("photo3", topphoto);
+<%
+	OrderListJNDIDAO top5 = new OrderListJNDIDAO();
+	List<OrderListBean> topphoto = top5.selectTop5();
+	pageContext.setAttribute("photo5", topphoto);
 %>
 <style>
 .tabPanel {
@@ -26,7 +27,9 @@ pageContext.setAttribute("photo3", topphoto);
 	width: 100%;
 	height: 300px;
 }
-
+td,tr{
+border:3px #C29793 dashed 
+}
 .dot {
 	position: absolute;
 	bottom: 1px;
@@ -52,10 +55,16 @@ pageContext.setAttribute("photo3", topphoto);
 	border-radius: 10px;
 }
 </style>
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="front/HtmlData/css/custom.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="front/HtmlData/css/demo.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="front/HtmlData/css/slicebox.css"/>">
 </head>
 <body>
 	<!-----------------------------------------nav------------------------------------------>
-	<%@ include file="./front/fragment/nav.jsp"%>
+	<%@ include file="../front/fragment/nav.jsp"%>
 	<!-----------------------------------------nav------------------------------------------>
 	<div class="container-fluid">
 		<!-----------------------------------------輪播----------------------------------------->
@@ -64,21 +73,21 @@ pageContext.setAttribute("photo3", topphoto);
 				<div class="center">
 					<div class="tabPanel" id="box">
 						<div class="tab-img" id="con1">
-							<a href="#">
-								<img src="${pageContext.request.contextPath}/front/HtmlData/images/1.jpg" />
+							<a href="#"> <img
+								src="${pageContext.request.contextPath}/front/HtmlData/images/1.jpg" />
 							</a>
 						</div>
 						<div class="tab-img" id="con2">
-							<a href="#">
-								<img src="${pageContext.request.contextPath}/front/HtmlData/images/2.jpg" />
+							<a href="#"> <img
+								src="${pageContext.request.contextPath}/front/HtmlData/images/2.jpg" />
 							</a>
 						</div>
 						<div class="tab-img" id="con3">
-							<a href="#">
-								<img src="${pageContext.request.contextPath}/front/HtmlData/images/3.jpg" />
+							<a href="#"> <img
+								src="${pageContext.request.contextPath}/front/HtmlData/images/3.jpg" />
 							</a>
 						</div>
-						
+
 						<ol class="dot">
 							<li id="tab1"></li>
 							<li id="tab2"></li>
@@ -86,30 +95,88 @@ pageContext.setAttribute("photo3", topphoto);
 						</ol>
 					</div>
 				</div>
-						<table style="border:3px #FFD382 dashed;" cellpadding="10" border='1' align="center">
-						<tr>
-									<td colspan="3" align="center"><h1>人氣商品</h1></td>							
-						</tr>
-						<tr>
-						<c:forEach var="photo" items="${photo3}" >
+				<table style="border: 3px #C29793 dashed;" 
+					border='1' align="center">
+					<tr>
+						<td colspan="3" align="center"><b style="color:green;font-size:25px;">人氣商品</b></td>
+					</tr>	
+					<tr>
+					<!-- 新增 -->
 						<td>
-						<img src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}" width="250px" height="250px">
+							<div class="wrapper" style="width:250px" >
+								<ul id="sb-slider" class="sb-slider">
+									<c:forEach var="photo" items="${photo5}" varStatus="theCount">
+										<li><a href="#" target="_blank"> <img
+												src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
+												alt="image1" />
+										</a></li>
+									</c:forEach>
+								</ul>
+								<div id="shadow" class="shadow"></div>
+<!-- 								<div id="nav-arrows" class="nav-arrows"> -->
+<!-- 									<a href="#">Next</a> <a href="#">Previous</a> -->
+<!-- 								</div> -->
+							</div>
 						</td>
-						</c:forEach>
-						</tr>
-						</table>
+					<!-- 新增結束 -->
+					</tr>
+				</table>
 			</div>
 		</div>
 		<!-----------------------------------------輪播----------------------------------------->
 		<!-----------------------------------------main----------------------------------------->
 
-		
+
 		<!-----------------------------------------main----------------------------------------->
 		<!--------footer-------->
 		<%@ include file="./front/fragment/footer.jsp"%>
 		<!--------footer-------->
 	</div>
-	<%@ include file="./front/fragment/js.jsp"%>
+		<%@ include file="./front/fragment/js.jsp"%>\
+	<script
+		src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript"
+		src="<c:url value="front/HtmlData/js/modernizr.custom.46884.js"/>"></script>
+	<script type="text/javascript"
+		src="<c:url value="front/HtmlData/js/jquery.slicebox.js"/>"></script>
+	<script>
+		$(function() {
+			$(function() {
+				var Page = (function() {
+					var $navArrows = $('#nav-arrows').hide(), $navOptions = $(
+							'#nav-options').hide(), $shadow = $('#shadow')
+							.hide(), slicebox = $('#sb-slider').slicebox({
+						autoplay : true,
+						onReady : function() {
+							$navArrows.show();
+							$navOptions.show();
+							$shadow.show();
+						},
+						orientation : 'h',
+						cuboidsCount : 3
+					}), init = function() {
+						initEvents();
+					}, initEvents = function() {
+						// add navigation events
+						$navArrows.children(':first').on('click', function() {
+							slicebox.next();
+							slicebox.play();
+							return false;
+						});
+						$navArrows.children(':last').on('click', function() {
+							slicebox.previous();
+							slicebox.play();
+							return false;
+						});
+					};
+					return {
+						init : init
+					};
+				})();
+				Page.init();
+			});
+		})
+	</script>
 	<script>
 		window.onload = function() {
 			var num = 1;

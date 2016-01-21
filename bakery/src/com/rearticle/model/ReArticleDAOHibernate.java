@@ -67,14 +67,13 @@ public class ReArticleDAOHibernate implements ReArticleDAO_interface {
 	
 	
 	@Override
-	public void updateReArticleHidden(int articleId, int reId, int hidden) {
+	public void updateReArticleHidden(int Id, int hidden) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			
 			session.beginTransaction();
-			ReArticleBean bean = (ReArticleBean) session.createQuery("From ReArticleBean where article_id = ? and re_id = ?")
-					.setParameter(0, articleId)
-					.setParameter(1, reId)
+			ReArticleBean bean = (ReArticleBean) session.createQuery("From ReArticleBean where id = ?")
+					.setParameter(0, Id)
 					.uniqueResult();
 			if (bean != null) {
 				bean.setHidden(hidden);

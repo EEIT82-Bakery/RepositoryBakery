@@ -24,16 +24,16 @@ public class ShoppingServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 
 	}
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		MemberBean mb = (MemberBean) session.getAttribute("isLogin");
@@ -59,7 +59,7 @@ public class ShoppingServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 				out.print(jsonArray.toString());
-//				System.out.println(jsonArray.toString());
+				out.close();
 				session.setAttribute("shoppingcart", buylist);
 			} else if (action.equals("ADD")) {
 				boolean match = false;
@@ -70,8 +70,10 @@ public class ShoppingServlet extends HttpServlet {
 				} else {
 					for (int i = 0; i < buylist.size(); i++) {
 						ProductBean productName = buylist.get(i);
-						if (productName.getProductName().equals(product.getProductName())) {
-							productName.setQuantity(productName.getQuantity() + product.getQuantity());
+						if (productName.getProductName().equals(
+								product.getProductName())) {
+							productName.setQuantity(productName.getQuantity()
+									+ product.getQuantity());
 							buylist.setElementAt(productName, i);
 							match = true;
 						} // end of if name matches
@@ -79,12 +81,15 @@ public class ShoppingServlet extends HttpServlet {
 					if (!match)
 						buylist.add(product);
 				}
-
 				session.setAttribute("shoppingcart", buylist);
 			}
 		} else if (action.equals("CHECKOUT")) {
 			if (mb == null) {
-				response.sendRedirect(request.getContextPath() + "/front/article/error/NotLogin.jsp");
+				response.sendRedirect(request.getContextPath()
+						+ "/front/article/error/NotLogin.jsp");
+			} else if (buylist == null) {
+				response.sendRedirect(request.getContextPath()
+						+ "/front/article/error/NotShopping.jsp");
 			} else {
 				int total = 0;
 				for (int i = 0; i < buylist.size(); i++) {
@@ -96,7 +101,6 @@ public class ShoppingServlet extends HttpServlet {
 					total += (price * quantity * f);
 				}
 				String amount = String.valueOf(total);
-
 				session.setAttribute("amount", amount);
 				session.setAttribute("shoppingcart", buylist);
 				String url = "/front/ShoppingCart/CheckoutForEach.jsp";

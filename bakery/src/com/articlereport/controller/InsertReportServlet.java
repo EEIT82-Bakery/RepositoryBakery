@@ -32,44 +32,54 @@ public class InsertReportServlet extends HttpServlet {
 		MemberBean memberBean = (MemberBean) session.getAttribute("isLogin");
 		if (memberBean == null) {
 			out.print("請先登入後，才能檢舉。");
+			out.flush();
 			out.close();
 		} else {
 			int memberId = memberBean.getMember_id();
 			String articleIdTemp = request.getParameter("articleId");
+			String IdTemp = request.getParameter("Id");
+
 			if (articleIdTemp != null && !articleIdTemp.isEmpty()
-					&& articleIdTemp.matches("^[0-9]+$")) {
+					&& articleIdTemp.matches("^[0-9]+$")) { //檢舉發文
 				int articleId = Integer.parseInt(articleIdTemp);
 				String reportMsg = request.getParameter("reportMsg");
 				if (reportMsg != null && !reportMsg.isEmpty()) {
-					//判斷有無回文ID
-					String reIdTemp = request.getParameter("reId");
-					if (reIdTemp == null || reIdTemp.isEmpty()) {//沒有的話執行檢舉文章
-						
-						ArticleReportService articleReportSvc = new ArticleReportService();
-						if (!articleReportSvc.isReport(memberId, articleId)) {
-							articleReportSvc.insertArticleReport(memberId,
-									articleId, reportMsg);
-							out.print("已檢舉成功!");
-							out.close();
-						} else {
-							out.print("您已檢舉過!");
-							out.close();
-						}
-					} else {//有的話執行檢舉回文
-						int reId = Integer.parseInt(reIdTemp);
-						ReArticleReportService reArticleReportSvc = new ReArticleReportService();
-						if (!reArticleReportSvc.isReReport(memberId, articleId, reId)) {
-							reArticleReportSvc.insertReArticleReport(memberId,
-									articleId, reId, reportMsg);
-							out.print("已檢舉成功!");
-							out.close();
-						} else {
-							out.print("您已檢舉過!");
-							out.close();
-						}
+					ArticleReportService articleReportSvc = new ArticleReportService();
+					if (!articleReportSvc.isReport(memberId, articleId)) {
+						articleReportSvc.insertArticleReport(memberId,
+								articleId, reportMsg);
+						out.print("已檢舉成功!");
+						out.flush();
+						out.close();
+					} else {
+						out.print("您已檢舉過!");
+						out.flush();
+						out.close();
 					}
 				} else {
 					out.print("請輸入檢舉內容!");
+					out.flush();
+					out.close();
+				}
+			} else if (IdTemp != null && !IdTemp.isEmpty()) { // 檢舉回文
+				int Id = Integer.parseInt(IdTemp);
+				String reportMsg = request.getParameter("reportMsg");
+				if (reportMsg != null && !reportMsg.isEmpty()) {
+					ReArticleReportService reArticleReportSvc = new ReArticleReportService();
+					if (!reArticleReportSvc.isReReport(memberId, Id)) {
+						reArticleReportSvc.insertReArticleReport(memberId, Id,
+								reportMsg);
+						out.print("已檢舉成功!");
+						out.flush();
+						out.close();
+					} else {
+						out.print("您已檢舉過!");
+						out.flush();
+						out.close();
+					}
+				} else {
+					out.print("請輸入檢舉內容!");
+					out.flush();
 					out.close();
 				}
 			}

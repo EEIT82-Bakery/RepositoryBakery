@@ -2,7 +2,6 @@ package com.product.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 
 
@@ -16,11 +15,22 @@ public class ProductBean implements java.io.Serializable{
 	private String productStatus;
 	private int productPrice;
 	private byte[] main_photo;
+	private String main_photo1;
+	
+	public String getMain_photo1() {
+		return main_photo1;
+	}
+
+	public void setMain_photo1(String main_photo1) {
+		this.main_photo1 = main_photo1;
+	}
+
 	private String discount;
 	private java.util.Date productDate;
 	private int photoId;
 	private byte[] productPhoto;
 	private int quantity;
+	
 
 	public ProductBean(){
 		
@@ -97,15 +107,6 @@ public class ProductBean implements java.io.Serializable{
 	}
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
-	}
-
-	@Override
-	public String toString() {
-		return "ProductBean [productTypeId=" + productTypeId + ", productType=" + productType + ", productId="
-				+ productId + ", productName=" + productName + ", productStatus=" + productStatus + ", productPrice="
-				+ productPrice + ", main_photo=" + Arrays.toString(main_photo) + ", discount=" + discount
-				+ ", productDate=" + productDate + ", photoId=" + photoId + ", productPhoto="
-				+ Arrays.toString(productPhoto) + ", quantity=" + quantity + "]";
 	}
 
 	private static SimpleDateFormat sFormat = new SimpleDateFormat("yyyy-MM-dd");

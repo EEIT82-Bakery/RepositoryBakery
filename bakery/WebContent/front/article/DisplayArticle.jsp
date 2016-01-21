@@ -154,7 +154,7 @@
 									</div>
 								</div>
 								<div class="modal-footer">
-									<button type="button" data-dismiss="modal" onclick="addReArticleReport(${Article.articleId},'${reArticle.reId}',<%=i%>)" class="btn btn-primary">發送</button>
+									<button type="button" data-dismiss="modal" onclick="addReArticleReport(${reArticle.id},<%=i%>)" class="btn btn-primary">發送</button>
 									<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 								</div>
 							</div>
@@ -208,7 +208,7 @@
 		}
 	}
 	
-	function addReArticleReport(articleId,reId,index){
+	function addReArticleReport(Id,index){
 		var reportMsg = document.getElementsByName("reportMsg")[index].value;
 		xmlHttp = new XMLHttpRequest();
 		if (xmlHttp != null) {
@@ -216,7 +216,7 @@
 			xmlHttp.addEventListener("readystatechange", callback, false);
 			xmlHttp.setRequestHeader("Content-Type",
 					"application/x-www-form-urlencoded")
-			xmlHttp.send("articleId="+articleId+"&reId="+reId+"&reportMsg="+reportMsg);
+			xmlHttp.send("Id="+Id+"&reportMsg="+reportMsg);
 		} else {
 			alert("您得瀏覽器不支援Ajax的功能!!");
 		}

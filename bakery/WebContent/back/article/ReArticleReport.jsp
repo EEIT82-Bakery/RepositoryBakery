@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,15 +10,49 @@
 .glyphicon {
 	line-height: 1.42857143;
 }
+
+.ccc {
+	margin: 10px;
+}
+
+.reportBtn {
+	border: 1px #B22222 solid;
+	text-decoration: none;
+	color: white;
+	background-color: #B22222;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	margin-right: 20px;
+}
+
+.reportBtn:hover {
+	border: 1px #C29793 solid;
+	color: black;
+	text-decoration: none;
+	background-color: #C29793;
+	padding-top: 5px;
+	padding-right: 10px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	margin-right: 20px;
+}
 </style>
 </head>
 <body>
 	<%@ include file="../fragment/main.jsp"%>
 	<div class="col-xs-10 main">
 		<!-----------------------------------------main----------------------------------------->
-		<% int i = 1; %>
+		<%
+			int i = 1;
+		%>
 		<h1 class="page-header">管理檢舉回文</h1>
 		<div class="row">
+			<div class="col-xs-12 ccc">
+				<a href="DispalyAllReport.do" class="reportBtn">檢舉文章</a>
+				<a href="DispalyAllReReport.do" class="reportBtn">檢舉回文</a>
+			</div>
 			<div class="col-xs-10">
 				<!--文章種類-->
 				<div class="col-xs-8 class">
@@ -30,7 +65,7 @@
 						<tr class="forumtitle">
 							<td width='10%'>檢舉編號</td>
 							<td width='20%'>檢舉人</td>
-							<td width='10%'>文章編號 - 回文編號</td>
+							<td width='10%'>回文編號</td>
 							<td width='30%'>檢舉時間</td>
 							<td width='20%'>處理狀態</td>
 							<td width='10%'></td>
@@ -44,8 +79,8 @@
 							<tr height='30' bgColor="${rowColor}">
 								<td>${reArticleReport.reReportId}</td>
 								<td>${reArticleReport.member.account}</td>
-								<td>${reArticleReport.articleId}</td>
-								<td>${reArticleReport.reportDate}</td>
+								<td>${reArticleReport.id}</td>
+								<td><fmt:formatDate value="${reArticleReport.reportDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 								<td>${reArticleReport.reportStatuName}</td>
 								<td><button type="button" data-toggle="modal" data-target="#myModal<%=++i%>">詳細資訊</button></td>
 							</tr>
@@ -59,26 +94,31 @@
 											<h4 class="modal-title" id="myModalLabel">檢舉明細</h4>
 										</div>
 										<div class="modal-body">
-											<label for="person">檢舉人 : ${reArticleReport.member.account}</label><br/>
-											<label for="content">檢舉內容 : ${reArticleReport.reportMsg}</label><br/>
-											<label for="content">檢舉時間 : ${reArticleReport.reportDate}</label><br/>
-											<hr/>
-<%-- 											<label for="content">文章編號: ${reArticleReport.article.articleId}</label><br/> --%>
-<%-- 											<label for="content">文章標題:<a href="${pageCotext.request.contextPath}/bakery/DisplayArticle.do?articleId=${reArticleReport.article.articleId}"  target=_blank>${reArticleReport.article.articleTitle}</a></label><br/> --%>
-<%-- 											<label for="content">文章內容: ${reArticleReport.article.content}</label><br/> --%>
+											<label for="person">檢舉人 : ${reArticleReport.member.account}</label>
+											<br />
+											<label for="content">檢舉內容 : ${reArticleReport.reportMsg}</label>
+											<br />
+											<label for="content">檢舉時間 : <fmt:formatDate value="${reArticleReport.reportDate}" pattern="yyyy-MM-dd HH:mm:ss" /></label>
+											<br />
+											<hr />
+											<label for="content">文章編號: ${reArticleReport.reArticle.id}</label>
+											<br />
+											<label for="content">回文內容: ${reArticleReport.reArticle.reContent}</label>
+											<br />
+											<label for="content"><a href="${pageCotext.request.contextPath}/bakery/DisplayArticle.do?articleId=${reArticleReport.reArticle.articleId}" target=_blank>看完整文章</a></label>
+											<br />
 										</div>
 										<div class="modal-footer">
-										
-										<form action="<c:url value='/Blockade.do'/>" method="post">
-											<input type="hidden" name="articleId" value="${reArticleReport.reArticle.articleId}" />
-											<c:if test="${reArticleReport.reportStatus == 1}">
-												<button type="submit" class="btn btn-primary">封鎖文章</button>
-											</c:if>
-											<c:if test="${reArticleReport.reArticle.hidden == 2}">
-												<button type="submit" class="btn btn-primary" disabled>已封鎖</button>
-											</c:if>
-											<button type="reset" class="btn btn-default" data-dismiss="modal">關閉</button>
-										</form>
+											<form action="<c:url value='/Blockade.do'/>" method="post">
+												<input type="hidden" name="Id" value="${reArticleReport.id}" />
+												<c:if test="${reArticleReport.reportStatus == 1}">
+													<button type="submit" class="btn btn-primary">封鎖文章</button>
+												</c:if>
+												<c:if test="${reArticleReport.reArticle.hidden == 2}">
+													<button type="submit" class="btn btn-primary" disabled>已封鎖</button>
+												</c:if>
+												<button type="reset" class="btn btn-default" data-dismiss="modal">關閉</button>
+											</form>
 										</div>
 									</div>
 								</div>

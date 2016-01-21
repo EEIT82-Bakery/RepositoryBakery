@@ -13,7 +13,7 @@
 	
 	
 
-
+<jsp:include page="Message.jsp" />
 
 
 </body>

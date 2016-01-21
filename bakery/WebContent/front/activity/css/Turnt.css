@@ -16,7 +16,7 @@
 	width: 25px;
 	height: 25px;
 	text-indent: -100px;
-	background-image: url(img/close.png);
+/* 	background-image: url(img/close.png); */
 	overflow: hidden;
 }
 

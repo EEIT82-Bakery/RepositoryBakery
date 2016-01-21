@@ -101,17 +101,7 @@ public class MemberService {
 	
 	//**修改個人資訊
 	public MemberBean updateimf(String phone, String email, String address, String nickname,byte[] piture,int memberid) {
-		MemberBean bean = new MemberBean();
-		bean.setPhone(phone);
-		bean.setEmail(email);
-		bean.setAddress(address);
-		bean.setNickname(nickname);
-		bean.setPicture(piture);
-		bean.setMember_id(memberid);
-		System.out.println("service:"+bean);
-		dao.update(phone, email, address, nickname, piture,memberid);
-		System.out.println("service:"+bean);
-		return bean;
+		return  dao.update(phone, email, address, nickname, piture,memberid);
 	}
 	
 	//**修改個人動態狀態資訊

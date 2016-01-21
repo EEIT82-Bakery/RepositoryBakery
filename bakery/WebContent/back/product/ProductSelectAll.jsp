@@ -47,12 +47,12 @@
 </ul>
 <br/>
 <div class="CSSTableGenerator" >
-<table width="100%" style="table-layout:fixed">
+<table width="100%">
 	<tr>
 		<th>產品ID</th>
 		<th>產品名稱</th>
 		<th>產品種類</th>
-		<th>產品描述</th>
+		<th width="20%">產品描述</th>
 		<th>價格</th>
 		<th>產品圖片</th>
 		<th>折扣</th>
@@ -64,7 +64,7 @@
 	<c:forEach var="aBean" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr align='center' valign='middle'>
 			<td>${aBean.productId}</td>
-			<td><a href="<%=request.getContextPath()%>/ReadPhoto.do?productId=${aBean.productId}">${aBean.productName}</a></td>
+			<td>${aBean.productName}</td>
 			<td>${aBean.productType}</td>
 			<td>${aBean.productStatus}</td>
 			<td>${aBean.productPrice}</td> 
@@ -75,11 +75,6 @@
 			  <FORM METHOD="post" action='<c:url value="/ProductUpdateServlet.do"/>'>
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="productId" value="${aBean.productId}">
-			     <input type="hidden" name="productName" value="${aBean.productName}">
-			     <input type="hidden" name="productStatus" value="${aBean.productStatus}">
-			     <input type="hidden" name="productPrice" value="${aBean.productPrice}">
-			     <input type="hidden" name="discount" value="${aBean.discount}">
-			     <input type="hidden" name="productDate" value="${aBean.productDate}">
 			     <input type="hidden" name="whichPage" value="${param.whichPage}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>

@@ -261,6 +261,11 @@ public class MemberBean implements Serializable {
 	
 	
 
+	@Override
+	public String toString() {
+		return "MemberBean [" + member_id + ", " + point + "]";
+	}
+	
 	public static  void main(String[] args){
 		Session session = null;
 		MemberBean bean = null;

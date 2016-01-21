@@ -28,7 +28,7 @@ public class BackMemberServlet extends HttpServlet{
 		
 		int pageSize=5;
 		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/plain; charset=utf-8");	
+		resp.setContentType("text/html; charset=utf-8");	
 		String pageStr = req.getParameter("pages");
 		int pageInt = Integer.parseInt(pageStr);
 		List<MemberBean> list = memberservice.seletPage(pageInt);
@@ -40,7 +40,6 @@ public class BackMemberServlet extends HttpServlet{
 		req.setAttribute("page", pageInt);
 		int allcount= memberservice.getMemberCount();
 		int pageCount = allcount/pageSize + (allcount % pageSize != 0 ? 1 : 0);
-		System.out.println(pageCount);
 		req.setAttribute("pageCount", pageCount);
 		req.getRequestDispatcher("/back/member/MemberMaintain.jsp").forward(req, resp);	
 	}	
