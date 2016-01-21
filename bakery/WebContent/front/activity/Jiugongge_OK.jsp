@@ -215,7 +215,7 @@
 				style="background: #F5EBFF; border-color: rgb(100, 100, 255); margin-top: 8px;">
 				<tr>
 					<TD>客戶姓名:${isLogin.username}</TD>
-					<TD id="tdPoint">客戶點數:${Point}</TD>
+					<TD id="tdPoint">客戶點數:${isLogin.point}</TD>
 				<tr>
 			</table>
 
