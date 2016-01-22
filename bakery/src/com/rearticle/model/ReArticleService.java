@@ -49,7 +49,6 @@ public class ReArticleService {
 		for (ReArticleBean bean : beans) {
 			bean.setAccount(bean.getMember().getAccount());
 			bean.setNickName(bean.getMember().getNickname());
-			bean.setPicture(Base64.encodeBase64String(bean.getMember().getPicture()));
 			if(bean.getHidden() == 1){
 				bean.setReContent("<span style='color:#999999'>此文章已被發文者刪除</span>");
 			}else if(bean.getHidden() == 2){

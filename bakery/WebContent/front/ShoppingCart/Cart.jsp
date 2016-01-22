@@ -20,14 +20,17 @@
 </style>
 
 </head>
-<body>
+<body onload="windows.location.reload()">
 	<!-----------------------------------------nav------------------------------------------>
 	<%@ include file="../fragment/nav.jsp"%>
-	<% int i = 0; %>
+	<%
+		int i = 0;
+	%>
 	<!-----------------------------------------nav------------------------------------------>
 	<div class="container-fluid">
 		<!-----------------------------------------main----------------------------------------->
-		<img src="${pageContext.request.contextPath}/back/HtmlData/images/logo.png" width="100px" height="100px"> <font size="+3">目前您購物車的內容如下：</font>
+		<img src="${pageContext.request.contextPath}/back/HtmlData/images/logo.png" width="100px" height="100px">
+		<font size="+3">目前您購物車的內容如下：</font>
 		<p>
 		<table id="shoppingCart" border="1" width="740">
 			<tr bgcolor="#999999">
@@ -37,7 +40,7 @@
 				<th width="120">數量</th>
 				<th width="120"></th>
 			</tr>
-		
+
 			<c:forEach var="order" items="${shoppingcart}">
 				<tr>
 					<td><div align="center">
@@ -53,9 +56,8 @@
 							<b>${order.quantity}</b>
 						</div></td>
 					<td><div align="center">
-							<button class="del" onclick="deleteShoppingItems(<%=i++ %>)">刪除</button>
-						</div>
-						</td>
+							<button class="del" onclick="deleteShoppingItems(<%=i++%>)">刪除</button>
+						</div></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -73,7 +75,7 @@
 		<%@ include file="../fragment/footer.jsp"%>
 		<!--------footer-------->
 	</div>
-		<script>
+	<script>
 		function deleteShoppingItems(del) {			
 			xmlHttp = new XMLHttpRequest();
 			if (xmlHttp != null) {
@@ -89,19 +91,19 @@
 			function callback() {
 				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
 					var orderItems = JSON.parse(xmlHttp.responseText);
-	            	var myTable = document.getElementById("shoppingCart");
-	            	var rowCount = myTable.rows.length;
-	            	for(var i = 2; i <= rowCount; i++){
-	            		myTable.deleteRow(1);
-	            	}
+		            var myTable = document.getElementById("shoppingCart");
+		            var rowCount = myTable.rows.length;
+		            for(var i = 2; i <= rowCount; i++){
+		            	myTable.deleteRow(1);
+		            }
 					for (var i=0,max=orderItems.length;i<max;i++){
-	            		var cell1 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].ProductName+"</b></div>");
-	            		var cell2 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].Price+"</b></div>");
-	            		var cell3 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].Discount+"</b></div>");
-	            		var cell4 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].Quantity+"</b></div>");
-	            		var cell5 = $("<td></td>").html("<div align='center'><div align='center'><button class='del' onclick='deleteShoppingItems("+i+")'>刪除</button></div></div>");
-	            		var row = $("<tr></tr>").append([cell1,cell2,cell3,cell4,cell5]);
-	            		$(myTable).append(row);	
+		            	var cell1 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].ProductName+"</b></div>");
+		            	var cell2 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].Price+"</b></div>");
+		            	var cell3 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].Discount+"</b></div>");
+		            	var cell4 = $("<td></td>").html("<div align='center'><b>"+orderItems[i].Quantity+"</b></div>");
+		            	var cell5 = $("<td></td>").html("<div align='center'><div align='center'><button class='del' onclick='deleteShoppingItems("+i+")'>刪除</button></div></div>");
+		            	var row = $("<tr></tr>").append([cell1,cell2,cell3,cell4,cell5]);
+		            	$(myTable).append(row);	
 					}
 				}
 			}

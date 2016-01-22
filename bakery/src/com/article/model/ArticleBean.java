@@ -86,12 +86,6 @@ public class ArticleBean implements java.io.Serializable {
 	}
 
 	@Transient
-	private byte[] pictureTemp;
-
-	@Transient
-	private String picture;
-
-	@Transient
 	private String author;
 
 	@Transient
@@ -176,22 +170,6 @@ public class ArticleBean implements java.io.Serializable {
 
 	public void setAuthor(String author) {
 		this.author = author;
-	}
-
-	public byte[] getPictureTemp() {
-		return pictureTemp;
-	}
-
-	public void setPictureTemp(byte[] pictureTemp) {
-		this.pictureTemp = pictureTemp;
-	}
-
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
 	}
 
 	public java.util.Date getArticleMake() {
