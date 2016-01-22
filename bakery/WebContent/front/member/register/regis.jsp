@@ -29,7 +29,7 @@
 </style>
 </head>
 <body>
-	<%@include file="/front/member/member_fragment/topline.jsp"%>
+	<%@include file="/front/member/member_fragment/nav.jsp"%>
 <div class="container-fluid">
 	<div class="row" style="padding-top:50px;">
 		<div class="col-xs-12 ">

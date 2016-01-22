@@ -3,9 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-
+<%@ include file="../member_fragment/css.jsp"%>
 <style>
 body {
 	font-family: \5FAE\8EDF\6B63\9ED1\9AD4, Microsoft JhengHei, MingLiU,
@@ -20,7 +18,6 @@ body {
 	text-align: center;
 	margin: 0 auto;
 	background: #fff;
-	border-radius: 10px;
 	margin-top: 60px;
 	position: relative;
 	background-color: #F0F0F0;
@@ -68,17 +65,13 @@ h1 {
 				<a href="javascript:history.go(-1)"> 返回 </a>
 				繼續使用
 			</p>
-
 			<form name="frm" method="post" action="<c:url value='/front/member/login/login.do' /> ">
-
-
-				<input type="submit" name="action" value="logout"  />
-		
+				<input type="hidden" name="action" value="logout"/>
+				<input type="submit" class="btn btn-Default" value="登出"/>
 			</form>
+			<br/>
 		</div>
 	</div>
-
-
 	<script>
 		function logout() {
 			document.frm.submit()
