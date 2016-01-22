@@ -33,6 +33,7 @@ public class PointServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		
 	
 	
 		req.setCharacterEncoding("UTF-8");
@@ -44,16 +45,19 @@ public class PointServlet extends HttpServlet {
 		MemberBean po = sr.selectp100(mbId); // 用我程式去修改他的點數id
 		session.setAttribute("isLogin", po);
 		po.setMpicture(Base64.encodeBase64String(po.getPicture()));
+		
 		JSONObject jsonObjectMary = new JSONObject(po);	
 		out.print(jsonObjectMary);
+		}
 		// System.out.println(poit.getPoint());
 //		req.setAttribute("upd", po);
 //		req.getRequestDispatcher("/front/activity/Jiugongge_OK.jsp").forward(req, resp);
-	}
+	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
+		
 
 	}
 
