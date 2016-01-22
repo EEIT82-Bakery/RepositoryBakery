@@ -12,6 +12,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
+import com.articlereport.model.ArticleReportBean;
+
 public class MemberDAOHibernate implements MemberDAO_Interface {
 
 	@Override
@@ -467,4 +469,19 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		return bean;
 	}
 
+	@Override
+	public MemberBean selectImg(Integer invitee_id) {
+		
+		MemberBean bean = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			bean = (MemberBean) session.get(MemberBean.class, invitee_id);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return bean;
+	}
 }

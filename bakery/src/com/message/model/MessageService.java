@@ -32,7 +32,6 @@ public class MessageService {
 		return dao.updateState(bean);
 	}
 	
-	
 
 	// 依照reader statu 來分頁數
 	public List<MessageBean> seletPage(int pageInt, Integer read_id,
@@ -67,4 +66,17 @@ public class MessageService {
 		return dao.select();
 	}
 
+	
+	public void delete(Integer msg_id){
+		if(msg_id!=0){
+			dao.delete(msg_id);
+		}
+	}
+	
+	public MessageBean seletemsgid(Integer msg_id){	
+			MessageBean memberbean =dao.seletemsgid(msg_id);
+			return memberbean;	
+	}
+	
+	
 }

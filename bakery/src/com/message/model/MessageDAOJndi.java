@@ -77,19 +77,17 @@ public class MessageDAOJndi implements MessageDAO {
 			}
 			return updateCount;
 	}
-	private static final String DELETE = "DELETE FROM Message where Msg_id";
+	private static final String DELETE = "DELETE FROM Message where Msg_id = ?";
 	@Override
-	public int delete(Integer msg_id) {
-		int updateCount = 0;
+	public void delete(Integer msg_id) {
 		try (Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(DELETE);){
 				pstmt.setInt(1, msg_id);
-			updateCount = pstmt.executeUpdate();
+				pstmt.executeUpdate();
 				}catch (Exception e) {
 			throw new RuntimeException("A database error occured. "
 					+ e.getMessage());
 			}
-			return updateCount;
 	}	
 	private static final String UPDATE = "UPDATE Message set Msg_state=? where Send_id=? and Read_id=? and Msg_date=?";
 	@Override
@@ -434,5 +432,40 @@ public class MessageDAOJndi implements MessageDAO {
 					+ se.getMessage());
 		}
 		return updateCount;
+	}
+	
+	
+	private static final String SELETE_BY_MSGID ="SELECT * FROM MESSAGE WHERE msg_id=?";
+	@Override
+	public MessageBean seletemsgid(Integer msg_id) {
+		MessageBean bean = null;
+		ResultSet rest  = null;
+		try(Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELETE_BY_MSGID)){
+			stmt.setInt(1, msg_id);
+			rest = stmt.executeQuery();
+			if(rest.next()){
+				bean = new MessageBean();
+				bean.setMsg_id(rest.getInt("Msg_id"));
+				bean.setSend_id(rest.getInt("Send_id"));
+				bean.setRead_id(rest.getInt("Read_id"));
+				bean.setMsg_tit(rest.getString("Msg_tit"));
+				bean.setMsg_cont(rest.getString("Msg_cont"));
+				bean.setMsg_date(rest.getTimestamp("Msg_date"));
+				bean.setMsg_state(rest.getInt("Msg_state"));	
+			}
+		}catch (Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally {
+			if (rest!=null) {
+				try {
+					rest.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return bean;
 	}
 }

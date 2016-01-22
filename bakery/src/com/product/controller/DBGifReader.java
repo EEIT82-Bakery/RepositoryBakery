@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.member.model.MemberBean;
+import com.member.model.MemberDAOHibernate;
 import com.product.model.ProductBean;
 import com.product.model.ProductJNDIDAO;
 
@@ -23,13 +25,21 @@ public class DBGifReader extends HttpServlet {
 		ServletOutputStream out = res.getOutputStream();
 
 		try {
+			byte[] buf = null;
 			String productId = req.getParameter("productId");
-			ProductJNDIDAO dao = new ProductJNDIDAO();
-			ProductBean bean = dao.selectPhoto(new Integer(productId));
-			byte[] buf = bean.getMain_photo(); // 4K buffer
+			String memberId = req.getParameter("memberId");
+			if(productId != null){
+				ProductJNDIDAO dao = new ProductJNDIDAO();
+				ProductBean bean = dao.selectPhoto(new Integer(productId));
+				buf = bean.getMain_photo(); // 4K buffer
+			}else if(memberId != null){
+				System.out.println(memberId);
+				MemberDAOHibernate dao = new MemberDAOHibernate();
+				MemberBean bean = dao.selectImg(new Integer(memberId));
+				buf = bean.getPicture();
+			}
 			out.write(buf);
 			out.close();
-
 		} catch (Exception e) {
 			String fileName = getServletContext().getRealPath(
 					"/front/HtmlData/images/1.jpg");

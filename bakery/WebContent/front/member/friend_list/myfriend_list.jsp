@@ -146,7 +146,7 @@ Image placeholders: placemi.com
                         <button class="btn btn-primary btn-sm" role="button">Follow</button>
                     </div>
                     <div class="panel-figure">
-                        <img class="img-responsive img-circle" src="data:image/png;base64,${Go.minviteePicture}" id="friendpicture" alt="個人照片"/>
+                        <img class="img-responsive img-circle" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${Go.invitee_id}" id="friendpicture" alt="個人照片"/>
                     </div>
                     <div class="panel-body text-center">
                         <h4 class="panel-header"><a href="${pageContext.request.contextPath}/homeindex.do?account=${Go.inviteeAccount}">${Go.inviteeAccount}</a></h4>
