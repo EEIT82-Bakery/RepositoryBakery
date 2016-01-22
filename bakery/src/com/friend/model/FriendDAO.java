@@ -23,7 +23,8 @@ public interface FriendDAO {
 	public void delete(Integer invite_id, Integer invitee_id); //**加好友時拒絕時刪除
 	public int select(Integer invite_id, Integer invitee_id);
 	public List<FriendBean> selectIsFriend(Integer invite_id);
-
+	
+	public FriendBean selectOne(Integer invite_id);
 	public void RealDelete(Integer invite_id,Integer invitee_id);
 	
 	

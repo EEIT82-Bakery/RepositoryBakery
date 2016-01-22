@@ -17,7 +17,11 @@ import com.member.model.MemberBean;
 
 
 @WebFilter(
-		urlPatterns={}	
+		urlPatterns={"/PointServlet.do"
+				   ,"/PointServlet50.do"
+				   ,"/front/Entrancepage/Entrancepage1.jsp"
+				   
+		}	
 		)
 public class LoginFilter implements Filter {
 
@@ -35,11 +39,17 @@ public class LoginFilter implements Filter {
 		
 		HttpSession session = request.getSession();
 		MemberBean bean = (MemberBean) session.getAttribute("isLogin");
-		if(bean!=null){
+		
+	
+		
+		if(bean == null){
+			String path = request.getContextPath();
+			response.sendRedirect(path+"/front/member/login/login.jsp");
+		}
+		else {
 			 chain.doFilter(request, response);
 		}
-		String path = request.getContextPath();
-		response.sendRedirect(path+"/front/member/login/login.jsp");
+		
 	}
 
 	@Override

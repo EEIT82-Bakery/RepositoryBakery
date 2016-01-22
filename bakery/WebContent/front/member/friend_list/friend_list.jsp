@@ -145,20 +145,14 @@
    	  <div class="container">
         <div class="row">
    	   <div class="col-sm-6- col-md-6">
-   	 <c:if test="${not empty pageCount}">
+   	 	<c:if test="${not empty pageCount}">
 				<c:forEach var="page" begin="1" end="${pageCount}">
-				<c:if test="${not empty isLogin.member_id}">
-					<a href="${pageContext.request.contextPath}/FriendListServlet.do?invited=${isLogin.member_id}&pages=${page}">
+					<a href="${pageContext.request.contextPath}/FriendListServlet.do?invited=${beans.invite_id}&pages=${page}">
 						<b style="font-size:2em;">${page}</b>
 						</a>&nbsp;&nbsp;&nbsp;
-					</c:if>
-					<c:if test="${empty isLogin.member_id}">
-					<a href="${pageContext.request.contextPath}/FriendServlet.controller?action=friendlist&invited=${member.member_id}&pages=${page}">
-						<b style="font-size:2em;">${page}</b>
-						</a>&nbsp;&nbsp;&nbsp;
-					</c:if>
 				</c:forEach>
-				</c:if>
+		</c:if>
+	
    			 </div>
    		 </div>
    	 </div>

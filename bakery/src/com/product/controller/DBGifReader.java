@@ -33,7 +33,6 @@ public class DBGifReader extends HttpServlet {
 				ProductBean bean = dao.selectPhoto(new Integer(productId));
 				buf = bean.getMain_photo(); // 4K buffer
 			}else if(memberId != null){
-				System.out.println(memberId);
 				MemberDAOHibernate dao = new MemberDAOHibernate();
 				MemberBean bean = dao.selectImg(new Integer(memberId));
 				buf = bean.getPicture();

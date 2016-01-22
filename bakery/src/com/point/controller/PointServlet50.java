@@ -35,8 +35,8 @@ public class PointServlet50 extends HttpServlet {
 		session.setAttribute("isLogin", po);
 		JSONObject jsonObjectMary = new JSONObject(po);
 		out.print(jsonObjectMary);
-	}
-
+	 }
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
