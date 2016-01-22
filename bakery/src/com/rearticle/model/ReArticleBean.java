@@ -62,12 +62,6 @@ public class ReArticleBean implements java.io.Serializable {
 	private String nickName;
 
 	@Transient
-	private byte[] pictureTemp;
-
-	@Transient
-	private String picture;
-
-	@Transient
 	private String articleTitle;
 
 	@Transient
@@ -111,22 +105,6 @@ public class ReArticleBean implements java.io.Serializable {
 
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
-	}
-
-	public byte[] getPictureTemp() {
-		return pictureTemp;
-	}
-
-	public void setPictureTemp(byte[] pictureTemp) {
-		this.pictureTemp = pictureTemp;
-	}
-
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
 	}
 
 	public String getArticleTitle() {
