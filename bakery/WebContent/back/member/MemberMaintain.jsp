@@ -95,7 +95,7 @@
 					<c:forEach var="Go" items="${bean}">
 						<tr>
 							<td><h6>${Go.member_id}</h6></td>
-							<td><img src="data:image/png;base64,${Go.mpicture}" id="mypicture" class="img-circle" alt="個人照片" /></td>
+							<td><img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${Go.member_id}" id="mypicture" class="img-circle" alt="個人照片" /></td>
 							<td><h6>${Go.account}</h6></td>
 							<td><h6>${Go.username}</h6></td>
 							<td><h6>${Go.nickname}</h6></td>

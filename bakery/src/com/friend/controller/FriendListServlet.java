@@ -36,19 +36,12 @@ public class FriendListServlet extends HttpServlet{
 		int pageInt = Integer.parseInt(pageStr);
 		FriendService friendservice = new FriendService();
 		List<FriendBean> lists = friendservice.selectAllPage(pageInt, invited);
-		for(FriendBean bean : lists){
-			bean.setMinviteePicture(Base64.encodeBase64String(bean.getInviteePicture()));
-		}
 		req.setAttribute("list", lists);
 		req.setAttribute("page", pageInt);
 		int allcount = friendservice.allFriendCount(invited);
 		int pageCount = allcount / pageSize + (allcount % pageSize != 0 ? 1 : 0);
 		req.setAttribute("pageCount", pageCount);
-		req.getRequestDispatcher("/front/member/friend_list/myfriend_list.jsp").forward(req, resp);	
-		
-		
-		
-		
+		req.getRequestDispatcher("/front/member/friend_list/myfriend_list.jsp").forward(req, resp);		
 		
 	}
 	
