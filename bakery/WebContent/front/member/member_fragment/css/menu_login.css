@@ -1,15 +1,13 @@
 body { 
 
 	margin:0 auto;
-
-	background-image:url(../images/Membertablebackground.jpg);
  
 }
 #container { 
 	width:793px;
 	height:498px;
 	margin:0 auto;
-	background-image:url('../images/interface/back_noise.png');
+	background-image:url('../../images/interface/back_noise.png');
 	background-color:#F93;
 	margin-top:40px;
 }
@@ -23,7 +21,7 @@ body {
 	width:293px; 
 	height:480px; 
 	background-repeat:no-repeat; 
-	background-image:url('../images/interface/total_grid.png'); 
+	background-image:url('../../images/interface/total_grid.png'); 
 	background-position:9px 70px;
 }
 .thumbnailimage { 
@@ -44,13 +42,13 @@ img.large_thumb_image	{
 .large_thumb_border	{
 	width:64px; 
 	height:64px; 
-	background:url('../images/interface/thumb_border.png'); 
+	background:url('../../images/interface/thumb_border.png'); 
 	position:absolute;
 }
 .large_thumb_shine	{
 	width:54px; 
 	height:54px; 
-	background:url('../images/interface/shine.png'); 
+	background:url('../../images/interface/shine.png'); 
 	position:absolute; 
 	background-position:-150px 0; 
 	left:5px; top:4px; 
@@ -59,7 +57,7 @@ img.large_thumb_image	{
 .thumb_container {
 	width:64px; 
 	height:64px; 
-	background-image:url('../images/interface/thumb_holder.png'); 
+	background-image:url('../../images/interface/thumb_holder.png'); 
 }
 #largephoto {
 	width: 444px; 
@@ -76,7 +74,7 @@ img.large_thumb_image	{
 #largetrans { 
 	width: 444px;
 	height:370px; 
-	background-image:url('../images/interface/main_bg_trans.png');
+	background-image:url('../../images/interface/main_bg_trans.png');
 	-moz-border-radius: 10px;
 	-webkit-border-radius: 10px;
 }
@@ -109,7 +107,7 @@ img.large_thumb_image	{
 }
 #largecaption .captionContent { padding:5px;}
 #largecaption .captionShine {
-	background:url('../images/interface/bigshine.png');
+	background:url('../../images/interface/bigshine.png');
 	position:absolute;
 	width: 444px;
 	height: 100px;
@@ -119,7 +117,7 @@ img.large_thumb_image	{
 #loader { 
 	width:150px;
 	height:150px;
-	background-image:url('../images/interface/loader.gif');
+	background-image:url('../../images/interface/loader.gif');
 	background-repeat:no-repeat;
 	position:absolute;
 }
