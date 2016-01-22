@@ -31,7 +31,7 @@ public class BackMemberServlet extends HttpServlet{
 		
 		int pageSize=5;
 		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/plain; charset=utf-8");	
+		resp.setContentType("text/html; charset=utf-8");	
 		String pageStr = req.getParameter("pages");
 		int pageInt = Integer.parseInt(pageStr);
 		List<MemberBean> list = memberservice.seletPage(pageInt);

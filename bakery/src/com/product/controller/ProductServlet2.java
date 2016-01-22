@@ -35,7 +35,6 @@ public class ProductServlet2 extends HttpServlet {
 		int pageInt=Integer.parseInt(pageStr);
 		//----------------------------------------------
 		//例外進來若不是數字
-//		if(protype_Id !=null&&protype_Id.isEmpty()){
 		try {
 			product_type_id=Integer.parseInt(protype_Id);
 		} catch (NumberFormatException e) {
@@ -47,7 +46,6 @@ public class ProductServlet2 extends HttpServlet {
 		request.setAttribute("page", pageInt);
 				
 	    //----------------------------------------------------	
-//		List<ProductBean> beans = productService.selectCake(protype_Id);
 		int productCount=productService.getProductCount(product_type_id);
 		//總頁數=總筆數除以設定的筆數+(如果有餘數不等於0則+1頁反之+0頁)
 		int pageCount = productCount/pageSize + (productCount%pageSize != 0 ?1:0);
@@ -55,7 +53,6 @@ public class ProductServlet2 extends HttpServlet {
 			request.setAttribute("pageCount", pageCount);
 			request.getRequestDispatcher("/front/product/product.jsp").forward(request, response);
 	}
-//	}
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		this.doGet(req, resp);
