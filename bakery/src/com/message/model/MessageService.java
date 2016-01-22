@@ -19,9 +19,6 @@ public class MessageService {
 		return dao.selectMessage(msg_id , member_id);
 	}
 
-	public int getStateCount(Integer msg_state) {
-		return 1;
-	}
 
 	public int insertmessage(MessageBean bean) {
 		return dao.insert(bean);

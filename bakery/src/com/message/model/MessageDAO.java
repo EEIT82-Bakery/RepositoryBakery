@@ -29,4 +29,6 @@ public interface MessageDAO {
 	public MessageBean select();//不分狀態 取得全部的筆數
 	
 	
+	
+	
 }

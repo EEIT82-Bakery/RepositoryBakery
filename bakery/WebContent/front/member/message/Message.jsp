@@ -102,6 +102,9 @@
 				</c:forEach>
 			</c:if>
 		</div>
+		<%@ include file="../../fragment/footer.jsp"%>
 	</div>
+	
+	<%@ include file="../../fragment/js.jsp"%>
 </body>
 </html>
