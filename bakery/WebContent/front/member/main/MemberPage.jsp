@@ -16,7 +16,6 @@
  		MemberGradeBean membergradebeab = mgservice.getStatus(status);
  		pageContext.setAttribute("membergradebeab", membergradebeab);
  	}
- 
  %>
  
    
@@ -93,16 +92,6 @@
         <div class="row">
             <div class="col-md-3">         
                 <div class="list-group">              
-<%--                     <a href="#" class="list-group-item"><h3>${membergradebeab.permname}</h3> --%>
-<%--                     <c:if test="${membergradebeab.status ==1}"> --%>
-<!--                     	<img src="./images/h1.jpg" style="height: 50px;width: 50px;" /> -->
-<%--                     </c:if> --%>
-<%--                     <c:if test="${membergradebeab.status ==2}"> --%>
-<!--                     	<img src="./images/h2.jpg" style="height: 50px;width: 50px;" /> -->
-<%--                     </c:if> --%>
-<%--                     <c:if test="${membergradebeab.status ==3}"> --%>
-<!--                     	<img src="./images/h1.jpg" style="height: 50px;width: 50px;" /> -->
-<%--                     </c:if></a> --%>
 					<center>
 					<a href="#" class="list-group-item">
 					<h5>會員:${isLogin.username}，您好</h5>
@@ -111,7 +100,6 @@
 					</center> 
                 </div>      
                   <div class="list-group">
-<!--                   <p class="lead">本月會員等級:</p> -->
               		<img src="${pageContext.request.contextPath}/front/member/main/images/會員分級.png" id="memberstatu"/>
                     <a href="#" class="list-group-item"><h3>${membergradebeab.permname}
                     <c:if test="${membergradebeab.status ==1}">
@@ -156,17 +144,6 @@
                     </div>
                 </div>            
                 <div class="row">            
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="${pageContext.request.contextPath}/front/member/main/images/m2.jpg" id="m2" alt="">
-                            <div class="caption">
-                                <h4>紅利／優惠
-                                </h4>
-                                <p><a href="#">折價卷數量</a></p>
-                                <p><a href="#">折價卷使用紀錄</a></p>
-                            </div>
-                        </div>
-                    </div>
                      <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
                             <img src="${pageContext.request.contextPath}/front/member/main/images/m6.jpg" id="m1" alt="">
@@ -193,10 +170,7 @@
                             <img src="${pageContext.request.contextPath}/front/member/main/images/m4.png" id="m4" alt="">
                             <div class="caption">
                                 <h4>我的帳戶</h4>
-<%--                                 <p>	<a href="<c:url value="/front/member/main/member.do" > --%>
-<%-- 								<c:param name="id" value="${isLogin.member_id}" /> --%>
-<%-- 									</c:url>">會員資料查詢/修改</a>	</p> --%>
-									
+							
 								<p><a href="<c:url value='/front/member/main/CHGpassword.jsp' />">修改密碼</a></p>
 								<p>
 								 <a href="${pageContext.request.contextPath}/front/member/main/member.do?action=select&id=${isLogin.member_id}">修改會員資訊</a>
@@ -213,7 +187,6 @@
                 </div>
             </div>
         </div>
-    </div>
     <div class="container">
         <hr>
         <footer>

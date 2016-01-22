@@ -63,6 +63,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				result.setProductStatus(rset.getString("Product_status"));
 				result.setProductPrice(rset.getInt("Product_price"));
 				result.setMain_photo(rset.getBytes("Main_photo"));
+//				result.setMain_photo1(rset.getString("Main_photo"));
 				result.setDiscount(rset.getString("Discount"));
 				result.setProductDate(rset.getDate("Product_date"));
 				result.setProductType(rset.getString("Product_type_id"));

@@ -16,11 +16,22 @@ public class ProductBean implements java.io.Serializable{
 	private String productStatus;
 	private int productPrice;
 	private byte[] main_photo;
+	private String main_photo1;
+	
+	public String getMain_photo1() {
+		return main_photo1;
+	}
+
+	public void setMain_photo1(String main_photo1) {
+		this.main_photo1 = main_photo1;
+	}
+
 	private String discount;
 	private java.util.Date productDate;
 	private int photoId;
 	private byte[] productPhoto;
 	private int quantity;
+	
 
 	public ProductBean(){
 		

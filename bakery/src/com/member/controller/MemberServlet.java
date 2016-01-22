@@ -30,6 +30,7 @@ public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private MemberService memberservice = new MemberService();
 	private MessageDigest messageDigest;
+
 	public MemberServlet() {
 		try {
 			messageDigest = MessageDigest.getInstance("MD5");
@@ -37,36 +38,34 @@ public class MemberServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
+
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		doPost(req,resp);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		doPost(req, resp);
 	}
+
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		resp.setContentType("text/plain; charset=utf-8");
-			String action = req.getParameter("action");
-		if("select".equals(action)){
+		resp.setContentType("text/html; charset=utf-8");
+		String action = req.getParameter("action");
+		if ("select".equals(action)) {
 			HttpSession session = req.getSession();
 			int memberid = (int) session.getAttribute("id");
-			System.out.println(memberid);
-//			String id = req.getParameter("id");
-//			int memberid  =Integer.parseInt(id);
 			MemberBean bean = memberservice.getOneId(memberid);
-			System.out.println(bean);
 			bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));
 			session.setAttribute("SelectMo", bean);
 			resp.sendRedirect(req.getContextPath() + "/front/member/myimformation/test.jsp");
 		}
-		
-		
-		if("update".equals(action)){
+
+		if ("update".equals(action)) {
 			HttpSession session = req.getSession();
 			Map<String, String> errors = new HashMap<String, String>();
 			req.setAttribute("error", errors);
 			int memberid = (int) session.getAttribute("id");
-//			MemberBean bean = memberservice.getOneId(memberid);
 			MemberBean beans = memberservice.getOneId(memberid);
 			String nickname = req.getParameter("nickname").trim();
 			String phone = req.getParameter("phone").trim();
@@ -82,21 +81,21 @@ public class MemberServlet extends HttpServlet {
 			}
 			if (email == null || email.length() == 0) {
 				errors.put("email", "請輸入信箱");
-			} else if (!email.matches("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$")) {
+			} else if (!email
+					.matches("^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,4}$")) {
 				errors.put("email", "格式請正確");
 			}
 			if (address == null || address.length() == 0) {
 				errors.put("address", "請輸入地址，不能為空白");
 			}
-			
-			
+
 			Part part = req.getPart("pic");
 			InputStream is = part.getInputStream();
 			byte[] mem_pic = null;
 			int imageSize = is.available();
-			
-			if (imageSize>0) {
-				if (imageSize <= 10*1024*1024) {
+
+			if (imageSize > 0) {
+				if (imageSize <= 10 * 1024 * 1024) {
 					ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					int nRead;
 					mem_pic = new byte[imageSize];
@@ -106,35 +105,37 @@ public class MemberServlet extends HttpServlet {
 					baos.flush();
 					baos.close();
 				} else {
-					errors.put("mem_pic","檔案必須小於 10 MB");
+					errors.put("mem_pic", "檔案必須小於 10 MB");
 				}
 			} else {
 				mem_pic = beans.getPicture();
 			}
 			is.close();
-			
-			if (errors == null ||errors.isEmpty()) {
+
+			if (errors == null || errors.isEmpty()) {
 				MemberBean bean = null;
-				bean = memberservice.updateimf(phone, email, address, nickname,mem_pic,memberid);
+				bean = memberservice.updateimf(phone, email, address, nickname,
+						mem_pic, memberid);
 				bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));
 				session.setAttribute("isLogin", bean);
-				resp.sendRedirect(req.getContextPath() + "/front/member/main/member.do?action=select&id="+memberid);
-				 return;
-			} else{
-				req.getRequestDispatcher("/front/member/myimformation/test.jsp").forward(req,resp);
-				
-				}					
+				resp.sendRedirect(req.getContextPath()
+						+ "/front/member/main/member.do?action=select&id="
+						+ memberid);
+				return;
+			} else {
+				req.getRequestDispatcher("/front/member/myimformation/test.jsp")
+						.forward(req, resp);
+
 			}
-		
-		
-		
+		}
+
 		if ("ChangePassword".equals(action)) {
-				
+
 			Map<String, String> errors = new HashMap<String, String>();
 			req.setAttribute("errors", errors);
 			try {
-				memberservice = new  MemberService();
-			
+				memberservice = new MemberService();
+
 				String oldpassword = req.getParameter("oldpassword");
 				String newpassword = req.getParameter("newpassword");
 
@@ -143,44 +144,43 @@ public class MemberServlet extends HttpServlet {
 				}
 				if (newpassword == null || newpassword.length() == 0) {
 					errors.put("newpassword", "密碼不能空白");
-				} else if (!newpassword.equals(req.getParameter("t_newpassword").trim())) {
+				} else if (!newpassword.equals(req
+						.getParameter("t_newpassword").trim())) {
 					errors.put("newpassword", "確認密碼錯誤");
 
 				}
 				byte[] password = newpassword.getBytes();
 				if (errors != null && !errors.isEmpty()) {
-					req.getRequestDispatcher("/front/member/main/CHGpassword.jsp").forward(req, resp);
+					req.getRequestDispatcher(
+							"/front/member/main/CHGpassword.jsp").forward(req,
+							resp);
 					return;
 				}
 				HttpSession session = req.getSession();
 				String account = (String) session.getAttribute("account");
-				
-				MemberBean bean =memberservice.getAccount(account);
-				
-				boolean uppwd;
-				uppwd = memberservice.changePassword(account, oldpassword, newpassword);
-				if (uppwd != false) {		
+
+				MemberBean bean = memberservice.getAccount(account);
+
+				 
+				boolean uppwd = memberservice.changePassword(account, oldpassword,
+						newpassword);
+				if (uppwd != false) {
 					String path = req.getContextPath();
 					resp.sendRedirect(path + "/index.jsp");
-				}else{
-						errors.put("oldpassword","密碼錯誤");
-						req.getRequestDispatcher("/front/member/main/CHGpassword.jsp").forward(req, resp);	
+				} else {
+					errors.put("oldpassword", "密碼錯誤");
+					req.getRequestDispatcher(
+							"/front/member/main/CHGpassword.jsp").forward(req,
+							resp);
 				}
-				
-				
+
 			} catch (Exception e) {
-				errors.put("Exception",e.getMessage());
-				req.getRequestDispatcher("/front/member/main/CHGpassword.jsp").forward(req, resp);
+				errors.put("Exception", e.getMessage());
+				req.getRequestDispatcher("/front/member/main/CHGpassword.jsp")
+						.forward(req, resp);
 			}
-			
+
 		}
-		
-		
-		
-		
-		
-		
-		}			
+
 	}
-
-
+}

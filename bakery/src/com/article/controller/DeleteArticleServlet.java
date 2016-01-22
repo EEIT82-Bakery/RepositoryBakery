@@ -37,6 +37,7 @@ public class DeleteArticleServlet extends HttpServlet {
 		MemberBean memberBean = (MemberBean) session.getAttribute("isLogin");
 		if (memberBean == null) {
 			response.sendRedirect("/bakery/front/article/error/NotLogin.jsp");
+			return;
 		} else {
 			int memberId = memberBean.getMember_id();
 			// 接收資料(執行)

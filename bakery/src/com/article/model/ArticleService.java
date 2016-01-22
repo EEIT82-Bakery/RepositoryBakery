@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.articleclass.model.ArticleClassBean;
 import com.rearticle.model.ReArticleBean;
 import com.rearticle.model.ReArticleDAOHibernate;
 
@@ -17,7 +16,7 @@ public class ArticleService {
 		dao = new ArticleDAOHibernate();
 	}
 
-	//
+
 	public void updateArticleHidden(int articleId, int memberId, int hidden) {
 		dao.updateArticleHidden(articleId, memberId, hidden);
 	}
@@ -49,19 +48,17 @@ public class ArticleService {
 
 	// 計算總共有幾頁
 	public int getTotalPages() {
-		return (int) (Math.ceil(dao.getRecordCounts() / (double) recordsPerRow)); // 每頁X筆
+		return (int) (Math.ceil(dao.getRecordCounts() / (double) recordsPerRow));
 	}
 
 	// 計算總共有幾頁(articleClassNo)
 	public int getTotalPages(int articleClassNo) {
-		return (int) (Math.ceil(dao.getRecordCounts(articleClassNo)
-				/ (double) recordsPerRow)); // 每頁X筆;
+		return (int) (Math.ceil(dao.getRecordCounts(articleClassNo) / (double) recordsPerRow));
 	}
 
 	// 計算總共有幾頁(articleTitle)
 	public int getTotalPages(String articleTitle) {
-		return (int) (Math.ceil(dao.getRecordCounts(articleTitle)
-				/ (double) recordsPerRow)); // 每頁X筆
+		return (int) (Math.ceil(dao.getRecordCounts(articleTitle) / (double) recordsPerRow));
 	}
 
 	// 計算當頁資料
@@ -71,17 +68,14 @@ public class ArticleService {
 		if (articleClassNo == 0) {
 			beans = dao.getPageArticles(startRow, recordsPerRow);
 		} else {
-			beans = dao.getPageArticlesClass(articleClassNo, startRow,
-					recordsPerRow);
+			beans = dao.getPageArticlesClass(articleClassNo, startRow, recordsPerRow);
 		}
 		for (ArticleBean bean : beans) {
 			bean.setAuthor(bean.getMember().getAccount());
-			bean.setArticleClassName(bean.getArticleClass()
-					.getArticleClassName());
+			bean.setArticleClassName(bean.getArticleClass().getArticleClassName());
 			if (bean.getReArticleCount() == 0) {
 				bean.setReAuthor(bean.getMember().getAccount());
-				bean.setReArticleMakeDate(convertDate(bean
-						.getArticleMake()));
+				bean.setReArticleMakeDate(convertDate(bean.getArticleMake()));
 			}else{
 				ReArticleDAOHibernate dao = new ReArticleDAOHibernate();
 				ReArticleBean reArticleBean = dao.getLastReArticle(bean.getArticleId());
@@ -93,19 +87,16 @@ public class ArticleService {
 	}
 
 	// 針對標題搜尋文章
-	public List<ArticleBean> getPageArticlesTitle(String articleTitle,
-			int pageNo) {
+	public List<ArticleBean> getPageArticlesTitle(String articleTitle, int pageNo) {
 		List<ArticleBean> beans = null;
 		int startRow = (pageNo - 1) * recordsPerRow;
 		beans = dao.getPageArticlesTitle(articleTitle, startRow, recordsPerRow);
 		for (ArticleBean bean : beans) {
 			bean.setAuthor(bean.getMember().getAccount());
-			bean.setArticleClassName(bean.getArticleClass()
-					.getArticleClassName());
+			bean.setArticleClassName(bean.getArticleClass().getArticleClassName());
 			if (bean.getReArticleCount() == 0) {
 				bean.setReAuthor(bean.getMember().getAccount());
-				bean.setReArticleMakeDate(convertDate(bean
-						.getArticleMake()));
+				bean.setReArticleMakeDate(convertDate(bean.getArticleMake()));
 			}else{
 				ReArticleDAOHibernate dao = new ReArticleDAOHibernate();
 				ReArticleBean reArticleBean = dao.getLastReArticle(bean.getArticleId());
@@ -122,7 +113,7 @@ public class ArticleService {
 		if (bean != null) {
 			bean.setAuthor(bean.getMember().getAccount());
 			bean.setNickName(bean.getMember().getNickname());
-			bean.setArticleMakeDate(new ArticleService().convertDate(bean.getArticleMake()));
+			bean.setArticleMakeDate(convertDate(bean.getArticleMake()));
 			bean.setPicture(Base64.encodeBase64String(bean.getMember().getPicture()));
 			if(bean.getHidden() == 1){
 				bean.setContent("<span style='color:#999999'>此文章已被發文者刪除</span>");
@@ -134,8 +125,8 @@ public class ArticleService {
 	}
 
 	// 新增文章
-	public void insertArticle(int memberId, int articleClassNo,
-			String articleTitle, String content) {
+	public void insertArticle(int memberId, int articleClassNo, String articleTitle, 
+			String content) {
 		ArticleBean bean = new ArticleBean();
 		bean.setMemberId(memberId);
 		bean.setArticleClassNo(articleClassNo);
@@ -150,11 +141,9 @@ public class ArticleService {
 	}
 
 	// 編輯文章
-	public boolean updateArticle(int articleClassNo, String articleTitle,
+	public void updateArticle(int articleClassNo, String articleTitle,
 			String content, int articleId, int memberId) {
-		dao.updateArticle(articleClassNo, articleTitle, content, articleId,
-				memberId);
-		return true;
+		dao.updateArticle(articleClassNo, articleTitle, content, articleId, memberId);
 	}
 
 	// 查詢文章標題

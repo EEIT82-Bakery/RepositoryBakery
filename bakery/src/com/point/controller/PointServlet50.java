@@ -2,7 +2,6 @@ package com.point.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,11 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.hibernate.Session;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONObject;
 
 import com.member.model.MemberBean;
-import com.point.model.MemberHibernateDAO;
 import com.point.model.MemberHibernateservice;
 
 @WebServlet("/PointServlet50.do")
@@ -31,18 +29,16 @@ public class PointServlet50 extends HttpServlet {
 		HttpSession session = req.getSession(); // 抓豊傑的session
 		MemberBean bean = (MemberBean) session.getAttribute("isLogin");// 抓他的登入
 		int mbId = bean.getMember_id();
+		
 		MemberBean po = sr.selectp50(mbId); // 用我程式去修改他的點數id
+		po.setMpicture(Base64.encodeBase64String(po.getPicture()));
 		session.setAttribute("isLogin", po);
-		JSONObject jsonObjectMary = new JSONObject(po);	
+		JSONObject jsonObjectMary = new JSONObject(po);
 		out.print(jsonObjectMary);
-//		req.getRequestDispatcher("/front/activity/Turntable.jsp").forward(req, resp);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
-
 	}
-
 }
