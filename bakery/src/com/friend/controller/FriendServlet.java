@@ -126,11 +126,9 @@ public class FriendServlet extends HttpServlet{
 		}
 //			
 			if("noagree".equals(action)){
-			
 				Integer inviteid = new Integer(req.getParameter("invite_id"));
 				Integer inviteeid = new Integer(req.getParameter("invitee_id"));
 				java.sql.Timestamp msg_date= java.sql.Timestamp.valueOf(req.getParameter("msg_date"));
-				
 				FriendService friendservice = new FriendService();
 				friendservice.delete(inviteid,inviteeid);
 				MemberService memberservice = new MemberService();
@@ -152,15 +150,12 @@ public class FriendServlet extends HttpServlet{
 					return;
 					
 				}else{
-				int pageSize = 5;
+				int pageSize = 8;
 				Integer invited = memberbean.getMember_id();
 				String pageStr = req.getParameter("pages");
 				int pageInt = Integer.parseInt(pageStr);
 				FriendService friendservice = new FriendService();
 				List<FriendBean> lists = friendservice.selectAllPage(pageInt, invited);
-				for(FriendBean bean : lists){
-					bean.setMinviteePicture(Base64.encodeBase64String(bean.getInviteePicture()));
-				}
 				req.setAttribute("list", lists);
 				req.setAttribute("page", pageInt);
 				int allcount = friendservice.allFriendCount(invited);
@@ -186,21 +181,21 @@ public class FriendServlet extends HttpServlet{
 					resp.sendRedirect(req.getContextPath()+"/index.jsp");
 					return;
 				}else{
-					int pageSize = 5;
+					int pageSize = 8;
 					Integer invited = Integer.parseInt(memberid);
 					String pageStr = req.getParameter("pages");
 					int pageInt = Integer.parseInt(pageStr);
 					FriendService friendservice = new FriendService();
 					List<FriendBean> lists = friendservice.selectAllPage(pageInt, invited);
-					for(FriendBean bean : lists){
-						bean.setMinviteePicture(Base64.encodeBase64String(bean.getInviteePicture()));
-					}
+					
+					 FriendBean beans = friendservice.selectOne(invited);
+					req.setAttribute("beans",beans);
 					req.setAttribute("list", lists);
 					req.setAttribute("page", pageInt);
 					int allcount = friendservice.allFriendCount(invited);
 					int pageCount = allcount / pageSize + (allcount % pageSize != 0 ? 1 : 0);
 					req.setAttribute("pageCount", pageCount);
-					req.getRequestDispatcher("/front/member/friend_list/myfriend_list.jsp").forward(req, resp);	
+					req.getRequestDispatcher("/front/member/friend_list/friend_list.jsp").forward(req, resp);	
 				}
 			}
 			

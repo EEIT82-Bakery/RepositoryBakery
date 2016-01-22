@@ -38,7 +38,6 @@
 						<ul class="dropdown-menu">
 							<li><a href="<c:url value='/front/member/main/CHGpassword.jsp' />">修改密碼</a></li>
 							<li><a href="#">訂單查詢</a></li>
-							<li><a href="${pageContext.request.contextPath}/front/member/main/member.do?action=select&id=${isLogin.member_id}">會員資訊</a></li>
 						</ul></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">

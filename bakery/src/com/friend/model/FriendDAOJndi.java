@@ -354,9 +354,8 @@ public class FriendDAOJndi implements FriendDAO {
 		List<FriendBean> lists = null;
 		ResultSet rest = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'inviteAccount',m1.Picture as 'invitePiture', m2.Account as 'inviteeAccount' ,m2.Picture as 'inviteePicture' ,invite_id , invitee_id,friendstatu from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invite_id="+invite_id
+			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'inviteAccount',m1.Picture as 'invitePiture', m2.Account as 'inviteeAccount' ,m2.Picture as 'inviteePicture' ,invite_id , invitee_id,friendstatu from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invite_id="+invite_id+"and friendstatu=1"
 					+ " ORDER BY friendstatu OFFSET 8 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 8 ROWS ONLY");){
-			
 			rest = stmt.executeQuery();
 			lists = new ArrayList<FriendBean>();
 			while(rest.next()){
@@ -458,7 +457,7 @@ public class FriendDAOJndi implements FriendDAO {
 			lists = new ArrayList<FriendBean>();
 			while(rest.next()){
 				FriendBean bean = new FriendBean();
-				bean.setInvite_id(rest.getInt("invited_id"));
+				bean.setInvite_id(rest.getInt("invite_id"));
 				bean.setInvitee_id(rest.getInt("invitee_id"));
 				bean.setFriendstatu(rest.getInt("friendstatu"));
 				bean.setInviteAccount(rest.getString("inviteAccount"));
@@ -478,6 +477,42 @@ public class FriendDAOJndi implements FriendDAO {
 			}
 		}
 		return lists;
+		
+	}
+
+
+
+
+	private static final String SELECT_ONE = "SELECT * From friend_list where invite_id=?";
+	@Override
+	public FriendBean selectOne(Integer invite_id) {
+		FriendBean bean = null;
+		ResultSet rest = null;
+		try(Connection conn = ds.getConnection();
+				PreparedStatement stmt = conn.prepareStatement(SELECT_ONE)){
+				stmt.setInt(1, invite_id);
+			rest = stmt.executeQuery();
+			if(rest.next()){
+				bean = new FriendBean();
+				bean.setInvite_id(rest.getInt("invite_id"));
+				bean.setInvitee_id(rest.getInt("invitee_id"));
+				bean.setFriendstatu(rest.getInt("friendstatu"));
+				
+			}
+			
+		}catch(Exception se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}finally{
+			if (rest != null) {
+				try {
+					rest.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		return bean;
 		
 	}
 	
