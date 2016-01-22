@@ -10,10 +10,6 @@ import org.hibernate.Session;
 
 public class ReArticleDAOHibernate implements ReArticleDAO_interface {
 
-	public static void main(String[] args) {
-		ReArticleDAOHibernate dao = new ReArticleDAOHibernate();
-	}
-
 	private static final String INSERT_RE_ARTICLE = "Select count(Re_Id) From ReArticleBean where article_id = ?";
 	@Override
 	public int insertReArticle(ReArticleBean bean) {
@@ -24,7 +20,7 @@ public class ReArticleDAOHibernate implements ReArticleDAO_interface {
 			reId = (long) session.createQuery(INSERT_RE_ARTICLE)
 					.setInteger(0, bean.getArticleId())
 					.uniqueResult();
-			bean.setReId((int) (reId++));
+			bean.setReId((int) (++reId));
 			session.save(bean);
 			session.getTransaction().commit();
 		} catch (Exception e) {

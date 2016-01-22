@@ -40,7 +40,7 @@
 				</li>
 			</c:if>
 			<li>
-				<a href="${pageContext.request.contextPath}/front/member/main/MemberPage.jsp">
+				<a href="${pageContext.request.contextPath}/front/member/main/member.do?action=select&id=${isLogin.member_id}">
 					<span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
 					會員中心
 				</a>
