@@ -20,7 +20,7 @@
 </style>
 
 </head>
-<body onload="windows.location.reload()">
+<body>
 	<!-----------------------------------------nav------------------------------------------>
 	<%@ include file="../fragment/nav.jsp"%>
 	<%
@@ -76,6 +76,15 @@
 		<!--------footer-------->
 	</div>
 	<script>
+	
+	if(window.name != "Cart"){ 
+		location.reload(); 
+		window.name = "Cart"; 
+	} 
+	else{ 
+		window.name = ""; 
+	} 
+	 
 		function deleteShoppingItems(del) {			
 			xmlHttp = new XMLHttpRequest();
 			if (xmlHttp != null) {
