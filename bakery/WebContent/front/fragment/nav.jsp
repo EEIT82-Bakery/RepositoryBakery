@@ -66,7 +66,7 @@
 	<div class="container-fluid">
 		<div id="navbar2" class="row col-xs-12">
 			<div class="col-xs-2">
-				<a href="#">關於焙客栗</a>
+				<a href="${pageContext.request.contextPath}/front/Introduction/Introductio.jsp">關於焙客栗</a>
 			</div>
 			<div class="col-xs-2">
 				<a href="${pageContext.request.contextPath}/product2.controller?page=1">產品介紹</a>
