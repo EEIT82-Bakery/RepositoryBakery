@@ -1,5 +1,7 @@
 package com.member.model;
 
+import hibernate.util.HibernateUtil;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,9 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
-import com.article.model.ArticleBean;
-
-import hibernate.util.HibernateUtil;
+import com.articlereport.model.ArticleReportBean;
 
 public class MemberDAOHibernate implements MemberDAO_Interface {
 
@@ -22,17 +22,12 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		MemberBean bean = null;
 		try {
 			session.beginTransaction();
-			Query query = session
-					.createQuery("from MemberBean where Member_id=?");
-			query.setParameter(0, memberid);
-			bean = (MemberBean) query.uniqueResult();
-			System.out.println("service" + "hi");
+			bean =  (MemberBean) session.get(MemberBean.class, memberid);
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
 			throw e;
 		}
-
 		return bean;
 	}
 
@@ -80,9 +75,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-
-			bean = (MemberBean) session.get(MemberBean.class,
-					memberid);
+			bean = (MemberBean) session.get(MemberBean.class, memberid);
 			if (bean != null) {
 				bean.setPhone(phone);
 				bean.setEmail(email);
@@ -108,10 +101,8 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		List<MemberBean> lists = null;
 		try {
 			session.beginTransaction();
-
 			Query query = session.createQuery(SELECT_ACC);
 			lists = query.list();
-
 			session.getTransaction().commit();
 		} catch (HibernateException e) {
 			session.getTransaction().rollback();
@@ -271,7 +262,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			Query query = session
-					.createQuery("From MemberBean where statu > 1 order by Member_id");
+					.createQuery("From MemberBean where Statu >1 order by Member_id");
 			query.setFirstResult((pageInt - 1) * 5);
 			query.setMaxResults(5);
 			beans = query.list();
@@ -478,4 +469,19 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		return bean;
 	}
 
+	@Override
+	public MemberBean selectImg(Integer invitee_id) {
+		
+		MemberBean bean = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			bean = (MemberBean) session.get(MemberBean.class, invitee_id);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return bean;
+	}
 }

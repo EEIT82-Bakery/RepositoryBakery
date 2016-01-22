@@ -3,10 +3,8 @@ package com.product.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,17 +16,16 @@ import javax.servlet.http.Part;
 import com.product.model.ProductBean;
 import com.product.model.ProductService;
 
-@MultipartConfig(location = "", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 500, maxRequestSize = 1024
-		* 1024 * 500 * 5)
+@MultipartConfig(location = "", fileSizeThreshold = 1024 * 1024, maxFileSize = 1024 * 1024 * 500, maxRequestSize = 1024 * 1024 * 500 * 5)
 @WebServlet("/ProductInsert.do")
 public class ProductInsertServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	public ProductService productService = new ProductService();
+	private ProductService productService = new ProductService();
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// 設定輸入資料的編碼
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
@@ -54,11 +51,11 @@ public class ProductInsertServlet extends HttpServlet {
 
 			int price = 0;
 			String temp1 = request.getParameter("productPrice");
-			if (temp1 == null || temp1.trim().length() == 0){
+			if (temp1 == null || temp1.trim().length() == 0) {
 				errors.put("productPrice", "金額不能為空白");
-			}else	if(!temp1.matches("^+?[1-9][0-9]*$")){
+			} else if (!temp1.matches("^+?[1-9][0-9]*$")) {
 				errors.put("productPrice", "金額必須為非零的正整數");
-			} else{
+			} else {
 				price = Integer.parseInt(temp1);
 			}
 
@@ -69,27 +66,20 @@ public class ProductInsertServlet extends HttpServlet {
 			InputStream fi = temp2.getInputStream();
 			byte[] buffer = new byte[(int) temp2.getSize()];
 			fi.read(buffer);
-			
 			fi.close();
 
-			String discount =null;
-			
+			String discount = null;
+
 			String temp3 = request.getParameter("discount");
 			if (temp3 == null || (temp3.trim()).length() == 0) {
 				errors.put("discount", "請輸入折扣");
 
-			} else
-				if(!temp3.matches("^[0-9]+(.[0-9]{1})?$")){
+			} else if (!temp3.matches("^[0-9]+(.[0-9]{1})?$")) {
 				errors.put("discount", "折扣格式必須是0.X");
-			} 
-				else{
+			} else {
 				discount = temp3;
 
-			} 
-
-			
-			
-
+			}
 
 			String temp4 = request.getParameter("productDate");
 			java.util.Date product_date = null;
@@ -109,7 +99,8 @@ public class ProductInsertServlet extends HttpServlet {
 
 			if (errors != null && !errors.isEmpty()) {
 				request.setAttribute("errorMsg", errors);
-				request.getRequestDispatcher("/back/product/ProductInsert.jsp").forward(request, response);
+				request.getRequestDispatcher("/back/product/ProductInsert.jsp")
+						.forward(request, response);
 			} else {
 				ProductBean bean = new ProductBean();
 				bean.setProductName(pname);
@@ -120,15 +111,16 @@ public class ProductInsertServlet extends HttpServlet {
 				bean.setProductDate(product_date);
 				bean.setProductTypeId(productTypeId);
 				productService.insert(bean);
-				
-				response.sendRedirect(request.getContextPath() + "/back/product/ProductSelectAll.jsp");
+
+				response.sendRedirect(request.getContextPath()
+						+ "/back/product/ProductSelectAll.jsp");
 			}
 		}
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		this.doGet(request, response);
 	}
 }

@@ -256,6 +256,10 @@ public class MemberService {
 		
 	}
 	
+	//**找圖
+	public MemberBean selectImg(Integer invitee_id){
+		return dao.selectImg(invitee_id);
+	}
 	
 	
 	

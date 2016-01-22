@@ -25,6 +25,7 @@ public class ProductPhotoJNDI implements ProductPhoto_interface {
 	}
 
 	private static final String SELECT_PHOTO = "SELECT product_id , Product_photo , photo_id From product_photo where Product_id=? ORDER BY Photo_id";
+
 	@Override
 	public List<ProductPhotoBean> selectphoto(int product_id) {
 		List<ProductPhotoBean> beans = new ArrayList<>();
@@ -32,7 +33,6 @@ public class ProductPhotoJNDI implements ProductPhoto_interface {
 		PreparedStatement pstmt = null;
 		Connection conn = null;
 		try {
-			// conn=DriverManager.getConnection(URL,USERNAME,PASSWORD);
 			conn = dataSource.getConnection();
 			pstmt = conn.prepareStatement(SELECT_PHOTO);
 			pstmt.setInt(1, product_id);
@@ -59,6 +59,13 @@ public class ProductPhotoJNDI implements ProductPhoto_interface {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return beans;
 	}
@@ -79,7 +86,7 @@ public class ProductPhotoJNDI implements ProductPhoto_interface {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -97,6 +104,7 @@ public class ProductPhotoJNDI implements ProductPhoto_interface {
 	}
 
 	private static final String DELETE = "Delete  FROM product_photo WHERE Photo_id=?";
+
 	@Override
 	public void deletePhoto(int Photo_id) {
 		PreparedStatement pstmt = null;
@@ -125,9 +133,4 @@ public class ProductPhotoJNDI implements ProductPhoto_interface {
 		}
 	}
 
-	public static void main(String[] args) {
-		// ProPhotoJNDI dao=new ProPhotoJNDI();
-		// System.out.println( dao.selectphoto(2));
-
-	}
 }

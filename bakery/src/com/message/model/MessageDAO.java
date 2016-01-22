@@ -10,7 +10,7 @@ public interface MessageDAO {
 	public MessageBean select(Integer send_id,Integer read_id,Timestamp msg_date);
 	
 	public int insert(MessageBean bean);
-	public int delete(Integer Msg_id);
+	public void delete(Integer Msg_id);
 	public int update(MessageBean bean);
 	public int updateState(MessageBean bean);
 	public List<MessageBean> selectAll();
@@ -27,6 +27,10 @@ public interface MessageDAO {
 	
 	
 	public MessageBean select();//不分狀態 取得全部的筆數
+	
+	
+	
+	public MessageBean seletemsgid(Integer msg_id);
 	
 	
 }

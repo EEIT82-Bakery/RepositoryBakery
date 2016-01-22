@@ -40,7 +40,7 @@
 				</li>
 			</c:if>
 			<li>
-				<a href="${pageContext.request.contextPath}/front/member/main/MemberPage.jsp">
+				<a href="${pageContext.request.contextPath}/front/member/main/member.do?action=select&id=${isLogin.member_id}">
 					<span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
 					會員中心
 				</a>
@@ -66,7 +66,7 @@
 	<div class="container-fluid">
 		<div id="navbar2" class="row col-xs-12">
 			<div class="col-xs-2">
-				<a href="#">關於焙客栗</a>
+				<a href="${pageContext.request.contextPath}/front/Introduction/Introductio.jsp">關於焙客栗</a>
 			</div>
 			<div class="col-xs-2">
 				<a href="${pageContext.request.contextPath}/product2.controller?page=1">產品介紹</a>
@@ -86,7 +86,7 @@
 		</div>
 	</div>
 </nav>
-<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" role="dialog" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">

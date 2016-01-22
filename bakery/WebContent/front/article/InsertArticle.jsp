@@ -110,7 +110,7 @@
 				<p id="articleType"></p>
 				<div class="form-group">
 					<select id="form-class" name="articleClassNo" class="form-control">
-						<jsp:useBean id="articleClassSvc" scope="page" class="com.articleclass.model.ArticleClassService" />
+						<jsp:useBean id="articleClassSvc" scope="page" class="com.articleclass.model.ArticleClassService"/>
 						<option value='0'>請選擇種類</option>
 						<c:forEach var="articleClass" items="${articleClassSvc.articleClass}">
 							<option value="${articleClass.articleClassNo}" ${(articleClass.articleClassNo == articleBean.articleClassNo)?'selected':'' }>

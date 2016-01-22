@@ -49,7 +49,7 @@
 						<a href="${pageContext.request.contextPath}/homeindex.do?account=${Article.author}">${Article.author}</a>
 						<span> (${Article.nickName})</span>
 					</div>
-					<img src="data:image/png;base64,${Article.picture}" style="height: 200px; width: 100%" />
+					<img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${Article.member.member_id}" style="height: 200px; width: 100%" />
 				</div>
 				<!--時間&內容-->
 				<div class="col-xs-10">
@@ -112,7 +112,7 @@
 							<a href="${pageContext.request.contextPath}/homeindex.do?account=${reArticle.account}">${reArticle.account}</a>
 							<span> (${reArticle.nickName})</span>
 						</div>
-						<img src="data:image/png;base64,${reArticle.picture}" style="height: 200px; width: 100%;" />
+						<img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${reArticle.member.member_id}" style="height: 200px; width: 100%;" />
 					</div>
 					<!--時間&內容-->
 					<div class="col-xs-10">

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
+
 import com.friend.model.FriendBean;
 import com.friend.model.FriendService;
 import com.member.model.MemberBean;
@@ -84,7 +86,6 @@ public class FriendServlet extends HttpServlet{
 		if("agree".equals(action)){	
 			List<String> errors = new LinkedList<String>();
 			req.setAttribute("errors", errors);
-			String requestURL = req.getParameter("requestURL");
 			try {
 				Integer invite_id = new Integer(req.getParameter("invite_id"));
 				Integer invitee_id = new Integer(req.getParameter("invitee_id"));
@@ -113,8 +114,7 @@ public class FriendServlet extends HttpServlet{
 				
 				req.setAttribute("message" ,"已成為好友");
 				req.setAttribute("memberBean", memberbean); 
-				RequestDispatcher successView = req.getRequestDispatcher("/front/member/message/MessageCount.jsp?action=count&send_id="+invite_id+"&read_id="+invitee_id+"&msg_date="+msg_date);
-				successView.forward(req, resp);
+				req.getRequestDispatcher("/front/member/message/MessageCount.jsp?action=count&send_id="+invite_id+"&read_id="+invitee_id+"&msg_date="+msg_date).forward(req, resp);
 				
 			} catch (Exception e) {
 					errors.add(e.getMessage());
@@ -151,19 +151,58 @@ public class FriendServlet extends HttpServlet{
 					resp.sendRedirect(path+"/front/article/error/NotLogin.jsp");
 					return;
 					
-				}
+				}else{
+				int pageSize = 5;
 				Integer invited = memberbean.getMember_id();
-				
-				
-				
-				
-				
-				
-				
+				String pageStr = req.getParameter("pages");
+				int pageInt = Integer.parseInt(pageStr);
+				FriendService friendservice = new FriendService();
+				List<FriendBean> lists = friendservice.selectAllPage(pageInt, invited);
+				for(FriendBean bean : lists){
+					bean.setMinviteePicture(Base64.encodeBase64String(bean.getInviteePicture()));
+				}
+				req.setAttribute("list", lists);
+				req.setAttribute("page", pageInt);
+				int allcount = friendservice.allFriendCount(invited);
+				int pageCount = allcount / pageSize + (allcount % pageSize != 0 ? 1 : 0);
+				req.setAttribute("pageCount", pageCount);
+				req.getRequestDispatcher("/front/member/friend_list/myfriend_list.jsp").forward(req, resp);	
+				}
+			}
+			
+			
+			
+			if("deletefriend".equals(action)){		
+				List<String> errors = new LinkedList<String>();
+				req.setAttribute("errors", errors);
+				String requestURL = req.getParameter("requestURL"); 
 				
 			}
 			
 			
+			if("friendlist".equals(action)){
+				String memberid = req.getParameter("invited");
+				if(memberid==null||memberid.trim().length()==0){
+					resp.sendRedirect(req.getContextPath()+"/index.jsp");
+					return;
+				}else{
+					int pageSize = 5;
+					Integer invited = Integer.parseInt(memberid);
+					String pageStr = req.getParameter("pages");
+					int pageInt = Integer.parseInt(pageStr);
+					FriendService friendservice = new FriendService();
+					List<FriendBean> lists = friendservice.selectAllPage(pageInt, invited);
+					for(FriendBean bean : lists){
+						bean.setMinviteePicture(Base64.encodeBase64String(bean.getInviteePicture()));
+					}
+					req.setAttribute("list", lists);
+					req.setAttribute("page", pageInt);
+					int allcount = friendservice.allFriendCount(invited);
+					int pageCount = allcount / pageSize + (allcount % pageSize != 0 ? 1 : 0);
+					req.setAttribute("pageCount", pageCount);
+					req.getRequestDispatcher("/front/member/friend_list/myfriend_list.jsp").forward(req, resp);	
+				}
+			}
 			
 			
 			
