@@ -88,12 +88,11 @@ public class IsLoginServlet2 extends HttpServlet {
 				session.setAttribute("sex", sex);
 				int sta = memberbean.getStatus();
 				session.setAttribute("statu", sta);
-				String path = req.getContextPath();
-				resp.sendRedirect(path + "/back/product/ProductSelectAll.jsp");
+				req.getRequestDispatcher("/back/product/ProductSelectAll.jsp").forward(req, resp);
+				
 				resp.getWriter().write("True");
 			}
 		}
-		System.out.println(action);
 		if ("logout".equals(action)) {
 			HttpSession session = req.getSession();
 			if (session != null) {

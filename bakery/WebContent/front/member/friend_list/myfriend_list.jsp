@@ -100,48 +100,69 @@
 <body>
 	<%@ include file="../../fragment/nav.jsp"%>
 	<section id="t-cards">
-	<div class="container">
-		<div class="row">
-			<c:forEach varStatus="stVar" var="Go" items="${list}">
-				<div class="col-sm-6 col-md-3">
-					<div class="panel panel-default panel-card">
-						<div class="panel-heading">
-							<img src="https://unsplash.imgix.net/12/barley.jpg?q=75&fm=jpg&s=f39de5ca1970a13dbe6af6c86b3c47ec" />
-							<button class="btn btn-primary btn-sm" role="button">Follow</button>
-						</div>
-						<div class="panel-figure">
-							<img class="img-responsive img-circle" src="data:image/png;base64,${Go.minviteePicture}" id="friendpicture" alt="個人照片" />
-						</div>
-						<div class="panel-body text-center">
-							<h4 class="panel-header">
-								<a href="${pageContext.request.contextPath}/homeindex.do?account=${Go.inviteeAccount}">${Go.inviteeAccount}</a>
-							</h4>
-							<small>A short description goes here.</small>
-						</div>
-						<div class="panel-thumbnails">
-							<div class="row">
-								<div class="col-xs-4">
-									<div class="thumbnail">
-										<img src="http://placemi.com/mzwlj/60x60" />
-									</div>
-								</div>
-								<div class="col-xs-4">
-									<div class="thumbnail">
-										<img src="http://placemi.com/yboaj/60x60" />
-									</div>
-								</div>
-								<div class="col-xs-4">
-									<div class="thumbnail">
-										<img src="http://placemi.com/gv3bp/60x60" />
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
-		</div>
-	</div>
+		
+    <div class="container">
+        <div class="row">
+        <c:forEach varStatus="stVar" var="Go" items="${list}">
+             <div class="col-sm-6 col-md-3">
+                <div class="panel panel-default panel-card">
+                    <div class="panel-heading">
+                        <img src="https://unsplash.imgix.net/12/barley.jpg?q=75&fm=jpg&s=f39de5ca1970a13dbe6af6c86b3c47ec" />
+                        <button class="btn btn-primary btn-sm" role="button">Follow</button>
+                    </div>
+                    <div class="panel-figure">
+                        <img class="img-responsive img-circle" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${Go.invitee_id}" id="friendpicture" alt="個人照片"/>
+                    </div>
+                    <div class="panel-body text-center">
+                        <h4 class="panel-header"><a href="${pageContext.request.contextPath}/homeindex.do?account=${Go.inviteeAccount}">${Go.inviteeAccount}</a></h4>
+                        <small>A short description goes here.</small>
+                    </div>
+                    <div class="panel-thumbnails">
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="thumbnail">
+                                    <img src="http://placemi.com/mzwlj/60x60" />
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="thumbnail">
+                                    <img src="http://placemi.com/yboaj/60x60" />
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="thumbnail">
+                                    <img src="http://placemi.com/gv3bp/60x60" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
+    		</div>
+		   	 </c:forEach>
+	  		 	 </div>
+   		 	</div>
+   
+   	  <div class="container">
+        <div class="row">
+   	   <div class="col-sm-6- col-md-6">
+   	 <c:if test="${not empty pageCount}">
+				<c:forEach var="page" begin="1" end="${pageCount}">
+				<c:if test="${not empty isLogin.member_id}">
+					<a href="${pageContext.request.contextPath}/FriendListServlet.do?invited=${isLogin.member_id}&pages=${page}">
+						<b style="font-size:2em;">${page}</b>
+						</a>&nbsp;&nbsp;&nbsp;
+					</c:if>
+					<c:if test="${not empty member.member_id}">
+					<a href="${pageContext.request.contextPath}/FriendServlet.controller?action=friendlist&invited=${member.member_id}&pages=${page}">
+						<b style="font-size:2em;">${page}</b>
+						</a>&nbsp;&nbsp;&nbsp;
+					</c:if>
+				</c:forEach>
+				</c:if>
+   			 </div>
+   		 </div>
+   	 </div>
+</section>
 
 	<div class="container">
 		<div class="row">
@@ -164,17 +185,5 @@
 		</div>
 	</div>
 	</section>
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

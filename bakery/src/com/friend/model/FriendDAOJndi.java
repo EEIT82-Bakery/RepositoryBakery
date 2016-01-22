@@ -355,7 +355,7 @@ public class FriendDAOJndi implements FriendDAO {
 		ResultSet rest = null;
 		try(Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'inviteAccount',m1.Picture as 'invitePiture', m2.Account as 'inviteeAccount' ,m2.Picture as 'inviteePicture' ,invite_id , invitee_id,friendstatu from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invite_id="+invite_id
-					+ " ORDER BY friendstatu OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY");){
+					+ " ORDER BY friendstatu OFFSET 8 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 8 ROWS ONLY");){
 			
 			rest = stmt.executeQuery();
 			lists = new ArrayList<FriendBean>();

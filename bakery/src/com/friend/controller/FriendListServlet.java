@@ -29,7 +29,7 @@ public class FriendListServlet extends HttpServlet{
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		int pageSize = 5;
+		int pageSize = 8;
 		String memberid = req.getParameter("invited");
 		Integer invited = Integer.parseInt(memberid);
 		String pageStr = req.getParameter("pages");

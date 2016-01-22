@@ -49,4 +49,7 @@ public interface MemberDAO_Interface {
 	public abstract List<MemberBean> selectAllPage(int pageInt);
 	public abstract int getAllMember();
 	
+	//**抓出圖片
+	public MemberBean selectImg(Integer invitee_id);
+	
 }
