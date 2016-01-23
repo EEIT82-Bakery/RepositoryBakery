@@ -61,7 +61,7 @@ public class ShoppingServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 					out.print(jsonArray.toString());
-					out.close();
+					
 				}
 			} else if (action.equals("ADD")) {
 				boolean match = false;

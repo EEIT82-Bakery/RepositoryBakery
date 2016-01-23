@@ -46,6 +46,5 @@ public class ProductDetilServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		out.print(jsonObj.toString());
-		out.close();
 	}
 }
