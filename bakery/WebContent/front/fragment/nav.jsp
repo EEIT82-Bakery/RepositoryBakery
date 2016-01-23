@@ -77,7 +77,7 @@
 				<a href="${pageContext.request.contextPath}/front/map/map.jsp">地圖資訊</a>
 			</div>
 			<div class="col-xs-2">
-				<a href="${pageContext.request.contextPath}/Forum.do">討論區</a>
+				<a href="${pageContext.request.contextPath}/front/forum/Forum.do">討論區</a>
 			</div>
 			<div class="col-xs-2">
 				<a href="${pageContext.request.contextPath}/front/activity/Turntable.jsp">活動-幸運大轉盤</a>

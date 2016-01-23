@@ -26,14 +26,14 @@
 				<!--文章種類-->
 				<div class="col-xs-11 class">
 					<a class="target-fix" name="1F"></a>
-					<a href="Forum.do">所有主題</a>
+					<a href="${pageContext.request.contextPath}/front/forum/Forum.do">所有主題</a>
 					<jsp:useBean id="articleClassSvc" scope="page" class="com.articleclass.model.ArticleClassService" />
 					<c:forEach var="articleClass" items="${articleClassSvc.articleClass}">
-						<a href="Forum.do?ClassNo=${articleClass.articleClassNo}" class="${(articleClass.articleClassNo == Article.articleClassNo)?'active':''}">${articleClass.articleClassName}</a>
+						<a href="${pageContext.request.contextPath}/front/forum/Forum.do?ClassNo=${articleClass.articleClassNo}" class="${(articleClass.articleClassNo == Article.articleClassNo)?'active':''}">${articleClass.articleClassName}</a>
 					</c:forEach>
 				</div>
 				<div class="col-xs-1 post">
-					<form action="<c:url value='/InsertArticle.do?type=2&articleId=${Article.articleId}'/>" method="post">
+					<form action="<c:url value='/front/forum/InsertArticle.do?type=2&articleId=${Article.articleId}'/>" method="post">
 						<input type="hidden" name="title" value="${Article.articleTitle}" />
 						<input type="submit" class="btn btn-default reArticle" value="回覆文章" />
 					</form>
@@ -172,19 +172,19 @@
 	<%@ include file="../fragment/js.jsp"%>
 	<script>
 	function editArticle(articleId){
-		location.href = "${pageContext.request.contextPath}/InsertArticle.do?type=3&articleId="+articleId;
+		location.href = "${pageContext.request.contextPath}/front/forum/InsertArticle.do?type=3&articleId="+articleId;
 	}
 	function editReArticle(articleId , reId){
-		location.href = "${pageContext.request.contextPath}/InsertArticle.do?type=4&articleId="+articleId+"&reId="+reId;
+		location.href = "${pageContext.request.contextPath}/front/forum/InsertArticle.do?type=4&articleId="+articleId+"&reId="+reId;
 	}
 	function deleteArticle(articleId){
 		if(confirm('確定刪除?')){
-			location.href = "${pageContext.request.contextPath}/DeleteArticle.do?type=1&articleId="+articleId;
+			location.href = "${pageContext.request.contextPath}/front/forum/DeleteArticle.do?type=1&articleId="+articleId;
 		}
 	}
 	function deleteReArticle(articleId , reId){
 		if(confirm('確定刪除?')){
-			location.href = "${pageContext.request.contextPath}/DeleteArticle.do?type=2&articleId="+articleId+"&reId="+reId;
+			location.href = "${pageContext.request.contextPath}/front/forum/DeleteArticle.do?type=2&articleId="+articleId+"&reId="+reId;
 		}
 	}
 
@@ -217,26 +217,6 @@
 			xmlHttp.setRequestHeader("Content-Type",
 					"application/x-www-form-urlencoded")
 			xmlHttp.send("Id="+Id+"&reportMsg="+reportMsg);
-		} else {
-			alert("您得瀏覽器不支援Ajax的功能!!");
-		}
-		
-		function callback() {
-			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-				alert(xmlHttp.responseText);
-			}
-		}
-	}
-	
-	
-	function addArticleCollection(articleId){
-		xmlHttp = new XMLHttpRequest();
-		if (xmlHttp != null) {
-			xmlHttp.open("POST", "${pageContext.request.contextPath}/InsertArticleCollection.do", true);
-			xmlHttp.addEventListener("readystatechange", callback, false);
-			xmlHttp.setRequestHeader("Content-Type",
-					"application/x-www-form-urlencoded")
-			xmlHttp.send("articleId="+articleId);
 		} else {
 			alert("您得瀏覽器不支援Ajax的功能!!");
 		}

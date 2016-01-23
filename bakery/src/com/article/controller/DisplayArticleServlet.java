@@ -15,7 +15,7 @@ import com.article.model.ArticleBean;
 import com.article.model.ArticleService;
 import com.rearticle.model.ReArticleBean;
 import com.rearticle.model.ReArticleService;
-@WebServlet("/DisplayArticle.do")
+@WebServlet("/front/forum/DisplayArticle.do")
 public class DisplayArticleServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

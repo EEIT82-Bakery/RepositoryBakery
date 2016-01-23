@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.article.model.ArticleBean;
 import com.article.model.ArticleService;
 
-@WebServlet("/Forum.do")
+@WebServlet("/front/forum/Forum.do")
 public class ForumServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
