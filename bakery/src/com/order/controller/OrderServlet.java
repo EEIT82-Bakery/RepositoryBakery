@@ -17,10 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.member.model.MemberBean;
+import com.member.model.MemberDAOHibernate;
 import com.order.model.OrderBean;
 import com.order.model.OrderService;
 import com.orderlist.model.OrderListBean;
 import com.orderlist.model.OrderListService;
+import com.point.model.MemberHibernateservice;
 import com.product.model.ProductBean;
 import com.product.model.ProductService;
 
@@ -29,6 +31,7 @@ import com.product.model.ProductService;
 @WebServlet("/OrderServlet.do")
 public class OrderServlet extends HttpServlet {
 	public OrderService orderService = new OrderService();
+	public MemberDAOHibernate memberDAOHibernate =new MemberDAOHibernate();
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -58,13 +61,13 @@ public class OrderServlet extends HttpServlet {
 		String orderPhone =request.getParameter("orderPhone");
 		String orderAddress =request.getParameter("orderAddress");
 		String temp1 =request.getParameter("totalMmount");
-		String count = request.getParameter("amount");
 		String temp2 =request.getParameter("shipDate");
 
 		//取得會員ID
 		MemberBean bean =(MemberBean) session.getAttribute("isLogin");
 		int memberId = bean.getMember_id();
-
+		MemberBean mb=memberDAOHibernate.getOne(memberId);
+		int point1=mb.getPoint();
 		
 		if(orderName== null || orderName.length() == 0){
 			errors.put("orderName", "請輸入收件人姓名");
@@ -80,6 +83,9 @@ public class OrderServlet extends HttpServlet {
 		{
 			errors.put("orderAddress", "請輸入地址");
 		}
+		
+		int point = (Integer.parseInt(temp1))/10;
+
 
 		int totalAmount = Integer.parseInt(temp1);
 		
@@ -95,8 +101,11 @@ public class OrderServlet extends HttpServlet {
 			request.setAttribute("errors", errors);
 			request.getRequestDispatcher("/front/ShoppingCart/CheckoutForEach.jsp").forward(request, response);
 		} else {
-			OrderBean obean = new OrderBean();
 			
+			
+			memberDAOHibernate.updatepoint(memberId, point+point1);
+			
+			OrderBean obean = new OrderBean();
 			obean.setOrderName(orderName);
 			obean.setOrderPhone(orderPhone);
 			obean.setOrderAddress(orderAddress);

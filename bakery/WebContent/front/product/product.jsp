@@ -81,7 +81,7 @@
 						<div>
 							數量： <input type="number" id="number${theCount.count}"
 								name="quantity" value=1 min="1" max="10" style="width: 36px">
-							<button class="success"
+						<button class="success"
 								onclick="addShoppingItems('${aBean.productName}' , '${aBean.productPrice}' , '${aBean.discount}','${aBean.productId}','${theCount.count}')">放入購物車</button>
 						</div>
 					</div>
@@ -176,6 +176,11 @@
 		function addShoppingItems(productName, productPrice, discount,
 				productId, count) {
 			var quantity = document.getElementsByName("quantity")[count - 1].value;
+			if(quantity>10){		
+				alert("產品數量不能超過10個");
+			}else if(quantity<1){
+				alert("購買數量最少1個");
+			}else{
 			xmlHttp = new XMLHttpRequest();
 			if (xmlHttp != null) {
 				xmlHttp.open("POST",
@@ -196,6 +201,7 @@
 					alertify
 							.success(productName + "已經加入" + quantity + "個到購物車了");
 				}
+			}
 			}
 		}
 		$(document).ready(function(e) {
