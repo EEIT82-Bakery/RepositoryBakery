@@ -24,14 +24,13 @@ public class OrderListReaderServlet extends HttpServlet {
         ProductBean bean = dao.selectPhoto(new Integer(productId));
         byte[] buf = bean.getMain_photo();  // 4K buffer
         out.write(buf);
-        out.close();
     } catch(Exception e) {
        String fileName=getServletContext().getRealPath("/front/HtmlData/images/1.jpg");
        FileInputStream in = new FileInputStream(fileName);
        byte[] buf = new byte[in.available()]; 
        in.read(buf);
        out.write(buf);
-       out.close();
+       in.close();
     }
   }
 
