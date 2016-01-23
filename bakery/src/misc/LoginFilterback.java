@@ -23,12 +23,11 @@
  "/back/member/*",
  "/back/orderlist/*",
  "/back/product/*",
- "/DispalyAllReport.do",
  "/BackAllMember.do",
  "/BackSelectServlet.do",
  "/ProductSelectOneServlet.do",
- "/OrderListServlet.do",
- "/DispalyAllReReport.do"
+ "/OrderListServlet.do"
+
  }
  )
  public class LoginFilterback implements Filter {

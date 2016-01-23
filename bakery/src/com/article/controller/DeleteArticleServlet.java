@@ -15,7 +15,7 @@ import com.article.model.ArticleService;
 import com.member.model.MemberBean;
 import com.rearticle.model.ReArticleService;
 
-@WebServlet("/DeleteArticle.do")
+@WebServlet("/front/forum/DeleteArticle.do")
 public class DeleteArticleServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -52,7 +52,7 @@ public class DeleteArticleServlet extends HttpServlet {
 					articleId = Integer.parseInt(articleIdTemp);
 
 					articleSvc.updateArticleHidden(articleId , memberId , hidden);
-					response.sendRedirect("/bakery/DisplayArticle.do?articleId=" + articleId);
+					response.sendRedirect("/bakery/front/forum/DisplayArticle.do?articleId=" + articleId);
 				} else {
 					response.sendRedirect(request.getContextPath() + "/front/article/error/null.jsp");
 				}
@@ -75,13 +75,13 @@ public class DeleteArticleServlet extends HttpServlet {
 
 					// 回傳資料
 					if (errorMsg == null || errorMsg.isEmpty()) {
-						response.sendRedirect("/bakery/DisplayArticle.do?articleId=" + articleId);
+						response.sendRedirect("/bakery/front/forum/DisplayArticle.do?articleId=" + articleId);
 					}
 				} else {
 					response.sendRedirect(request.getContextPath() + "/front/article/error/null.jsp");
 				}
 			} else {
-				response.sendRedirect("/bakery/Forum.do");
+				response.sendRedirect("/bakery/front/forum/Forum.do");
 			}
 		}
 	}

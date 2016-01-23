@@ -105,7 +105,7 @@
 											<br />
 											<label for="content">回文內容: ${reArticleReport.reArticle.reContent}</label>
 											<br />
-											<label for="content"><a href="${pageCotext.request.contextPath}/bakery/DisplayArticle.do?articleId=${reArticleReport.reArticle.articleId}" target=_blank>看完整文章</a></label>
+											<label for="content"><a href="${pageCotext.request.contextPath}/bakery/front/forum/DisplayArticle.do?articleId=${reArticleReport.reArticle.articleId}" target=_blank>看完整文章</a></label>
 											<br />
 										</div>
 										<div class="modal-footer">

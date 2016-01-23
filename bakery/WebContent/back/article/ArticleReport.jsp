@@ -103,7 +103,7 @@
 											<hr />
 											<label for="content">文章編號: ${articleReport.article.articleId}</label>
 											<br />
-											<label for="content">文章標題:<a href="${pageCotext.request.contextPath}/bakery/DisplayArticle.do?articleId=${articleReport.article.articleId}" target=_blank>${articleReport.article.articleTitle}</a></label>
+											<label for="content">文章標題:<a href="${pageCotext.request.contextPath}/bakery/front/forum/DisplayArticle.do?articleId=${articleReport.article.articleId}" target=_blank>${articleReport.article.articleTitle}</a></label>
 											<br />
 											<label for="content">文章內容: ${articleReport.article.content}</label>
 											<br />

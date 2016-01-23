@@ -17,7 +17,7 @@ import com.member.model.MemberBean;
 import com.rearticle.model.ReArticleBean;
 import com.rearticle.model.ReArticleService;
 
-@WebServlet("/InsertArticle.do")
+@WebServlet("/front/forum/InsertArticle.do")
 public class InsertArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -74,7 +74,7 @@ public class InsertArticleServlet extends HttpServlet {
 				if (errorMsg == null || errorMsg.isEmpty()) {
 					articleSvc.insertArticle(memberId, articleClassNo, articleTitle, content);
 					response.sendRedirect(
-							request.getContextPath() + "/Forum.do");
+							request.getContextPath() + "/front/forum/Forum.do");
 				} else {
 					request.getRequestDispatcher("/front/article/InsertArticle.jsp?type=1").forward(request, response);
 				}
@@ -99,7 +99,7 @@ public class InsertArticleServlet extends HttpServlet {
 					if (errorMsg == null || errorMsg.isEmpty()) {
 						reContent.trim();
 						reArticleSvc.insertReArticle(memberId, reContent, articleId);
-						response.sendRedirect("/bakery/DisplayArticle.do?articleId=" + articleId);
+						response.sendRedirect(request.getContextPath() + "/front/forum/DisplayArticle.do?articleId=" + articleId);
 					} else {
 						request.getRequestDispatcher("/front/article/InsertArticle.jsp").forward(request, response);
 					}
@@ -145,7 +145,7 @@ public class InsertArticleServlet extends HttpServlet {
 
 					if (errorMsg == null || errorMsg.isEmpty()) {
 						articleSvc.updateArticle(articleClassNo, articleTitle, content, articleId, memberId);
-						response.sendRedirect("/bakery/DisplayArticle.do?articleId=" + articleId);
+						response.sendRedirect(request.getContextPath() + "/front/forum/DisplayArticle.do?articleId=" + articleId);
 					} else {
 						request.getRequestDispatcher("/front/article/InsertArticle.jsp").forward(request, response);
 					}
@@ -182,7 +182,7 @@ public class InsertArticleServlet extends HttpServlet {
 					// 回傳資料
 					if (errorMsg == null || errorMsg.isEmpty()) {
 						reArticleSvc.updateReArticle(reContent, reId, articleId, memberId);
-						response.sendRedirect("/bakery/DisplayArticle.do?articleId=" + articleId);
+						response.sendRedirect(request.getContextPath() + "/front/forum/DisplayArticle.do?articleId=" + articleId);
 					} else {
 						request.getRequestDispatcher("/front/article/InsertArticle.jsp").forward(request, response);
 					}
@@ -190,7 +190,7 @@ public class InsertArticleServlet extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/front/article/error/null.jsp");
 				}
 			} else {
-				response.sendRedirect("/bakery/Forum.do");
+				response.sendRedirect(request.getContextPath() + "/front/forum/Forum.do");
 			}
 		}
 	}

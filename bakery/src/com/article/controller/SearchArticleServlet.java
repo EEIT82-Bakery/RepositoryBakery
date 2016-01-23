@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.article.model.ArticleBean;
 import com.article.model.ArticleService;
 
-@WebServlet("/SearchArticle.do")
+@WebServlet("/front/forum/SearchArticle.do")
 public class SearchArticleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
