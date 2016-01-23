@@ -34,7 +34,7 @@ public class OrderMemberServlet extends HttpServlet {
 		HttpSession session =request.getSession();
 		MemberBean memberBean = (MemberBean)session.getAttribute("isLogin");
 		if(memberBean == null ){
-			response.sendRedirect(request.getContextPath()+"/front/article/error/NotLogin.jsp");
+			response.sendRedirect(request.getContextPath()+"/front/article/error/NotLoginSendLogin.jsp");
 		}else{
 		int memberId= memberBean.getMember_id();
 		List<OrderBean> lists = orderService.selectMember(memberId);
