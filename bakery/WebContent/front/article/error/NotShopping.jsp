@@ -103,7 +103,7 @@ p {
 		</h1>
 		<p>您尚未選購任何商品，請選購</p>
 		<p></p>
-		<a href="javascript:history.back()">
+		<a href="${pageContext.request.contextPath}/product2.controller?page=1">
 			<button id="btn">確定</button>
 		</a>
 	</div>

@@ -12,6 +12,11 @@ public class FriendService {
 		dao = new FriendDAOJndi();
 	}
 	
+	
+	public FriendBean selectOne(Integer invite_id){
+		return dao.selectOne(invite_id);
+	}
+	
 	//**尋找分區 謝謝
 	public List<FriendBean> selectPage(int pageInt,Integer invite_id,Integer friendstatu){
 		return dao.selectPage(pageInt, invite_id, friendstatu);
@@ -73,6 +78,7 @@ public class FriendService {
 			dao.delete(invite_id, invitee_id);
 		}
 		
+
 
 	
 	}

@@ -36,30 +36,33 @@ public class ShoppingServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		MemberBean mb = (MemberBean) session.getAttribute("isLogin");
-		Vector<ProductBean> buylist = (Vector<ProductBean>) session.getAttribute("shoppingcart");
+		Vector<ProductBean> buylist = (Vector<ProductBean>) session
+				.getAttribute("shoppingcart");
 		String action = request.getParameter("action");
 		if (!action.equals("CHECKOUT")) {
 			if (action.equals("DELETE")) {
 				String del = request.getParameter("del");
 				int d = Integer.parseInt(del);
-				buylist.removeElementAt(d);
-				JSONArray jsonArray = new JSONArray();
-				try {
-					for (ProductBean bean : buylist) {
-						JSONObject jsonObj = new JSONObject();
-						jsonObj.put("ProductId", bean.getProductId());
-						jsonObj.put("ProductName", bean.getProductName());
-						jsonObj.put("Discount", (bean.getDiscount()));
-						jsonObj.put("Price", bean.getProductPrice());
-						jsonObj.put("Quantity", bean.getQuantity());
-						jsonArray.put(jsonObj);
+				if (!buylist.isEmpty()) {
+					buylist.removeElementAt(d);
+					session.setAttribute("shoppingcart", buylist);
+					JSONArray jsonArray = new JSONArray();
+					try {
+						for (ProductBean bean : buylist) {
+							JSONObject jsonObj = new JSONObject();
+							jsonObj.put("ProductId", bean.getProductId());
+							jsonObj.put("ProductName", bean.getProductName());
+							jsonObj.put("Discount", (bean.getDiscount()));
+							jsonObj.put("Price", bean.getProductPrice());
+							jsonObj.put("Quantity", bean.getQuantity());
+							jsonArray.put(jsonObj);
+						}
+					} catch (JSONException e) {
+						e.printStackTrace();
 					}
-				} catch (JSONException e) {
-					e.printStackTrace();
+					out.print(jsonArray.toString());
+					out.close();
 				}
-				out.print(jsonArray.toString());
-				out.close();
-				session.setAttribute("shoppingcart", buylist);
 			} else if (action.equals("ADD")) {
 				boolean match = false;
 				ProductBean product = getProduct(request);
@@ -86,7 +89,7 @@ public class ShoppingServlet extends HttpServlet {
 			if (mb == null) {
 				response.sendRedirect(request.getContextPath()
 						+ "/front/article/error/NotLogin.jsp");
-			} else if (buylist == null) {
+			} else if (buylist == null || buylist.isEmpty()) {
 				response.sendRedirect(request.getContextPath()
 						+ "/front/article/error/NotShopping.jsp");
 			} else {
