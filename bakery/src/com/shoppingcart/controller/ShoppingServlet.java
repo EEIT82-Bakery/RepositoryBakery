@@ -108,7 +108,6 @@ public class ShoppingServlet extends HttpServlet {
 			}
 		}
 	}
-
 	private ProductBean getProduct(HttpServletRequest request) {
 		String quantity = request.getParameter("quantity");
 		String name = request.getParameter("name");

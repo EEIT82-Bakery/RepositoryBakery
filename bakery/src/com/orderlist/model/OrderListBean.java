@@ -4,8 +4,8 @@ public class OrderListBean implements java.io.Serializable{
 	private int orderId;
 	private int productId;
 	private int quantity;
-	
-	
+	private String productName;
+	private String productStatus;
 	
 	
 	@Override
@@ -30,6 +30,19 @@ public class OrderListBean implements java.io.Serializable{
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getProductStatus() {
+		return productStatus;
+	}
+	public void setProductStatus(String productStatus) {
+		this.productStatus = productStatus;
+	}
+	
 	
 }
 
