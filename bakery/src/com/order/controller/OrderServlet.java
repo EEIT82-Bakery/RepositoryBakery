@@ -95,7 +95,8 @@ public class OrderServlet extends HttpServlet {
 						request, response);
 			} else {
 
-				memberDAOHibernate.updatepoint(memberId, point + point1);
+				MemberBean memberBean = memberDAOHibernate.updatepoint(memberId, point + point1);
+				session.setAttribute("isLogin", memberBean);
 
 				OrderBean obean = new OrderBean();
 				obean.setOrderName(orderName);

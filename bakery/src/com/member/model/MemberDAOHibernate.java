@@ -132,24 +132,26 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		return true;
 	}
 	
-	private static final String UPDATE_POINT = "UPDATE MemberBean SET point=? WHERE member_id= ?";
+	
 
 	@Override
-	public boolean updatepoint(int member_id,int point) {
+	public MemberBean updatepoint(int member_id,int point) {
+		MemberBean bean = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			Query query = session.createQuery(UPDATE_POINT);
-			query.setParameter(0, point);
-			query.setParameter(1, member_id);
-			query.executeUpdate();
+			bean = (MemberBean) session.get(MemberBean.class, member_id);
+			if(bean != null){
+				bean.setPoint(point);
+				session.update(bean);
+			}
 			session.getTransaction().commit();
 		} catch (RuntimeException e) {
 			session.getTransaction().rollback();
 			throw e;
 		}
 
-		return true;
+		return bean;
 	}
 	
 	@Override

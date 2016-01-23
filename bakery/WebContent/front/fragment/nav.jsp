@@ -17,7 +17,7 @@
 			</c:if>
 				<c:if test="${!empty isLogin}">
 					<li>
-						<img style="width: 40px; height: 40px;" src="data:image/png;base64,${isLogin.mpicture}" />
+						<img style="width: 40px; height: 40px;" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${isLogin.member_id}" />
 					</li>
 					<li>
 						<h6>${isLogin.username}</h6>
