@@ -80,7 +80,7 @@
 						<h6>單價 :${aBean.productPrice}</h6>
 						<div>
 							數量： <input type="number" id="number${theCount.count}"
-								name="quantity" value=1 min="0" max="10" style="width: 36px">
+								name="quantity" value=1 min="1" max="10" style="width: 36px" >
 							<button class="success"
 								onclick="addShoppingItems('${aBean.productName}' , '${aBean.productPrice}' , '${aBean.discount}','${aBean.productId}','${theCount.count}')">放入購物車</button>
 						</div>
