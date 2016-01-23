@@ -30,7 +30,7 @@ public class DeleteMessageServlet extends HttpServlet{
 		resp.setContentType("text/html; charset=utf-8");
 		String action = req.getParameter("action");
 		MessageService messageservice = new MessageService();
-		if(action.equalsIgnoreCase("刪除信件")){
+		if(action.equalsIgnoreCase("delete")){
 			Map<String,String> error = new HashMap<String,String>();
 			req.setAttribute("deleError", error);
 			String page = req.getParameter("page");

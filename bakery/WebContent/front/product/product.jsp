@@ -197,12 +197,16 @@
 
 			function callback() {
 				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+					var result=xmlHttp.responseText;
+					if(result=="success"){
 					reset();
-					alertify
-							.success(productName + "已經加入" + quantity + "個到購物車了");
+					alertify.success(productName + "已經加入" + quantity + "個到購物車了");
+					}else{
+						alert("數量不可超過10個");
+					}
 				}
 			}
-			}
+		}
 		}
 		$(document).ready(function(e) {
 			var curr = null;

@@ -112,10 +112,11 @@ public class MessageServlet extends HttpServlet {
 				out.println("<script LANGUAGE='JavaScript'>");
 				out.print("alert('沒有此文章');");
 				out.println("</script>");
-			    out.flush();
+//			    out.flush();
 				String path = req.getContextPath();
+				//可以不用close;
+//				out.close();
 			    resp.sendRedirect(path+"/front/member/message/Message.jsp");
-				out.close();
 			    return;
 			}else{
 				HttpSession session = req.getSession();
