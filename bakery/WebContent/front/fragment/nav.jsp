@@ -16,7 +16,6 @@
 				</li>
 			</c:if>
 				<c:if test="${!empty isLogin}">
-			
 					<li>
 						<img style="width: 40px; height: 40px;" src="data:image/png;base64,${isLogin.mpicture}" />
 					</li>
@@ -40,7 +39,7 @@
 				</li>
 			</c:if>
 			<li>
-				<a href="${pageContext.request.contextPath}/front/member/main/MemberPage.jsp">
+				<a href="${pageContext.request.contextPath}/front/member/main/member.do?action=select&id=${isLogin.member_id}">
 					<span class="glyphicon glyphicon-tower" aria-hidden="true"></span>
 					會員中心
 				</a>
@@ -66,7 +65,7 @@
 	<div class="container-fluid">
 		<div id="navbar2" class="row col-xs-12">
 			<div class="col-xs-2">
-				<a href="#">關於焙客栗</a>
+				<a href="${pageContext.request.contextPath}/front/Introduction/Introductio.jsp">關於焙客栗</a>
 			</div>
 			<div class="col-xs-2">
 				<a href="${pageContext.request.contextPath}/product2.controller?page=1">產品介紹</a>

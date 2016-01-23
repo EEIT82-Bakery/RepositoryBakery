@@ -3,7 +3,6 @@ package com.article.model;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 
 import com.rearticle.model.ReArticleBean;
 import com.rearticle.model.ReArticleDAOHibernate;
@@ -114,7 +113,6 @@ public class ArticleService {
 			bean.setAuthor(bean.getMember().getAccount());
 			bean.setNickName(bean.getMember().getNickname());
 			bean.setArticleMakeDate(convertDate(bean.getArticleMake()));
-			bean.setPicture(Base64.encodeBase64String(bean.getMember().getPicture()));
 			if(bean.getHidden() == 1){
 				bean.setContent("<span style='color:#999999'>此文章已被發文者刪除</span>");
 			}else if(bean.getHidden() == 2){

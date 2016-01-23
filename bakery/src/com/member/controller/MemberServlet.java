@@ -58,7 +58,7 @@ public class MemberServlet extends HttpServlet {
 			MemberBean bean = memberservice.getOneId(memberid);
 			bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));
 			session.setAttribute("SelectMo", bean);
-			resp.sendRedirect(req.getContextPath() + "/front/member/myimformation/test.jsp");
+			resp.sendRedirect(req.getContextPath() + "/front/member/main/MemberPage.jsp");
 		}
 
 		if ("update".equals(action)) {

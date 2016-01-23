@@ -85,12 +85,12 @@ style>.forumtitle {
 								pattern="yyyy-MM-dd HH:mm:ss" />
 					</tr>
 				</table>
-				<c:if test="${friendstatu.friendstatu==1}">
-					<p>已成為好友</p>
-				</c:if>
-				<c:if test="${empty friendstatu.friendstatu}">
-					<p>已拒絕好友</p>
-				</c:if>
+<%-- 				<c:if test="${friendstatu.friendstatu==1}"> --%>
+<!-- 					<p>已成為好友</p> -->
+<%-- 				</c:if> --%>
+<%-- 				<c:if test="${empty friendstatu.friendstatu}"> --%>
+<!-- 					<p>已拒絕好友</p> -->
+<%-- 				</c:if> --%>
 
 
 				<c:if test="${friendstatu.friendstatu==0}">
@@ -104,8 +104,21 @@ style>.forumtitle {
 						</pre>
 						
 					</div>
+					</c:if>
+					<c:if test="${friendstatu.friendstatu==1}">
+					<h5>信件內容:</h5>
+					
+			
+					<div class="ui attached segment">
+						<pre>
+						${bean.msg_cont}
+						</pre>
+					</div>	
+					</c:if>
+				
+				<c:if test="${friendstatu.friendstatu==1}">
+					<span>${message}</span>
 				</c:if>
-				<span>${message}</span>
 			</div>
 		</div>
 	</div>

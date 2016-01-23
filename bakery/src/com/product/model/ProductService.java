@@ -3,6 +3,8 @@ package com.product.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.orderlist.model.OrderListBean;
+
 public class ProductService {
 	private ProductDAO_interface productDao = new ProductJNDIDAO();
 
@@ -76,10 +78,9 @@ public class ProductService {
 			bean1.setProductDate(one.getProductDate());
 			newBeans.add(bean1);
 		}
-
 		return newBeans;
 	}
-
+	
 	public List<ProductBean> getSelectType() {
 		return productDao.getSelectType();
 	}

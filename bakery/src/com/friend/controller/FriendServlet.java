@@ -20,6 +20,7 @@ import com.member.model.MemberService;
 import com.message.model.MessageBean;
 import com.message.model.MessageService;
 
+
 @WebServlet("/FriendServlet.controller")
 public class FriendServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
@@ -84,7 +85,6 @@ public class FriendServlet extends HttpServlet{
 		if("agree".equals(action)){	
 			List<String> errors = new LinkedList<String>();
 			req.setAttribute("errors", errors);
-			String requestURL = req.getParameter("requestURL");
 			try {
 				Integer invite_id = new Integer(req.getParameter("invite_id"));
 				Integer invitee_id = new Integer(req.getParameter("invitee_id"));
@@ -113,8 +113,7 @@ public class FriendServlet extends HttpServlet{
 				
 				req.setAttribute("message" ,"已成為好友");
 				req.setAttribute("memberBean", memberbean); 
-				RequestDispatcher successView = req.getRequestDispatcher("/front/member/message/MessageCount.jsp?action=count&send_id="+invite_id+"&read_id="+invitee_id+"&msg_date="+msg_date);
-				successView.forward(req, resp);
+				req.getRequestDispatcher("/front/member/message/MessageCount.jsp?action=count&send_id="+invite_id+"&read_id="+invitee_id+"&msg_date="+msg_date).forward(req, resp);
 				
 			} catch (Exception e) {
 					errors.add(e.getMessage());
@@ -126,11 +125,9 @@ public class FriendServlet extends HttpServlet{
 		}
 //			
 			if("noagree".equals(action)){
-			
 				Integer inviteid = new Integer(req.getParameter("invite_id"));
 				Integer inviteeid = new Integer(req.getParameter("invitee_id"));
 				java.sql.Timestamp msg_date= java.sql.Timestamp.valueOf(req.getParameter("msg_date"));
-				
 				FriendService friendservice = new FriendService();
 				friendservice.delete(inviteid,inviteeid);
 				MemberService memberservice = new MemberService();
@@ -151,16 +148,69 @@ public class FriendServlet extends HttpServlet{
 					resp.sendRedirect(path+"/front/article/error/NotLogin.jsp");
 					return;
 					
-				}
+				}else{
+				int pageSize = 8;
 				Integer invited = memberbean.getMember_id();
-				
-				
-				
-				
-				
-				
-				
-				
+				String pageStr = req.getParameter("pages");
+				int pageInt = Integer.parseInt(pageStr);
+				FriendService friendservice = new FriendService();
+				List<FriendBean> lists = friendservice.selectAllPage(pageInt, invited);
+				req.setAttribute("list", lists);
+				req.setAttribute("page", pageInt);
+				int allcount = friendservice.allFriendCount(invited);
+				int pageCount = allcount / pageSize + (allcount % pageSize != 0 ? 1 : 0);
+				req.setAttribute("pageCount", pageCount);
+				req.getRequestDispatcher("/front/member/friend_list/myfriend_list.jsp").forward(req, resp);	
+				}
+			}
+			
+			
+			
+			if("deletefriend".equals(action)){		
+				List<String> errors = new LinkedList<String>();
+				req.setAttribute("errors", errors); 
+				String page = req.getParameter("page");
+				HttpSession session = req.getSession();
+				MemberBean memberbean = (MemberBean)session.getAttribute("isLogin");
+				String inviteeid = req.getParameter("invitee_id");
+				if(memberbean==null || inviteeid==null){
+					String path = req.getContextPath();
+					resp.sendRedirect(path+"/front/article/error/NotLogin.jsp");
+					return;
+				}else{
+					Integer invite_id = memberbean.getMember_id();
+					Integer invitee_id = Integer.parseInt(inviteeid);
+					FriendService friendservice = new FriendService();
+					friendservice.realDelete(invite_id, invitee_id);
+					resp.sendRedirect(req.getContextPath()+"/FriendListServlet.do?invited="+invite_id+"&pages="+page);
+					
+				}
+		
+			}
+			
+			
+			if("friendlist".equals(action)){
+				String memberid = req.getParameter("invited");
+				if(memberid==null||memberid.trim().length()==0){
+					resp.sendRedirect(req.getContextPath()+"/index.jsp");
+					return;
+				}else{
+					int pageSize = 8;
+					Integer invited = Integer.parseInt(memberid);
+					String pageStr = req.getParameter("pages");
+					int pageInt = Integer.parseInt(pageStr);
+					FriendService friendservice = new FriendService();
+					List<FriendBean> lists = friendservice.selectAllPage(pageInt, invited);
+					
+					 FriendBean beans = friendservice.selectOne(invited);
+					req.setAttribute("beans",beans);
+					req.setAttribute("list", lists);
+					req.setAttribute("page", pageInt);
+					int allcount = friendservice.allFriendCount(invited);
+					int pageCount = allcount / pageSize + (allcount % pageSize != 0 ? 1 : 0);
+					req.setAttribute("pageCount", pageCount);
+					req.getRequestDispatcher("/front/member/friend_list/friend_list.jsp").forward(req, resp);	
+				}
 			}
 			
 			

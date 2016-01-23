@@ -16,6 +16,7 @@ public interface MemberDAO_Interface {
 	//-----------------------login---------------------//
 	public void updateUnifom(MemberBean bean);
 	public boolean update(byte[] password,String account);//修改密碼
+	public boolean updatepoint(int member_id,int point);//購買後增加點數
 	public void  changePassword(MemberBean bean);
 	
 	//----------------------regis----------------------//
@@ -48,5 +49,8 @@ public interface MemberDAO_Interface {
 	
 	public abstract List<MemberBean> selectAllPage(int pageInt);
 	public abstract int getAllMember();
+	
+	//**抓出圖片
+	public MemberBean selectImg(Integer invitee_id);
 	
 }

@@ -10,6 +10,12 @@
 <html>
 <head>
 <%@ include file="../fragment/css.jsp"%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.min.css">
+<script
+	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-ui.min.js"></script>
 </head>
 <script type="text/javascript">
 function clearForm() {
@@ -74,8 +80,8 @@ function clearForm() {
 					</tr>
 					<tr>
 						<td>日期 :</td>
-						<td><input type="text" name="productDate"
-							value="${param.productDate}" size="40"><br/>
+						<td><input type="text" name="productDate" id="datepick"
+						readonly="readonly"><br/>
 						${errors.productDate}</td>
 					</tr>
 										<tr>
@@ -103,7 +109,13 @@ function clearForm() {
 			
 		</div>
 	</div>
-	<%@ include file="../fragment/js.jsp"%>
-
+<%-- 	<%@ include file="../fragment/js.jsp"%> --%>
+<script>
+		$(function() {
+			$("#datepick").datepicker({
+				dateFormat : 'yy-mm-dd',
+			});
+		});
+	</script>
 </body>
 </html>

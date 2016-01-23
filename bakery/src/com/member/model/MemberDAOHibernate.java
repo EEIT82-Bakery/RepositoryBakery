@@ -12,6 +12,8 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 
+import com.articlereport.model.ArticleReportBean;
+
 public class MemberDAOHibernate implements MemberDAO_Interface {
 
 	@Override
@@ -129,7 +131,27 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 
 		return true;
 	}
+	
+	private static final String UPDATE_POINT = "UPDATE MemberBean SET point=? WHERE member_id= ?";
 
+	@Override
+	public boolean updatepoint(int member_id,int point) {
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			Query query = session.createQuery(UPDATE_POINT);
+			query.setParameter(0, point);
+			query.setParameter(1, member_id);
+			query.executeUpdate();
+			session.getTransaction().commit();
+		} catch (RuntimeException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+
+		return true;
+	}
+	
 	@Override
 	public MemberBean insert(MemberBean bean) {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
@@ -260,7 +282,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			session.beginTransaction();
 			Query query = session
-					.createQuery("From MemberBean where statu > 1 order by Member_id");
+					.createQuery("From MemberBean where Statu >1 order by Member_id");
 			query.setFirstResult((pageInt - 1) * 5);
 			query.setMaxResults(5);
 			beans = query.list();
@@ -467,4 +489,19 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 		return bean;
 	}
 
+	@Override
+	public MemberBean selectImg(Integer invitee_id) {
+		
+		MemberBean bean = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			bean = (MemberBean) session.get(MemberBean.class, invitee_id);
+			session.getTransaction().commit();
+		} catch (HibernateException e) {
+			session.getTransaction().rollback();
+			throw e;
+		}
+		return bean;
+	}
 }

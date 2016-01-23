@@ -19,9 +19,6 @@ public class MessageService {
 		return dao.selectMessage(msg_id , member_id);
 	}
 
-	public int getStateCount(Integer msg_state) {
-		return 1;
-	}
 
 	public int insertmessage(MessageBean bean) {
 		return dao.insert(bean);
@@ -34,7 +31,6 @@ public class MessageService {
 	public int updateState(MessageBean bean) {
 		return dao.updateState(bean);
 	}
-	
 	
 
 	// 依照reader statu 來分頁數
@@ -70,4 +66,17 @@ public class MessageService {
 		return dao.select();
 	}
 
+	
+	public void delete(Integer msg_id){
+		if(msg_id!=0){
+			dao.delete(msg_id);
+		}
+	}
+	
+	public MessageBean seletemsgid(Integer msg_id){	
+			MessageBean memberbean =dao.seletemsgid(msg_id);
+			return memberbean;	
+	}
+	
+	
 }
