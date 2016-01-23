@@ -44,12 +44,12 @@ public class PointServlet extends HttpServlet {
 		int mbId = bean.getMember_id();
 		MemberBean po = sr.selectp100(mbId); // 用我程式去修改他的點數id
 		
-//		session.setAttribute("point", po.getPoint());
-//		if(po.getPoint()<=0){
-//			String path = req.getContextPath();
-//			resp.sendRedirect(path+"/index.jsp");		
-//		}
-//		else {
+		session.setAttribute("point", po.getPoint());
+		if(po.getPoint()<=0){
+			String path = req.getContextPath();
+			resp.sendRedirect(path+"/index.jsp");		
+		}
+		else {
 			
 		session.setAttribute("isLogin", po);
 		po.setMpicture(Base64.encodeBase64String(po.getPicture()));
@@ -57,7 +57,7 @@ public class PointServlet extends HttpServlet {
 		JSONObject jsonObjectMary = new JSONObject(po);	
 		out.print(jsonObjectMary);
 		}
-	
+	}
 		// System.out.println(poit.getPoint());
 //		req.setAttribute("upd", po);
 //		req.getRequestDispatcher("/front/activity/Jiugongge_OK.jsp").forward(req, resp);
