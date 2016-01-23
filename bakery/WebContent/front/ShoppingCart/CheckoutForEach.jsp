@@ -55,10 +55,10 @@
 					</TD>
 				</TR>
 				<tr>
-					<TD>
+					<TD style="text-align: right;">
 							<input type="hidden" name="totalMmount" value="${amount}"/> 
 							<input type="hidden" name="action" value="insert">
-							<input type="submit" value="確認送出" />
+							<input type="submit" value="確認送出" style="margin-right: 50px;"/>
 
 					</TD>
 				</tr>
@@ -93,7 +93,7 @@
 								<input type="hidden" name="productId" value="${list.productId}">
 							</c:forEach>
 							<tr>
-								<td colspan="4" align="right"><b style="color:red;font-size:18px;algin:right;">總金額：${amount}</b></td>
+								<td colspan="4" style="text-align: right;"><b style="color:red;font-size:18px;algin:right;">總金額：${amount}</b></td>
 							</tr>
 							
 						</table>
