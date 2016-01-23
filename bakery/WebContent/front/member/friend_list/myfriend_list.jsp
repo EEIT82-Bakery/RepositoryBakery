@@ -95,14 +95,20 @@
 	width: 73px;
 	height: 73px;
 }
+#btn{
+	width:50px;
+	height:50px;
+}
 </style>
 </head>
 <body>
 	<%@ include file="../../fragment/nav.jsp"%>
-	<section id="t-cards">
+<!-- 	<section id="t-cards"> -->
 		
     <div class="container">
         <div class="row">
+       <p class="bg-info">我的好友列表</p>
+        <hr>
         <c:forEach varStatus="stVar" var="Go" items="${list}">
              <div class="col-sm-6 col-md-3">
                 <div class="panel panel-default panel-card">
@@ -114,24 +120,25 @@
                         <img class="img-responsive img-circle" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${Go.invitee_id}" id="friendpicture" alt="個人照片"/>
                     </div>
                     <div class="panel-body text-center">
-                        <h4 class="panel-header"><a href="${pageContext.request.contextPath}/homeindex.do?account=${Go.inviteeAccount}">${Go.inviteeAccount}</a></h4>
+                        <h4 class="panel-header"><a href="${pageContext.request.contextPath}/homeindex.do?account=${Go.inviteeAccount}">(帳號:)${Go.inviteeAccount}</a></h4>
                         <small>A short description goes here.</small>
                     </div>
                     <div class="panel-thumbnails">
                         <div class="row">
-                            <div class="col-xs-4">
+                            <div class="col-xs-6">
                                 <div class="thumbnail">
                                     <img src="http://placemi.com/mzwlj/60x60" />
                                 </div>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-6">
                                 <div class="thumbnail">
-                                    <img src="http://placemi.com/yboaj/60x60" />
-                                </div>
-                            </div>
-                            <div class="col-xs-4">
-                                <div class="thumbnail">
-                                    <img src="http://placemi.com/gv3bp/60x60" />
+                                <form action="${pageContext.request.contextPath}/FriendServlet.controller" method="post">
+                                <button type="submit" class="btn btn-danger" id="btn" onclick="return confirm('確定刪除好友嗎?')">刪除</button>
+                                <input type="hidden" name="invite_id" value="${isLogin.member_id}">
+                                <input type="hidden" name="invitee_id" value="${Go.invitee_id}">
+                                <input type="hidden" name="page" value="${page}">
+                                <input type="hidden" name="action" value="deletefriend">
+                                </form>
                                 </div>
                             </div>
                         </div>
@@ -162,6 +169,6 @@
    			 </div>
    		 </div>
    	 </div>
-</section>
+<!-- </section> -->
 </body>
 </html>
