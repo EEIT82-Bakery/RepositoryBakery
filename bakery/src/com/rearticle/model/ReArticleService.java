@@ -2,7 +2,7 @@ package com.rearticle.model;
 
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
+import org.apache.tomcat.util.codec.binary.Base64;
 
 import com.article.model.ArticleDAOHibernate;
 import com.article.model.ArticleService;

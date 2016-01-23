@@ -9,10 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.codec.binary.Base64;
-
-
-
+import org.apache.tomcat.util.codec.binary.Base64;
 
 import com.member.model.MemberBean;
 import com.member.model.MemberService;

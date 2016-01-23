@@ -21,23 +21,23 @@ import com.product.model.ProductBean;
 
 @WebServlet("/Shopping.do")
 public class ShoppingServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 
 	}
 
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession();
 		MemberBean mb = (MemberBean) session.getAttribute("isLogin");
-		Vector<ProductBean> buylist = (Vector<ProductBean>) session
-				.getAttribute("shoppingcart");
+		Vector<ProductBean> buylist = (Vector<ProductBean>) session.getAttribute("shoppingcart");
 		String action = request.getParameter("action");
 		if (!action.equals("CHECKOUT")) {
 			if (action.equals("DELETE")) {
@@ -61,7 +61,7 @@ public class ShoppingServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 					out.print(jsonArray.toString());
-					out.close();
+					
 				}
 			} else if (action.equals("ADD")) {
 				boolean match = false;
@@ -70,28 +70,43 @@ public class ShoppingServlet extends HttpServlet {
 					buylist = new Vector<ProductBean>();
 					buylist.add(product);
 				} else {
+					int count = 0;
+					boolean flag=false;
 					for (int i = 0; i < buylist.size(); i++) {
 						ProductBean productName = buylist.get(i);
-						if (productName.getProductName().equals(
-								product.getProductName())) {
-							productName.setQuantity(productName.getQuantity()
-									+ product.getQuantity());
-							buylist.setElementAt(productName, i);
+						if (productName.getProductName().equals(product.getProductName())) {
+							count = productName.getQuantity() + product.getQuantity();
+							if (count <= 10) {
+								productName.setQuantity(productName.getQuantity() + product.getQuantity());
+								buylist.setElementAt(productName, i);
+								flag=true;
+							} 
 							match = true;
-						} // end of if name matches
+						}// end of if name matches
 					} // end of for
-					if (!match)
-						buylist.add(product);
+//					if (match) {
+//						out.print("success");
+//					} else {
+//						out.print("error,數量大於10個");
+//						buylist.add(product);
+//					}
+					 if (!match){
+					 buylist.add(product);
+					 flag=true;
+					 }
+					 if (flag) {
+							out.print("success");
+						} else {
+							out.print("error");
+					}
 				}
 				session.setAttribute("shoppingcart", buylist);
 			}
 		} else if (action.equals("CHECKOUT")) {
 			if (mb == null) {
-				response.sendRedirect(request.getContextPath()
-						+ "/front/article/error/NotLogin.jsp");
+				response.sendRedirect(request.getContextPath() + "/front/article/error/NotLogin.jsp");
 			} else if (buylist == null || buylist.isEmpty()) {
-				response.sendRedirect(request.getContextPath()
-						+ "/front/article/error/NotShopping.jsp");
+				response.sendRedirect(request.getContextPath() + "/front/article/error/NotShopping.jsp");
 			} else {
 				int total = 0;
 				for (int i = 0; i < buylist.size(); i++) {
@@ -111,6 +126,7 @@ public class ShoppingServlet extends HttpServlet {
 			}
 		}
 	}
+
 	private ProductBean getProduct(HttpServletRequest request) {
 		String quantity = request.getParameter("quantity");
 		String name = request.getParameter("name");

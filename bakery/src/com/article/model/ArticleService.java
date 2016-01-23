@@ -3,6 +3,7 @@ package com.article.model;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+
 import com.rearticle.model.ReArticleBean;
 import com.rearticle.model.ReArticleDAOHibernate;
 

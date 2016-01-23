@@ -72,6 +72,7 @@ public class ProductInsertServlet extends HttpServlet {
 
 			String temp3 = request.getParameter("discount");
 			if (temp3 == null || (temp3.trim()).length() == 0) {
+
 				errors.put("discount", "請輸入折扣");
 
 			} else if (!temp3.matches("^[0-9]+(.[0-9]{1})?$")) {

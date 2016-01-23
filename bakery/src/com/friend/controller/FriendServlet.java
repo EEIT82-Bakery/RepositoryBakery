@@ -121,9 +121,7 @@ public class FriendServlet extends HttpServlet{
 					failureView.forward(req, resp);
 					
 				}
-			
 		}
-//			
 			if("noagree".equals(action)){
 				Integer inviteid = new Integer(req.getParameter("invite_id"));
 				Integer inviteeid = new Integer(req.getParameter("invitee_id"));
@@ -136,10 +134,7 @@ public class FriendServlet extends HttpServlet{
 				req.setAttribute("memberBean", memberbean); 
 				RequestDispatcher successView = req.getRequestDispatcher("/MessageServlet.do?action=count&send_id="+inviteid+"&read_id="+inviteeid+"&msg_date="+msg_date);
 				successView.forward(req, resp);
-				}
-		
-
-			
+				}	
 			if("myfriendlist".equals(action)){
 				HttpSession session = req.getSession();
 				MemberBean memberbean =(MemberBean) session.getAttribute("isLogin");
@@ -147,7 +142,6 @@ public class FriendServlet extends HttpServlet{
 					String path = req.getContextPath();
 					resp.sendRedirect(path+"/front/article/error/NotLogin.jsp");
 					return;
-					
 				}else{
 				int pageSize = 8;
 				Integer invited = memberbean.getMember_id();
@@ -163,8 +157,6 @@ public class FriendServlet extends HttpServlet{
 				req.getRequestDispatcher("/front/member/friend_list/myfriend_list.jsp").forward(req, resp);	
 				}
 			}
-			
-			
 			
 			if("deletefriend".equals(action)){		
 				List<String> errors = new LinkedList<String>();
