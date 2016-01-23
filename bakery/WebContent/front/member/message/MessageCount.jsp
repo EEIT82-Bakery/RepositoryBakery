@@ -105,6 +105,7 @@ style>.forumtitle {
 						
 					</div>
 					</c:if>
+					<c:if test="${friendstatu.friendstatu==1}">
 					<h5>信件內容:</h5>
 					
 			
@@ -113,7 +114,7 @@ style>.forumtitle {
 						${bean.msg_cont}
 						</pre>
 					</div>	
-		
+					</c:if>
 				
 				<c:if test="${friendstatu.friendstatu==1}">
 					<span>${message}</span>

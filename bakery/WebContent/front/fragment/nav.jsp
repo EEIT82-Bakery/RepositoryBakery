@@ -16,7 +16,6 @@
 				</li>
 			</c:if>
 				<c:if test="${!empty isLogin}">
-			
 					<li>
 						<img style="width: 40px; height: 40px;" src="data:image/png;base64,${isLogin.mpicture}" />
 					</li>

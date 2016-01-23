@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.message.model.MessageBean;
+
 
 public class FriendDAOJndi implements FriendDAO {
 	private DataSource ds = null;

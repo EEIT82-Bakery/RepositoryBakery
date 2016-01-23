@@ -13,14 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.codec.binary.Base64;
-
 import com.friend.model.FriendBean;
 import com.friend.model.FriendService;
 import com.member.model.MemberBean;
 import com.member.model.MemberService;
 import com.message.model.MessageBean;
 import com.message.model.MessageService;
+
 
 @WebServlet("/FriendServlet.controller")
 public class FriendServlet extends HttpServlet{
@@ -169,9 +168,24 @@ public class FriendServlet extends HttpServlet{
 			
 			if("deletefriend".equals(action)){		
 				List<String> errors = new LinkedList<String>();
-				req.setAttribute("errors", errors);
-				String requestURL = req.getParameter("requestURL"); 
-				
+				req.setAttribute("errors", errors); 
+				String page = req.getParameter("page");
+				HttpSession session = req.getSession();
+				MemberBean memberbean = (MemberBean)session.getAttribute("isLogin");
+				String inviteeid = req.getParameter("invitee_id");
+				if(memberbean==null || inviteeid==null){
+					String path = req.getContextPath();
+					resp.sendRedirect(path+"/front/article/error/NotLogin.jsp");
+					return;
+				}else{
+					Integer invite_id = memberbean.getMember_id();
+					Integer invitee_id = Integer.parseInt(inviteeid);
+					FriendService friendservice = new FriendService();
+					friendservice.realDelete(invite_id, invitee_id);
+					resp.sendRedirect(req.getContextPath()+"/FriendListServlet.do?invited="+invite_id+"&pages="+page);
+					
+				}
+		
 			}
 			
 			
@@ -198,6 +212,8 @@ public class FriendServlet extends HttpServlet{
 					req.getRequestDispatcher("/front/member/friend_list/friend_list.jsp").forward(req, resp);	
 				}
 			}
+			
+			
 			
 			
 			

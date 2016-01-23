@@ -7,15 +7,16 @@
 <head>
 <%@ include file="../fragment/css.jsp"%>
 <link href="${pageContext.request.contextPath}/front/HtmlData/css/product.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/front/HtmlData/css/cart.css" rel="stylesheet" />
 <style>
 #sender {
 	float: right;
-	margin-right: 700px;
+	margin-right: 550px;
 }
 
 #a {
 	float: right;
-	margin-right: 200px;
+	margin-right: 60px;
 }
 </style>
 
@@ -28,17 +29,22 @@
 	%>
 	<!-----------------------------------------nav------------------------------------------>
 	<div class="container-fluid">
-		<!-----------------------------------------main----------------------------------------->
-		<img src="${pageContext.request.contextPath}/back/HtmlData/images/logo.png" width="100px" height="100px">
+	<img src="${pageContext.request.contextPath}/back/HtmlData/images/logo.png" width="100px" height="100px">
 		<font size="+3">目前您購物車的內容如下：</font>
+	<div class="row" align="center">
+	
+	<div class="col-xs-12" style="padding-top: 10px;">
+		<!-----------------------------------------main----------------------------------------->
+		
 		<p>
-		<table id="shoppingCart" border="1" width="740">
-			<tr bgcolor="#999999">
-				<th width="200">產品</th>
-				<th width="100">金額</th>
-				<th width="100">折扣</th>
-				<th width="120">數量</th>
-				<th width="120"></th>
+		<div class="CSSTableGenerator" >
+		<table id="shoppingCart">
+			<tr>
+				<td width="200">產品</td>
+				<td width="100">金額</td>
+				<td width="100">折扣</td>
+				<td width="120">數量</td>
+				<td width="120"></td>
 			</tr>
 
 			<c:forEach var="order" items="${shoppingcart}">
@@ -61,7 +67,10 @@
 				</tr>
 			</c:forEach>
 		</table>
-		<p>
+		</div>
+		<br/>
+		</div>
+		
 		<form id="sender" name="checkoutForm" action='<c:url value="/Shopping.do"/>' method="POST">
 			<input type="hidden" name="action" value="CHECKOUT">
 			<input type="submit" value="付款結帳">
@@ -70,6 +79,7 @@
 		<a href="${pageContext.request.contextPath}/product2.controller?productTypeId=1&page=1" id="a">
 			<input type="button" value="繼續購物">
 		</a>
+		</div>
 		<!-----------------------------------------main----------------------------------------->
 		<!--------footer-------->
 		<%@ include file="../fragment/footer.jsp"%>

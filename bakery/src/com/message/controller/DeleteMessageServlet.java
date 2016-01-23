@@ -1,6 +1,8 @@
 package com.message.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,17 +30,22 @@ public class DeleteMessageServlet extends HttpServlet{
 		resp.setContentType("text/html; charset=utf-8");
 		String action = req.getParameter("action");
 		MessageService messageservice = new MessageService();
-		if(action.equalsIgnoreCase("delete")){
-			for(String smsg_id : req.getParameterValues("msg_id")){
-				System.out.println(smsg_id);
+		if(action.equalsIgnoreCase("刪除信件")){
+			Map<String,String> error = new HashMap<String,String>();
+			req.setAttribute("deleError", error);
+			String page = req.getParameter("page");
+			String[] xxx = req.getParameterValues("msg_id");
+			if(xxx==null||xxx.length==0){
+				error.put("error", "請勾選信件");
+				req.getRequestDispatcher("MessageServlet.do?action=select&pages="+page).forward(req, resp);
+				return;
+			}
+			for(String smsg_id : xxx){
 				Integer msg_id = Integer.parseInt(smsg_id);
 				messageservice.delete(msg_id);
-
-			}
-
+				}
+			resp.sendRedirect(req.getContextPath()+"/MessageServlet.do?action=select&pages="+page);
 		}
-		resp.sendRedirect("MessageServlet.do?action=select&pages=1");
 		
-	
 	}
 }
