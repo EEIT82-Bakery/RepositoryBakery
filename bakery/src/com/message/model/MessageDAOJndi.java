@@ -188,7 +188,7 @@ public class MessageDAOJndi implements MessageDAO {
 		ResultSet rs = null;
 		try(Connection conn = ds.getConnection();
 			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Msg_id , Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+"and Msg_state="+msg_state
-					+ " ORDER BY Msg_state OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
+					+ " ORDER BY Msg_date desc OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
 			rs = stmt.executeQuery();
 			list = new ArrayList<MessageBean>();
 			while(rs.next()){

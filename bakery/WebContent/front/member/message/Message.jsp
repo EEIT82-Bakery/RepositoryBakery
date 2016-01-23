@@ -36,6 +36,18 @@
 	background-color: #007aff;
 	border-color: #007aff;
 }
+input[type=submit]{              
+                 position: absolute;
+                 right: 20px;
+                 background: #09c;
+                 color: #fff;
+                 font-family: tahoma,geneva,algerian;
+                 height: 30px;
+                 -webkit-border-radius: 15px;
+                 -moz-border-radius: 15px;
+                 border-radius: 15px;
+                 border: 1px solid #999;
+             }
 </style>
 </head>
 <body>
@@ -43,7 +55,10 @@
 	<div class="row">
 		<div class="col-xs-offset-2 col-xs-8">
 			<h1>我的信件</h1>
-
+		<form action="${pageContext.request.contextPath}/delete.do?action=delete" method="post">	
+					<input type="hidden" name="page" value="${page}">				
+					<input type="submit" value="刪除信件"
+						onclick="return confirm('確定刪除?')" id="button"/> <br /><span> ${delete.error}</span><br />
 			<div class="btn-group btn-group-justified demoPadder" role="group"
 				aria-label="Justified button group">
 				<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1"
@@ -53,11 +68,10 @@
 					href="${pageContext.request.contextPath}/MessageServlet.do?action=selecNoRead&pages=1"
 					class="btn btn-default">已讀</a>
 			</div>
+	
 			<div class="col-xs-12 display">
-			<form action="${pageContext.request.contextPath}/delete.do?action=delete" method="post">
-					<input type="submit" value="delete"
-						onclick="return confirm('確定刪除?')" /> <br /> ${error}<br />
-					<table>
+			
+					<table bgcolor="orange">
 					<tr class="forumtitle">
 						<td width="10%"><input type="checkbox" id="checkBoxAll"></td>
 						<td width="20%">寄件人</td>
@@ -84,7 +98,7 @@
 							</tr>
 					</c:forEach>
 				</table>
-			</form>
+		
 			</div>
 			<c:if test="${not empty pageCount}">
 				<c:forEach var="page" begin="1" end="${pageCount}">
@@ -93,6 +107,7 @@
 					</a>
 				</c:forEach>
 			</c:if>
+				</form>
 		</div>
 		<%@ include file="../../fragment/footer.jsp"%>
 	</div>
@@ -100,11 +115,24 @@
 	
 	<script type="text/javascript">
 	$(document).ready(function() {
+		
 		$('#checkBoxAll').click(function(){
 			if($(this).is(":checked"))
 			   $('.chkCheckBoxId').prop('checked',true);
 				else
 			   $('.chkCheckBoxId').prop('checked',false);
+				
+			});
+		
+		$("#button").click(function(){
+			var check=$("input[name='msg_id']:checked").length;//判斷有多少個方框被勾選
+			if(check==0){
+				alert("您尚未勾選任何項目");
+				return false;//不要提交表單
+			}else{
+				alert("你勾選了"+check+"個項目");
+				return true;//提交表單
+				}
 			});
 		});
 	</script>

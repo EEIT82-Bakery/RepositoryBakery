@@ -59,6 +59,15 @@
 	margin-right: 5px;
 }
 
+.profile-userbuttons .btn1 {
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: 600;
+	padding: 6px 15px;
+	margin-right: 5px;
+}
+
+
 .profile-userbuttons .btn:last-child {
 	margin-right: 0px;
 }
@@ -124,8 +133,9 @@
 							<img src="data:image/png;base64,${member.mpicture}" class="img-responsive" alt="">
 						</div>
 						<div class="profile-usertitle">
-							<div class="profile-usertitle-name">${member.nickname}</div>
+							<div class="profile-usertitle-name">暱稱:${member.nickname}</div>
 							<div class="profile-usertitle-job">
+							帳號:
 								<c:url value="/front/memberforum/2.jsp" var="path">
 									<c:param name="accoun" value="${member.account}" />
 									<c:param name="nickname" value="${member.nickname}" />
@@ -151,7 +161,7 @@
 										<button type="button" class="btn btn-success btn-sm" ${statu==0 ?"disabled" :""}>已送出邀請</button>
 									</c:if>
 									<c:if test="${statu == 1}">
-										<button type="button" class="btn btn-success btn-sm" ${statu==1 ?"disabled" :""}>已經是好友</button>
+										<button type="button" class="btn1 btn-success btn-sm" ${statu==1 ?"disabled" :""}>已經是好友</button>
 									</c:if>
 								</c:if>
 								<input type="hidden" name="invite_id" value="${isLogin.member_id}">
@@ -199,13 +209,15 @@
 								<!-- 											class="glyphicon glyphicon-envelope"></i>發送訊息 -->
 								<!-- 									</a></li> -->
 								<%-- 								</c:if> --%>
+								<c:if test="${statu==1	}">
 								<c:if test="${isLogin.member_id!=member.member_id}">
 									<li>
-										<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalMessage">
+										<button class="btn btn-link btn-lg" data-toggle="modal" data-target="#ModalMessage">
 											<span class="glyphicon glyphicon-envelope"></span> 訊息
 										</button>
 
 									</li>
+								</c:if>
 								</c:if>
 
 							</ul>
