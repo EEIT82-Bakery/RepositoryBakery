@@ -270,8 +270,7 @@
 					</div>
 				</div>
 				<div class="col-xs-2">
-					<table style="border: 3px #C29793 dashed;" border='1'
-						align="center">
+					<table style="border: 3px #C29793 dashed;" border='1'>
 						<tr>
 							<td colspan="3" align="center"><b
 								style="color: green; font-size: 25px;">人氣商品</b></td>
@@ -398,17 +397,6 @@
 			var num = 1;
 			var index = 3;
 			var duration = 2000;
-			//初始化
-			document.getElementById("con1").style.display = "block";
-			document.getElementById("tab1").style.backgroundColor = "black";
-			//執行
-			run();
-			document.getElementById("box").onmouseover = stopRun;
-			document.getElementById("box").onmouseout = run;
-
-			for (var i = 1; i <= index; i++) {
-				document.getElementById("tab" + i).onmouseover = show;
-			}
 			function autoShow() {
 				for (var i = 1; i <= index; i++) {
 					document.getElementById("con" + i).style.display = "none";
