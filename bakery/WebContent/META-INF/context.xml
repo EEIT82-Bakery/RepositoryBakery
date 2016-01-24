@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
 	<Resource name="jdbc/cake" auth="Container" type="javax.sql.DataSource"
-	maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="bakery"
-	password="Sa123456" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-	url="jdbc:sqlserver://eqvu3fwkmf.database.windows.net:1433;database=bakeryDB" />
+	maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="sa"
+	password="sa123456" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+	url="jdbc:sqlserver://localhost:1433;database=bakeryDB" />
 <!-- 	<Resource name="jdbc/cake" auth="Container" type="javax.sql.DataSource" -->
 <!-- 		maxTotal="100" maxIdle="30" maxWaitMillis="10000" username="bakeryuser@jbky9au7k4" -->
 <!-- 		password="JiaHan0910" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver" -->
