@@ -109,6 +109,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		Timestamp last_date = new Timestamp(System.currentTimeMillis());
 		Part part = req.getPart("m_pic");
+		System.out.println(part);
 		InputStream is = part.getInputStream();
 		int imageSize = is.available();
 		if (imageSize <= 0) {

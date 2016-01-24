@@ -29,22 +29,25 @@ public class DeleteMessageServlet extends HttpServlet{
 		req.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html; charset=utf-8");
 		String action = req.getParameter("action");
+		System.out.println(action);
 		MessageService messageservice = new MessageService();
 		if(action.equalsIgnoreCase("delete")){
 			Map<String,String> error = new HashMap<String,String>();
 			req.setAttribute("deleError", error);
 			String page = req.getParameter("page");
+			System.out.println("asssss+"+page);
 			String[] xxx = req.getParameterValues("msg_id");
 			if(xxx==null||xxx.length==0){
 				error.put("error", "請勾選信件");
-				req.getRequestDispatcher("MessageServlet.do?action=select&pages="+page).forward(req, resp);
+				req.getRequestDispatcher("/MessageServlet.do?action=select&pages="+page).forward(req, resp);
 				return;
-			}
+			}else{
 			for(String smsg_id : xxx){
 				Integer msg_id = Integer.parseInt(smsg_id);
 				messageservice.delete(msg_id);
 				}
 			resp.sendRedirect(req.getContextPath()+"/MessageServlet.do?action=select&pages="+page);
+		}
 		}
 		
 	}

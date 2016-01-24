@@ -61,7 +61,6 @@ public class ShoppingServlet extends HttpServlet {
 						e.printStackTrace();
 					}
 					out.print(jsonArray.toString());
-					
 				}
 			} else if (action.equals("ADD")) {
 				boolean match = false;
@@ -71,7 +70,7 @@ public class ShoppingServlet extends HttpServlet {
 					buylist.add(product);
 				} else {
 					int count = 0;
-					boolean flag=false;
+					boolean flag = false;
 					for (int i = 0; i < buylist.size(); i++) {
 						ProductBean productName = buylist.get(i);
 						if (productName.getProductName().equals(product.getProductName())) {
@@ -79,25 +78,19 @@ public class ShoppingServlet extends HttpServlet {
 							if (count <= 10) {
 								productName.setQuantity(productName.getQuantity() + product.getQuantity());
 								buylist.setElementAt(productName, i);
-								flag=true;
-							} 
+								flag = true;
+							}
 							match = true;
-						}// end of if name matches
+						} // end of if name matches
 					} // end of for
-//					if (match) {
-//						out.print("success");
-//					} else {
-//						out.print("error,數量大於10個");
-//						buylist.add(product);
-//					}
-					 if (!match){
-					 buylist.add(product);
-					 flag=true;
-					 }
-					 if (flag) {
-							out.print("success");
-						} else {
-							out.print("error");
+					if (!match) {
+						buylist.add(product);
+						flag = true;
+					}
+					if (flag) {
+						out.print("success");
+					} else {
+						out.print("error");
 					}
 				}
 				session.setAttribute("shoppingcart", buylist);

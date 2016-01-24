@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav class="navbar navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
@@ -16,6 +16,10 @@
 				</li>
 			</c:if>
 				<c:if test="${!empty isLogin}">
+				<li>
+					未讀訊息<span class="glyphicon glyphicon-envelope" aria-hidden="true">${count}</span>
+					好友邀請<span class="glyphicon glyphicon-user" aria-hidden="true">${friendcount}</span>
+				</li>
 					<li>
 						<img style="width: 40px; height: 40px;" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${isLogin.member_id}" />
 					</li>

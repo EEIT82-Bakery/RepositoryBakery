@@ -17,6 +17,11 @@ public class FriendService {
 		return dao.selectOne(invite_id);
 	}
 	
+	//**前台顯示幾個新邀請 謝謝
+	public int selectaddcount(Integer invitee_id,Integer friendstatu){
+		return dao.selectaddcount(invitee_id, friendstatu);
+	}
+	
 	//**尋找分區 謝謝
 	public List<FriendBean> selectPage(int pageInt,Integer invite_id,Integer friendstatu){
 		return dao.selectPage(pageInt, invite_id, friendstatu);
@@ -31,6 +36,12 @@ public class FriendService {
 	public int CheckCount(Integer invite_id,Integer friendstatu){
 		return dao.CheckCount(invite_id, friendstatu);
 	}
+	
+	//**找出誰加我 invitee_id=login的我
+	public List<FriendBean> getWhoInvitedMe(Integer invitee_id,Integer friendstatu){
+		return dao.getWhoInvitedMe(invitee_id, friendstatu);
+	}
+	
 	
 	//**以自己id分出所有數量
 	public int allFriendCount(Integer invite_id){

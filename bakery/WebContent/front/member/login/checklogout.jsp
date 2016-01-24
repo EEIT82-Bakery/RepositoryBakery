@@ -56,7 +56,7 @@ h1 {
 		<div id="logout">
 			<c:if test="${!empty isLogin}">
 				<c:if test="${not empty isLogin}">
-					<img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${isLogin.member_id}" id="mypicture" class="img-circle" alt="個人照片" />
+					<img src="data:image/png;base64,${isLogin.mpicture}" id="mypicture" class="img-circle" alt="個人照片" />
 				</c:if>
 				<h5>${isLogin.username},您確定要登出嗎?</h5>
 			</c:if>

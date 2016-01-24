@@ -346,8 +346,8 @@ public class MessageDAOJndi implements MessageDAO {
 		List<MessageBean> list = null;
 		ResultSet rs = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount', m2.Account as 'readAccount' ,Msg_id,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+
-					 " ORDER BY Msg_date desc OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
+			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'sendAccount',m1.picture as 'sendPicture',m1.nickname as 'sendNickname', m2.Account as 'readAccount' ,Msg_id,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Read_id="+read_id+"and Msg_state >=0"
+					+ " ORDER BY Msg_date desc OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY")){
 			rs = stmt.executeQuery();
 			list = new ArrayList<MessageBean>();
 			while(rs.next()){
@@ -355,6 +355,8 @@ public class MessageDAOJndi implements MessageDAO {
 				bean.setMsg_id(rs.getInt("Msg_id"));
 				bean.setSend_id(rs.getInt("Send_id"));
 				bean.setRead_id(rs.getInt("Read_id"));
+				bean.setSendPicture(rs.getBytes("sendPicture"));
+				bean.setSendNickname(rs.getString("sendNickname"));
 				bean.setSendAccount(rs.getString("sendAccount"));
 				bean.setReadAccount(rs.getString("readAccount"));
 				bean.setMsg_tit(rs.getString("Msg_tit"));
@@ -467,5 +469,59 @@ public class MessageDAOJndi implements MessageDAO {
 			}
 		}
 		return bean;
+	}
+	
+	
+	
+	@Override
+	public MessageBean selectFriendInveid(Integer send_id, Integer msg_state) {
+	
+		return null;
+	}
+	
+	
+	private static final String MESSAGECOUNT_state = "SELECT count(Read_id)  from Message where read_id=? and msg_state=?";
+	//*新訊息
+	@Override
+	public int givemecount(Integer read_id, Integer msg_state) {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(MESSAGECOUNT_state);
+			pstmt.setInt(1, read_id);
+			pstmt.setInt(2, msg_state);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
 	}
 }

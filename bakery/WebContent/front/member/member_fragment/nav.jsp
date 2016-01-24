@@ -45,7 +45,7 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<span><c:if test="${!empty isLogin}">
 
-									<span><img style="width: 20px; height: 20px;" class="img-circle" src="data:image/png;base64,${isLogin.mpicture}" /></span>
+									<span><img style="width: 20px; height: 20px;" class="img-circle" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${isLogin.member_id}"/></span>
 								</c:if> </span>  <strong>${isLogin.username}</strong> <span class="glyphicon glyphicon-chevron-down"></span>
 
 						</a>
@@ -57,7 +57,7 @@
 											<p class="text-center">
 												<c:if test="${!empty isLogin}">
 
-													<span><img style="width: 87px; height: 87px; top: 0%;" src="data:image/png;base64,${isLogin.mpicture}" /></span>
+													<span><img style="width: 87px; height: 87px; top: 0%;" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${isLogin.member_id}" /></span>
 												</c:if>
 										</div>
 
