@@ -98,13 +98,14 @@
 							</button>
 							<span>產品名稱:</span><span class="modal-title" id="myModalLabel"></span>
 						</div>
-						<div class="modal-body" style="margin-left: 33%">
-       <img src="" id="myimg" width="150" height="150" /> 
-       </div> 
-      <div>	
-       <span>產品描述 ：</span><br> 
-       <span id="myStatus"></span> 
-      </div>
+						<div class="modal-body"   style="margin-left: 33%">
+							<img src="" id="myimg" width="150" height="150" />
+							</div> 
+						<div>	
+							<span>產品描述 ：</span><br>
+							<span id="myStatus"></span>
+						</div>
+
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">關閉</button>
