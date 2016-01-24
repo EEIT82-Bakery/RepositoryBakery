@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-
 import com.mail.JavaMailUtil;
 import com.member.model.MemberBean;
 import com.member.model.MemberService;
