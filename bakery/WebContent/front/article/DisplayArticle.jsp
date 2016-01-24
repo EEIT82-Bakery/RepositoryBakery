@@ -176,7 +176,7 @@
 				</c:forEach>
 			</div>
 			<div class="col-xs-2">
-					<table style="border: 3px #C29793 dashed;" border='1'>
+					<table>
 						<tr>
 							<td colspan="3" align="center"><b
 								style="color: green; font-size: 25px;">人氣商品</b></td>
