@@ -110,9 +110,13 @@ function clearForm() {
 		</div>
 	</div>
 <%-- 	<%@ include file="../fragment/js.jsp"%> --%>
-<script>
+	<script>
 		$(function() {
 			$("#datepick").datepicker({
+				changeMonth:true,
+				changeYear:true,
+				yearRange:'-120:+0',
+				maxDate:0,
 				dateFormat : 'yy-mm-dd',
 			});
 		});
