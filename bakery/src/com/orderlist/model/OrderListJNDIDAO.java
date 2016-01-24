@@ -161,8 +161,8 @@ public class OrderListJNDIDAO implements OrderList_interface{
 				bean.setProductId(rset.getInt("product_id"));
 				bean.setProductName(rset.getString("product_name"));
 				String strSize=rset.getString("product_status");
-				if (strSize.length() >= 20L) {
-					String sr = strSize.substring(0, 20);
+				if (strSize.length() >= 40L) {
+					String sr = strSize.substring(0,40);
 					bean.setProductStatus(sr + "...");
 				} else {
 					bean.setProductStatus(strSize);

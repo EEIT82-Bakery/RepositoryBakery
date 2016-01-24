@@ -96,7 +96,7 @@ function clearForm() {
 						
 						<td colspan="2" align="center">
 						<input type="hidden" name="whichPage" value="${param.whichPage}">
-						<input type="submit" value="送出修改">
+						<input type="submit" value="送出修改" onClick="return(confirm('你確定要修改此商品資訊??'))">
 						<input type="hidden" name="action"value="update">
 						 </td>
 					</tr>

@@ -40,6 +40,7 @@ public class DBGifReader extends HttpServlet {
 			out.write(buf);
 			out.close();
 		} catch (Exception e) {
+			
 			String fileName = getServletContext().getRealPath(
 					"/front/HtmlData/images/1.jpg");
 			FileInputStream in = new FileInputStream(fileName);
