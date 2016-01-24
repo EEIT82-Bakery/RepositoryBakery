@@ -73,14 +73,14 @@
 			<td>${aBean.productDate}</td>
 			<td>
 			  <FORM METHOD="post" action='<c:url value="/ProductUpdateServlet.do"/>'>
-			     <input type="submit" value="修改">
+			     <input type="submit" value="修改" >
 			     <input type="hidden" name="productId" value="${aBean.productId}">
 			     <input type="hidden" name="whichPage" value="${param.whichPage}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" action='<c:url value="/ProductDeleteServlet.do"/>'>
-			    <input type="submit" value="刪除">
+			    <input type="submit" value="刪除" onClick="return(confirm('你確定要刪除此商品嗎??'))">
 			     <input type="hidden" name="whichPage" value="${param.whichPage}">
 			    <input type="hidden" name="productId" value="${aBean.productId}"><span>${errors.deleteNo}</span>
 			    <input type="hidden" name="action"value="delete"></FORM>

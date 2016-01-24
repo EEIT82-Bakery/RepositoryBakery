@@ -100,24 +100,29 @@ overflow: hidden;
                     <td>內容描述</td>
                     </tr>
                     <c:forEach var="photo" items="${photo3}" varStatus="theCount">
-                    <tr>  
-					 <td><span style="font-size:28px;">第${theCount.count}名</span><img src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
-							width="100px" height="100px" /></td>
-                    <td>${photo.productName}</td>
+                    <tr>
+					 <td width="200px"><img width="30px" src="<%=request.getContextPath()%>/front/HtmlData/images/crown.png">
+					 <span style="font-size:20px;">第${theCount.count}名</span><img src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
+							width="50px" height="50px" /></td>
+                    <td width="120px">${photo.productName}</td>
                    	<td>${photo.productStatus}</td>
                     </tr>
                     </c:forEach>
                 </table>
+                
             </div>
+
 
 		<!-----------------------------------------輪播----------------------------------------->
 		<!-----------------------------------------main----------------------------------------->
-
+<br/>
 
 		<!-----------------------------------------main----------------------------------------->
 		<!--------footer-------->
 		<%@ include file="./front/fragment/footer.jsp"%>
 		<!--------footer-------->
+	           </div>
+	</div>
 	</div>
 		<%@ include file="./front/fragment/js.jsp"%>
 	<script

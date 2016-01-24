@@ -60,6 +60,7 @@ public class ProductSelectOneServlet extends HttpServlet {
 				/*************************** 2.開始查詢資料 *****************************************/
 				ProductService productService = new ProductService();
 				List<ProductBean> bean = productService.select(productName);
+				System.out.println(bean);
 				if (bean.isEmpty()) {
 					errors.put("productNoData", "查無資料");
 				}
