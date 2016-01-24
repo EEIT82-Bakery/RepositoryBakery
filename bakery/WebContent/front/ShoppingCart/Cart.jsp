@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 
@@ -6,8 +7,12 @@
 <html>
 <head>
 <%@ include file="../fragment/css.jsp"%>
-<link href="${pageContext.request.contextPath}/front/HtmlData/css/product.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/front/HtmlData/css/cart.css" rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath}/front/HtmlData/css/product.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/front/HtmlData/css/cart.css"
+	rel="stylesheet" />
 <style>
 #sender {
 	float: right;
@@ -29,56 +34,58 @@
 	%>
 	<!-----------------------------------------nav------------------------------------------>
 	<div class="container-fluid">
-	<img src="${pageContext.request.contextPath}/back/HtmlData/images/logo.png" width="100px" height="100px">
-		<font size="+3">目前您購物車的內容如下：</font>
-	<div class="row" align="center">
-	
-	<div class="col-xs-12" style="padding-top: 10px;">
-		<!-----------------------------------------main----------------------------------------->
-		
-		<p>
-		<div class="CSSTableGenerator" >
-		<table id="shoppingCart">
-			<tr>
-				<td width="200">產品</td>
-				<td width="100">金額</td>
-				<td width="100">折扣</td>
-				<td width="120">數量</td>
-				<td width="120"></td>
-			</tr>
+		<img
+			src="${pageContext.request.contextPath}/back/HtmlData/images/logo.png"
+			width="100px" height="100px"> <font size="+3">目前您購物車的內容如下：</font>
+		<div class="row" align="center">
 
-			<c:forEach var="order" items="${shoppingcart}">
-				<tr>
-					<td><div align="center">
-							<b>${order.productName}</b>
-						</div></td>
-					<td><div align="center">
-							<b>${order.productPrice}</b>
-						</div></td>
-					<td><div align="center">
-							<b>${order.discount}</b>
-						</div></td>
-					<td><div align="center">
-							<b>${order.quantity}</b>
-						</div></td>
-					<td><div align="center">
-							<button class="del" onclick="deleteShoppingItems(<%=i++%>)">刪除</button>
-						</div></td>
-				</tr>
-			</c:forEach>
-		</table>
-		</div>
-		<br/>
-		</div>
-		
-		<form id="sender" name="checkoutForm" action='<c:url value="/Shopping.do"/>' method="POST">
-			<input type="hidden" name="action" value="CHECKOUT">
-			<input type="submit" value="付款結帳">
-		</form>
+			<div class="col-xs-12" style="padding-top: 10px;">
+				<!-----------------------------------------main----------------------------------------->
 
-		<a href="${pageContext.request.contextPath}/product2.controller?productTypeId=1&page=1" id="a">
-			<input type="button" value="繼續購物">
-		</a>
+				<p>
+				<div class="CSSTableGenerator">
+					<table id="shoppingCart">
+						<tr>
+							<td width="200">產品</td>
+							<td width="100">金額</td>
+							<td width="100">折扣</td>
+							<td width="120">數量</td>
+							<td width="120"></td>
+						</tr>
+						<c:forEach var="order" items="${shoppingcart}">
+							<tr>
+								<td><div align="center">
+										<b>${order.productName}</b>
+									</div></td>
+								<td><div align="center">
+										<b>${order.productPrice}</b>
+									</div></td>
+								<td><div align="center">
+										<b>${order.discount}</b>
+									</div></td>
+								<td><div align="center">
+										<b>${order.quantity}</b>
+									</div></td>
+								<td><div align="center">
+										<button class="del" onclick="deleteShoppingItems(<%=i++%>)">刪除</button>
+									</div></td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+				<br />
+			</div>
+
+			<form id="sender" name="checkoutForm"
+				action='<c:url value="/Shopping.do"/>' method="POST">
+				<input type="hidden" name="action" value="CHECKOUT"> <input
+					type="submit" value="付款結帳">
+			</form>
+
+			<a
+				href="${pageContext.request.contextPath}/product2.controller?productTypeId=1&page=1"
+				id="a"> <input type="button" value="繼續購物">
+			</a>
 		</div>
 		<!-----------------------------------------main----------------------------------------->
 		<!--------footer-------->
@@ -86,7 +93,6 @@
 		<!--------footer-------->
 	</div>
 	<script>
-	
 	if(window.name != "Cart"){ 
 		location.reload(); 
 		window.name = "Cart"; 
@@ -94,8 +100,7 @@
 	else{ 
 		window.name = ""; 
 	} 
-	 
-		function deleteShoppingItems(del) {			
+	function deleteShoppingItems(del) {			
 			xmlHttp = new XMLHttpRequest();
 			if (xmlHttp != null) {
 				xmlHttp.open("POST","${pageContext.request.contextPath}/Shopping.do", true);
@@ -127,7 +132,6 @@
 				}
 			}
 		}
-
 	</script>
 	<%@ include file="../fragment/js.jsp"%>
 

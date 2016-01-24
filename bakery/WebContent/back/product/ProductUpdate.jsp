@@ -10,6 +10,12 @@
 <html>
 <head>
 <%@ include file="../fragment/css.jsp"%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.min.css">
+<script
+	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-ui.min.js"></script>
 </head>
 <script type="text/javascript">
 function clearForm() {
@@ -75,9 +81,9 @@ function clearForm() {
 					</tr>
 					<tr>
 						<td>日期 :</td>
-						<td><input type="text" name="productDate"
-							value="${productDate}" size="40"><br/>
-							${errors.productDate}</td>
+						<td><input type="text" name="productDate" id="datepick"
+						readonly="readonly"><br/>
+						${errors.productDate}</td>
 					</tr>
 										<tr>
 						<td>產品類型 :</td>
@@ -96,7 +102,7 @@ function clearForm() {
 						
 						<td colspan="2" align="center">
 						<input type="hidden" name="whichPage" value="${param.whichPage}">
-						<input type="submit" value="送出修改">
+						<input type="submit" value="送出修改" onClick="return(confirm('你確定要修改此商品資訊??'))">
 						<input type="hidden" name="action"value="update">
 						 </td>
 					</tr>
@@ -106,7 +112,16 @@ function clearForm() {
 		</div>	
 		</div>
 	</div>
-	<%@ include file="../fragment/js.jsp"%>
-
+<%-- 	<%@ include file="../fragment/js.jsp"%> --%>
+	<script>
+		$(function() {
+			$("#datepick").datepicker({
+				changeMonth:true,
+				yearRange:'-120:+0',
+				maxDate:0,
+				dateFormat : 'yy-mm-dd',
+			});
+		});
+	</script>
 </body>
 </html>

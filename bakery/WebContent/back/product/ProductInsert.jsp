@@ -98,7 +98,7 @@ function clearForm() {
 					
 					<tr>	
 						<td colspan="2" align="center">
-						<input type="submit" name="prodaction" value="Insert">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<input type="submit" name="prodaction" value="Insert" onClick="return(confirm('你確定要新增此商品資訊??'))">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 						<input type="button" value="Clear" onclick="clearForm()"></td>
 					</tr>
 				</table>
@@ -110,9 +110,13 @@ function clearForm() {
 		</div>
 	</div>
 <%-- 	<%@ include file="../fragment/js.jsp"%> --%>
-<script>
+	<script>
 		$(function() {
 			$("#datepick").datepicker({
+				changeMonth:true,
+				changeYear:true,
+				yearRange:'-120:+0',
+				maxDate:0,
 				dateFormat : 'yy-mm-dd',
 			});
 		});

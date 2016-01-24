@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>焙客栗工坊</title>
 </head>
 <body>
 	<h3>404. That’s an error.</h3> 

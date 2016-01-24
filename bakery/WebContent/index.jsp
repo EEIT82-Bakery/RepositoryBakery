@@ -14,18 +14,20 @@
 	pageContext.setAttribute("photo3", topphoto);
 %>
 <style>
-.tabPanel { 
-margin: 10px auto; 
-width: 100%; 
-height: 300px; 
-position: relative; 
-overflow: hidden; 
+.tabPanel {
+	margin: 10px auto;
+	width: 100%;
+	height: 300px;
+	position: relative;
+	overflow: hidden;
 }
+
 .tabPanel img, .tabPanel a img {
 	display: block;
 	width: 100%;
 	height: 300px;
 }
+
 .dot {
 	position: absolute;
 	bottom: 1px;
@@ -38,6 +40,7 @@ overflow: hidden;
 	list-style: none;
 	cursor: default;
 }
+
 .dot li {
 	display: inline-block;
 	width: 10px;
@@ -92,34 +95,67 @@ overflow: hidden;
 						</ol>
 					</div>
 				</div>
-				<div class="CSSTableGenerator">
-                <table>
-                    <tr>
-                    <td>人氣商品</td>
-                    <td>產品名稱</td>
-                    <td>內容描述</td>
-                    </tr>
-                    <c:forEach var="photo" items="${photo3}" varStatus="theCount">
-                    <tr>  
-					 <td><span style="font-size:28px;">第${theCount.count}名</span><img src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
-							width="100px" height="100px" /></td>
-                    <td>${photo.productName}</td>
-                   	<td>${photo.productStatus}</td>
-                    </tr>
-                    </c:forEach>
-                </table>
-            </div>
+				<div class="col-xs-6">
+					<div class="CSSTableGenerator">
+						<table>
+							<tr>
+								<td>人氣商品</td>
+								<td>產品名稱</td>
+								<td>內容描述</td>
+							</tr>
+							<c:forEach var="photo" items="${photo3}" varStatus="theCount">
+								<tr>
+									<td width="200px"><img width="30px"
+										src="<%=request.getContextPath()%>/front/HtmlData/images/crown.png">
+										<span style="font-size: 20px;">第${theCount.count}名</span><img
+										src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
+										width="50px" height="50px" /></td>
+									<td width="120px">${photo.productName}</td>
+									<td>${photo.productStatus}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
 
-		<!-----------------------------------------輪播----------------------------------------->
-		<!-----------------------------------------main----------------------------------------->
+				<div class="col-xs-6">
+					<table border="1" whidth="100%" height="100%">
+						<tr>
+							<td id="shift" class='one'><h1>WELCOME TO THE</h1></td>
+						</tr>
+						<tr>
+							<td id="shift" class='two'><h1>JUMBLE SALE</h1></td>
+						</tr>
+						<tr>
+							<td id="shift" class='too'><h1>||| BABY |||</h1></td>
+						</tr>
+						<tr>
+							<td id="shift" class='three'><h1>YOU'RE GONNA</h1></td>
+						</tr>
+						<tr>
+							<td id="shift" class='four'>>
+								<h1>BUUUUYYYYHUH!</h1>
+							</td>
+						</tr>
+					</table>
+				</div>
 
-
-		<!-----------------------------------------main----------------------------------------->
-		<!--------footer-------->
+				<!-----------------------------------------輪播----------------------------------------->
+				<!-----------------------------------------main----------------------------------------->
+				<!-----------------------------------------main----------------------------------------->
+				<!--------footer-------->
+				<!--------footer-------->
+			</div>
+			<br>
+		</div>
+		<br>
 		<%@ include file="./front/fragment/footer.jsp"%>
-		<!--------footer-------->
 	</div>
-		<%@ include file="./front/fragment/js.jsp"%>
+	<%@ include file="./front/fragment/js.jsp"%>
+	<script src="js/prism.js" data-default-language="markup"></script>
+	<script src="js/jumble.js"></script>
+	<script src="js/mousewheel.min.js"></script>
+	<script src="js/scrollbar.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript"

@@ -13,8 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -31,7 +29,6 @@ import com.membergrade.model.MemberGradeBean;
 @Table(name = "Member")
 public class MemberBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	
 	@ManyToOne
 	@JoinColumn(
@@ -47,7 +44,6 @@ public class MemberBean implements Serializable {
 	public void setMeber(MemberGradeBean membergrade) {
 		this.membergrade = membergrade;
 	}
-
 	@Id
 	@Column(name="Member_id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

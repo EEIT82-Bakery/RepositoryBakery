@@ -53,7 +53,17 @@ public class MessageService {
 	public int getMemberCount() {
 		return dao.getProduct();
 	}
+	
+	//**拿來抓新訊息用
+	public int getState(Integer msg_state){
+		return dao.getState(msg_state);
+	}
 
+	///**前台用
+	public int givemecount(Integer read_id,Integer msg_state){
+		return dao.givemecount(read_id, msg_state);
+	}
+	
 	public int getReadCount(Integer read_id) {
 		return dao.getreadCount(read_id);
 	}

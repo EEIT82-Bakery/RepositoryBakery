@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-
+import com.message.model.MessageBean;
 
 public class FriendDAOJndi implements FriendDAO {
 	private DataSource ds = null;
@@ -148,12 +148,12 @@ public class FriendDAOJndi implements FriendDAO {
 	
 	
 	
-	private static final String GETWHOINVITEDME =
-			"select invitee_id,invite_id from Friend_List where invitee_id=? and friendstatu";
+	private static final String GETWHOINVITEDME ="select m1.account as 'inviteAccount',m1.Picture as 'invitePiture', m2.Account as 'inviteeAccount' ,m2.Picture as 'inviteePicture' ,invite_id , invitee_id,friendstatu from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invitee_id=? and friendstatu=?";
+			
 	@Override
-	public List<FriendBean> getWhoInvitedMe(Integer invitee_id) {
+	public List<FriendBean> getWhoInvitedMe(Integer invitee_id,Integer friendstatu) {
 		List<FriendBean> list = new ArrayList<FriendBean>();
-		FriendBean friend_ListVO = null;
+		FriendBean friendbean = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -161,22 +161,21 @@ public class FriendDAOJndi implements FriendDAO {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GETWHOINVITEDME);		
 			pstmt.setInt(1, invitee_id);
-			pstmt.setInt(2,invitee_id);
-			
+			pstmt.setInt(2,friendstatu);
 			rs = pstmt.executeQuery();
-
 			while (rs.next()) {
-				friend_ListVO = new FriendBean();
-				friend_ListVO.setInvitee_id(rs.getInt(1));
-				friend_ListVO.setInvite_id(rs.getInt(2));
-				
-				list.add(friend_ListVO);
-			} // Handle any driver errors
+				friendbean = new FriendBean();
+				friendbean.setInviteAccount(rs.getString("inviteAccount"));//邀請人帳號
+				friendbean.setInvitePiture(rs.getBytes("invitePiture"));//邀請人照片
+				friendbean.setInvite_id(rs.getInt("invite_id"));
+				friendbean.setInvitee_id(rs.getInt("invitee_id"));
+				friendbean.setFriendstatu(rs.getInt("friendstatu"));
+				list.add(friendbean);
+			} 
 
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
 				try {
@@ -450,7 +449,7 @@ public class FriendDAOJndi implements FriendDAO {
 		List<FriendBean> lists = null;
 		ResultSet rest = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'inviteAccount', m2.Account as 'inviteeAccount' ,invite_id , invitee_id,friendstatu, from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invite_id="+invite_id+"and friendstatu="+friendstatu
+			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'inviteAccount', m2.Account as 'inviteeAccount' ,invite_id , invitee_id,friendstatu from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invite_id="+invite_id+"and friendstatu="+friendstatu
 					+ " ORDER BY friendstatu OFFSET 5 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 5 ROWS ONLY");){
 			
 			rest = stmt.executeQuery();
@@ -514,6 +513,53 @@ public class FriendDAOJndi implements FriendDAO {
 		}
 		return bean;
 		
+	}
+
+
+
+	private static final String SELECTCOUNT=" SELECT count(invitee_id)  from friend_list where invitee_id=? and friendstatu=?";
+	
+	@Override
+	public int selectaddcount(Integer invitee_id, Integer friendstatu) {
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet rs = null;
+		int result = 0;
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(SELECTCOUNT);
+			pstmt.setInt(1, invitee_id);
+			pstmt.setInt(2, friendstatu);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return result;
 	}
 	
 	

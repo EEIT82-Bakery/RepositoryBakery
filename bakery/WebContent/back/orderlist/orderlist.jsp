@@ -71,7 +71,7 @@
 			 <input type="hidden" name="orderIdu" value="${aBean.orderId}">
 			 <input type="hidden" name="orderSatus" value="${aBean.orderStaus}">
 			 <input type="hidden" name="whichPage" value="${param.whichPage}">
-			 <input type="submit" value="修改">
+			 <input type="submit" value="修改" onClick="return(confirm('您確定要修改此出貨狀態嗎??'))">
 				</FORM>
 			</td>
 				
@@ -80,7 +80,7 @@
 			<input type="hidden" name="action" value="delete">
 			 <input type="hidden" name="orderIdd" value="${aBean.orderId}">
 			 <input type="hidden" name="whichPage" value="${param.whichPage}">
-			 <input type="submit" value="刪除">
+			 <input type="submit" value="刪除" onClick="return(confirm('您確定要刪除此訂單嗎??'))">
 			 </FORM>
 			</td>
 		</tr>

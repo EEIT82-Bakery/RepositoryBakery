@@ -89,7 +89,7 @@ input.upl {
 
 </head>
 <body>
-	<%@ include file="../member_fragment/nav.jsp"%>
+		<%@ include file="../member_fragment/nav.jsp"%>
 	<div class="container top">
 		<!-----------------------------------------main----------------------------------------->
 		<div class="row">
@@ -99,7 +99,7 @@ input.upl {
 					<div class="thumbnail">
 						<center>
 							<h5>會員:${isLogin.username}，您好</h5>
-							<img src="data:image/png;base64,${isLogin.mpicture}" id="mypicture" class="img-circle" alt="個人照片" />
+							<img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${isLogin.member_id}" id="mypicture" class="img-circle" alt="個人照片" />
 							<hr>
 							會員姓名:${SelectMo.username}
 							<br>
@@ -213,7 +213,7 @@ input.upl {
 
 							<div class="btn">
 								<div>
-									<img class="preview" style="width: 245px; height: 200px;" id="mypicc" name="mypicc" src="data:image/png;base64,${SelectMo.mpicture}">
+									<img class="preview" style="width: 245px; height: 200px;" id="mypicc" name="mypicc" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${SelectMo.member_id}">
 									<input type='file' class="upl" name="pic">
 								</div>
 							</div>

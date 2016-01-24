@@ -13,13 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.binary.Base64;
+
 import com.friend.model.FriendBean;
 import com.friend.model.FriendService;
 import com.member.model.MemberBean;
 import com.member.model.MemberService;
 import com.message.model.MessageBean;
 import com.message.model.MessageService;
-
 
 @WebServlet("/FriendServlet.controller")
 public class FriendServlet extends HttpServlet{
@@ -88,14 +89,14 @@ public class FriendServlet extends HttpServlet{
 			try {
 				Integer invite_id = new Integer(req.getParameter("invite_id"));
 				Integer invitee_id = new Integer(req.getParameter("invitee_id"));
-				java.sql.Timestamp msg_date= java.sql.Timestamp.valueOf(req.getParameter("msg_date"));
+				String requestURL = req.getParameter("requestURL");
+//				java.sql.Timestamp msg_date= java.sql.Timestamp.valueOf(req.getParameter("msg_date"));
 				if (!errors.isEmpty()) {
 					FriendBean bean = new FriendBean();
 					bean.setInvite_id(invite_id);
 					bean.setInvitee_id(invitee_id);
-					req.setAttribute("friendBean", bean);RequestDispatcher failureView = req
-							.getRequestDispatcher("");
-					failureView.forward(req, resp);
+					req.setAttribute("friendBean", bean);
+					req.getRequestDispatcher(requestURL).forward(req, resp);
 					return;
 				}
 				FriendService friendservice = new FriendService();
@@ -113,28 +114,38 @@ public class FriendServlet extends HttpServlet{
 				
 				req.setAttribute("message" ,"已成為好友");
 				req.setAttribute("memberBean", memberbean); 
-				req.getRequestDispatcher("/front/member/message/MessageCount.jsp?action=count&send_id="+invite_id+"&read_id="+invitee_id+"&msg_date="+msg_date).forward(req, resp);
+				req.getRequestDispatcher(requestURL).forward(req, resp);
 				
 			} catch (Exception e) {
 					errors.add(e.getMessage());
-					RequestDispatcher failureView = req.getRequestDispatcher("/front/friend_list/showWhoInvitedMe.jsp");
-					failureView.forward(req, resp);
+					req.getRequestDispatcher("/front/member/message.jsp").forward(req, resp);
 					
 				}
-		}
+			
+		}		
 			if("noagree".equals(action)){
+				List<String> errorMsgs = new LinkedList<String>();
+				req.setAttribute("errorMsgs", errorMsgs);
+				try {
 				Integer inviteid = new Integer(req.getParameter("invite_id"));
 				Integer inviteeid = new Integer(req.getParameter("invitee_id"));
-				java.sql.Timestamp msg_date= java.sql.Timestamp.valueOf(req.getParameter("msg_date"));
+				String requestURL = req.getParameter("requestURL");
 				FriendService friendservice = new FriendService();
 				friendservice.delete(inviteid,inviteeid);
 				MemberService memberservice = new MemberService();
 				MemberBean memberbean = new MemberBean();
 				memberbean = memberservice.getOneId(inviteid);
 				req.setAttribute("memberBean", memberbean); 
-				RequestDispatcher successView = req.getRequestDispatcher("/MessageServlet.do?action=count&send_id="+inviteid+"&read_id="+inviteeid+"&msg_date="+msg_date);
-				successView.forward(req, resp);
-				}	
+				req.getRequestDispatcher(requestURL).forward(req, resp);
+				}catch (Exception e) {
+					errorMsgs.add(e.getMessage());
+					 req.getRequestDispatcher("/front/member/message.jsp").forward(req, resp);
+					
+				}
+			}
+		
+
+			
 			if("myfriendlist".equals(action)){
 				HttpSession session = req.getSession();
 				MemberBean memberbean =(MemberBean) session.getAttribute("isLogin");
@@ -142,6 +153,7 @@ public class FriendServlet extends HttpServlet{
 					String path = req.getContextPath();
 					resp.sendRedirect(path+"/front/article/error/NotLogin.jsp");
 					return;
+					
 				}else{
 				int pageSize = 8;
 				Integer invited = memberbean.getMember_id();
@@ -157,6 +169,8 @@ public class FriendServlet extends HttpServlet{
 				req.getRequestDispatcher("/front/member/friend_list/myfriend_list.jsp").forward(req, resp);	
 				}
 			}
+			
+			
 			
 			if("deletefriend".equals(action)){		
 				List<String> errors = new LinkedList<String>();
@@ -204,7 +218,17 @@ public class FriendServlet extends HttpServlet{
 				}
 			}
 			
-			
+			if("Select_addme".equals(action)){
+				HttpSession session = req.getSession();
+//				MemberBean memberbean = (MemberBean)session.getAttribute("isLogin");
+//				Integer invitee_id = memberbean.getMember_id();
+				Integer invitee_id = new Integer(req.getParameter("invitee_id"));
+				FriendService friendservice = new FriendService();			
+				List<FriendBean> lists = friendservice.getWhoInvitedMe(invitee_id, 0);
+				session.setAttribute("list", lists);
+				req.getRequestDispatcher("/front/member/friend_list/addme.jsp").forward(req, resp);
+				
+			}
 			
 			
 			

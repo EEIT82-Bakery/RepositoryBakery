@@ -17,6 +17,27 @@ public class MessageBean implements Serializable {
 	private String sendAccount;
 
 	private String readAccount;
+	private byte[] sendPicture;
+	private String sendNickname;
+	
+	
+
+	
+	public byte[] getSendPicture() {
+		return sendPicture;
+	}
+
+	public void setSendPicture(byte[] sendPicture) {
+		this.sendPicture = sendPicture;
+	}
+
+	public String getSendNickname() {
+		return sendNickname;
+	}
+
+	public void setSendNickname(String sendNickname) {
+		this.sendNickname = sendNickname;
+	}
 
 	public Integer getMsg_id() {
 		return msg_id;

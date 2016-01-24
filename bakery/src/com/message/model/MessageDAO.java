@@ -15,6 +15,7 @@ public interface MessageDAO {
 	public int updateState(MessageBean bean);
 	public List<MessageBean> selectAll();
 	public List<MessageBean> getgivemymsg(Integer read_id,Integer msg_state );
+	public int givemecount(Integer read_id,Integer msg_state);//給我新訊息的數量
 	
 	
 	public List<MessageBean> selectAllPage(int pageInt,Integer read_id);
@@ -28,7 +29,7 @@ public interface MessageDAO {
 	
 	public MessageBean select();//不分狀態 取得全部的筆數
 	
-	
+	public MessageBean selectFriendInveid(Integer send_id,Integer msg_state);
 	
 	public MessageBean seletemsgid(Integer msg_id);
 	

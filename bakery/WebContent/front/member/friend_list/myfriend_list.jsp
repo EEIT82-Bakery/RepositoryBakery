@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>焙客栗工坊</title>
-<%@ include file="../../fragment/css.jsp"%>
+<link href="${pageContext.request.contextPath}/front/HtmlData/css/semantic.min.css" rel="stylesheet" />
 <style type="text/css">
 #t-cards {
 	padding-top: 80px;
@@ -99,17 +99,43 @@
 	width:50px;
 	height:50px;
 }
+form{
+    float:left;
+}
 </style>
+<%@ include file="../../fragment/css.jsp"%>
 </head>
 <body>
 	<%@ include file="../../fragment/nav.jsp"%>
-<!-- 	<section id="t-cards"> -->
-		
     <div class="container">
         <div class="row">
-       <p class="bg-info">我的好友列表</p>
+          <p class="bg-info">我的好友列表</p>
+			<div class="ui action input">
+				<input type="text" placeholder="Search...">
+				<button class="ui button">Search</button>
+			</div>
+
+			<div class="ui large buttons">
+           <a href="${pageContext.request.contextPath}/FriendListServlet.do?invited=${isLogin.member_id}&pages=1"
+					class="ui button" id="submit_demo1">全部好友</a> <div class="or"></div>
+			<form method="post" action='<c:url value="/FriendServlet.controller"/>'>
+					<input type="submit" class="ui button" id="submit_demo2" value="好友邀請">
+								<input type="hidden" name="invitee_id" value="${isLogin.member_id}">
+								<input type="hidden" name="action" value="Select_addme">
+					</form>
+				  </div>
+			</div>  
+     
         <hr>
+         <c:if test="${empty list}">
+          <p>目前無好友</p>
+        </c:if>
+     
+     
         <c:forEach varStatus="stVar" var="Go" items="${list}">
+       
+        
+         	
              <div class="col-sm-6 col-md-3">
                 <div class="panel panel-default panel-card">
                     <div class="panel-heading">
@@ -148,7 +174,7 @@
 		   	 </c:forEach>
 	  		 	 </div>
    		 	</div>
-   
+  <c:if test="${not empty list}">
    	  <div class="container">
         <div class="row">
    	   <div class="col-sm-6- col-md-6">
@@ -159,16 +185,17 @@
 						<b style="font-size:2em;">${page}</b>
 						</a>&nbsp;&nbsp;&nbsp;
 					</c:if>
-					<c:if test="${empty isLogin.member_id}">
-					<a href="${pageContext.request.contextPath}/FriendServlet.controller?action=friendlist&invited=${member.member_id}&pages=${page}">
-						<b style="font-size:2em;">${page}</b>
-						</a>&nbsp;&nbsp;&nbsp;
-					</c:if>
+<%-- 					<c:if test="${empty isLogin.member_id}"> --%>
+<%-- 					<a href="${pageContext.request.contextPath}/FriendServlet.controller?action=friendlist&invited=${member.member_id}&pages=${page}"> --%>
+<%-- 						<b style="font-size:2em;">${page}</b> --%>
+<!-- 						</a>&nbsp;&nbsp;&nbsp; -->
+<%-- 					</c:if> --%>
 				</c:forEach>
 				</c:if>
    			 </div>
    		 </div>
    	 </div>
+   	    </c:if>
 <!-- </section> -->
 </body>
 </html>

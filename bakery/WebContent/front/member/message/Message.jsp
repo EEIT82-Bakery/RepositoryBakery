@@ -1,6 +1,7 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<% int t = 0; %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -8,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <title>信箱 - 焙客栗工坊</title>
+<link href="${pageContext.request.contextPath}/front/HtmlData/css/semantic.min.css" rel="stylesheet" />
 <%@ include file="../../fragment/css.jsp"%>
 <style>
 .forumtitle {
@@ -48,6 +50,11 @@ input[type=submit]{
                  border-radius: 15px;
                  border: 1px solid #999;
              }
+             
+#friendpicture  {
+	width: 130px;
+	height: 190px;
+}        
 </style>
 </head>
 <body>
@@ -73,21 +80,23 @@ input[type=submit]{
 			
 					<table bgcolor="orange">
 					<tr class="forumtitle">
-						<td width="10%"><input type="checkbox" id="checkBoxAll"></td>
+						<td width="7%"><input type="checkbox" id="checkBoxAll"></td>
+						<td width="15%"></td>
 						<td width="20%">寄件人</td>
-						<td width="40%">訊息標題</td>
-						<td width="20%">寄送時間</td>
-						<td width="10%">寄信狀態</td>
+						<td width="35%">訊息標題</td>
+						<td width="15%">寄送時間</td>
+						<td width="8%">寄信狀態</td>
 					</tr>
 					<c:forEach varStatus="stVar" var="Go" items="${list}">
 						<!-- 用兩種顏色交替使用作為顯示商品資料的背景底色 -->
-						<c:set var="rowColor" value="#F5DEB3" />
+						<c:set var="rowColor" value="#fefefe" />
 						<c:if test="${ stVar.count % 2 == 0 }">
-							<c:set var="rowColor" value="#FFEFD5" />
+							<c:set var="rowColor" value="#f0ece9" />
 						</c:if>
 						<tr height='18' bgColor="${rowColor}">
 							<td><input type="checkbox" class="chkCheckBoxId" value="${Go.msg_id}" name="msg_id"></td>
-							<td style="height: 30px;">${Go.sendAccount}</td>
+							<td><img class="img-responsive img-circle" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${Go.send_id}" id="friendpicture" alt="個人照片"/></td>
+							<td style="height: 30px;">${Go.sendAccount}(${Go.sendNickname})</td>
 							<td><a href="${pageContext.request.contextPath}/MessageServlet.do?action=count&Msg_id=${Go.msg_id}">${Go.msg_tit}</a></td>
 							<td>${Go.mdate}</td>
 							<td><c:if test="${Go.msg_state==1}">
@@ -101,11 +110,13 @@ input[type=submit]{
 		
 			</div>
 			<c:if test="${not empty pageCount}">
+			
 				<c:forEach var="page" begin="1" end="${pageCount}">
 					<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=${page}">
 						<c:out value="${page}" />
 					</a>
 				</c:forEach>
+				
 			</c:if>
 				</form>
 		</div>

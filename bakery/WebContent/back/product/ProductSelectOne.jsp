@@ -73,7 +73,7 @@
 			</td>
 			<td>
 			   <FORM METHOD="post" action='<c:url value="/ProductDeleteServlet.do"/>'>
-			    <input type="submit" value="刪除">
+			    <input type="submit" value="刪除" onClick="return(confirm('您確定要刪除此商品嗎??'))">
 			    <input type="hidden" name="productId" value="${aBean.productId}"><span>${errors.deleteNo}</span>
 			    <input type="hidden" name="action"value="delete"></FORM>
 			</td>

@@ -114,7 +114,7 @@
 					
 						<tr>
 							<td><h6>${onelist.member_id}</h6></td>
-							<td><img src="data:image/png;base64,${onelist.mpicture}" id="mypicture" class="img-circle" alt="個人照片" /></td>
+							<td><img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${onelist.mpicture}" id="mypicture" class="img-circle" alt="個人照片" /></td>
 							<td><h6>${onelist.account}</h6></td>
 							<td><h6>${onelist.username}</h6></td>
 							<td><h6>${onelist.nickname}</h6></td>

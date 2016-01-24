@@ -9,14 +9,13 @@ public interface MemberDAO_Interface {
 	public List<MemberBean> getALL();
 	public MemberBean update(String phone,String email,String address,String nickname,byte[] picture ,int memberid);
 	public List<MemberBean> getAllMem(String account);
-		
+	public MemberBean updatepoint(int member_id,int point);
 	//更新個人資料
 	
 	
 	//-----------------------login---------------------//
 	public void updateUnifom(MemberBean bean);
 	public boolean update(byte[] password,String account);//修改密碼
-	public boolean updatepoint(int member_id,int point);//購買後增加點數
 	public void  changePassword(MemberBean bean);
 	
 	//----------------------regis----------------------//

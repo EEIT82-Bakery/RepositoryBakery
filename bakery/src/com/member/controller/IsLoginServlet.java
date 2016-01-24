@@ -1,7 +1,6 @@
 package com.member.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -15,11 +14,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+
+import org.apache.commons.codec.binary.Base64;
+import com.friend.model.FriendService;
 import com.mail.JavaMailUtil;
 import com.member.model.MemberBean;
 import com.member.model.MemberService;
 import com.member.model.RandomPassWord;
+
+import com.message.model.MessageService;
 
 @WebServlet("/front/member/login/login.do")
 public class IsLoginServlet extends HttpServlet {
@@ -60,6 +63,7 @@ public class IsLoginServlet extends HttpServlet {
 			}
 
 			MemberBean memberbean = service.checkLogin(account, password);
+			
 
 			if (memberbean == null) {
 				errorMsg.put("LoginError", "無此帳號或是帳號密碼錯誤");
@@ -76,6 +80,7 @@ public class IsLoginServlet extends HttpServlet {
 				HttpSession session = req.getSession();
 				memberbean.setMpicture(Base64.encodeBase64String(memberbean
 						.getPicture()));
+				Integer membid = memberbean.getMember_id();
 				session.setAttribute("isLogin", memberbean);
 				int id = memberbean.getMember_id();
 				session.setAttribute("id", id);
@@ -87,6 +92,14 @@ public class IsLoginServlet extends HttpServlet {
 				} else {
 					sex = "女";
 				}
+				MessageService messageservice = new MessageService();
+			
+				Integer count = messageservice.givemecount(membid,1);
+				FriendService friendservice= new FriendService();
+				Integer friendcount = friendservice.selectaddcount(membid,0);
+			
+				session.setAttribute("friendcount", friendcount);
+				session.setAttribute("count", count);
 				session.setAttribute("sex", sex);
 				int sta = memberbean.getStatus();
 				session.setAttribute("statu", sta);

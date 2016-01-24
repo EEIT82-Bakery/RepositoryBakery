@@ -165,7 +165,8 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 		return result;
 	}
 
-	private static final String SELECT_BY_ID = "select Product_id, Product_name,Product_status,Product_price,Main_photo,Discount,Product_date,Product_type from Product p join product_type t on p.product_type_id=t.product_type_id where Product_name like ? ";
+	private static final String SELECT_BY_ID = "select Product_id, Product_name,Product_status,Product_price,Main_photo,Discount,Product_date,t.product_type from Product p join product_type t on p.product_type_id=t.product_type_id where Product_name like ?";
+
 
 	@Override
 	public List<ProductBean> select(String productName) {
@@ -187,7 +188,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 				bean.setMain_photo(rset.getBytes("Main_photo"));
 				bean.setDiscount(rset.getString("Discount"));
 				bean.setProductDate(rset.getDate("Product_date"));
-				bean.setProductType(rset.getString("Product_type_id"));
+				bean.setProductType(rset.getString("Product_type"));
 				beans.add(bean);
 			}
 		} catch (SQLException e) {

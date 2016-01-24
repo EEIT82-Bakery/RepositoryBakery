@@ -3,6 +3,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="icon" href="/bakery/front/HtmlData/images/logo-icon.ico" />
 <title>焙客栗工坊</title>
 <style>
 body {
