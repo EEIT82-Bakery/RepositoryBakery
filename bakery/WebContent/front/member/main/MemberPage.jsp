@@ -114,6 +114,8 @@ input.upl {
 							信箱:${SelectMo.email}
 							<br>
 							手機號碼:${SelectMo.phone}
+							<br>
+							個人介紹:${SelectMo.kanban}
 							<hr>
 							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">修改會員資料</button>
 						</center>

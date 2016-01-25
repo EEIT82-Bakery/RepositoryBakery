@@ -134,6 +134,10 @@ public class RegisterServlet extends HttpServlet {
 		if (nickname == null || nickname.length() == 0) {
 			errorMessage.put("m_nick", "暱稱為必填欄位，不得為空白");
 		}
+		String kanban = req.getParameter("m_kanban");
+		if(kanban==null||kanban.length()==0){
+			errorMessage.put("m_kanban","請輸入自我介紹");
+		}
 		if (!errorMessage.isEmpty()) {
 			req.getRequestDispatcher("/front/member/register/regis.jsp").forward(req, resp);
 			return;

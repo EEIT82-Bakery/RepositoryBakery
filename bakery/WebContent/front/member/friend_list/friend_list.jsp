@@ -147,7 +147,7 @@
    	   <div class="col-sm-6- col-md-6">
    	 	<c:if test="${not empty pageCount}">
 				<c:forEach var="page" begin="1" end="${pageCount}">
-					<a href="${pageContext.request.contextPath}/FriendListServlet.do?invited=${beans.invite_id}&pages=${page}">
+					<a href="${pageContext.request.contextPath}/FriendServlet.controller?action=friendlist&invited=${beans.invite_id}&pages=${page}">
 						<b style="font-size:2em;">${page}</b>
 						</a>&nbsp;&nbsp;&nbsp;
 				</c:forEach>

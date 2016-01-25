@@ -266,4 +266,19 @@ public class ArticleDAOHibernate implements ArticleDAO_interface {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public List<ArticleBean> getMemberArticle(int memberId) {
+		List<ArticleBean> beans = null;
+		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+		try {
+			session.beginTransaction();
+			beans = session.createQuery("From ArticleBean where member_id = ?").setParameter(0, memberId).list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			session.getTransaction().rollback();
+			e.printStackTrace();
+		}
+		return beans;
+	}
 }

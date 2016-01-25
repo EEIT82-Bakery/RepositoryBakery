@@ -20,5 +20,6 @@ public interface ArticleDAO_interface {
 	public abstract int getRecordCounts(String articleTitle);
 	public abstract List<ArticleBean> getPageArticlesTitle(String articleTitle , int startRow, int recordsPerRow);
 	public abstract String getArticleTitle(int articleId);
+	public abstract List<ArticleBean> getMemberArticle(int memberId);
 	
 }

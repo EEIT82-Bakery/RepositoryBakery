@@ -147,6 +147,11 @@ input.upl {
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-6">
 					<div class="form-group">
+					<input type="text" name="kanban" id="m_kanban"
+									class="form-control input-lg" value="${param.kanban}"
+									placeholder="自我介紹" tabindex="1"> <span id="m_kanban"
+									class="errorMsg" style="color: #FF0000; font-size: 60%; display: inline">${ErrorMsg.m_kanban}</span>
+					
 			
 					</div>
 				</div>
@@ -246,6 +251,8 @@ input.upl {
 					</div>
 					</div>
 					</div>
+					
+		<%@ include file="../../fragment/js.jsp"%>			
 <script>
 
 $(function() {
@@ -267,7 +274,7 @@ $(function() {
 		preview(this);
 	})
 })
-	<%@ include file="../../fragment/js.jsp"%>
+
 </script>
 <script>
 window.onload = function () {

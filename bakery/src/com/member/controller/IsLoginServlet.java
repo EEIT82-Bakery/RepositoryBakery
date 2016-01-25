@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import org.apache.commons.codec.binary.Base64;
+
 import com.friend.model.FriendService;
 import com.mail.JavaMailUtil;
 import com.member.model.MemberBean;
@@ -98,6 +98,8 @@ public class IsLoginServlet extends HttpServlet {
 				FriendService friendservice= new FriendService();
 				Integer friendcount = friendservice.selectaddcount(membid,0);
 			
+//				req.setAttribute("friendcount", friendcount);
+//				req.setAttribute("count", count);
 				session.setAttribute("friendcount", friendcount);
 				session.setAttribute("count", count);
 				session.setAttribute("sex", sex);

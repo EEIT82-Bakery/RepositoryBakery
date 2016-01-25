@@ -148,5 +148,10 @@ public class ArticleService {
 	public String getArticleTitle(int articleId) {
 		return dao.getArticleTitle(articleId);
 	}
+	//會員頁面顯示他的發文
+	public List<ArticleBean>getMemberArticle(int memberId){
+		return dao.getMemberArticle(memberId);	
+	}
+
 
 }

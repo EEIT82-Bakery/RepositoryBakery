@@ -101,7 +101,7 @@ public class MessageServlet extends HttpServlet {
 			int allcount = messageservice.getReadCount(memberid);
 			int pageCount = allcount / pageSize
 					+ (allcount % pageSize != 0 ? 1 : 0);
-//			System.out.println(pageCount);
+			System.out.println(pageCount);
 			req.setAttribute("pageCount", pageCount);
 			req.getRequestDispatcher("/front/member/message/Message.jsp").forward(req, resp);
 		}

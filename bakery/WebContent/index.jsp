@@ -118,27 +118,6 @@
 					</div>
 				</div>
 
-				<div class="col-xs-6">
-					<table border="1" whidth="100%" height="100%">
-						<tr>
-							<td id="shift" class='one'><h1>WELCOME TO THE</h1></td>
-						</tr>
-						<tr>
-							<td id="shift" class='two'><h1>JUMBLE SALE</h1></td>
-						</tr>
-						<tr>
-							<td id="shift" class='too'><h1>||| BABY |||</h1></td>
-						</tr>
-						<tr>
-							<td id="shift" class='three'><h1>YOU'RE GONNA</h1></td>
-						</tr>
-						<tr>
-							<td id="shift" class='four'>>
-								<h1>BUUUUYYYYHUH!</h1>
-							</td>
-						</tr>
-					</table>
-				</div>
 
 				<!-----------------------------------------輪播----------------------------------------->
 				<!-----------------------------------------main----------------------------------------->

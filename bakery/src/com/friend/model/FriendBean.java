@@ -7,19 +7,25 @@ public class FriendBean {
 	
 	private String inviteAccount;//join member
 	private String inviteeAccount;//join member
-	
-	
 	private byte[] invitePiture;
 	private byte[] inviteePicture;
-	
-	
 	private String MinvitePiture; //**用來裝照片 轉型用
 	private String MinviteePicture;//**用來裝照片 轉型用
-	
-	
-	
-	
-	
+	private String inviteeKaban;//**我的好友的介紹
+	private String inviteeNickname;//**我的好友的暱稱
+
+	public String getInviteeKaban() {
+		return inviteeKaban;
+	}
+	public void setInviteeKaban(String inviteeKaban) {
+		this.inviteeKaban = inviteeKaban;
+	}
+	public String getInviteeNickname() {
+		return inviteeNickname;
+	}
+	public void setInviteeNickname(String inviteeNickname) {
+		this.inviteeNickname = inviteeNickname;
+	}
 	public byte[] getInvitePiture() {
 		return invitePiture;
 	}

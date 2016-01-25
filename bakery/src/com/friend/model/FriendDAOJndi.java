@@ -353,7 +353,7 @@ public class FriendDAOJndi implements FriendDAO {
 		List<FriendBean> lists = null;
 		ResultSet rest = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'inviteAccount',m1.Picture as 'invitePiture', m2.Account as 'inviteeAccount' ,m2.Picture as 'inviteePicture' ,invite_id , invitee_id,friendstatu from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invite_id="+invite_id+"and friendstatu=1"
+			PreparedStatement stmt = conn.prepareStatement(" select m1.account as 'inviteAccount',m1.Picture as 'invitePiture', m2.Account as 'inviteeAccount' ,m2.Picture as 'inviteePicture',m2.kanban as 'inviteeKanban',m2.Nickname as 'inviteeNickname' ,invite_id , invitee_id,friendstatu from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invite_id="+invite_id+"and friendstatu=1"
 					+ " ORDER BY friendstatu OFFSET 8 * (" + (pageInt - 1) + ") ROWS FETCH NEXT 8 ROWS ONLY");){
 			rest = stmt.executeQuery();
 			lists = new ArrayList<FriendBean>();
@@ -366,6 +366,8 @@ public class FriendDAOJndi implements FriendDAO {
 				bean.setInviteeAccount(rest.getString("inviteeAccount"));
 				bean.setInvitePiture(rest.getBytes("invitePiture"));
 				bean.setInviteePicture(rest.getBytes("inviteePicture"));
+				bean.setInviteeKaban(rest.getString("inviteeKanban"));
+				bean.setInviteeNickname(rest.getString("inviteeNickname"));
 				lists.add(bean);
 			}	
 		}catch(Exception se) {

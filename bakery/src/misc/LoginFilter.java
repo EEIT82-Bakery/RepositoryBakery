@@ -20,8 +20,7 @@ import com.member.model.MemberBean;
 		urlPatterns={"/front/article/*",
 				     "/front/activity/*",
 				   "/back/member/MemberPage.jsp",
-				   "/front/member/main/member.do"
-				   
+				   "/front/member/main/member.do" 
 		}	
 		)
 public class LoginFilter implements Filter {
