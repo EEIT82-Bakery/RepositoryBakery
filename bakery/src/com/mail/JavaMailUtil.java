@@ -237,10 +237,9 @@ public class JavaMailUtil {
 		props.put("mail.smtp.auth", "true");
 		Authenticator au = new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(userid, password);
+				return new PasswordAuthentication("azure_f84bceffb1a8fae95866d0db282ef22d@azure.com", "apdsIt7zk82jP6S");
 			}
 		};
-
 		session = Session.getDefaultInstance(props, au);
 		message = new MimeMessage(session);
 	}
@@ -267,11 +266,11 @@ public class JavaMailUtil {
 		return count;
 	}
 	//定義自己的傳送帳號
+	
 	static {
-		userid =  "azure_f84bceffb1a8fae95866d0db282ef22d@azure.com";
-//				System.getProperty("JavaMailUserId");
-		password = "apdsIt7zk82jP6S";
-//		System.getProperty("JavaMailPassword");
-		
+//		  userid =  "azure_f84bceffb1a8fae95866d0db282ef22d@azure.com";
+		   userid =	System.getProperty("JavaMailUserId");
+//		 password = "apdsIt7zk82jP6S";
+	    password = 	System.getProperty("JavaMailPassword");
 	}
 }
