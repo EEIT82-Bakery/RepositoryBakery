@@ -14,7 +14,6 @@
 		<mapping class="com.member.model.MemberBean" />
 		<mapping class="com.membergrade.model.MemberGradeBean" />
 
-
 		<mapping class="com.article.model.ArticleBean" />
 		<mapping class="com.rearticle.model.ReArticleBean" />
 
