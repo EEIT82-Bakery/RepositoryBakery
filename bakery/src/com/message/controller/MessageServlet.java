@@ -194,6 +194,7 @@ public class MessageServlet extends HttpServlet {
 			}else{
 				String msg_cont = req.getParameter("msg_cont");
 				System.out.println(msg_cont);
+				String page = req.getParameter("page");
 				Integer send_id = memberbean.getMember_id();
 				Integer read_id = new Integer(req.getParameter("readid"));
 				java.sql.Timestamp send_date = new java.sql.Timestamp(System.currentTimeMillis());
@@ -210,10 +211,56 @@ public class MessageServlet extends HttpServlet {
 				memberbean = memberservice.getOneId(read_id);
 				String account = memberbean.getAccount();
 				req.setAttribute("memberVO", memberbean);	
-				resp.sendRedirect(req.getContextPath()+"/homeindex.do?account="+account);
+				
+//				resp.sendRedirect(req.getContextPath()+"/homeindex.do?account="+account);
+				resp.sendRedirect(req.getContextPath()+"/FriendListServlet.do?invited="+send_id+"&pages="+page);
 				
 			}	
 		}
+		
+		if("addmsgg".equals(action)){
+			List<String> errors = new LinkedList<String>();
+			req.setAttribute("errors", errors);
+			HttpSession session = req.getSession();
+			MemberBean memberbean = (MemberBean)session.getAttribute("isLogin");
+			if(memberbean==null){
+				String path = req.getContextPath();
+				resp.sendRedirect(path+"/front/article/error/NotLogin.jsp");
+				return;
+			}	
+			
+			String msg_tit = req.getParameter("msg_tit");
+			if (msg_tit == null || msg_tit.length() == 0) {
+				errors.add("請輸入標題");
+			}
+			if(errors!=null&&!errors.isEmpty()){
+				req.getRequestDispatcher("/index.jsp").forward(req, resp);
+				return;
+			}else{
+				String msg_cont = req.getParameter("msg_cont");
+				Integer send_id = memberbean.getMember_id();
+				Integer read_id = new Integer(req.getParameter("readid"));
+				java.sql.Timestamp send_date = new java.sql.Timestamp(System.currentTimeMillis());
+				MessageBean messagebean = new MessageBean();
+				messagebean.setSend_id(send_id);
+				messagebean.setRead_id(read_id);
+				messagebean.setMsg_tit(msg_tit);
+				messagebean.setMsg_cont(msg_cont);
+				messagebean.setMsg_date(send_date);
+				messagebean.setMsg_state(1);
+				MessageService messageserviece = new MessageService();
+				messageserviece.insertmessage(messagebean);
+				MemberService memberservice = new MemberService();
+				memberbean = memberservice.getOneId(read_id);
+				String account = memberbean.getAccount();
+				req.setAttribute("memberVO", memberbean);	
+				
+				resp.sendRedirect(req.getContextPath()+"/homeindex.do?account="+account);
+				
+				
+			}	
+		}
+		
 			
 	}
 }

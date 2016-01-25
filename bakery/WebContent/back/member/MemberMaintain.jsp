@@ -83,12 +83,9 @@
 						<th>會員帳號</th>
 						<th>會員姓名</th>
 						<th>會員暱稱</th>
-						<th>會員信箱</th>
 						<th>會員電話</th>
-						<th>訂單數量</th>
 						<th>會員狀態</th>
 						<th>封鎖與解鎖</th>
-						<th>詳細會員資訊</th>
 						<th>聯絡方式</th>
 					
 					</tr>
@@ -100,9 +97,7 @@
 							<td><h6>${Go.account}</h6></td>
 							<td><h6>${Go.username}</h6></td>
 							<td><h6>${Go.nickname}</h6></td>
-							<td><h6>${Go.email}</h6></td>
 							<td><h6>${Go.phone}</h6></td>							
-							<td><h6><a href="DisplayArticle.do?articleId=${articleBean.articleId}">${Go.order_math}</a></h6></td>
 							<td><h6>
 							
 							<c:if test="${Go.status ==2}">
@@ -132,25 +127,7 @@
 							</div>
 								</td>			
 							
-							<td>
 							
-
-								<FORM METHOD="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
-									<input type="submit" value="詳細資訊" class="btn btn-info">
-									 
-									<input type="hidden" name="mpicture" value="${Go.mpicture}"> 
-									<input type="hidden" name="member_id" value="${Go.member_id}"> 
-									<input	type="hidden" name="account" value="${Go.account}">
-									<input type="hidden" name="username"value="${Go.username}"> 
-									<input type="hidden" name="nickname" value="${Go.nickname}">
-									<input type="hidden" name="phone" value="${Go.phone}">
-									<input type="hidden" name="address" value="${Go.address}"> 
-									<input type="hidden" name="order_math" value="${Go.order_math}" >
-									<input type="hidden" name="status" value="${Go.status}" >	
-									<input type="hidden" name="action" value="select_one">
-									
-								</FORM>
-								</td>
 							
 							<td><button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#myModal<%=x++%>">詳細聯絡方式</button></td>
 						</tr>

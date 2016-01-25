@@ -363,7 +363,7 @@
 								<span class="glyphicon glyphicon-send"></span> 送出
 							</button>
 							<input type="hidden" name="readid" value="${member.member_id}">
-							<input type="hidden" name="action" value="addmsg">
+							<input type="hidden" name="action" value="addmsgg">
 
 							<button type="button" class="btn btn-default btn-xs"
 								data-dismiss="modal">取消</button>

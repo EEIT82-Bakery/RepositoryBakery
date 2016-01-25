@@ -119,7 +119,6 @@ input[type=submit]{
 			</c:if>
 				</form>
 		</div>
-		<%@ include file="../../fragment/footer.jsp"%>
 	</div>
 	<%@ include file="../../fragment/js.jsp"%>
 	
