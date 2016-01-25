@@ -72,7 +72,8 @@ public class ArticleDAOHibernate implements ArticleDAO_interface {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			ArticleBean bean = (ArticleBean) session.get(ArticleBean.class, articleId);
+			ArticleBean bean = (ArticleBean) session.get(ArticleBean.class,
+					articleId);
 			if (bean != null) {
 				bean.setHidden(hidden);
 				session.update(bean);
@@ -105,7 +106,8 @@ public class ArticleDAOHibernate implements ArticleDAO_interface {
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
 			session.beginTransaction();
-			ArticleBean bean = (ArticleBean) session.get(ArticleBean.class, articleId);
+			ArticleBean bean = (ArticleBean) session.get(ArticleBean.class,
+					articleId);
 			if (bean != null) {
 				bean.setBrowserCount(bean.getBrowserCount() + 1);
 				session.update(bean);

@@ -115,8 +115,9 @@ input.upl {
 							<br>
 							手機號碼:${SelectMo.phone}
 							<br>
-							個人介紹:${SelectMo.kanban}
+							自我介紹:${SelectMo.kanban}
 							<hr>
+					
 							<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">修改會員資料</button>
 						</center>
 					</div>
@@ -242,6 +243,10 @@ input.upl {
 							<input type="text" name="address" value="${SelectMo.address}" />
 							<span>${error.address}</span>
 							<br>
+							<br>
+							自我介紹:
+							<input type="text" name="kanban" value="${SelectMo.kanban}" />
+							<span>${error.kanban}</span>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">返回</button>

@@ -72,4 +72,7 @@ public class ArticleClassDAOHibernate implements ArticleClassDAO_interface{
 		}
 		return beans;
 	}
+
+	
+	
 }

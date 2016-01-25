@@ -99,8 +99,8 @@ public class MemberService {
 	
 	
 	//**修改個人資訊
-	public MemberBean updateimf(String phone, String email, String address, String nickname,byte[] piture,int memberid) {
-		return  dao.update(phone, email, address, nickname, piture,memberid);
+	public MemberBean updateimf(String phone, String email, String address, String nickname,byte[] piture,String kanban,int memberid) {
+		return  dao.update(phone, email, address, nickname, piture,kanban,memberid);
 	}
 	
 	//**修改個人動態狀態資訊

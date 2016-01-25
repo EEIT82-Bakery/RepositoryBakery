@@ -227,9 +227,9 @@ public class JavaMailUtil {
 	public void createSession() {
 		Session session;
 		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.host", "smtp.sendgrid.net");
 		// 設定連線時使用的埠號(465)
-		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.port", "587");
 		// 聲明要進行SSL(Secure Socket Layer)連線
 		props.put("mail.smtp.socketFactory.class",
 				"javax.net.ssl.SSLSocketFactory");
@@ -268,9 +268,9 @@ public class JavaMailUtil {
 	}
 	//定義自己的傳送帳號
 	static {
-		userid =  "q22488757@gmail.com";
+		userid =  "azure_f84bceffb1a8fae95866d0db282ef22d@azure.com";
 //				System.getProperty("JavaMailUserId");
-		password = "q020488688";
+		password = "apdsIt7zk82jP6S";
 //		System.getProperty("JavaMailPassword");
 		
 	}
