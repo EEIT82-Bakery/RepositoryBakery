@@ -20,6 +20,8 @@ public class ContectUsServelt extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
 		
 		String customer = request.getParameter("name");
 		String mail = request.getParameter("email");
