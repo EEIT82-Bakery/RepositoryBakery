@@ -71,6 +71,7 @@ public class MemberServlet extends HttpServlet {
 			String phone = req.getParameter("phone").trim();
 			String email = req.getParameter("email").trim();
 			String address = req.getParameter("address").trim();
+			String kanban = req.getParameter("kanban");
 			if (nickname == null || nickname.length() == 0) {
 				errors.put("nickname", "暱稱不能空白");
 			}
@@ -111,11 +112,12 @@ public class MemberServlet extends HttpServlet {
 				mem_pic = beans.getPicture();
 			}
 			is.close();
-
+			
+				
 			if (errors == null || errors.isEmpty()) {
 				MemberBean bean = null;
 				bean = memberservice.updateimf(phone, email, address, nickname,
-						mem_pic, memberid);
+						mem_pic,kanban, memberid);
 				bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));
 				session.setAttribute("isLogin", bean);
 				resp.sendRedirect(req.getContextPath()

@@ -70,7 +70,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 
 	@Override
 	public MemberBean update(String phone, String email, String address,
-			String nickname, byte[] picture, int memberid) {
+			String nickname, byte[] picture,String kanban, int memberid) {
 		MemberBean bean = null;
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		try {
@@ -82,6 +82,7 @@ public class MemberDAOHibernate implements MemberDAO_Interface {
 				bean.setAddress(address);
 				bean.setNickname(nickname);
 				bean.setPicture(picture);
+				bean.setKanban(kanban);
 				session.update(bean);
 			}
 			session.getTransaction().commit();

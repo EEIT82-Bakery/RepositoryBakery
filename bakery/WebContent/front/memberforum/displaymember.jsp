@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.orderlist.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.articleclass.model.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +12,7 @@
 	OrderListJNDIDAO top3 = new OrderListJNDIDAO();
 	List<OrderListBean> topphoto = top3.selectTop3();
 	pageContext.setAttribute("photo3", topphoto);
+	
 %>
 <style>
 .display {
@@ -157,7 +159,7 @@
 				<div class="col-xs-3">
 					<div class="profile-sidebar">
 						<div class="profile-userpic">
-							<img src="data:image/png;base64,${member.mpicture}"
+							<img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${member.member_id}"
 								class="img-responsive" alt="">
 						</div>
 						<div class="profile-usertitle">
@@ -266,6 +268,7 @@
 							</tr>
 						</c:forEach>
 						<div class="col-xs-12 display">
+							<p>近期動態</p>
 							<table>
 								<tr class="forumtitle">
 									<td width='20%'>文章總類</td>
@@ -280,8 +283,7 @@
 										<c:set var="rowColor" value="#FFEFD5" />
 									</c:if>
 									<tr height='18' bgColor="${rowColor}">
-										<td><a
-											href="${pageContext.request.contextPath}/front/forum/Forum.do?ClassNo=${articleBean.articleClassNo}">${articleBean.articleClassName}</a></td>
+										<td><c:if test="${articleBean.articleClassNo==1}">糕點推薦</c:if><c:if test="${articleBean.articleClassNo==2}">糕點DIY</c:if><c:if test="${articleBean.articleClassNo==3}">技巧分享</c:if></td>
 										<td style="text-align: left"><a
 											href="${pageContext.request.contextPath}/front/forum/DisplayArticle.do?articleId=${articleBean.articleId}">${articleBean.articleTitle}</a></td>
 										<td>${articleBean.reArticleCount}/${articleBean.browserCount}<br />

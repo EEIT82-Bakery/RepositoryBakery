@@ -43,7 +43,6 @@ public class MobieMemberServlet extends HttpServlet {
 			Integer invite_id = memberbean.getMember_id();
 			MemberService memberservice = new MemberService();
 			MemberBean bean = memberservice.getAccount(account);
-			bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));
 			Integer invitee_id = bean.getMember_id();
 			ArticleService articleservice = new ArticleService();
 			List<ArticleBean> articlelist = articleservice.getMemberArticle(invitee_id);		

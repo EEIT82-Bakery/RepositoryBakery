@@ -209,8 +209,7 @@
 		<%@ include file="../fragment/footer.jsp"%>
 		<!--------footer-------->
 	</div>
-<%-- 	<%@ include file="../fragment/js.jsp"%> --%>
-<script	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
+	<%@ include file="../fragment/js.jsp"%>
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath}/front/HtmlData/js/modernizr.custom.46884.js"/></script>
 	<script type="text/javascript"
