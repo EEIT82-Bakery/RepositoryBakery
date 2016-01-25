@@ -187,7 +187,7 @@ form{
 						<br /> <br />
 						<!-- input Sujet -->
 						<div class="control-group">
-							<label for="destinataire">收件者:${Gd.inviteeAccount}</label><br> 
+							<label for="destinataire">收件者:${Gd.inviteeAccount}(${Gd.inviteeNickname})</label><br> 
 							<label for="destinataire">訊息標題</label> <input name="msg_tit"
 								type="text" class="form-control">
 						</div>
@@ -205,6 +205,8 @@ form{
 							<button type="submit" class="btn btn-primary btn-lg">
 								<span class="glyphicon glyphicon-send"></span> 送出
 							</button>
+							<input type="hidden" name="page" value="${page}">
+							<input type="hidden" name="readname" value="${Gd.inviteeNickname}">
 							<input type="hidden" name="readid" value="${Gd.invitee_id}">
 							<input type="hidden" name="action" value="addmsg">
 

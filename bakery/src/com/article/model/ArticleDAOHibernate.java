@@ -268,7 +268,7 @@ public class ArticleDAOHibernate implements ArticleDAO_interface {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-	
+
 	@Override
 	public List<ArticleBean> getMemberArticle(int memberId) {
 		List<ArticleBean> beans = null;

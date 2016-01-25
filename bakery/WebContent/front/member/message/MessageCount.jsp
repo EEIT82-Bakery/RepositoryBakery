@@ -74,14 +74,14 @@ style>.forumtitle {
 				<table border="1">
 					<tr class="forumtitle">
 					<tr>
-						<td width="20%">寄件人</td>
-						<td width="40%">信件標題</td>
-						<td width="20%">寄送時間</td>
+						<td width="20%" style="background-color:white; ">寄件人</td>
+						<td width="40%" style="background-color:white; ">信件標題</td>
+						<td width="20%" style="background-color:white; ">寄送時間</td>
 					</tr>
 					<tr>
-						<td>${bean.send_id}</td>
-						<td>${bean.msg_tit}</td>
-						<td><fmt:formatDate value="${bean.msg_date}"
+						<td style="background-color:white">${bean.send_id}</td>
+						<td style="background-color:white">${bean.msg_tit}</td>
+						<td style="background-color:white"><fmt:formatDate value="${bean.msg_date}"
 								pattern="yyyy-MM-dd HH:mm:ss" />
 					</tr>
 				</table>
@@ -94,13 +94,13 @@ style>.forumtitle {
 
 
 			
-					<h5 class="ui top attached header">信件內容</h5>
+					<span style="background-color: gray;" ><h5 class="ui top attached header">信件內容</h5></span>
 				
 				
 					
 			
 					<div class="ui attached segment">
-						<pre>
+						<pre style="background-color: #FFC107">
 						${bean.msg_cont}
 						</pre>
 					</div>	
