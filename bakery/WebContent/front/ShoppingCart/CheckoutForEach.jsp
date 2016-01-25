@@ -48,7 +48,7 @@
 					</TR>
 					<TR>
 						<TD>日期：<input type="text" style="background: #ECFFCD;"
-							name="shipDate" id="datepick" readonly="readonly">
+							name="shipDate" id="datepick" readonly="readonly"><b style="color:red">網路訂購需於五天前下單。</b>
 							${errors.orderDate}
 						</TD>
 					</TR>
