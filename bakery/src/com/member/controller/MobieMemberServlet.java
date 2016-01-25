@@ -1,6 +1,7 @@
 package com.member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.binary.Base64;
 
+import com.article.model.ArticleBean;
+import com.article.model.ArticleService;
 import com.friend.model.FriendService;
 import com.member.model.MemberBean;
 import com.member.model.MemberService;
@@ -42,8 +45,11 @@ public class MobieMemberServlet extends HttpServlet {
 			MemberBean bean = memberservice.getAccount(account);
 			bean.setMpicture(Base64.encodeBase64String(bean.getPicture()));
 			Integer invitee_id = bean.getMember_id();
+			ArticleService articleservice = new ArticleService();
+			List<ArticleBean> articlelist = articleservice.getMemberArticle(invitee_id);		
 			FriendService friendservice = new FriendService();
 			int statu = friendservice.select(invite_id, invitee_id);
+			req.setAttribute("displayArticle", articlelist);
 			req.setAttribute("statu", statu);
 			req.setAttribute("member", bean);
 			req.getRequestDispatcher("/front/memberforum/displaymember.jsp")
