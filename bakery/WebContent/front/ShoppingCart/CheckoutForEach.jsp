@@ -16,6 +16,10 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.min.css">
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.structure.css">
+		<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.theme.min.css">
 <script
 	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
 <script
