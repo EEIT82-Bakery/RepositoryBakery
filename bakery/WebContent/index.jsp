@@ -7,11 +7,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="./front/fragment/css.jsp"%>
+<%@ include file="../front/fragment/css.jsp"%>
 <%
-	OrderListJNDIDAO top5 = new OrderListJNDIDAO();
-	List<OrderListBean> topphoto = top5.selectTop5();
-	pageContext.setAttribute("photo5", topphoto);
+	OrderListJNDIDAO top3 = new OrderListJNDIDAO();
+	List<OrderListBean> topphoto = top3.selectTop3();
+	pageContext.setAttribute("photo3", topphoto);
 %>
 <style>
 .tabPanel {
@@ -27,9 +27,7 @@
 	width: 100%;
 	height: 300px;
 }
-td,tr{
-border:3px #C29793 dashed 
-}
+
 .dot {
 	position: absolute;
 	bottom: 1px;
@@ -56,12 +54,15 @@ border:3px #C29793 dashed
 }
 </style>
 <link rel="stylesheet" type="text/css"
+	href="<c:url value="front/HtmlData/css/index.css"/>">
+<link rel="stylesheet" type="text/css"
 	href="<c:url value="front/HtmlData/css/custom.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="front/HtmlData/css/demo.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="front/HtmlData/css/slicebox.css"/>">
 </head>
+
 <body>
 	<!-----------------------------------------nav------------------------------------------>
 	<%@ include file="../front/fragment/nav.jsp"%>
@@ -87,7 +88,6 @@ border:3px #C29793 dashed
 								src="${pageContext.request.contextPath}/front/HtmlData/images/3.jpg" />
 							</a>
 						</div>
-
 						<ol class="dot">
 							<li id="tab1"></li>
 							<li id="tab2"></li>
@@ -95,88 +95,73 @@ border:3px #C29793 dashed
 						</ol>
 					</div>
 				</div>
-				<table style="border: 3px #C29793 dashed;" 
-					border='1' align="center">
-					<tr>
-						<td colspan="3" align="center"><b style="color:green;font-size:25px;">人氣商品</b></td>
-					</tr>	
-					<tr>
-					<!-- 新增 -->
-						<td>
-							<div class="wrapper" style="width:250px" >
-								<ul id="sb-slider" class="sb-slider">
-									<c:forEach var="photo" items="${photo5}" varStatus="theCount">
-										<li><a href="#" target="_blank"> <img
-												src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
-												alt="image1" />
-										</a></li>
-									</c:forEach>
-								</ul>
-								<div id="shadow" class="shadow"></div>
-<!-- 								<div id="nav-arrows" class="nav-arrows"> -->
-<!-- 									<a href="#">Next</a> <a href="#">Previous</a> -->
-<!-- 								</div> -->
-							</div>
-						</td>
-					<!-- 新增結束 -->
-					</tr>
-				</table>
+				<div class="col-xs-6">
+					<div class="CSSTableGenerator">
+						<table>
+							<tr>
+								<td>人氣商品</td>
+								<td>產品名稱</td>
+								<td>內容描述</td>
+							</tr>
+							<c:forEach var="photo" items="${photo3}" varStatus="theCount">
+								<tr>
+									<td width="200px"><img width="30px"
+										src="<%=request.getContextPath()%>/front/HtmlData/images/crown.png">
+										<span style="font-size: 20px;">第${theCount.count}名</span><img
+										src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
+										width="50px" height="50px" /></td>
+									<td width="120px">${photo.productName}</td>
+									<td>${photo.productStatus}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-xs-6">
+					<table border="1" whidth="100%" height="100%">
+						<tr>
+							<td id="shift" class='one'><h1>WELCOME TO THE</h1></td>
+						</tr>
+						<tr>
+							<td id="shift" class='two'><h1>JUMBLE SALE</h1></td>
+						</tr>
+						<tr>
+							<td id="shift" class='too'><h1>||| BABY |||</h1></td>
+						</tr>
+						<tr>
+							<td id="shift" class='three'><h1>YOU'RE GONNA</h1></td>
+						</tr>
+						<tr>
+							<td id="shift" class='four'>>
+								<h1>BUUUUYYYYHUH!</h1>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<!-----------------------------------------輪播----------------------------------------->
+				<!-----------------------------------------main----------------------------------------->
+				<!-----------------------------------------main----------------------------------------->
+				<!--------footer-------->
+				<!--------footer-------->
 			</div>
+			<br>
 		</div>
-		<!-----------------------------------------輪播----------------------------------------->
-		<!-----------------------------------------main----------------------------------------->
-
-
-		<!-----------------------------------------main----------------------------------------->
-		<!--------footer-------->
+		<br>
 		<%@ include file="./front/fragment/footer.jsp"%>
-		<!--------footer-------->
 	</div>
-		<%@ include file="./front/fragment/js.jsp"%>\
+	<%@ include file="./front/fragment/js.jsp"%>
+	<script src="js/prism.js" data-default-language="markup"></script>
+	<script src="js/jumble.js"></script>
+	<script src="js/mousewheel.min.js"></script>
+	<script src="js/scrollbar.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript"
 		src="<c:url value="front/HtmlData/js/modernizr.custom.46884.js"/>"></script>
 	<script type="text/javascript"
 		src="<c:url value="front/HtmlData/js/jquery.slicebox.js"/>"></script>
-	<script>
-		$(function() {
-			$(function() {
-				var Page = (function() {
-					var $navArrows = $('#nav-arrows').hide(), $navOptions = $(
-							'#nav-options').hide(), $shadow = $('#shadow')
-							.hide(), slicebox = $('#sb-slider').slicebox({
-						autoplay : true,
-						onReady : function() {
-							$navArrows.show();
-							$navOptions.show();
-							$shadow.show();
-						},
-						orientation : 'h',
-						cuboidsCount : 3
-					}), init = function() {
-						initEvents();
-					}, initEvents = function() {
-						// add navigation events
-						$navArrows.children(':first').on('click', function() {
-							slicebox.next();
-							slicebox.play();
-							return false;
-						});
-						$navArrows.children(':last').on('click', function() {
-							slicebox.previous();
-							slicebox.play();
-							return false;
-						});
-					};
-					return {
-						init : init
-					};
-				})();
-				Page.init();
-			});
-		})
-	</script>
 	<script>
 		window.onload = function() {
 			var num = 1;

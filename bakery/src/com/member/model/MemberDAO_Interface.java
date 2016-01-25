@@ -9,7 +9,7 @@ public interface MemberDAO_Interface {
 	public List<MemberBean> getALL();
 	public MemberBean update(String phone,String email,String address,String nickname,byte[] picture ,int memberid);
 	public List<MemberBean> getAllMem(String account);
-		
+	public MemberBean updatepoint(int member_id,int point);
 	//更新個人資料
 	
 	

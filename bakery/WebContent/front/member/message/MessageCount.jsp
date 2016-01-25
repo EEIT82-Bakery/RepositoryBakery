@@ -71,7 +71,7 @@ style>.forumtitle {
 					class="btn btn-default">已讀</a>
 			</div>
 			<div class="col-xs-12 display">
-				<table>
+				<table border="1">
 					<tr class="forumtitle">
 					<tr>
 						<td width="20%">寄件人</td>
@@ -93,20 +93,10 @@ style>.forumtitle {
 <%-- 				</c:if> --%>
 
 
-				<c:if test="${friendstatu.friendstatu==0}">
+			
 					<h5 class="ui top attached header">信件內容</h5>
-					<div class="ui attached segment">
-						<pre>${bean.msg_cont} <a
-								href="${pageContext.request.contextPath}/FriendServlet.controller?action=agree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}"
-								onclick="$('>form',this).submit()">接受</a>/<a
-								href="${pageContext.request.contextPath}/FriendServlet.controller?action=noagree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}&$msg_id=${bean.msg_id}"
-								onclick="$('>form',this).submit()">拒絕</a>
-						</pre>
-						
-					</div>
-					</c:if>
-					<c:if test="${friendstatu.friendstatu==1}">
-					<h5>信件內容:</h5>
+				
+				
 					
 			
 					<div class="ui attached segment">
@@ -114,7 +104,7 @@ style>.forumtitle {
 						${bean.msg_cont}
 						</pre>
 					</div>	
-					</c:if>
+					
 				
 				<c:if test="${friendstatu.friendstatu==1}">
 					<span>${message}</span>

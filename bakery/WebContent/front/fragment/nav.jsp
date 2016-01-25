@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <nav class="navbar navbar-fixed-top" role="navigation">
 	<div class="container-fluid">
@@ -16,9 +16,12 @@
 				</li>
 			</c:if>
 				<c:if test="${!empty isLogin}">
-			
+				<li>
+					未讀訊息<span class="glyphicon glyphicon-envelope" aria-hidden="true">${count}</span>
+					好友邀請<span class="glyphicon glyphicon-user" aria-hidden="true">${friendcount}</span>
+				</li>
 					<li>
-						<img style="width: 40px; height: 40px;" src="data:image/png;base64,${isLogin.mpicture}" />
+						<img style="width: 40px; height: 40px;" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${isLogin.member_id}" />
 					</li>
 					<li>
 						<h6>${isLogin.username}</h6>
@@ -75,13 +78,13 @@
 				<a href="${pageContext.request.contextPath}/OrderMemberServlet.do">訂單查詢</a>
 			</div>
 			<div class="col-xs-2">
-				<a href="${pageContext.request.contextPath}/front/map/map.html">地圖資訊</a>
+				<a href="${pageContext.request.contextPath}/front/map/map.jsp">地圖資訊</a>
 			</div>
 			<div class="col-xs-2">
-				<a href="${pageContext.request.contextPath}/Forum.do">討論區</a>
+				<a href="${pageContext.request.contextPath}/front/forum/Forum.do">討論區</a>
 			</div>
 			<div class="col-xs-2">
-				<a href="${pageContext.request.contextPath}/front/Entrancepage/Entrancepage1.jsp">活動專區</a>
+				<a href="${pageContext.request.contextPath}/front/activity/Turntable.jsp">活動-幸運大轉盤</a>
 			</div>
 		</div>
 	</div>

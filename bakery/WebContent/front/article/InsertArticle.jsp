@@ -106,7 +106,7 @@
 		
 		<c:if test="${param.type eq '1' || param.type eq '3'}">
 			<form id="article" class="form-article" method="post"
-				action="<c:url value='/InsertArticle.do?type=${param.type}&articleId=${param.articleId}' />">
+				action="<c:url value='/front/forum/InsertArticle.do?type=${param.type}&articleId=${param.articleId}' />">
 				<p id="articleType"></p>
 				<div class="form-group">
 					<select id="form-class" name="articleClassNo" class="form-control">
@@ -128,7 +128,7 @@
 
 		<c:if test="${param.type eq '2' || param.type eq '4'}">
 			<form id="article" class="form-article" method="post"
-				action="<c:url value='/InsertArticle.do?type=${param.type}&articleId=${param.articleId}&reId=${param.reId}' />">
+				action="<c:url value='/front/forum/InsertArticle.do?type=${param.type}&articleId=${param.articleId}&reId=${param.reId}' />">
 				<p id="articleType"></p>
 				<div class="form-group">
 					<p>RE:${articleTitle} ${reArticleBean.articleTitle}</p>

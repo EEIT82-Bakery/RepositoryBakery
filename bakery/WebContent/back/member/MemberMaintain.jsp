@@ -1,4 +1,5 @@
 <%@ taglib prefix='c' uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 	
@@ -23,7 +24,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-
+<link href="${pageContext.request.contextPath}/front/HtmlData/css/semantic.min.css" rel="stylesheet" />
 <style>
 #mypicture{
 	height: 50px;
@@ -86,10 +87,10 @@
 						<th>會員電話</th>
 						<th>訂單數量</th>
 						<th>會員狀態</th>
-						<th></th>
-						<th>bbb</th>
-						<th>bbb</th>
-						<th>bbb</th>
+						<th>封鎖與解鎖</th>
+						<th>詳細會員資訊</th>
+						<th>聯絡方式</th>
+					
 					</tr>
 				
 					<c:forEach var="Go" items="${bean}">
@@ -111,26 +112,32 @@
 									<b style="color:black;font-size:18px;">黑名單</b>
 								</c:if>
 								</h6> 	
-							<td>				
+								
+							<td>	
+							<div class="ui large buttons">
 							<form method="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
-								<input type="submit" value="一般會員" ${Go.status==2 ?"disabled" :""}>
+								<input type="submit" value="一般會員" ${Go.status==2 ?"disabled" :""} class="ui green button">
 								<input type="hidden" name="page" value="${page}">
 								<input type="hidden" name="action" value="disableMember">
 								<input type="hidden" name="member_id" value="${Go.member_id}">
 							</form>
-							</td>
-							<td>
+							
+							<div class="or"></div>
 							<form method="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
-								<input type="submit" value="黑名單" ${Go.status==3 ?"disabled" :""} style="background-color:black;color:white;">
+								<input type="submit" value="黑名單" ${Go.status==3 ?"disabled" :""} style="background-color:black;color:white;" class="ui button">
 								<input type="hidden" name="page" value="${page}">
 								<input type="hidden" name="action" value="activateMember">
 								<input type="hidden" name="member_id" value="${Go.member_id}">
 							</form>
+							</div>
 								</td>			
 							
 							<td>
+							
+
 								<FORM METHOD="post" action="${pageContext.request.contextPath}/BackSelectServlet.do">
-									<input type="submit" value="詳細資訊">
+									<input type="submit" value="詳細資訊" class="btn btn-info">
+									 
 									<input type="hidden" name="mpicture" value="${Go.mpicture}"> 
 									<input type="hidden" name="member_id" value="${Go.member_id}"> 
 									<input	type="hidden" name="account" value="${Go.account}">
@@ -141,10 +148,11 @@
 									<input type="hidden" name="order_math" value="${Go.order_math}" >
 									<input type="hidden" name="status" value="${Go.status}" >	
 									<input type="hidden" name="action" value="select_one">
+									
 								</FORM>
 								</td>
 							
-							<td><button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal<%=x++%>">詳細會員資料</button></td>
+							<td><button type="button" class="btn btn-link btn-lg" data-toggle="modal" data-target="#myModal<%=x++%>">詳細聯絡方式</button></td>
 						</tr>
 					</c:forEach>
 				
@@ -165,14 +173,19 @@
 					</div>
 					
 					<div class="modal-body">
-						<br>
+					
+				
+						<img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${gg.member_id}" id="mypicture" class="img-thumbnail" alt="個人照片"  />
 						<br> 
-						生日:${gg.username}
+						會員編號:${gg.member_id}
 						<br>
+						暱稱:${gg.username}
+						<br>
+						生日:<fmt:formatDate value="${gg.birth}"
+								pattern="yyyy-MM-dd" />
 						<br> 
 						手機:${gg.phone}
 						<br>
-						<br> 
 						信箱:${gg.email}
 						<br>
 						<br>

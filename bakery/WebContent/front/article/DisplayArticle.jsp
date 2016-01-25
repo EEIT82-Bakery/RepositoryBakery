@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.orderlist.model.*"%>
+<%@ page import="java.util.*"%>
 <!DOCTYPE html>
 <html>
 <head>
 <%@ include file="../fragment/css.jsp"%>
 <%
 	int i = 0;
+%>
+<%
+	OrderListJNDIDAO top3 = new OrderListJNDIDAO();
+	List<OrderListBean> topphoto = top3.selectTop3();
+	pageContext.setAttribute("photo3", topphoto);
 %>
 <link href="${pageContext.request.contextPath}/front/HtmlData/css/articletop.css" rel="stylesheet" />
 <style>
@@ -14,6 +21,12 @@
 	margin-top: -91px;
 }
 </style>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/custom.css"/>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/demo.css"/>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/slicebox.css"/>
 </head>
 <body>
 	<!-----------------------------------------nav------------------------------------------>
@@ -26,14 +39,14 @@
 				<!--文章種類-->
 				<div class="col-xs-11 class">
 					<a class="target-fix" name="1F"></a>
-					<a href="Forum.do">所有主題</a>
+					<a href="${pageContext.request.contextPath}/front/forum/Forum.do">所有主題</a>
 					<jsp:useBean id="articleClassSvc" scope="page" class="com.articleclass.model.ArticleClassService" />
 					<c:forEach var="articleClass" items="${articleClassSvc.articleClass}">
-						<a href="Forum.do?ClassNo=${articleClass.articleClassNo}" class="${(articleClass.articleClassNo == Article.articleClassNo)?'active':''}">${articleClass.articleClassName}</a>
+						<a href="${pageContext.request.contextPath}/front/forum/Forum.do?ClassNo=${articleClass.articleClassNo}" class="${(articleClass.articleClassNo == Article.articleClassNo)?'active':''}">${articleClass.articleClassName}</a>
 					</c:forEach>
 				</div>
 				<div class="col-xs-1 post">
-					<form action="<c:url value='/InsertArticle.do?type=2&articleId=${Article.articleId}'/>" method="post">
+					<form action="<c:url value='/front/forum/InsertArticle.do?type=2&articleId=${Article.articleId}'/>" method="post">
 						<input type="hidden" name="title" value="${Article.articleTitle}" />
 						<input type="submit" class="btn btn-default reArticle" value="回覆文章" />
 					</form>
@@ -162,29 +175,62 @@
 					</div>
 				</c:forEach>
 			</div>
-			<div class="col-xs-2">未定</div>
+			<div class="col-xs-2">
+					<table>
+						<tr>
+							<td colspan="3" align="center"><b
+								style="color: green; font-size: 25px;">人氣商品</b></td>
+						</tr>
+						<tr>
+							<!-- 新增 -->
+							<td>
+								<div class="wrapper" style="width: 200px">
+									<ul id="sb-slider" class="sb-slider">
+										<c:forEach var="photo" items="${photo3}" varStatus="theCount">
+											<li><img
+													src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
+													alt="image1" />
+											</li>
+										</c:forEach>
+									</ul>
+									<div id="shadow" class="shadow"></div>
+									<div id="nav-arrows" class="nav-arrows">
+									<a href="#">Next</a> <a href="#">Previous</a>
+								</div>
+								</div>
+							</td>
+							<!-- 新增結束 -->
+						</tr>
+					</table>
+				</div>
 		</div>
 		<!-----------------------------------------main----------------------------------------->
 		<!--------footer-------->
 		<%@ include file="../fragment/footer.jsp"%>
 		<!--------footer-------->
 	</div>
-	<%@ include file="../fragment/js.jsp"%>
+<%-- 	<%@ include file="../fragment/js.jsp"%> --%>
+<script	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/front/HtmlData/js/modernizr.custom.46884.js"/></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/front/HtmlData/js/jquery.slicebox.js"/></script>
+
 	<script>
 	function editArticle(articleId){
-		location.href = "${pageContext.request.contextPath}/InsertArticle.do?type=3&articleId="+articleId;
+		location.href = "${pageContext.request.contextPath}/front/forum/InsertArticle.do?type=3&articleId="+articleId;
 	}
 	function editReArticle(articleId , reId){
-		location.href = "${pageContext.request.contextPath}/InsertArticle.do?type=4&articleId="+articleId+"&reId="+reId;
+		location.href = "${pageContext.request.contextPath}/front/forum/InsertArticle.do?type=4&articleId="+articleId+"&reId="+reId;
 	}
 	function deleteArticle(articleId){
 		if(confirm('確定刪除?')){
-			location.href = "${pageContext.request.contextPath}/DeleteArticle.do?type=1&articleId="+articleId;
+			location.href = "${pageContext.request.contextPath}/front/forum/DeleteArticle.do?type=1&articleId="+articleId;
 		}
 	}
 	function deleteReArticle(articleId , reId){
 		if(confirm('確定刪除?')){
-			location.href = "${pageContext.request.contextPath}/DeleteArticle.do?type=2&articleId="+articleId+"&reId="+reId;
+			location.href = "${pageContext.request.contextPath}/front/forum/DeleteArticle.do?type=2&articleId="+articleId+"&reId="+reId;
 		}
 	}
 
@@ -227,26 +273,74 @@
 			}
 		}
 	}
-	
-	
-	function addArticleCollection(articleId){
-		xmlHttp = new XMLHttpRequest();
-		if (xmlHttp != null) {
-			xmlHttp.open("POST", "${pageContext.request.contextPath}/InsertArticleCollection.do", true);
-			xmlHttp.addEventListener("readystatechange", callback, false);
-			xmlHttp.setRequestHeader("Content-Type",
-					"application/x-www-form-urlencoded")
-			xmlHttp.send("articleId="+articleId);
-		} else {
-			alert("您得瀏覽器不支援Ajax的功能!!");
-		}
+	</script>
+	<script>
+		$(function() {
+			$(function() {
+				var Page = (function() {
+					var $navArrows = $('#nav-arrows').hide(), $navOptions = $(
+							'#nav-options').hide(), $shadow = $('#shadow')
+							.hide(), slicebox = $('#sb-slider').slicebox({
+						autoplay : true,
+						onReady : function() {
+							$navArrows.show();
+							$navOptions.show();
+							$shadow.show();
+						},
+						orientation : 'h',
+						cuboidsCount : 3
+					}), init = function() {
+						initEvents();
+					}, initEvents = function() {
+						// add navigation events
+						$navArrows.children(':first').on('click', function() {
+							slicebox.next();
+							slicebox.play();
+							return false;
+						});
+						$navArrows.children(':last').on('click', function() {
+							slicebox.previous();
+							slicebox.play();
+							return false;
+						});
+					};
+					return {
+						init : init
+					};
+				})();
+				Page.init();
+			});
+		})
+	</script>
+	<script>
+		window.onload = function() {
+			var num = 1;
+			var index = 3;
+			var duration = 2000;
 		
-		function callback() {
-			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-				alert(xmlHttp.responseText);
+			function autoShow() {
+				for (var i = 1; i <= index; i++) {
+					document.getElementById("con" + i).style.display = "none";
+					document.getElementById("tab" + i).style.backgroundColor = "#AAAAAA";
+				}
+				num++;
+				if (num > index) {
+					num = 1;
+				}
+				document.getElementById("con" + num).style.display = "block";
+				document.getElementById("tab" + num).style.backgroundColor = "black";
+			}
+			function show() {
+				num = this.id.substr(3) - 1;
+				autoShow();
+			}
+			function stopRun() {
+				clearInterval(myInterval);
+			}
+			function run() {
+				myInterval = setInterval(autoShow, duration);
 			}
 		}
-	}
 	</script>
 </body>
 </html>

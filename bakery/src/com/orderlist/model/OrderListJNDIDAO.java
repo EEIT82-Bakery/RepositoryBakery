@@ -143,9 +143,9 @@ public class OrderListJNDIDAO implements OrderList_interface{
 		}
 	}
 	
-	private static final String SELECT_TOP5="select top(5) product_id , sum(Quantity) as 'Quantity' from Ord_list group by product_id order by Quantity desc";
+	private static final String SELECT_TOP3="select product.product_name,product.product_status,product.product_id,Quantity from product join (select top (3) sum(Quantity) as 'Quantity' ,product_id from Ord_list group by product_id order by Quantity desc) Ord_list on product.product_id = Ord_list.product_id";
 	
-	public List<OrderListBean> selectTop5(){
+	public List<OrderListBean> selectTop3(){
 		List<OrderListBean> beans = new ArrayList<OrderListBean>();
 		ResultSet rset = null;
 		Connection conn = null;
@@ -153,12 +153,20 @@ public class OrderListJNDIDAO implements OrderList_interface{
 		PreparedStatement stmt = null;
 		try {
 			conn = dataSource.getConnection();
-			stmt = conn.prepareStatement(SELECT_TOP5);
+			stmt = conn.prepareStatement(SELECT_TOP3);
 			rset = stmt.executeQuery();
 			while (rset.next()) {
 				bean= new OrderListBean();
 				bean.setQuantity(rset.getInt("Quantity"));
-				bean.setProductId(rset.getInt("Product_id"));
+				bean.setProductId(rset.getInt("product_id"));
+				bean.setProductName(rset.getString("product_name"));
+				String strSize=rset.getString("product_status");
+				if (strSize.length() >= 40L) {
+					String sr = strSize.substring(0,40);
+					bean.setProductStatus(sr + "...");
+				} else {
+					bean.setProductStatus(strSize);
+				}
 				beans.add(bean);
 			}
 		} catch (SQLException e) {
@@ -180,22 +188,14 @@ public class OrderListJNDIDAO implements OrderList_interface{
 					e.printStackTrace();
 				}
 			}
+			if(rset!=null){
+				try {
+					rset.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return beans;
-	}
-	
-	
-	
-	
-	public static void main(String args[]){
-	
-//		OrderListJNDIDAO dao =new OrderListJNDIDAO();
-//		System.out.println(dao.selectTop3());
-//		List<OrderListBean> beans=new ArrayList<>();
-//		OrderListBean bean =new OrderListBean();
-//		bean.setProductId(5);
-//		bean.setCount(5);	
-//		beans.add(bean);
-//		dao.insertOrderItems(3, beans);
 	}
 }

@@ -32,8 +32,6 @@ public class InsertReportServlet extends HttpServlet {
 		MemberBean memberBean = (MemberBean) session.getAttribute("isLogin");
 		if (memberBean == null) {
 			out.print("請先登入後，才能檢舉。");
-			out.flush();
-			out.close();
 		} else {
 			int memberId = memberBean.getMember_id();
 			String articleIdTemp = request.getParameter("articleId");
@@ -49,17 +47,11 @@ public class InsertReportServlet extends HttpServlet {
 						articleReportSvc.insertArticleReport(memberId,
 								articleId, reportMsg);
 						out.print("已檢舉成功!");
-						out.flush();
-						out.close();
 					} else {
 						out.print("您已檢舉過!");
-						out.flush();
-						out.close();
 					}
 				} else {
 					out.print("請輸入檢舉內容!");
-					out.flush();
-					out.close();
 				}
 			} else if (IdTemp != null && !IdTemp.isEmpty()) { // 檢舉回文
 				int Id = Integer.parseInt(IdTemp);
@@ -70,17 +62,11 @@ public class InsertReportServlet extends HttpServlet {
 						reArticleReportSvc.insertReArticleReport(memberId, Id,
 								reportMsg);
 						out.print("已檢舉成功!");
-						out.flush();
-						out.close();
 					} else {
 						out.print("您已檢舉過!");
-						out.flush();
-						out.close();
 					}
 				} else {
 					out.print("請輸入檢舉內容!");
-					out.flush();
-					out.close();
 				}
 			}
 		}

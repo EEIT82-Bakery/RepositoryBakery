@@ -48,7 +48,7 @@
 							<li><a
 								href="<%=request.getContextPath()%>/product2.controller?productTypeId=2&page=1">疊層蛋糕</a>
 							</li>
-							
+
 						</ul></li>
 					<li><a
 						href="<%=request.getContextPath()%>/product2.controller?productTypeId=3&page=1">過年專區</a>
@@ -80,14 +80,14 @@
 						<h6>單價 :${aBean.productPrice}</h6>
 						<div>
 							數量： <input type="number" id="number${theCount.count}"
-								name="quantity" value=1 min="0" max="10" style="width: 36px">
+								name="quantity" value=1 min="1" max="10" style="width: 36px">
 							<button class="success"
 								onclick="addShoppingItems('${aBean.productName}' , '${aBean.productPrice}' , '${aBean.discount}','${aBean.productId}','${theCount.count}')">放入購物車</button>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
-			<!-- 產品描述 -->
+			<!-- 產品描述內容 -->
 			<div class="modal fade" id="product" tabindex="-1" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog">
@@ -98,10 +98,14 @@
 							</button>
 							<span>產品名稱:</span><span class="modal-title" id="myModalLabel"></span>
 						</div>
-						<div class="modal-body">
-							<img src="" id="myimg" width="150" height="150" /> <span>產品描述:</span><span
-								id="myStatus"></span>
+						<div class="modal-body"   style="margin-left: 33%">
+							<img src="" id="myimg" width="150" height="150" />
+							</div> 
+						<div>	
+							<span>產品描述 ：</span><br>
+							<span id="myStatus"></span>
 						</div>
+
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								data-dismiss="modal">關閉</button>
@@ -109,7 +113,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- end -->
+			<!-- end -->		
+			<!-- 分頁效果 -->
 			<c:if test="${not empty pageCount}">
 				<div class="page">
 					<ul class="page_ul">
@@ -145,21 +150,18 @@
 			} else {
 				alert("您得瀏覽器不支援Ajax的功能!!");
 			}
-
 			function callback() {
 				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
 					var product = JSON.parse(xmlHttp.responseText);
-					document.getElementById("myimg").src = "data:image/jpeg;base64,"+ product.Picture;
+					document.getElementById("myimg").src = "data:image/jpeg;base64,"
+							+ product.Picture;
 					document.getElementById("myModalLabel").innerText = product.ProductName;
 					document.getElementById("myStatus").innerText = product.Status;
 					$('#product').modal('show');
-
 				}
 			}
 		}
 	</script>
-	
-
 	<script>
 		function reset() {
 			$("#toggleCSS");
@@ -176,25 +178,38 @@
 		function addShoppingItems(productName, productPrice, discount,
 				productId, count) {
 			var quantity = document.getElementsByName("quantity")[count - 1].value;
-			xmlHttp = new XMLHttpRequest();
-			if (xmlHttp != null) {
-				xmlHttp.open("POST",
-						"${pageContext.request.contextPath}/Shopping.do", true);
-				xmlHttp.addEventListener("readystatechange", callback, false);
-				xmlHttp.setRequestHeader("Content-Type",
-						"application/x-www-form-urlencoded");
-				xmlHttp.send("action=ADD" + "&name=" + productName + "&price="
-						+ productPrice + "&discount=" + discount + "&quantity="
-						+ quantity + "&productId=" + productId);
+			if (quantity > 10) {
+				alert("產品數量不能超過10個");
+			} else if (quantity < 1) {
+				alert("購買數量最少1個");
 			} else {
-				alert("您的瀏覽器不支援Ajax的功能!!");
-			}
-
-			function callback() {
-				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
-					reset();
-					alertify
-							.success(productName + "已經加入" + quantity + "個到購物車了");
+				xmlHttp = new XMLHttpRequest();
+				if (xmlHttp != null) {
+					xmlHttp.open("POST",
+							"${pageContext.request.contextPath}/Shopping.do",
+							true);
+					xmlHttp.addEventListener("readystatechange", callback,
+							false);
+					xmlHttp.setRequestHeader("Content-Type",
+							"application/x-www-form-urlencoded");
+					xmlHttp.send("action=ADD" + "&name=" + productName
+							+ "&price=" + productPrice + "&discount="
+							+ discount + "&quantity=" + quantity
+							+ "&productId=" + productId);
+				} else {
+					alert("您的瀏覽器不支援Ajax的功能!!");
+				}
+				function callback() {
+					if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+						var result = xmlHttp.responseText;
+						if (result == "success") {
+							reset();
+							alertify.success(productName + "已經加入" + quantity
+									+ "個到購物車了");
+						} else  if(result == "error"){
+							alert("此商品已達購物車上限10個");
+						}
+					}
 				}
 			}
 		}

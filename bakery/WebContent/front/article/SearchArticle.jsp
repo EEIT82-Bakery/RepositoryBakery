@@ -18,7 +18,7 @@
 			<div class="col-xs-10">
 				<!--文章種類-->
 				<div class="col-xs-8 class">
-					<a href="Forum.do" <c:if test="${empty param.ClassNo}">class="active"</c:if>>所有主題</a>
+					<a href="${pageContext.request.contextPath}/front/forum/Forum.do" <c:if test="${empty param.ClassNo}">class="active"</c:if>>所有主題</a>
 					<jsp:useBean id="articleClassSvc" scope="page" class="com.articleclass.model.ArticleClassService"/>
 					<c:forEach var="articleClass" items="${articleClassSvc.articleClass}">
 						<a href="Forum.do?ClassNo=${articleClass.articleClassNo}"
@@ -26,7 +26,7 @@
 					</c:forEach>
 				</div>
 				<div class="col-xs-3 FindArticle center-block">
-					<form action="<c:url value='/SearchArticle.do' />" method="post">
+					<form action="<c:url value='/front/forum/SearchArticle.do' />" method="post">
 						<div class="input-group">
 							<input type="text" class="form-control" id="FindArticle" name="articleTitle" placeholder="搜尋文章" value="${articleTitle}">
 							<span class="input-group-btn">
@@ -57,7 +57,7 @@
 							</c:if>
 							<tr height='18' bgColor="${rowColor}">
 								<td><a href="Forum.do?ClassNo=${articleBean.articleClassNo}">${articleBean.articleClassName}</a></td>
-								<td style="text-align: left"><a href="DisplayArticle.do?articleId=${articleBean.articleId}">${articleBean.articleTitle}</a></td>
+								<td style="text-align: left"><a href="${pageContext.request.contextPath}/front/forum/DisplayArticle.do?articleId=${articleBean.articleId}">${articleBean.articleTitle}</a></td>
 								<td>${articleBean.reArticleCount}/${articleBean.browserCount}<br /> <a
 										href="${pageContext.request.contextPath}/homeindex.do?account=${articleBean.author}">${articleBean.author}</a>
 								</td>
@@ -77,7 +77,7 @@
 								<ul class="pagination">
 									<c:forEach var="page" begin="1" end="${totalPages}">
 										<li>
-											<a href="${pageContext.request.contextPath}/SearchArticle.do?pageNo=${page}&articleTitle=${param.articleTitle}">
+											<a href="${pageContext.request.contextPath}/front/forum/SearchArticle.do?pageNo=${page}&articleTitle=${param.articleTitle}">
 												<span>${page}</span>
 											</a>
 										</li>
