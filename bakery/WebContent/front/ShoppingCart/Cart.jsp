@@ -78,8 +78,9 @@
 
 			<form id="sender" name="checkoutForm"
 				action='<c:url value="/Shopping.do"/>' method="POST">
-				<input type="hidden" name="action" value="CHECKOUT"> <input
-					type="submit" value="付款結帳">
+				<input type="hidden" name="action" value="CHECKOUT"> 
+				<input type="hidden" name="memberId" value="${isLogin.member_id}"> 
+				<input type="submit" value="付款結帳">
 			</form>
 
 			<a
