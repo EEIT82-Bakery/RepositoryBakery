@@ -12,7 +12,7 @@
 	<div class="col-xs-10 main">
 		<h1 class="page-header">管理訂單</h1>
 		<br/>
-<div class="col-md-3">
+<div class="col-md-6">
 <div class="CSSTableGenerator" >
 		<table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed;">
 

@@ -28,8 +28,8 @@
 				<!--------------------------------------產品側攔--------------------------------------->
 				<!-----------------------------------------main----------------------------------------->
 
-				<div class="col-md-3">
-<div class="CSSTableGenerator" style="margin-left:35%;">
+				<div class="col-md-5">
+<div class="CSSTableGenerator" style="margin-left:25%;">
 		<table border='1' bordercolor='#CCCCFF' width="100%" style="table-layout:fixed;">
 
 			<c:forEach var="aBean" items="${beans}">
