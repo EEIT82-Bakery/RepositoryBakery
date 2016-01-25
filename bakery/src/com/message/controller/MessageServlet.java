@@ -47,6 +47,7 @@ public class MessageServlet extends HttpServlet {
 			for (MessageBean be : list) {
 				be.setMdate(articleSvc.convertDate(be.getMsg_date()));
 			}
+			req.setAttribute("get",list);
 			req.setAttribute("list", list);
 			req.setAttribute("page", pageInt);
 
@@ -72,6 +73,7 @@ public class MessageServlet extends HttpServlet {
 			for (MessageBean be : list) {
 				be.setMdate(articleSvc.convertDate(be.getMsg_date()));
 			}
+			req.setAttribute("get",list);
 			req.setAttribute("list", list);
 			req.setAttribute("page", pageInt);
 			int allcount = messageservice.getReadCount(memberid);
@@ -93,6 +95,7 @@ public class MessageServlet extends HttpServlet {
 			for (MessageBean be : list) {
 				be.setMdate(articleSvc.convertDate(be.getMsg_date()));
 			}
+			req.setAttribute("get",list);
 			req.setAttribute("list", list);
 			req.setAttribute("page", pageInt);
 			int allcount = messageservice.getReadCount(memberid);

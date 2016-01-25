@@ -99,12 +99,13 @@ style>.forumtitle {
 						<pre>${bean.msg_cont} <a
 								href="${pageContext.request.contextPath}/FriendServlet.controller?action=agree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}"
 								onclick="$('>form',this).submit()">接受</a>/<a
-								href="${pageContext.request.contextPath}/FriendServlet.controller?action=noagree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}"
+								href="${pageContext.request.contextPath}/FriendServlet.controller?action=noagree&invite_id=${bean.send_id}&invitee_id=${bean.read_id}&msg_date=${bean.msg_date}&$msg_id=${bean.msg_id}"
 								onclick="$('>form',this).submit()">拒絕</a>
 						</pre>
 						
 					</div>
 					</c:if>
+					<c:if test="${friendstatu.friendstatu==1}">
 					<h5>信件內容:</h5>
 					
 			
@@ -113,7 +114,7 @@ style>.forumtitle {
 						${bean.msg_cont}
 						</pre>
 					</div>	
-		
+					</c:if>
 				
 				<c:if test="${friendstatu.friendstatu==1}">
 					<span>${message}</span>

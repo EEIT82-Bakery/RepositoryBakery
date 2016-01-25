@@ -129,14 +129,16 @@ public class FriendServlet extends HttpServlet{
 				Integer inviteid = new Integer(req.getParameter("invite_id"));
 				Integer inviteeid = new Integer(req.getParameter("invitee_id"));
 				java.sql.Timestamp msg_date= java.sql.Timestamp.valueOf(req.getParameter("msg_date"));
+				String msg_id = req.getParameter("msg_id");
 				FriendService friendservice = new FriendService();
 				friendservice.delete(inviteid,inviteeid);
 				MemberService memberservice = new MemberService();
 				MemberBean memberbean = new MemberBean();
 				memberbean = memberservice.getOneId(inviteid);
 				req.setAttribute("memberBean", memberbean); 
-				RequestDispatcher successView = req.getRequestDispatcher("/MessageServlet.do?action=count&send_id="+inviteid+"&read_id="+inviteeid+"&msg_date="+msg_date);
-				successView.forward(req, resp);
+//				RequestDispatcher successView = req.getRequestDispatcher("/MessageServlet.do?action=count&send_id="+inviteid+"&read_id="+inviteeid+"&msg_date="+msg_date);
+//				successView.forward(req, resp);
+				resp.sendRedirect(req.getContextPath()+"/MessageServlet.do?action=count&Msg_id"+msg_id);
 				}
 		
 
@@ -169,9 +171,24 @@ public class FriendServlet extends HttpServlet{
 			
 			if("deletefriend".equals(action)){		
 				List<String> errors = new LinkedList<String>();
-				req.setAttribute("errors", errors);
-				String requestURL = req.getParameter("requestURL"); 
-				
+				req.setAttribute("errors", errors); 
+				String page = req.getParameter("page");
+				HttpSession session = req.getSession();
+				MemberBean memberbean = (MemberBean)session.getAttribute("isLogin");
+				String inviteeid = req.getParameter("invitee_id");
+				if(memberbean==null || inviteeid==null){
+					String path = req.getContextPath();
+					resp.sendRedirect(path+"/front/article/error/NotLogin.jsp");
+					return;
+				}else{
+					Integer invite_id = memberbean.getMember_id();
+					Integer invitee_id = Integer.parseInt(inviteeid);
+					FriendService friendservice = new FriendService();
+					friendservice.realDelete(invite_id, invitee_id);
+					resp.sendRedirect(req.getContextPath()+"/FriendListServlet.do?invited="+invite_id+"&pages="+page);
+					
+				}
+		
 			}
 			
 			
@@ -198,6 +215,8 @@ public class FriendServlet extends HttpServlet{
 					req.getRequestDispatcher("/front/member/friend_list/friend_list.jsp").forward(req, resp);	
 				}
 			}
+			
+			
 			
 			
 			
