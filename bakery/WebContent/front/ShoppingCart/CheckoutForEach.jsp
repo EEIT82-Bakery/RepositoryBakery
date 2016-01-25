@@ -80,9 +80,42 @@
 							<td><div align="center">
 									<b>${list.productPrice}</b>
 								</div></td>
-							<td><div align="center">
-									<b>${list.discount}</b>
-								</div></td>
+							<c:if test="${list.discount==0.1}">
+								<td><div align="center"><b>一折</b>
+									</div></td>
+									</c:if>
+									<c:if test="${list.discount==0.2}">
+								<td><div align="center"><b>二折</b>
+									</div></td>
+									</c:if>
+									<c:if test="${list.discount==0.3}">
+								<td><div align="center"><b>三折</b>
+									</div></td>
+									</c:if>
+									<c:if test="${list.discount==0.4}">
+								<td><div align="center"><b>四折</b>
+									</div></td>
+									</c:if>
+									<c:if test="${list.discount==0.5}">
+								<td><div align="center"><b>五折</b>
+									</div></td>
+									</c:if>
+									<c:if test="${list.discount==0.6}">
+								<td><div align="center"><b>六折</b>
+									</div></td>
+									</c:if>
+									<c:if test="${list.discount==0.7}">
+								<td><div align="center"><b>七折</b>
+									</div></td>
+									</c:if>
+									<c:if test="${list.discount==0.8}">
+								<td><div align="center"><b>八折</b>
+									</div></td>
+									</c:if>
+									<c:if test="${list.discount==0.9}">
+								<td><div align="center"><b>九折</b>
+									</div></td>
+									</c:if>
 							<td><div align="center">
 									<b>${list.quantity}</b>
 								</div></td>
