@@ -69,32 +69,27 @@ public class ShoppingServlet extends HttpServlet {
 					buylist = new Vector<ProductBean>();
 					buylist.add(product);
 				} else {
-					int count = 0;
-					boolean flag = false;
 					for (int i = 0; i < buylist.size(); i++) {
 						ProductBean productName = buylist.get(i);
 						if (productName.getProductName().equals(product.getProductName())) {
-							count = productName.getQuantity() + product.getQuantity();
-							if (count <= 10) {
-								productName.setQuantity(productName.getQuantity() + product.getQuantity());
+							int quantity = productName.getQuantity() + product.getQuantity();
+							if (quantity <= 10) {
+								productName.setQuantity(quantity);
 								buylist.setElementAt(productName, i);
-								flag = true;
+								match = true;
+							} else {
+								out.println("此商品已達購物車上限10個");
+								return;
 							}
-							match = true;
-						} // end of if name matches
-					} // end of for
+						}
+					} // end of if name matches
+					// end of for
 					if (!match) {
 						buylist.add(product);
-						flag = true;
-					}
-					if (flag) {
-						out.print("success");
-					} else {
-						out.print("error");
 					}
 				}
-				session.setAttribute("shoppingcart", buylist);
 			}
+			session.setAttribute("shoppingcart", buylist);
 		} else if (action.equals("CHECKOUT")) {
 			if (mb == null) {
 				response.sendRedirect(request.getContextPath() + "/front/article/error/NotLogin.jsp");

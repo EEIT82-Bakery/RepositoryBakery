@@ -22,7 +22,7 @@ public class ProductInsertServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private ProductService productService = new ProductService();
-
+	private static final String DADA = "/front/member/images/picture.jpg";
 	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -60,11 +60,13 @@ public class ProductInsertServlet extends HttpServlet {
 			}
 
 			Part temp2 = request.getPart("mainPhoto");
-			if (temp2 == null) {
-				errors.put("mainPhoto", "圖片必須選擇");
-			}
 			InputStream fi = temp2.getInputStream();
-			byte[] buffer = new byte[(int) temp2.getSize()];
+			int imageSize = fi.available();
+			if (imageSize <= 0) {
+				fi = this.getServletContext().getResourceAsStream(DADA);
+				imageSize = fi.available();
+			}
+			byte[] buffer = new byte[imageSize];
 			fi.read(buffer);
 			fi.close();
 

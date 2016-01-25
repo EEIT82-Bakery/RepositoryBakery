@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.orderlist.model.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="com.articleclass.model.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,8 +12,23 @@
 	OrderListJNDIDAO top3 = new OrderListJNDIDAO();
 	List<OrderListBean> topphoto = top3.selectTop3();
 	pageContext.setAttribute("photo3", topphoto);
+	
 %>
 <style>
+.display {
+	padding: 0;
+}
+
+.display table {
+	width: 100%;
+	text-align: center;
+}
+
+.forumtitle {
+	height: 29px;
+	background-color: #B22222;
+	color: white;
+}
 /* Profile container */
 .profile {
 	margin: 20px 0;
@@ -126,11 +142,11 @@
 }
 </style>
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/front/HtmlData/css/custom.css">
+	href="<c:url value="front/HtmlData/css/custom.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/front/HtmlData/css/demo.css">
+	href="<c:url value="front/HtmlData/css/demo.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/front/HtmlData/css/slicebox.css">
+	href="<c:url value="front/HtmlData/css/slicebox.css"/>">
 </head>
 <body>
 	<!-----------------------------------------nav------------------------------------------>
@@ -143,7 +159,7 @@
 				<div class="col-xs-3">
 					<div class="profile-sidebar">
 						<div class="profile-userpic">
-							<img src="data:image/png;base64,${member.mpicture}"
+							<img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${member.member_id}"
 								class="img-responsive" alt="">
 						</div>
 						<div class="profile-usertitle">
@@ -167,7 +183,10 @@
 							<FORM METHOD="post"
 								action="${pageContext.request.contextPath}/FriendServlet.controller">
 								<c:if test="${isLogin.account == member.account}">
-									<h1>${isLogin.kanban}</h1>
+									<div class="profile-usertitle-name">自我介紹：${isLogin.kanban}</div>
+								</c:if>
+								<c:if test="${isLogin.account!=member.account}">
+									<div class="profile-usertitle-name">自我介紹：${member.kanban}</div>
 								</c:if>
 								<c:if test="${isLogin.account != member.account}">
 									<c:if test="${statu == -1 }">
@@ -231,11 +250,9 @@
 												data-target="#ModalMessage">
 												<span class="glyphicon glyphicon-envelope"></span> 訊息
 											</button>
-
 										</li>
 									</c:if>
 								</c:if>
-
 							</ul>
 						</div>
 					</div>
@@ -250,23 +267,33 @@
 								<td>${element.address}</td>
 							</tr>
 						</c:forEach>
-						<div class="col-md-4">
-							<p>我的個人資訊</p>
+						<div class="col-xs-12 display">
+							<p>近期動態</p>
+							<table>
+								<tr class="forumtitle">
+									<td width='20%'>文章總類</td>
+									<td width='50%' style="text-align: left">標題</td>
+									<td width='30%'>回覆/瀏覽</td>
+								</tr>
+								<c:forEach varStatus="stVar" var="articleBean"
+									items="${displayArticle}">
+									<!-- 用兩種顏色交替使用作為顯示商品資料的背景底色 -->
+									<c:set var="rowColor" value="#F5DEB3" />
+									<c:if test="${ stVar.count % 2 == 0 }">
+										<c:set var="rowColor" value="#FFEFD5" />
+									</c:if>
+									<tr height='18' bgColor="${rowColor}">
+										<td><c:if test="${articleBean.articleClassNo==1}">糕點推薦</c:if><c:if test="${articleBean.articleClassNo==2}">糕點DIY</c:if><c:if test="${articleBean.articleClassNo==3}">技巧分享</c:if></td>
+										<td style="text-align: left"><a
+											href="${pageContext.request.contextPath}/front/forum/DisplayArticle.do?articleId=${articleBean.articleId}">${articleBean.articleTitle}</a></td>
+										<td>${articleBean.reArticleCount}/${articleBean.browserCount}<br />
+											<a
+											href="${pageContext.request.contextPath}/homeindex.do?account=${articleBean.author}">${articleBean.author}</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</table>
 						</div>
-						<div class="col-md-4 .col.md.offset-4">
-							<form action="<c:url value='/MessageServlet.do'/>" method="post">
-								<c:if test="${member.account  == isLogin.account}">
-									<input type="button" name="action" value="新增" />
-									<input type="button" name="action" value="修改" />
-									<input type="button" name="action" value="刪除" />
-								</c:if>
-							</form>
-						</div>
-						<br>
-						<div class="col-md-10">
-							<p>我的狀態:${member.kanban}</p>
-						</div>
-						<div class="col-md-2"></div>
 					</div>
 				</div>
 				<div class="col-xs-2">
@@ -282,15 +309,14 @@
 									<ul id="sb-slider" class="sb-slider">
 										<c:forEach var="photo" items="${photo3}" varStatus="theCount">
 											<li><img
-													src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
-													alt="image1" />
-											</li>
+												src="<%=request.getContextPath()%>/OrderListReaderServlet.do?productId=${photo.productId}"
+												alt="image1" /></li>
 										</c:forEach>
 									</ul>
 									<div id="shadow" class="shadow"></div>
 									<div id="nav-arrows" class="nav-arrows">
-									<a href="#">Next</a> <a href="#">Previous</a>
-								</div>
+										<a href="#">Next</a> <a href="#">Previous</a>
+									</div>
 								</div>
 							</td>
 							<!-- 新增結束 -->

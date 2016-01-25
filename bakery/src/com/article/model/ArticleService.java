@@ -148,5 +148,9 @@ public class ArticleService {
 	public String getArticleTitle(int articleId) {
 		return dao.getArticleTitle(articleId);
 	}
+	
+	public List<ArticleBean>getMemberArticle(int memberId){
+		return dao.getMemberArticle(memberId);	
+	}
 
 }

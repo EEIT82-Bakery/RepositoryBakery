@@ -30,4 +30,7 @@ public class ArticleClassService {
 	public List<ArticleClassBean> getArticleClass() {
 		return dao.getArticleClass();
 	}
+	
+
+	
 }

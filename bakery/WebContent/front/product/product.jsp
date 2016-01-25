@@ -202,12 +202,12 @@
 				function callback() {
 					if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
 						var result = xmlHttp.responseText;
-						if (result == "success") {
+						if (result == null || result =="") {
 							reset();
 							alertify.success(productName + "已經加入" + quantity
 									+ "個到購物車了");
-						} else  if(result == "error"){
-							alert("此商品已達購物車上限10個");
+						} else {
+							alert(result);
 						}
 					}
 				}

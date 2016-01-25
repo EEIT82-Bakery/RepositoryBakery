@@ -189,6 +189,7 @@ public class FriendServlet extends HttpServlet{
 					FriendService friendservice = new FriendService();
 					friendservice.realDelete(invite_id, invitee_id);
 					resp.sendRedirect(req.getContextPath()+"/FriendListServlet.do?invited="+invite_id+"&pages="+page);
+					
 				}
 		
 			}

@@ -81,11 +81,10 @@ input[type=submit]{
 					<table bgcolor="orange">
 					<tr class="forumtitle">
 						<td width="7%"><input type="checkbox" id="checkBoxAll"></td>
-						<td width="15%"></td>
-						<td width="20%">寄件人</td>
+						<td colspan="2" width="15%">寄件人</td>
 						<td width="35%">訊息標題</td>
 						<td width="15%">寄送時間</td>
-						<td width="8%">寄信狀態</td>
+						<td width="12%">寄信狀態</td>
 					</tr>
 					<c:forEach varStatus="stVar" var="Go" items="${list}">
 						<!-- 用兩種顏色交替使用作為顯示商品資料的背景底色 -->
