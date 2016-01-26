@@ -13,7 +13,17 @@ public class FriendBean {
 	private String MinviteePicture;//**用來裝照片 轉型用
 	private String inviteeKaban;//**我的好友的介紹
 	private String inviteeNickname;//**我的好友的暱稱
+	private String inviteNickname;
+	
+	
+	
 
+	public String getInviteNickname() {
+		return inviteNickname;
+	}
+	public void setInviteNickname(String inviteNickname) {
+		this.inviteNickname = inviteNickname;
+	}
 	public String getInviteeKaban() {
 		return inviteeKaban;
 	}

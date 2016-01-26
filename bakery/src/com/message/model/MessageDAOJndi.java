@@ -385,12 +385,13 @@ public class MessageDAOJndi implements MessageDAO {
 
 
 	private static final String SELECT_MESSAGE="SELECT Msg_id, Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state  From Message WHERE Msg_id=? and read_id=? order by Msg_date";
+	private static final String SELECT_MESS = "select m1.nickname as 'sendNickname',m1.account as 'sendAccount',  m2.Account as 'readAccount' ,Msg_id,Send_id,Read_id,Msg_tit,Msg_cont,Msg_date,Msg_state from message msg join Member m1 on msg.Send_id = m1.Member_id  join Member m2 on msg.Read_id = m2.Member_id where Msg_id=?  and read_id=? order by Msg_date";
 	@Override
 	public MessageBean selectMessage(Integer msg_id , Integer member_id) {
 		MessageBean bean = null;
 		ResultSet rs = null;
 		try(Connection conn = ds.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(SELECT_MESSAGE);){
+			PreparedStatement stmt = conn.prepareStatement(SELECT_MESS);){
 			stmt.setInt(1, msg_id);
 			stmt.setInt(2, member_id);
 			rs = stmt.executeQuery();
@@ -399,6 +400,8 @@ public class MessageDAOJndi implements MessageDAO {
 				bean.setMsg_id(rs.getInt("Msg_id"));
 				bean.setSend_id(rs.getInt("Send_id"));
 				bean.setRead_id(rs.getInt("Read_id"));
+				bean.setSendNickname(rs.getString("sendNickname"));
+				bean.setSendAccount(rs.getString("sendAccount"));
 				bean.setMsg_tit(rs.getString("Msg_tit"));
 				bean.setMsg_cont(rs.getString("Msg_cont"));
 				bean.setMsg_date(rs.getTimestamp("Msg_date"));

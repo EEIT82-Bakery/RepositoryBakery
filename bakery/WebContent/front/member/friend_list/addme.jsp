@@ -161,8 +161,9 @@ ul.c-controls li a:hover {
 </head>
 <body>
 <%@ include file="../../fragment/nav.jsp"%>
-
+<div class="ui massive message">
 <h3 align="center">${fn:length(list)} 位使用者加您好友</h3>
+</div>
  <div class="container">
         <div class="row">
 			   <div >
@@ -170,7 +171,8 @@ ul.c-controls li a:hover {
 					class="positive ui button" ><i class="user icon"></i>全部好友</a>
 		
 			</div>  
-			<h2 >等待確認</h2>
+
+		
 			
 		<div class="col-md-12">     
                 <ul class="list-group" id="contact-list">
@@ -180,7 +182,7 @@ ul.c-controls li a:hover {
                             <img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${list.invite_id}" alt="Scott Stevens" style="height: 248px;width: 197px"/>
                         </div>
                         <div class="col-xs-12 col-sm-9">
-                            <span class="name">${list.inviteAccount}(${list.inviteAccount})</span><br/>
+                            <span class="name">${list.inviteAccount}(${list.inviteNickname})</span><br/>
                             <span class="name">想成為您的好友。</span>
                         </div>
                         <div  class="ui buttons">

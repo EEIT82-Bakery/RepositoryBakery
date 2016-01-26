@@ -59,7 +59,16 @@ style>.forumtitle {
 
 	<div class="row">
 		<div class="col-xs-offset-2 col-xs-8">
-			<h1>我的信件</h1>
+		
+	
+			<p><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">
+													<i class="glyphicon glyphicon-envelope"></i>我的信箱
+											</a>/信件內容</p>
+			
+			
+			
+			
+			
 			<div class="btn-group btn-group-justified demoPadder" role="group"
 				aria-label="Justified button group">
 				<a
@@ -71,15 +80,16 @@ style>.forumtitle {
 					class="btn btn-default">已讀</a>
 			</div>
 			<div class="col-xs-12 display">
-				<table border="1">
-					<tr class="forumtitle">
+				<table >
+	
 					<tr>
-						<td width="20%" style="background-color:white; ">寄件人</td>
-						<td width="40%" style="background-color:white; ">信件標題</td>
-						<td width="20%" style="background-color:white; ">寄送時間</td>
+						<td width="20%" style="background-color:#e5e5e5; ">寄件人</td>
+						<td width="40%" style="background-color:#e5e5e5; ">信件標題</td>
+						<td width="20%" style="background-color:#e5e5e5; ">寄送時間</td>
 					</tr>
 					<tr>
-						<td style="background-color:white">${bean.send_id}</td>
+<%-- 						<td style="background-color:white">${bean.send_id}</td> --%>
+						<td style="background-color:white">${bean.sendNickname}</td>
 						<td style="background-color:white">${bean.msg_tit}</td>
 						<td style="background-color:white"><fmt:formatDate value="${bean.msg_date}"
 								pattern="yyyy-MM-dd HH:mm:ss" />
@@ -94,13 +104,13 @@ style>.forumtitle {
 
 
 			
-					<span style="background-color: gray;" ><h5 class="ui top attached header">信件內容</h5></span>
+					<span style="background-color: gray;" ></span>
 				
 				
 					
 			
 					<div class="ui attached segment">
-						<pre style="background-color: #FFC107">
+						<pre style="background-color: #fefefe; height: 400px;" >
 						${bean.msg_cont}
 						</pre>
 					</div>	

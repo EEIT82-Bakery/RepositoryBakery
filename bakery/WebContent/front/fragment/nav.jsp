@@ -17,8 +17,11 @@
 			</c:if>
 				<c:if test="${!empty isLogin}">
 				<li>
-					未讀訊息<span class="glyphicon glyphicon-envelope" aria-hidden="true">${count}</span>
-					好友邀請<span class="glyphicon glyphicon-user" aria-hidden="true">${friendcount}</span>
+					<span class="glyphicon glyphicon-envelope" aria-hidden="true"><a
+					href="${pageContext.request.contextPath}/MessageServlet.do?action=selecread&statu=1&pages=1"
+					>未讀訊息${count}</a></span>
+					
+					<span class="glyphicon glyphicon-user" aria-hidden="true"><a href="${pageContext.request.contextPath}/FriendServlet.controller?invitee_id=${isLogin.member_id}&action=Select_addme">好友邀請${friendcount}</a></span>
 				</li>
 					<li>
 						<img style="width: 40px; height: 40px;" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${isLogin.member_id}" />

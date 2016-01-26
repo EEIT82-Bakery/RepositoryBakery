@@ -86,6 +86,7 @@ public class FriendServlet extends HttpServlet{
 		if("agree".equals(action)){	
 			List<String> errors = new LinkedList<String>();
 			req.setAttribute("errors", errors);
+			HttpSession session = req.getSession();
 			try {
 				Integer invite_id = new Integer(req.getParameter("invite_id"));
 				Integer invitee_id = new Integer(req.getParameter("invitee_id"));
@@ -112,6 +113,8 @@ public class FriendServlet extends HttpServlet{
 				MemberBean memberbean = new MemberBean();
 				memberbean = memberservice.getOneId(invite_id);
 				
+				Integer friendcount = friendservice.selectaddcount(invitee_id,0);
+				session.setAttribute("friendcount", friendcount);	
 				req.setAttribute("message" ,"已成為好友");
 				req.setAttribute("memberBean", memberbean); 
 				req.getRequestDispatcher(requestURL).forward(req, resp);

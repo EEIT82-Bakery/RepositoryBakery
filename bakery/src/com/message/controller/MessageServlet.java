@@ -120,6 +120,12 @@ public class MessageServlet extends HttpServlet {
 			}else{
 				HttpSession session = req.getSession();
 				MemberBean memberbean = (MemberBean)session.getAttribute("isLogin");
+				
+				
+				
+		
+				
+				
 				Integer msg_id = Integer.parseInt(msg_idTemp);
 				Integer member_id = memberbean.getMember_id();
 		
@@ -129,11 +135,12 @@ public class MessageServlet extends HttpServlet {
 				messageBean.setMsg_state(2);
 				MessageService messageservice = new MessageService();
 				messageservice.updateState(messageBean);
-				MessageBean bean = messageservice.selectMessage(msg_id , member_id);
-				
+				MessageBean bean = messageservice.selectMessage(msg_id , member_id);			
 				FriendBean friendbean = new FriendBean();
 				FriendService friendservice = new FriendService();
-				friendbean = friendservice.selecte(bean.getSend_id(), bean.getRead_id());
+				friendbean = friendservice.selecte(bean.getSend_id(), bean.getRead_id());				
+				Integer count = messageservice.givemecount(member_id,1);
+				session.setAttribute("count", count);
 				req.setAttribute("bean", bean);
 				req.setAttribute("friendstatu", friendbean);
 				req.getRequestDispatcher("/front/member/message/MessageCount.jsp").forward(req, resp);

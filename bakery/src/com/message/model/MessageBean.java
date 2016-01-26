@@ -20,9 +20,18 @@ public class MessageBean implements Serializable {
 	private byte[] sendPicture;
 	private String sendNickname;
 	
+	private String readNickname;
 	
 
 	
+	public String getReadNickname() {
+		return readNickname;
+	}
+
+	public void setReadNickname(String readNickname) {
+		this.readNickname = readNickname;
+	}
+
 	public byte[] getSendPicture() {
 		return sendPicture;
 	}

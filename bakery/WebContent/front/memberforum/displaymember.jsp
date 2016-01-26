@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.orderlist.model.*"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.articleclass.model.*" %>
+<%@ page import="com.articleclass.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,6 @@
 	OrderListJNDIDAO top3 = new OrderListJNDIDAO();
 	List<OrderListBean> topphoto = top3.selectTop3();
 	pageContext.setAttribute("photo3", topphoto);
-	
 %>
 <style>
 .display {
@@ -159,7 +158,8 @@
 				<div class="col-xs-3">
 					<div class="profile-sidebar">
 						<div class="profile-userpic">
-							<img src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${member.member_id}"
+							<img
+								src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${member.member_id}"
 								class="img-responsive" alt="">
 						</div>
 						<div class="profile-usertitle">
@@ -179,83 +179,90 @@
 									href="${pageContext.request.contextPath}/homeindex.do?account=${member.account}">${member.account}</a>
 							</div>
 						</div>
-						<div class="profile-userbuttons">
-							<FORM METHOD="post"
-								action="${pageContext.request.contextPath}/FriendServlet.controller">
-								<c:if test="${isLogin.account == member.account}">
-									<div class="profile-usertitle-name">自我介紹：${isLogin.kanban}</div>
-								</c:if>
-								<c:if test="${isLogin.account!=member.account}">
-									<div class="profile-usertitle-name">自我介紹：${member.kanban}</div>
-								</c:if>
-								<c:if test="${isLogin.account != member.account}">
-									<c:if test="${statu == -1 }">
-										<button type="submit" class="btn btn-success btn-sm">加入好友</button>
-									</c:if>
-									<c:if test="${statu == 0}">
-										<button type="button" class="btn btn-success btn-sm"
-											${statu==0 ?"disabled" :""}>已送出邀請</button>
-									</c:if>
-									<c:if test="${statu == 1}">
-										<button type="button" class="btn1 btn-success btn-sm"
-											${statu==1 ?"disabled" :""}>已經是好友</button>
-									</c:if>
-								</c:if>
-								<input type="hidden" name="invite_id"
-									value="${isLogin.member_id}"> <input type="hidden"
-									name="invitee_id" value="${member.member_id}"> <input
-									type="hidden" name="msgtitle" value="${isLogin.username}">
-								<input type="hidden" name="msgcount" value="${isLogin.username}">
-								<input type="hidden" name="requestURL"
-									value="<%=request.getServletPath()%>"> <input
-									type="hidden" name="action" value="addfriend">
-							</FORM>
-						</div>
-						<div class="profile-usermenu">
-							<ul class="nav">
-								<c:if test="${not empty isLogin}">
-									<c:if test="${isLogin.member_id==member.member_id}">
-										<li><a
-											href="${pageContext.request.contextPath}/AllMemberServlet.do?account=${member.account}">
-												<i class="glyphicon glyphicon-user"></i> 個人訊息
-										</a></li>
-									</c:if>
-								</c:if>
-								<c:if test="${not empty isLogin}">
-									<c:if test="${isLogin.member_id==member.member_id}">
-										<li><a
-											href="${pageContext.request.contextPath}/FriendListServlet.do?invited=${isLogin.member_id}&pages=1">
-												<i class="glyphicon glyphicon-list-alt"></i> 我的好友名單
-										</a></li>
-									</c:if>
-								</c:if>
-								<c:if test="${isLogin.member_id!=member.member_id}">
-									<li><a
-										href="${pageContext.request.contextPath}/FriendServlet.controller?action=friendlist&invited=${member.member_id}&pages=1">
-											<i class="glyphicon glyphicon-list-alt"></i> 好友名單
-									</a></li>
-								</c:if>
-								<c:if test="${not empty isLogin}">
-									<c:if test="${isLogin.member_id==member.member_id}">
-										<li><a
-											href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1"
-											target="_blank"> <i class="glyphicon glyphicon-envelope"></i>我的信箱
-										</a></li>
-									</c:if>
-								</c:if>
-								<c:if test="${statu==1	}">
+						<div class="col-xs-12">
+							<c:if test="${isLogin.account == member.account}">
+								<div class="profile-usertitle-name">自我介紹：${isLogin.kanban}</div>
+							</c:if>
+							<c:if test="${isLogin.account!=member.account}">
+								<div class="profile-usertitle-name">自我介紹：${member.kanban}</div>
+							</c:if>
+
+							<div class="profile-userbuttons">
+								<div class="col-xs-6">
+									<FORM METHOD="post"
+										action="${pageContext.request.contextPath}/FriendServlet.controller">
+
+										<c:if test="${isLogin.account != member.account}">
+											<c:if test="${statu == -1 }">
+												<button type="submit" class="btn btn-success btn-sm">加入好友</button>
+											</c:if>
+											<c:if test="${statu == 0}">
+												<button type="button" class="btn btn-success btn-sm"
+													${statu==0 ?"disabled" :""}>已邀請</button>
+											</c:if>
+											<c:if test="${statu == 1}">
+												<button type="button" class="btn1 btn-success btn-sm"
+													${statu==1 ?"disabled" :""}>已是好友</button>
+											</c:if>
+										</c:if>
+										<input type="hidden" name="invite_id"
+											value="${isLogin.member_id}"> <input type="hidden"
+											name="invitee_id" value="${member.member_id}"> <input
+											type="hidden" name="msgtitle" value="${isLogin.username}">
+										<input type="hidden" name="msgcount"
+											value="${isLogin.username}"> <input type="hidden"
+											name="requestURL" value="<%=request.getServletPath()%>">
+										<input type="hidden" name="action" value="addfriend">
+									</FORM>
+								</div>
+								<div class="col-xs-6">
 									<c:if test="${isLogin.member_id!=member.member_id}">
-										<li>
-											<button class="btn btn-link btn-lg" data-toggle="modal"
-												data-target="#ModalMessage">
-												<span class="glyphicon glyphicon-envelope"></span> 訊息
-											</button>
-										</li>
+										<button class="btn btn-primary btn-sm" data-toggle="modal"
+											data-target="#ModalMessage">
+											<span class="glyphicon glyphicon-envelope"></span> 訊息
+										</button>
 									</c:if>
-								</c:if>
-							</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<div class="profile-usermenu">
+								<ul class="nav">
+									<c:if test="${not empty isLogin}">
+										<c:if test="${isLogin.member_id==member.member_id}">
+											<li><a
+												href="${pageContext.request.contextPath}/AllMemberServlet.do?account=${isLogin.account}">
+													<i class="glyphicon glyphicon-user"></i> 個人訊息
+											</a></li>
+										</c:if>
+									</c:if>
+									<c:if test="${not empty isLogin}">
+										<c:if test="${isLogin.member_id==member.member_id}">
+											<li><a
+												href="${pageContext.request.contextPath}/FriendListServlet.do?invited=${isLogin.member_id}&pages=1">
+													<i class="glyphicon glyphicon-list-alt"></i> 我的好友名單
+											</a></li>
+										</c:if>
+									</c:if>
+									<c:if test="${isLogin.member_id!=member.member_id}">
+										<li><a
+											href="${pageContext.request.contextPath}/FriendServlet.controller?action=friendlist&invited=${member.member_id}&pages=1">
+												<i class="glyphicon glyphicon-list-alt"></i> 好友名單
+										</a></li>
+									</c:if>
+									<c:if test="${not empty isLogin}">
+										<c:if test="${isLogin.member_id==member.member_id}">
+											<li><a
+												href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">
+													<i class="glyphicon glyphicon-envelope"></i>我的信箱
+											</a></li>
+										</c:if>
+									</c:if>
+								</ul>
+							</div>
 						</div>
 					</div>
+
 				</div>
 				<div class="col-xs-7">
 					<div class="profile-content">
@@ -283,7 +290,9 @@
 										<c:set var="rowColor" value="#FFEFD5" />
 									</c:if>
 									<tr height='18' bgColor="${rowColor}">
-										<td><c:if test="${articleBean.articleClassNo==1}">糕點推薦</c:if><c:if test="${articleBean.articleClassNo==2}">糕點DIY</c:if><c:if test="${articleBean.articleClassNo==3}">技巧分享</c:if></td>
+										<td><c:if test="${articleBean.articleClassNo==1}">糕點推薦</c:if>
+											<c:if test="${articleBean.articleClassNo==2}">糕點DIY</c:if> <c:if
+												test="${articleBean.articleClassNo==3}">技巧分享</c:if></td>
 										<td style="text-align: left"><a
 											href="${pageContext.request.contextPath}/front/forum/DisplayArticle.do?articleId=${articleBean.articleId}">${articleBean.articleTitle}</a></td>
 										<td>${articleBean.reArticleCount}/${articleBean.browserCount}<br />

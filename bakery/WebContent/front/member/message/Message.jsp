@@ -52,8 +52,8 @@ input[type=submit]{
              }
              
 #friendpicture  {
-	width: 130px;
-	height: 190px;
+	width: 50px;
+	height: 50px;
 }        
 </style>
 </head>
@@ -61,11 +61,13 @@ input[type=submit]{
 	<%@ include file="../../fragment/nav.jsp"%>
 	<div class="row">
 		<div class="col-xs-offset-2 col-xs-8">
-			<h1>我的信件</h1>
+			<p><a href="<c:url value="/homeindex.do">
+								<c:param name="account" value="${isLogin.account}" />
+								</c:url>">我的討論區頁面</a>/我的信件</p>
 		<form action="${pageContext.request.contextPath}/delete.do?action=delete" method="post">	
 					<input type="hidden" name="page" value="${page}">				
 					<input type="submit" value="刪除信件"
-						onclick="return confirm('確定刪除?')" id="button"/> <br /><span> ${delete.error}</span><br />
+						onclick="return confirm('確定刪除?')" id="button" /> <br /><span> ${delete.error}</span><br />
 			<div class="btn-group btn-group-justified demoPadder" role="group"
 				aria-label="Justified button group">
 				<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1"
@@ -81,7 +83,7 @@ input[type=submit]{
 					<table bgcolor="orange">
 					<tr class="forumtitle">
 						<td width="7%"><input type="checkbox" id="checkBoxAll"></td>
-						<td colspan="2" width="15%">寄件人</td>
+						<td colspan="2" width="28%">寄件人</td>
 						<td width="35%">訊息標題</td>
 						<td width="15%">寄送時間</td>
 						<td width="12%">寄信狀態</td>
@@ -92,7 +94,7 @@ input[type=submit]{
 						<c:if test="${ stVar.count % 2 == 0 }">
 							<c:set var="rowColor" value="#f0ece9" />
 						</c:if>
-						<tr height='18' bgColor="${rowColor}">
+						<tr height='20' bgColor="${rowColor}">
 							<td><input type="checkbox" class="chkCheckBoxId" value="${Go.msg_id}" name="msg_id"></td>
 							<td><img class="img-responsive img-circle" src="${pageContext.request.contextPath}/DBGifReader.do?memberId=${Go.send_id}" id="friendpicture" alt="個人照片"/></td>
 							<td style="height: 30px;">${Go.sendAccount}(${Go.sendNickname})</td>
@@ -108,15 +110,17 @@ input[type=submit]{
 				</table>
 		
 			</div>
+			 <ul class="pagination">
 			<c:if test="${not empty pageCount}">
 			
 				<c:forEach var="page" begin="1" end="${pageCount}">
-					<a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=${page}">
+					<li><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=${page}">
 						<c:out value="${page}" />
-					</a>
+					</a></li>
 				</c:forEach>
 				
 			</c:if>
+			</ul>
 				</form>
 		</div>
 	</div>

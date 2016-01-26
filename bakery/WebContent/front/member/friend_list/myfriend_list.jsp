@@ -105,7 +105,10 @@ form{
 	<%@ include file="../../fragment/nav.jsp"%>
     <div class="container">
         <div class="row">
-          <p class="bg-info">我的好友列表</p>
+        <div class="ui olive message">
+          <p>我的好友列表/<a href="<c:url value="/homeindex.do">
+								<c:param name="account" value="${isLogin.account}" />
+								</c:url>">我的頁面</a></p>
 			<div class="ui action input">
 				<input type="text" placeholder="Search...">
 				<button class="ui button">Search</button>
@@ -121,8 +124,14 @@ form{
 				  </div>
 			</div>  
         <hr>
+        </div>
+        
+        
          <c:if test="${empty list}">
-          <p>目前無好友</p>
+          <div class="alert alert-success">
+    <strong>目前沒有好友</strong>
+  </div>
+         
         </c:if> 
         <c:forEach varStatus="stVar" var="Go" items="${list}">
              <div class="col-sm-6 col-md-3">
@@ -223,15 +232,24 @@ form{
    	  <div class="container">
         <div class="row">
    	   <div class="col-sm-6- col-md-6">
+   	 
+ 
+ 
+ 
+
+   	    <ul class="pagination">
+   	     <li class="disabled"><span aria-hidden="true">&laquo;</span></li>
    	 <c:if test="${not empty pageCount}">
 				<c:forEach var="page" begin="1" end="${pageCount}">
 					<c:if test="${not empty isLogin.member_id}">
-						<a href="${pageContext.request.contextPath}/FriendListServlet.do?invited=${isLogin.member_id}&pages=${page}">
-							<b style="font-size:2em;">${page}</b>
-						</a>&nbsp;&nbsp;&nbsp;
+						<li class="active"><a href="${pageContext.request.contextPath}/FriendListServlet.do?invited=${isLogin.member_id}&pages=${page}">
+<%-- 							<b style="font-size:2em;">${page}</b> --%>
+						<span>${page} <span class="sr-only">(current)</span></span>
+						</a>&nbsp;&nbsp;&nbsp;</li>
 					</c:if>
 				</c:forEach>
 				</c:if>
+				 </ul>
    			 </div>
    		 </div>
    	 </div>

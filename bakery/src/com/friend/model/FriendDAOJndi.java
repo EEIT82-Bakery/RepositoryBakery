@@ -148,7 +148,7 @@ public class FriendDAOJndi implements FriendDAO {
 	
 	
 	
-	private static final String GETWHOINVITEDME ="select m1.account as 'inviteAccount',m1.Picture as 'invitePiture', m2.Account as 'inviteeAccount' ,m2.Picture as 'inviteePicture' ,invite_id , invitee_id,friendstatu from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invitee_id=? and friendstatu=?";
+	private static final String GETWHOINVITEDME ="select m1.account as 'inviteAccount',m1.nickname as 'inviteNickname',m1.Picture as 'invitePiture', m2.Account as 'inviteeAccount' ,m2.Picture as 'inviteePicture' ,invite_id , invitee_id,friendstatu from friend_list fdl join Member m1 on fdl.invite_id = m1.Member_id  join Member m2 on fdl.invitee_id = m2.Member_id where invitee_id=? and friendstatu=?";
 			
 	@Override
 	public List<FriendBean> getWhoInvitedMe(Integer invitee_id,Integer friendstatu) {
@@ -166,6 +166,7 @@ public class FriendDAOJndi implements FriendDAO {
 			while (rs.next()) {
 				friendbean = new FriendBean();
 				friendbean.setInviteAccount(rs.getString("inviteAccount"));//邀請人帳號
+				friendbean.setInviteNickname(rs.getString("inviteNickname"));
 				friendbean.setInvitePiture(rs.getBytes("invitePiture"));//邀請人照片
 				friendbean.setInvite_id(rs.getInt("invite_id"));
 				friendbean.setInvitee_id(rs.getInt("invitee_id"));
