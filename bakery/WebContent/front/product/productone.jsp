@@ -8,6 +8,9 @@
 <link
 	href="${pageContext.request.contextPath}/front/HtmlData/css/product.css"
 	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/front/HtmlData/css/checkoutforeach3.css"
+	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/front/HtmlData/css/alertify.core.css" />
 <link rel="stylesheet"
@@ -15,7 +18,6 @@
 <link
 	href="${pageContext.request.contextPath}/front/product/css/main.css"
 	rel="stylesheet" />
-
 </head>
 <script
 	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
@@ -70,64 +72,88 @@
 			<!--------------------------------------產品側攔--------------------------------------->
 			<!-----------------------------------------main----------------------------------------->
 			<div class="col-xs-9">
-				<h3></h3>
-				<c:forEach var="aBean" items="${productList}" varStatus="theCount">
-					<div class="col-xs-4">
-						<h4>${aBean.productName}</h4>
-						<a href="<%=request.getContextPath()%>/ProductOneServlet.do?productId=${aBean.productId}"><img
-							src="<%=request.getContextPath()%>/DBGifReader.do?productId=${aBean.productId}"
-							width="150px" height="150px" /></a>
-						<h6>單價 :${aBean.productPrice}</h6>
-						<div>
-							數量： <input type="number" id="number${theCount.count}"
-								name="quantity" value=1 min="1" max="10" style="width: 36px">
-							<button class="success"
-								onclick="addShoppingItems('${aBean.productName}' , '${aBean.productPrice}' , '${aBean.discount}','${aBean.productId}','${theCount.count}')">放入購物車</button>
-						</div>
-					</div>
-				</c:forEach>
+				<br />
+				<div class="bluetable">
+					<table>
+						<tr>
+							<c:if test="${bean.discount==0.1}">
+								<td><div align="right" style="color: red; font-size: 25px">
+										<b>此商品打一折</b>
+									</div></td>
+							</c:if>
+							<c:if test="${bean.discount==0.2}">
+								<td><div align="right" style="color: red; font-size: 25px">
+										<b>此商品打二折</b>
+									</div></td>
+							</c:if>
+							<c:if test="${bean.discount==0.3}">
+								<td><div align="right" style="color: red; font-size: 25px">
+										<b>此商品打三折</b>
+									</div></td>
+							</c:if>
+							<c:if test="${bean.discount==0.4}">
+								<td><div align="right" style="color: red; font-size: 25px">
+										<b>此商品打四折</b>
+									</div></td>
+							</c:if>
+							<c:if test="${bean.discount==0.5}">
+								<td><div align="right" style="color: red; font-size: 25px">
+										<b>此商品打五折</b>
+									</div></td>
+							</c:if>
+							<c:if test="${bean.discount==0.6}">
+								<td><div align="right" style="color: red; font-size: 25px">
+										<b>此商品打六折</b>
+									</div></td>
+							</c:if>
+							<c:if test="${bean.discount==0.7}">
+								<td><div align="right" style="color: red; font-size: 25px">
+										<b>此商品打七折</b>
+									</div></td>
+							</c:if>
+							<c:if test="${bean.discount==0.8}">
+								<td>
+									<div align="right" style="color: red; font-size: 25px">
+										<b>此商品打八折</b>
+									</div>
+								</td>
+							</c:if>
+							<c:if test="${bean.discount==0.9}">
+								<td>
+									<div align="right" style="color: red; font-size: 25px">
+										<b>此商品打九折</b>
+									</div>
+								</td>
+							</c:if>
+						</tr>
+						<tr>
+							<td style="color: #6b3402; font-size: 30px;">${bean.productName}</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="row" >
+									<div class="col-xs-6">
+										<img src="<%=request.getContextPath()%>/DBGifReader.do?productId=${bean.productId}"	width="220px" height="220px" style="margin-left:25%;"/>
+									</div>
+									<div class="col-xs-6">
+										<h4>本商品規格：<br />${bean.productStatus}</h4>
+									</div>
+									<div class="col-xs-6">
+										<h4>原價：${bean.productPrice}</h4>
+									</div>
+									<div class="col-xs-6">
+										<h4>數量： <input type="number" name="quantity" value=1 min="1"
+										max="10" style="width: 36px">
+										<button class="success" onclick="addShoppingItems('${bean.productName}' , '${bean.productPrice}' , '${bean.discount}','${bean.productId}')">放入購物車</button></h4>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 			<!-- 產品描述內容 -->
-			<div class="modal fade" id="product" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal">
-								<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-							</button>
-							<span>產品名稱:</span><span class="modal-title" id="myModalLabel"></span>
-						</div>
-						<div class="modal-body"   style="margin-left: 33%">
-							<img src="" id="myimg" width="150" height="150" />
-							</div> 
-						<div>	
-							<span>產品描述 ：</span><br>
-							<span id="myStatus"></span>
-						</div>
-
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">關閉</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- end -->		
-			<!-- 分頁效果 -->
-			<c:if test="${not empty pageCount}">
-				<div class="page">
-					<ul class="page_ul">
-						<!-- 顯示第幾頁 -->
-						<c:forEach var="page" begin="1" end="${pageCount}">
-							<li class="page_li"><a
-								href="${pageContext.request.contextPath}/product2.controller?productTypeId=${proTypeId}&page=${page}">
-									<c:out value="${page}" />
-							</a></li>
-						</c:forEach>
-					</ul>
-				</div>
-			</c:if>
+			<!-- end -->
 		</div>
 		<!-----------------------------------------main----------------------------------------->
 		<!--------footer-------->
@@ -136,7 +162,32 @@
 	</div>
 
 	<%@ include file="../fragment/js.jsp"%>
-	
+	<script>
+		function Content(productId) {
+			xmlHttp = new XMLHttpRequest();
+			if (xmlHttp != null) {
+				xmlHttp.open("POST",
+						"${pageContext.request.contextPath}/ProductDetil.do",
+						true);
+				xmlHttp.addEventListener("readystatechange", callback, false);
+				xmlHttp.setRequestHeader("Content-Type",
+						"application/x-www-form-urlencoded")
+				xmlHttp.send("productId=" + productId);
+			} else {
+				alert("您得瀏覽器不支援Ajax的功能!!");
+			}
+			function callback() {
+				if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+					var product = JSON.parse(xmlHttp.responseText);
+					document.getElementById("myimg").src = "data:image/jpeg;base64,"
+							+ product.Picture;
+					document.getElementById("myModalLabel").innerText = product.ProductName;
+					document.getElementById("myStatus").innerText = product.Status;
+					$('#product').modal('show');
+				}
+			}
+		}
+	</script>
 	<script>
 		function reset() {
 			$("#toggleCSS");
@@ -151,8 +202,8 @@
 			});
 		}
 		function addShoppingItems(productName, productPrice, discount,
-				productId, count) {
-			var quantity = document.getElementsByName("quantity")[count - 1].value;
+				productId) {
+			var quantity = document.getElementsByName("quantity")[0].value;
 			if (quantity > 10) {
 				alert("產品數量不能超過10個");
 			} else if (quantity < 1) {
@@ -177,7 +228,7 @@
 				function callback() {
 					if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
 						var result = xmlHttp.responseText;
-						if (result == null || result =="") {
+						if (result == null || result == "") {
 							reset();
 							alertify.success(productName + "已經加入" + quantity
 									+ "個到購物車了");
