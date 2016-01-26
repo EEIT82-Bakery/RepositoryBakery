@@ -23,7 +23,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 	 private static final String SELECT_ID="select * from Product where Product_id=?";
 	 private static final String DELETE = "delete from Product where Product_id=?"; 
 	 private static final String SELECT_BY_PHOTO = "select Main_photo from Product where Product_id=?"; 
-	 private static final String SELECT_BY_CAKE = "select * from product where product_type_id like ?"; 
+	 private static final String SELECT_BY_CAKE = "select * from product where product_type_id like ? order by product_id desc"; 
 	 private static final String SELECT_TYPE="select * from product_type";
 	
 	private static DataSource dataSource = null;
