@@ -63,7 +63,7 @@ input[type=submit]{
 		<div class="col-xs-offset-2 col-xs-8">
 			<p><a href="<c:url value="/homeindex.do">
 								<c:param name="account" value="${isLogin.account}" />
-								</c:url>">我的討論區頁面</a>/我的信件</p>
+								</c:url>">我的討論區頁面</a>/<i class="glyphicon glyphicon-envelope"></i>我的信件</p>
 		<form action="${pageContext.request.contextPath}/delete.do?action=delete" method="post">	
 					<input type="hidden" name="page" value="${page}">				
 					<input type="submit" value="刪除信件"

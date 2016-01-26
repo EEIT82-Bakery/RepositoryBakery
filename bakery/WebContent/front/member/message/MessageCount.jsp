@@ -59,16 +59,19 @@ style>.forumtitle {
 
 	<div class="row">
 		<div class="col-xs-offset-2 col-xs-8">
-		
-	
-			<p><a href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">
-													<i class="glyphicon glyphicon-envelope"></i>我的信箱
-											</a>/信件內容</p>
-			
-			
-			
-			
-			
+
+
+			<p>
+				<a
+					href="${pageContext.request.contextPath}/MessageServlet.do?action=select&pages=1">
+					<i class="glyphicon glyphicon-envelope"></i>我的信箱
+				</a>/信件內容
+			</p>
+
+
+
+
+
 			<div class="btn-group btn-group-justified demoPadder" role="group"
 				aria-label="Justified button group">
 				<a
@@ -80,42 +83,30 @@ style>.forumtitle {
 					class="btn btn-default">已讀</a>
 			</div>
 			<div class="col-xs-12 display">
-				<table >
-	
+				<table>
+
 					<tr>
-						<td width="20%" style="background-color:#e5e5e5; ">寄件人</td>
-						<td width="40%" style="background-color:#e5e5e5; ">信件標題</td>
-						<td width="20%" style="background-color:#e5e5e5; ">寄送時間</td>
+						<td width="20%" style="background-color: #e5e5e5;">寄件人</td>
+						<td width="40%" style="background-color: #e5e5e5;">信件標題</td>
+						<td width="20%" style="background-color: #e5e5e5;">寄送時間</td>
 					</tr>
 					<tr>
-<%-- 						<td style="background-color:white">${bean.send_id}</td> --%>
-						<td style="background-color:white">${bean.sendNickname}</td>
-						<td style="background-color:white">${bean.msg_tit}</td>
-						<td style="background-color:white"><fmt:formatDate value="${bean.msg_date}"
-								pattern="yyyy-MM-dd HH:mm:ss" />
+						<%-- 						<td style="background-color:white">${bean.send_id}</td> --%>
+						<td style="background-color: white">${bean.sendNickname}</td>
+						<td style="background-color: white">${bean.msg_tit}</td>
+						<td style="background-color: white"><fmt:formatDate
+								value="${bean.msg_date}" pattern="yyyy-MM-dd HH:mm:ss" />
+					</tr>
+					<tr>
+						<td colspan="3" style="background-color: #e5e5e5" align="left">文章內容</td>
 					</tr>
 				</table>
-<%-- 				<c:if test="${friendstatu.friendstatu==1}"> --%>
-<!-- 					<p>已成為好友</p> -->
-<%-- 				</c:if> --%>
-<%-- 				<c:if test="${empty friendstatu.friendstatu}"> --%>
-<!-- 					<p>已拒絕好友</p> -->
-<%-- 				</c:if> --%>
-
-
-			
-					<span style="background-color: gray;" ></span>
-				
-				
-					
-			
-					<div class="ui attached segment">
-						<pre style="background-color: #fefefe; height: 400px;" >
-						${bean.msg_cont}
-						</pre>
-					</div>	
-					
-				
+				<span style="background-color: gray;"></span>
+				<div class="ui attached segment">
+					<div class="jumbotron" style="background-color: #fefefe; min-height: 100px;">
+					<p style="font-size:14px;">${bean.msg_cont}</p>
+					</div>
+				</div>
 				<c:if test="${friendstatu.friendstatu==1}">
 					<span>${message}</span>
 				</c:if>

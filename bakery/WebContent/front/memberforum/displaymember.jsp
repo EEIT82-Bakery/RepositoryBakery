@@ -231,7 +231,7 @@
 									<c:if test="${not empty isLogin}">
 										<c:if test="${isLogin.member_id==member.member_id}">
 											<li><a
-												href="${pageContext.request.contextPath}/AllMemberServlet.do?account=${isLogin.account}">
+												href="#">
 													<i class="glyphicon glyphicon-user"></i> 個人訊息
 											</a></li>
 										</c:if>
