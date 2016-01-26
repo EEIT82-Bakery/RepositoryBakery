@@ -16,6 +16,10 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.min.css">
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.structure.css">
+		<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.theme.min.css">
 <script
 	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
 <script
@@ -44,7 +48,7 @@
 					</TR>
 					<TR>
 						<TD>日期：<input type="text" style="background: #ECFFCD;"
-							name="shipDate" id="datepick" readonly="readonly">
+							name="shipDate" id="datepick" readonly="readonly"><b style="color:red">網路訂購需於五天前下單。</b>
 							${errors.orderDate}
 						</TD>
 					</TR>

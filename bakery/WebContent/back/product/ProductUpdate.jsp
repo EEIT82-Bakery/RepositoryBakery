@@ -16,6 +16,10 @@
 	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-2.1.4.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/front/HtmlData/js/jquery-ui.min.js"></script>
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.structure.css">
+		<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/front/HtmlData/css/jquery-ui.theme.min.css">
 </head>
 <script type="text/javascript">
 function clearForm() {
@@ -116,7 +120,6 @@ function clearForm() {
 	<script>
 		$(function() {
 			$("#datepick").datepicker({
-				changeMonth:true,
 				yearRange:'-120:+0',
 				maxDate:0,
 				dateFormat : 'yy-mm-dd',
